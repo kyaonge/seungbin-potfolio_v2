@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIM SEUNG BIN | PORTFOLIO</title>
+    <style>
+        /* 폰트 불러오기 (프리텐다드) */
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+        :root {
+            --black: #111;
+            --white: #fff;
+            --gray: #f9f9f9;
+            --line: #e5e5e5;
+            --skill-bg: #EEEEEE; 
+            --skill-border: #E0E0E0; 
+        }
+
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            background-color: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* [HEADER] */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 50px; background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px); border-bottom: 1px solid var(--black); z-index: 1000;
+        }
+        header .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: -1px; }
+        header nav ul { display: flex; gap: 40px; }
+        header nav a { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; position: relative; }
+        header nav a::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
+            background-color: var(--black); transition: width 0.3s;
+        }
+        header nav a:hover::after { width: 100%; }
+
+        /* [SECTION 1] HERO */
+        .hero {
+            height: 100vh; padding-top: 80px; display: flex; align-items: center;
+            justify-content: space-between; padding-left: 5vw; padding-right: 5vw;
+        }
+        .hero-text { flex: 1; z-index: 2; padding-right: 20px; }
+        .hero h1 {
+            font-size: 7vw; line-height: 0.9; font-weight: 900; text-transform: uppercase;
+            letter-spacing: -3px; margin-bottom: 40px; word-break: keep-all;
+        }
+        .hero p.sub-title { 
+            font-size: 2.5vw; font-weight: 700; margin-bottom: 15px; 
+            text-transform: uppercase; letter-spacing: -1px;
+        }
+        .hero p.desc { 
+            font-size: 2vw; font-weight: 600; color: #333; word-break: keep-all;
+        }
+        .hero-image { flex: 1; display: flex; justify-content: center; align-items: center; }
+        .hero-image img {
+            width: 100%; max-width: 500px; height: auto; object-fit: cover; filter: grayscale(100%);
+            transition: filter 0.5s, transform 0.5s;
+        }
+        .hero-image img:hover { filter: grayscale(0%); transform: scale(1.02); }
+
+        /* 공통 섹션 스타일 */
+        section { padding: 100px 5vw; border-top: 1px solid var(--black); }
+        .section-label {
+            font-size: 0.9rem; font-weight: 700; text-transform: uppercase;
+            margin-bottom: 20px; display: inline-block; border-bottom: 2px solid var(--black); padding-bottom: 5px;
+        }
+        h2.section-title { font-size: 3rem; font-weight: 800; margin-bottom: 60px; text-transform: uppercase; letter-spacing: -1px; }
+
+        /* [SECTION 2] IDENTITY & VIEWER */
+        .identity-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start; /* 상단 정렬 */
+            gap: 60px;
+            margin-top: 40px;
+        }
+
+        .identity-text-area {
+            flex: 1;
+            padding-right: 20px;
+            /* [수정] sticky 제거하여 스크롤 안 따라오게 변경 */
+            position: static; 
+        }
+
+        .identity-text-area h2 {
+            font-size: 3rem; font-weight: 700; line-height: 1.4; margin-bottom: 40px; word-break: keep-all;
+        }
+        .identity-text-area p { font-size: 1.1rem; margin-bottom: 20px; color: #333; word-break: keep-all;}
+        .name-highlight { background-color: var(--black); color: var(--white); padding: 0 10px; }
+
+        /* [수정] 포트폴리오 뷰어 크기 조절 및 스타일 개선 */
+        .portfolio-viewer-area {
+            /* [수정] 너비를 줄이고 고정하여 페이지에 맞춤 */
+            flex: 0 0 600px; 
+            max-width: 100%; /* 반응형을 위한 최대 너비 설정 */
+            background: #FAFAFA; 
+            padding: 30px;
+            border: 1px solid #E5E5E5; 
+            border-radius: 0; 
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+        
+        .portfolio-viewer-area:hover {
+            border-color: #999;
+        }
+
+        .viewer-screen {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9; 
+            background: #fff;
+            border: 1px solid #eee; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .viewer-screen img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .viewer-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px; 
+            margin-bottom: 30px;
+        }
+
+        .btn-control {
+            background: transparent;
+            border: 1px solid var(--black);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%; 
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--black);
+        }
+
+        .btn-control:hover { 
+            background: var(--black); 
+            color: var(--white); 
+            transform: scale(1.1); 
+        }
+
+        .page-indicator { 
+            font-size: 1rem; 
+            font-weight: 600; 
+            font-family: 'Pretendard', sans-serif; 
+            min-width: 80px; 
+            letter-spacing: 1px;
+        }
+
+        .btn-download {
+            display: inline-block;
+            padding: 14px 40px;
+            background: var(--black);
+            color: var(--white);
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 0; 
+            border: 1px solid var(--black);
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-download:hover { 
+            background: var(--white); 
+            color: var(--black); 
+        }
+
+
+        /* [SECTION 3] CAREER HISTORY */
+        .history-container { display: flex; flex-direction: column; gap: 60px; }
+        .history-group h3 { font-size: 1.8rem; font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; }
+        .history-group h3::before { content: ''; display: inline-block; width: 12px; height: 12px; background: var(--black); margin-right: 10px; }
+        .history-list { border-left: 1px solid var(--line); padding-left: 30px; margin-left: 6px; }
+        .history-item { margin-bottom: 15px; font-size: 1.1rem; color: #444; }
+        .history-item .date { display: inline-block; min-width: 160px; font-family: 'Pretendard', monospace; color: #666; font-weight: 500; }
+        .history-item.highlight { font-weight: 700; color: var(--black); font-size: 1.2rem; }
+        .history-item.highlight .date { color: var(--black); font-weight: 800; }
+
+        /* [SECTION 4] SKILLS */
+        .skill-container { display: flex; flex-direction: column; gap: 80px; }
+        .skill-row { display: flex; align-items: center; justify-content: space-between; }
+        .skill-text { flex: 0 0 30%; padding-right: 20px; }
+        .skill-text h3 { font-size: 1.8rem; font-weight: 800; margin-bottom: 15px; }
+        .skill-text p { font-size: 1rem; color: #555; word-break: keep-all; }
+        .skill-image {
+            flex: 1;
+            background: var(--skill-bg);
+            border: 1px solid var(--skill-border);
+            padding: 40px;
+            border-radius: 20px;
+            display: flex; justify-content: center; align-items: center;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s;
+            cursor: default;
+        }
+        .skill-image:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: #d0d0d0; }
+        
+        .skill-image img { 
+            width: 100%; 
+            max-width: 700px; 
+            height: auto; 
+            object-fit: contain; 
+        }
+
+        /* [SECTION 5] KEY PROJECTS */
+        .project-item { display: flex; border-bottom: 1px solid var(--black); transition: background-color 0.3s; cursor: pointer; min-height: 450px; }
+        .project-item:hover { background-color: var(--gray); }
+        .project-left {
+            flex: 0 0 350px; padding: 60px 40px; border-right: 1px solid var(--black);
+            font-size: 2.2rem; font-weight: 900; text-transform: uppercase;
+            display: flex; flex-direction: column; justify-content: space-between; line-height: 1.1;
+        }
+        .project-num { font-size: 1.2rem; font-weight: 500; margin-bottom: 40px; color: #666; font-family: monospace; }
+        .project-right { flex: 1; padding: 60px 50px; display: flex; flex-direction: column; justify-content: center; }
+        .project-right .tag {
+            display: inline-block; padding: 6px 14px; border: 1px solid var(--black);
+            border-radius: 50px; font-size: 0.85rem; font-weight: 700; margin-bottom: 20px;
+            background: var(--white); width: fit-content;
+        }
+        .project-right h3 { font-size: 2rem; margin-bottom: 30px; font-weight: 800; word-break: keep-all; }
+        .project-right ul { list-style: none; }
+        .project-right ul li { margin-bottom: 15px; font-size: 1.15rem; position: relative; padding-left: 20px; color: #333; line-height: 1.6; }
+        .project-right ul li::before { content: '•'; position: absolute; left: 0; color: var(--black); font-weight: bold; }
+
+        /* [FOOTER] */
+        footer { background: var(--black); color: var(--white); padding: 80px 5vw; text-align: center; }
+        footer h2 { font-size: 4vw; margin-bottom: 50px; text-transform: uppercase; letter-spacing: -1px; }
+        .contact-box { display: flex; justify-content: center; gap: 60px; margin-bottom: 40px; text-align: left; }
+        .contact-item h4 { font-size: 0.9rem; opacity: 0.6; margin-bottom: 5px; text-transform: uppercase; }
+        .contact-item p { font-size: 1.3rem; font-weight: 600; }
+        .contact-item a { border-bottom: 1px solid #555; padding-bottom: 2px; transition: color 0.3s; }
+        .contact-item a:hover { color: #aaa; border-color: #aaa; }
+
+        /* 모바일 반응형 */
+        @media (max-width: 960px) { /* [수정] 태블릿 breakpoint 조정 */
+            header { padding: 0 20px; height: 60px; } header .logo { font-size: 1.2rem; } header nav { display: none; }
+            .hero { flex-direction: column-reverse; justify-content: center; text-align: center; padding-top: 100px; }
+            .hero h1 { font-size: 10vw; margin-bottom: 20px; } 
+            .hero p.sub-title { font-size: 5vw; margin-bottom: 10px; } 
+            .hero p.desc { font-size: 4vw; }
+            section { padding: 80px 20px; } h2.section-title { font-size: 2rem; }
+            
+            /* [수정] 모바일에서는 상하 배치 */
+            .identity-container { flex-direction: column; gap: 40px; }
+            .identity-text-area { padding-right: 0; width: 100%; position: static; }
+            .portfolio-viewer-area { flex: auto; width: 100%; max-width: none;} /* [수정] 모바일에선 꽉 차게 */
+            .viewer-screen { height: auto; aspect-ratio: 16 / 9; }
+
+            .skill-row { flex-direction: column; gap: 20px; align-items: flex-start; }
+            .skill-text { width: 100%; padding-right: 0; margin-bottom: 10px; }
+            .project-item { flex-direction: column; min-height: auto; }
+            .project-left { border-right: none; border-bottom: 1px solid var(--black); padding: 40px 20px; flex: auto; width: 100%; font-size: 1.8rem;}
+            .project-right { padding: 40px 20px; } .project-right h3 { font-size: 1.5rem; }
+            .contact-box { flex-direction: column; gap: 30px; text-align: center; } .contact-item { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">KIM SEUNG BIN</div>
+        <nav>
+            <ul>
+                <li><a href="#identity">Identity</a></li>
+                <li><a href="#career-history">Career</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>We Believe In<br>Narrative.</h1>
+            <p class="sub-title">CONTENTS MARKETER & MD</p>
+            <p class="desc">시대를 관통하는 서사성을 가진 인재.</p>
+        </div>
+        <div class="hero-image">
+            <img src="profile.jpg" alt="김승빈 프로필 사진">
+        </div>
+    </section>
+
+    <section id="identity">
+        <span class="section-label">Identity</span>
+        
+        <div class="identity-container">
+            <div class="identity-text-area">
+                <h2>
+                    시대를 관통하는 서사성을 지닌 마케터,<br>
+                    <span class="name-highlight">김승빈</span>입니다.
+                </h2>
+                <p>
+                    데이터와 문학, 기술과 감성을 연결하여 플랫폼의 경계를 허뭅니다.
+                    단순한 유통을 넘어, 콘텐츠가 가진 잠재력을 폭발시키는 Complete Narrative를 설계합니다.
+                </p>
+                <p>
+                    KT Storywiz에서의 실무 경험과 직접 개발한 업무 자동화 툴을 통해
+                    불가능을 효율로 바꾸고, 크리에이티브한 기획으로 숫자를 넘어선 가치를 증명해왔습니다.
+                </p>
+            </div>
+
+            <div class="portfolio-viewer-area">
+                <div class="viewer-screen">
+                    <img id="pf-image" src="slides/page_1.jpg" alt="포트폴리오 슬라이드">
+                </div>
+                
+                <div class="viewer-controls">
+                    <button class="btn-control" onclick="prevPage()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    
+                    <span id="page-indicator" class="page-indicator">1 / 47</span>
+                    
+                    <button class="btn-control" onclick="nextPage()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
+
+                <div class="download-area">
+                    <a href="https://drive.google.com/file/d/1zmfo76xzGPdu0oTbub2PsWn8uAwmV8Fw/view?usp=sharing" target="_blank" class="btn-download">
+                        Download Full Portfolio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="career-history">
+        <h2 class="section-title">CAREER HISTORY</h2>
+        <div class="history-container">
+            <div class="history-group">
+                <h3>경력사항</h3>
+                <div class="history-list">
+                    <div class="history-item">
+                        <span class="date">20.06.09. ~ 21.05.08.</span>
+                        한솔문화재단 뮤지엄산 전시장 서포터즈
+                    </div>
+                    <div class="history-item">
+                        <span class="date">22.01.03. ~ 22.02.28.</span>
+                        연세대학교 미래캠퍼스 미래인재개발원 학부생 인턴
+                    </div>
+                    <div class="history-item">
+                        <span class="date">22.09.21. ~ 22.12.30.</span>
+                        교사대생 등 대학생 튜터링 사업 참여
+                    </div>
+                    <div class="history-item highlight">
+                        <span class="date">23.04.10. ~ 현재</span>
+                        KT 스토리위즈 재직
+                    </div>
+                </div>
+            </div>
+            <div class="history-group">
+                <h3>수상이력</h3>
+                <div class="history-list">
+                    <div class="history-item"><span class="date">19.04.24.</span> 19년 전반기 1포병여단 대대 전술훈련 유공 표창장</div>
+                    <div class="history-item"><span class="date">21.04.19.</span> 하루체험 유튜브 영상 공모전 우수상</div>
+                    <div class="history-item"><span class="date">21.08.25.</span> 연세대학교 인문예술대학 학과 홍보 영상 공모전 최우수상</div>
+                    <div class="history-item highlight"><span class="date">21.11.26.</span> 제6회 LG화학 대학생 광고 공모전 최우수상</div>
+                    <div class="history-item"><span class="date">22.02.28.</span> 진리장학금 학업성적 우등상</div>
+                    <div class="history-item highlight"><span class="date">22.08.26.</span> 진리장학금 학업성적 최우등상</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <section id="skills">
+        <h2 class="section-title">SKILLS & COMPETENCIES</h2>
+        <div class="skill-container">
+            <div class="skill-row">
+                <div class="skill-text">
+                    <h3>MOS 및 문서</h3>
+                    <p>문서 작업, 보고, 전략 분석, 기획안, 업무 관리 등 실무에 최적화된 능력을 보유하고 있습니다.</p>
+                </div>
+                <div class="skill-image"><img src="skill_doc.jpg" alt="MOS 및 문서 툴"></div>
+            </div>
+            <div class="skill-row">
+                <div class="skill-text">
+                    <h3>프로그램</h3>
+                    <p>EPUB 유통, SNS 마케팅, 미디어 제작, 프로모션 배너를 위한 전문 디자인 및 편집 툴을 다룹니다.</p>
+                </div>
+                <div class="skill-image"><img src="skill_prog.jpg" alt="디자인 프로그램"></div>
+            </div>
+            <div class="skill-row">
+                <div class="skill-text">
+                    <h3>코드 및 AI</h3>
+                    <p>구글 시트 연동 및 자동화, 업무 보조 프로그램 제작(Python)을 통해 업무 효율을 극대화합니다.</p>
+                </div>
+                <div class="skill-image"><img src="skill_code.jpg" alt="코드 및 AI 툴"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <span class="section-label">Key Projects</span>
+        <h2 class="section-title">PROJECT HIGHLIGHTS</h2>
+        
+        <div class="project-item">
+            <div class="project-left">
+                <span class="project-num">01</span> Distribution<br>& Operation
+            </div>
+            <div class="project-right">
+                <span class="tag">MAIN CAREER</span>
+                <h3>판권 제휴 및 유통 대행 총괄</h3>
+                <ul>
+                    <li><strong>판권 제휴 관리:</strong> 남성향 웹소설 작품 단독 관리 및 프로모션 제안/유지</li>
+                    <li><strong>유통 메타 관리:</strong> 30여 개 플랫폼 유통 메타 데이터 규격화 및 파일 유기화</li>
+                    <li><strong>계약 및 정산:</strong> 유통사 계약 조율, 보증보험 갱신, 주간 매출 전략 분석 보고</li>
+                    <li><strong>성과:</strong> 월평균 120회 프로모션 진행, 제휴작 구작 매출 감소 방어 및 신규 입점(밀리의 서재 등) 성공</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="project-item">
+            <div class="project-left">
+                <span class="project-num">02</span> Platform<br>& EPUB
+            </div>
+            <div class="project-right">
+                <span class="tag">MD SPECIALTY</span>
+                <h3>플랫폼 작품 유통 등록 및 관리</h3>
+                <ul>
+                    <li><strong>EPUB 제작/검수:</strong> 라이브 연재 총 59종 유통 검수 및 대행 업무 완수</li>
+                    <li><strong>가이드 작성:</strong> 30여 개 플랫폼별 내부 유통·등록 매뉴얼 제작 및 배포</li>
+                    <li><strong>시스템 개선:</strong> 메타 시트 효율화를 통한 사내 정산 코드 부여 시스템 개선</li>
+                    <li><strong>대면 미팅:</strong> 네이버, 알에스미디어 등 주요 플랫폼 및 제휴사 미팅 주도 및 전사 보고</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="project-item">
+            <div class="project-left">
+                <span class="project-num">03</span> Tech<br>& Automation
+            </div>
+            <div class="project-right">
+                <span class="tag">PYTHON & AI</span>
+                <h3>업무 효율화 프로그램 자체 개발</h3>
+                <ul>
+                    <li><strong>MetaNamer.exe:</strong> 대량 작품 메타 데이터 일괄 수정 툴 개발 (기존 툴 한계 극복)</li>
+                    <li><strong>Sales Automator:</strong> 플랫폼별 상이한 정산서를 표준화하여 데이터 자동 취합</li>
+                    <li><strong>Hwp Splitter:</strong> 한글 원고 회차별 자동 분절 및 글자수 계산 프로그램 개발</li>
+                    <li><strong>Google Apps Script:</strong> 정산 코드 연동 및 시트 관리 자동화 (AI 보조 활용)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="project-item">
+            <div class="project-left">
+                <span class="project-num">04</span> Marketing<br>& Creative
+            </div>
+            <div class="project-right">
+                <span class="tag">SNS & DESIGN</span>
+                <h3>콘텐츠 마케팅 및 디자인</h3>
+                <ul>
+                    <li><strong>SNS 리브랜딩:</strong> 파일럿 계정 '위즈스타' 기획 및 운영 (팔로워 2K 달성, 도달률 확대)</li>
+                    <li><strong>이벤트 기획:</strong> 자사 주요작 프로모션 배너 제작(Photoshop) 및 굿즈 발송 이벤트 총괄</li>
+                    <li><strong>대외 수상:</strong> LG 화학 광고 공모전 및 연세대 학과 홍보 영상 최우수상 (기획/PM)</li>
+                    <li><strong>협업 주도:</strong> 사내 문화 행사 TF팀 기획 및 디자인 담당, 타 부서와 원활한 협업</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <h2>Let's Make Next Story.</h2>
+        <div class="contact-box">
+            <div class="contact-item">
+        </div>
+        <p style="margin-top: 60px; opacity: 0.5; font-size: 0.8rem;">© 2025 Kim Seung Bin. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 47; 
+        const imgElement = document.getElementById("pf-image");
+        const indicator = document.getElementById("page-indicator");
+
+        function updateViewer() {
+            imgElement.src = `slides/page_${currentPage}.jpg`;
+            indicator.innerText = `${currentPage} / ${totalPages}`;
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                currentPage++;
+            } else {
+                currentPage = 1; 
+            }
+            updateViewer();
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+            } else {
+                currentPage = totalPages; 
+            }
+            updateViewer();
+        }
+    </script>
+
+</body>
+</html>
