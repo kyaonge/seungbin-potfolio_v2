@@ -48,9 +48,9 @@
         }
         header nav a:hover::after { width: 100%; }
 
-        /* [SECTION 1] HERO (수정됨: 이미지 오른쪽, 텍스트 확대) */
+        /* [SECTION 1] HERO */
         .hero {
-            min-height: 95vh; /* 높이 확보 */
+            min-height: 95vh;
             padding-top: 100px; padding-bottom: 50px;
             display: flex;
             align-items: center;
@@ -58,17 +58,9 @@
             padding-left: 5vw; padding-right: 5vw;
             gap: 20px;
         }
-        
-        /* 텍스트 영역 비율 확대 */
-        .hero-text { 
-            flex: 1.4; /* 텍스트 영역을 더 넓게 */
-            z-index: 2; 
-            padding-right: 0;
-        }
-        
-        /* 폰트 크기 및 스타일 대폭 수정 */
+        .hero-text { flex: 1.4; z-index: 2; padding-right: 0; }
         .hero h1 {
-            font-size: 9vw; /* 훨씬 크게 */
+            font-size: 9vw;
             line-height: 0.85;
             font-weight: 900;
             text-transform: uppercase;
@@ -77,37 +69,17 @@
             word-break: keep-all;
         }
         .hero p.sub-title { 
-            font-size: 2.8vw; /* 서브타이틀도 크게 */
-            font-weight: 700; 
-            margin-bottom: 20px; 
-            text-transform: uppercase; 
-            letter-spacing: -0.5px;
-            color: #222;
+            font-size: 2.8vw; font-weight: 700; margin-bottom: 20px; 
+            text-transform: uppercase; letter-spacing: -0.5px; color: #222;
         }
         .hero p.desc { 
-            font-size: 2.2vw; /* 설명글 크게 */
-            font-weight: 500; 
-            color: #444; 
-            word-break: keep-all;
-            line-height: 1.3;
+            font-size: 2.2vw; font-weight: 500; color: #444; word-break: keep-all; line-height: 1.3;
         }
-
-        /* 이미지 영역 오른쪽 끝으로 배치 */
-        .hero-image { 
-            flex: 1;
-            display: flex; 
-            justify-content: flex-end; /* 오른쪽 정렬 */
-            align-items: center;
-            height: 100%;
-        }
+        .hero-image { flex: 1; display: flex; justify-content: flex-end; align-items: center; height: 100%; }
         .hero-image img {
-            width: auto;
-            max-width: 100%;
-            height: 85vh; /* 화면 높이에 맞춤 */
-            object-fit: cover; /* 꽉 차게 */
-            object-position: top center; /* 상단 기준 */
-            filter: grayscale(100%);
-            transition: filter 0.5s, transform 0.5s;
+            width: auto; max-width: 100%; height: 85vh;
+            object-fit: cover; object-position: top center;
+            filter: grayscale(100%); transition: filter 0.5s, transform 0.5s;
         }
         .hero-image img:hover { filter: grayscale(0%); transform: scale(1.01); }
 
@@ -167,7 +139,11 @@
         /* [SECTION 5] PROJECTS */
         .project-item { display: flex; border-bottom: 1px solid var(--black); transition: background-color 0.3s; cursor: pointer; min-height: 450px; }
         .project-item:hover { background-color: var(--gray); }
-        .project-left { flex: 0 0 350px; padding: 60px 40px; border-right: 1px solid var(--black); font-size: 2.2rem; font-weight: 900; text-transform: uppercase; display: flex; flex-direction: column; justify-content: space-between; line-height: 1.1; }
+        .project-left { 
+            /* [수정] 350px -> 400px로 변경하여 Tech & Automation 줄바꿈 방지 */
+            flex: 0 0 400px; 
+            padding: 60px 40px; border-right: 1px solid var(--black); font-size: 2.2rem; font-weight: 900; text-transform: uppercase; display: flex; flex-direction: column; justify-content: space-between; line-height: 1.1; 
+        }
         .project-num { font-size: 1.2rem; font-weight: 500; margin-bottom: 40px; color: #666; font-family: monospace; }
         .project-right { flex: 1; padding: 60px 50px; display: flex; flex-direction: column; justify-content: center; }
         .project-right .tag { display: inline-block; padding: 6px 14px; border: 1px solid var(--black); border-radius: 50px; font-size: 0.85rem; font-weight: 700; margin-bottom: 20px; background: var(--white); width: fit-content; }
@@ -176,190 +152,56 @@
         .project-right ul li { margin-bottom: 15px; font-size: 1.15rem; position: relative; padding-left: 20px; color: #333; line-height: 1.6; }
         .project-right ul li::before { content: '•'; position: absolute; left: 0; color: var(--black); font-weight: bold; }
 
-        /* [SECTION 6] MEDIA & CREATIVE (2 Column Split) */
+        /* [SECTION 6] MEDIA & CREATIVE */
         .media-section { margin-bottom: 120px; }
-
-        .media-row {
-            display: flex;
-            justify-content: space-between;
-            gap: 60px; 
-            width: 100%;
-            margin-bottom: 100px;
-        }
-
-        .media-col {
-            flex: 1; 
-            display: flex;
-            flex-direction: column;
-            gap: 40px; 
-        }
-
-        .media-col h3 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid var(--black);
-            text-transform: uppercase;
-            letter-spacing: -0.5px;
-        }
-
-        .media-card {
-            display: block;
-            text-decoration: none;
-            color: var(--black);
-        }
-
-        .media-thumb-wrapper {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background: #eee;
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .media-card:hover .media-thumb-wrapper {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-
-        .media-thumb-wrapper img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            object-position: center;
-            transition: transform 0.5s;
-        }
+        .media-row { display: flex; justify-content: space-between; gap: 60px; width: 100%; margin-bottom: 100px; }
+        .media-col { flex: 1; display: flex; flex-direction: column; gap: 40px; }
+        .media-col h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; padding-bottom: 15px; border-bottom: 3px solid var(--black); text-transform: uppercase; letter-spacing: -0.5px; }
+        .media-card { display: block; text-decoration: none; color: var(--black); }
+        .media-thumb-wrapper { width: 100%; aspect-ratio: 16 / 9; background: #eee; position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; }
+        .media-card:hover .media-thumb-wrapper { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        .media-thumb-wrapper img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 0.5s; }
         .media-card:hover .media-thumb-wrapper img { transform: scale(1.05); }
-
-        .media-thumb-wrapper::after {
-            content: '▶';
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 3rem; color: #fff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
+        .media-thumb-wrapper::after { content: '▶'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); opacity: 0.8; transition: opacity 0.3s; }
         .media-card:hover .media-thumb-wrapper::after { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-
-        .media-title {
-            font-size: 1.25rem;
-            font-weight: 800;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            line-height: 1.4;
-            border-bottom: 1px solid transparent;
-            display: inline-block;
-            transition: border-color 0.3s;
-            word-break: keep-all;
-        }
+        .media-title { font-size: 1.25rem; font-weight: 800; margin-top: 15px; margin-bottom: 5px; line-height: 1.4; border-bottom: 1px solid transparent; display: inline-block; transition: border-color 0.3s; word-break: keep-all; }
         .media-card:hover .media-title { border-bottom: 2px solid var(--black); }
+        .media-desc { font-size: 0.95rem; color: #666; font-weight: 500; }
 
-        .media-desc {
-            font-size: 0.95rem;
-            color: #666;
-            font-weight: 500;
-        }
-
-
-        /* [AD CREATIVE GRID] - 하단 광고물 (간격 50px) */
-        .ad-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 50px; 
-            width: 100%;
-        }
-
-        .ad-card {
-            background: #fff;
-            border: 1px solid #eee;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .ad-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            border-color: var(--black);
-        }
-
-        .ad-card:hover::after {
-            content: 'Click to View Detail +';
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            color: #fff;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 700;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
+        /* [AD CREATIVE & SNS GRID] */
+        .grid-section-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 30px; text-transform: uppercase; margin-top: 80px; }
+        .ad-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 50px; width: 100%; }
+        .ad-card { background: #fff; border: 1px solid #eee; cursor: pointer; transition: all 0.3s; position: relative; }
+        .ad-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-color: var(--black); }
+        .ad-card:hover::after { content: 'Click to View Detail +'; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; opacity: 0; transition: opacity 0.3s; }
         .ad-card:hover::after { opacity: 1; }
-
         .ad-image { width: 100%; aspect-ratio: 1/1; overflow: hidden; background: #eee;}
         .ad-image img { width: 100%; height: 100%; object-fit: cover; }
-        
         .ad-footer { padding: 15px; border-top: 1px solid #eee; }
         .ad-title { font-weight: 800; font-size: 1.1rem; text-align: center; margin: 0;}
 
         /* [MODAL SYSTEM] */
-        .modal-overlay {
-            display: none; 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 9999;
-            justify-content: center; align-items: center;
-            padding: 40px;
-            backdrop-filter: blur(5px);
-        }
-
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; padding: 40px; backdrop-filter: blur(5px); }
         .modal-overlay.active { display: flex; }
-
-        .modal-content {
-            background: #fff;
-            width: 100%; max-width: 1000px;
-            max-height: 90vh;
-            overflow-y: auto;
-            border-radius: 0; 
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .modal-close {
-            position: absolute; top: 20px; right: 20px;
-            font-size: 2rem; cursor: pointer; color: #000;
-            z-index: 10;
-            background: none; border: none;
-        }
-
-        .modal-body { padding: 0; }
-
-        .modal-image-area {
-            width: 100%;
-            background: #f4f4f4;
-            display: flex; justify-content: center;
-        }
-        .modal-image-area img {
-            width: 100%; max-width: 100%; height: auto; display: block;
-        }
-
+        .modal-content { background: #fff; width: 100%; max-width: 1000px; max-height: 90vh; overflow-y: auto; border-radius: 0; position: relative; display: flex; flex-direction: column; }
+        .modal-close { position: absolute; top: 20px; right: 20px; font-size: 2rem; cursor: pointer; color: #000; z-index: 10; background: none; border: none; }
         .modal-text-area { padding: 40px; }
-        
         .modal-text-area h3 { font-size: 2rem; font-weight: 800; margin-bottom: 30px; border-bottom: 2px solid #000; padding-bottom: 15px;}
         .modal-section { margin-bottom: 30px; }
-        .modal-section h4 { 
-            font-size: 1.3rem; font-weight: 700; margin-bottom: 15px; 
-            color: var(--black); border-left: 4px solid #000; padding-left: 10px;
-        }
+        .modal-section h4 { font-size: 1.3rem; font-weight: 700; margin-bottom: 15px; color: var(--black); border-left: 4px solid #000; padding-left: 10px; }
         .modal-section ul { list-style: none; padding-left: 5px; }
         .modal-section li { margin-bottom: 10px; font-size: 1.05rem; position: relative; padding-left: 15px; color: #444;}
         .modal-section li::before { content: '-'; position: absolute; left: 0; }
         .modal-section strong { color: #000; font-weight: 700; }
 
+        /* [MODAL SLIDER CSS] */
+        .modal-image-area { width: 100%; background: #f4f4f4; position: relative; display: flex; justify-content: center; overflow: hidden; aspect-ratio: 16/9; }
+        .slide-img { display: none; width: 100%; height: 100%; object-fit: contain; }
+        .slide-img.active { display: block; }
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: #fff; border: none; font-size: 1.5rem; padding: 10px 15px; cursor: pointer; z-index: 5; transition: background 0.3s; }
+        .slider-btn:hover { background: rgba(0,0,0,0.8); }
+        .prev-btn { left: 0; }
+        .next-btn { right: 0; }
 
         /* [FOOTER] */
         footer { background: var(--black); color: var(--white); padding: 80px 5vw; text-align: center; }
@@ -373,45 +215,25 @@
         /* 모바일 반응형 */
         @media (max-width: 960px) {
             header { padding: 0 20px; height: 60px; } header .logo { font-size: 1.2rem; } header nav { display: none; }
-            
-            /* HERO 모바일 수정 */
-            .hero { 
-                flex-direction: column-reverse; 
-                justify-content: center; 
-                text-align: center; 
-                padding-top: 100px; padding-bottom: 60px;
-                gap: 30px;
-                min-height: auto;
-            }
+            .hero { flex-direction: column-reverse; justify-content: center; text-align: center; padding-top: 100px; padding-bottom: 60px; gap: 30px; min-height: auto; }
             .hero-text { flex: auto; width: 100%; padding-right: 0; }
             .hero h1 { font-size: 14vw; margin-bottom: 20px; letter-spacing: -2px; }
             .hero p.sub-title { font-size: 6vw; margin-bottom: 10px; }
             .hero p.desc { font-size: 4.5vw; }
-            .hero-image { 
-                flex: auto; width: 100%; height: auto;
-                justify-content: center; 
-            }
-            .hero-image img { 
-                width: 100%; max-width: 450px; height: auto;
-            }
-
+            .hero-image { flex: auto; width: 100%; height: auto; justify-content: center; }
+            .hero-image img { width: 100%; max-width: 450px; height: auto; }
             section { padding: 80px 20px; } h2.section-title { font-size: 2rem; }
-            
             .identity-container { flex-direction: column; gap: 40px; }
             .identity-text-area { padding-right: 0; width: 100%; position: static; }
             .portfolio-viewer-area { flex: auto; width: 100%; max-width: none;}
             .viewer-screen { height: auto; aspect-ratio: 16 / 9; }
-
             .skill-row { flex-direction: column; gap: 20px; align-items: flex-start; }
             .skill-text { width: 100%; padding-right: 0; margin-bottom: 10px; }
             .project-item { flex-direction: column; min-height: auto; }
             .project-left { border-right: none; border-bottom: 1px solid var(--black); padding: 40px 20px; flex: auto; width: 100%; font-size: 1.8rem;}
             .project-right { padding: 40px 20px; } .project-right h3 { font-size: 1.5rem; }
             .contact-box { flex-direction: column; gap: 30px; text-align: center; } .contact-item { text-align: center; }
-            
-            /* 미디어 2단 -> 1단 변경 */
             .media-row { flex-direction: column; gap: 60px; }
-            
             .modal-content { max-height: 85vh; width: 95%; }
             .modal-text-area { padding: 20px; }
         }
@@ -466,7 +288,6 @@
                 <div class="viewer-screen">
                     <img id="pf-image" src="slides/page_1.jpg" alt="포트폴리오 슬라이드">
                 </div>
-                
                 <div class="viewer-controls">
                     <button class="btn-control" onclick="prevPage()">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -476,11 +297,8 @@
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </button>
                 </div>
-
                 <div class="download-area">
-                    <a href="https://drive.google.com/file/d/1zmfo76xzGPdu0oTbub2PsWn8uAwmV8Fw/view?usp=sharing" target="_blank" class="btn-download">
-                        Download Full Portfolio
-                    </a>
+                    <a href="https://drive.google.com/file/d/1zmfo76xzGPdu0oTbub2PsWn8uAwmV8Fw/view?usp=sharing" target="_blank" class="btn-download">Download Full Portfolio</a>
                 </div>
             </div>
         </div>
@@ -611,7 +429,6 @@
         <div class="media-row">
             <div class="media-col">
                 <h3>대외활동 및 수상작</h3>
-                
                 <a href="https://youtu.be/JwtP9eBf3UY?si=sXb7r-WUWKUhiSDe" target="_blank" class="media-card">
                     <div class="media-thumb-wrapper">
                         <img src="media_1.jpg" alt="LG화학 공모전">
@@ -619,7 +436,6 @@
                     <div class="media-title">제6회 LG화학 대학생 공모전 최우수상</div>
                     <div class="media-desc">기획/PM | 영상 제작 및 편집</div>
                 </a>
-                
                 <a href="https://www.youtube.com/watch?v=YxuV_0BQvvY" target="_blank" class="media-card">
                     <div class="media-thumb-wrapper">
                         <img src="media_2.jpg" alt="무드캐처 프로젝트">
@@ -628,10 +444,8 @@
                     <div class="media-desc">앱 아이디어 기획 및 서비스 기획</div>
                 </a>
             </div>
-
             <div class="media-col">
                 <h3>개인 마케팅 채널</h3>
-                
                 <a href="https://youtu.be/o0eMDdf7TSg?si=W6BKO1VoBMMc-_Bl" target="_blank" class="media-card">
                     <div class="media-thumb-wrapper">
                         <img src="media_3.jpg" alt="허승기 Vlog">
@@ -639,7 +453,6 @@
                     <div class="media-title">허승기 Vlog</div>
                     <div class="media-desc">개인 마케팅 채널 운영</div>
                 </a>
-                
                 <a href="https://youtube.com/shorts/UDWzKwlCiF8?si=jvBn3F9A5oUHvBlI" target="_blank" class="media-card">
                     <div class="media-thumb-wrapper">
                         <img src="media_4.jpg" alt="웹타마툰">
@@ -650,7 +463,31 @@
             </div>
         </div>
 
-        <h3 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 30px; text-transform: uppercase; margin-top: 80px;">광고물 제작 시안</h3>
+        <h3 class="grid-section-title">SNS 마케팅 및 매니지먼트</h3>
+        <div class="ad-grid">
+            <div class="ad-card" onclick="openModal('modal-sns-1')">
+                <div class="ad-image"><img src="sns_1_1.jpg" alt="스토리위즈 SNS"></div>
+                <div class="ad-footer"><div class="ad-title">스토리위즈 공식 SNS</div></div>
+            </div>
+            <div class="ad-card" onclick="openModal('modal-sns-2')">
+                <div class="ad-image"><img src="sns_2_1.jpg" alt="위즈스타 SNS"></div>
+                <div class="ad-footer"><div class="ad-title">위즈스타(바이럴) SNS</div></div>
+            </div>
+            <div class="ad-card" onclick="openModal('modal-sns-3')">
+                <div class="ad-image"><img src="sns_3_1.jpg" alt="인재개발원"></div>
+                <div class="ad-footer"><div class="ad-title">인재개발원 홈페이지 관리</div></div>
+            </div>
+            <div class="ad-card" onclick="openModal('modal-sns-4')">
+                <div class="ad-image"><img src="sns_4_1.jpg" alt="부트캠프 앱"></div>
+                <div class="ad-footer"><div class="ad-title">부트캠프 런칭앱 마케팅</div></div>
+            </div>
+            <div class="ad-card" onclick="openModal('modal-sns-5')">
+                <div class="ad-image"><img src="sns_5_1.jpg" alt="전공 연계 매거진"></div>
+                <div class="ad-footer"><div class="ad-title">전공 연계 매거진 활동</div></div>
+            </div>
+        </div>
+
+        <h3 class="grid-section-title">광고물 제작 시안</h3>
         <p style="margin-bottom: 30px; opacity: 0.6; font-weight: 500;">* 클릭 시 상세 내용과 함께 이미지가 확장됩니다.</p>
         
         <div class="ad-grid">
@@ -658,22 +495,18 @@
                 <div class="ad-image"><img src="ad_1.jpg" alt="트라이폴드 버거"></div>
                 <div class="ad-footer"><div class="ad-title">트라이폴드 버거</div></div>
             </div>
-
             <div class="ad-card" onclick="openModal('modal-2')">
                 <div class="ad-image"><img src="ad_2.jpg" alt="흑백요리사 시즌2"></div>
                 <div class="ad-footer"><div class="ad-title">흑백요리사 시즌 2</div></div>
             </div>
-
             <div class="ad-card" onclick="openModal('modal-3')">
                 <div class="ad-image"><img src="ad_3.jpg" alt="도시정형외과"></div>
                 <div class="ad-footer"><div class="ad-title">도시정형외과</div></div>
             </div>
-
             <div class="ad-card" onclick="openModal('modal-4')">
                 <div class="ad-image"><img src="ad_4.jpg" alt="침토피아"></div>
                 <div class="ad-footer"><div class="ad-title">침토피아 채널</div></div>
             </div>
-
             <div class="ad-card" onclick="openModal('modal-5')">
                 <div class="ad-image"><img src="ad_5.jpg" alt="카더가든"></div>
                 <div class="ad-footer"><div class="ad-title">카더가든 라이브다큐</div></div>
@@ -689,6 +522,135 @@
         <p style="margin-top: 60px; opacity: 0.5; font-size: 0.8rem;">© 2025 Kim Seung Bin. All Rights Reserved.</p>
     </footer>
 
+    <div id="modal-sns-1" class="modal-overlay" onclick="closeModal('modal-sns-1')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal-sns-1')">×</button>
+            <div class="modal-image-area" id="slider-1">
+                <button class="slider-btn prev-btn" onclick="moveSlide('slider-1', -1)">&#10094;</button>
+                <img class="slide-img active" src="sns_1_1.jpg">
+                <img class="slide-img" src="sns_1_2.jpg">
+                <img class="slide-img" src="sns_1_3.jpg">
+                <button class="slider-btn next-btn" onclick="moveSlide('slider-1', 1)">&#10095;</button>
+            </div>
+            <div class="modal-text-area">
+                <h3>스토리위즈 공식 SNS</h3>
+                <div class="modal-section">
+                    <h4>주요 활동</h4>
+                    <ul>
+                        <li>공식 SNS 채널 운영</li>
+                        <li>신간, 매열무 이벤트 기획 및 진행</li>
+                        <li>작품 캘린더 리뉴얼 및 관리</li>
+                        <li>월페이퍼 홍보페이지 제작</li>
+                        <li>굿즈 재고 관리 및 이벤트 진행</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-sns-2" class="modal-overlay" onclick="closeModal('modal-sns-2')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal-sns-2')">×</button>
+            <div class="modal-image-area" id="slider-2">
+                <button class="slider-btn prev-btn" onclick="moveSlide('slider-2', -1)">&#10094;</button>
+                <img class="slide-img active" src="sns_2_1.jpg">
+                <img class="slide-img" src="sns_2_2.jpg">
+                <img class="slide-img" src="sns_2_3.jpg">
+                <button class="slider-btn next-btn" onclick="moveSlide('slider-2', 1)">&#10095;</button>
+            </div>
+            <div class="modal-text-area">
+                <h3>위즈스타(바이럴) SNS</h3>
+                <div class="modal-section">
+                    <h4>주요 활동</h4>
+                    <ul>
+                        <li>캐릭터 IP 마케팅</li>
+                        <li>퀴즈 이벤트 및 팔로워 소통</li>
+                        <li>작품 특별 홍보</li>
+                        <li>당첨자 발표 및 상품 전달</li>
+                        <li>굿즈 수요 조사</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-sns-3" class="modal-overlay" onclick="closeModal('modal-sns-3')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal-sns-3')">×</button>
+            <div class="modal-image-area" id="slider-3">
+                <button class="slider-btn prev-btn" onclick="moveSlide('slider-3', -1)">&#10094;</button>
+                <img class="slide-img active" src="sns_3_1.jpg">
+                <img class="slide-img" src="sns_3_2.jpg">
+                <img class="slide-img" src="sns_3_3.jpg">
+                <button class="slider-btn next-btn" onclick="moveSlide('slider-3', 1)">&#10095;</button>
+            </div>
+            <div class="modal-text-area">
+                <h3>(인턴) 인재개발원 홈페이지 관리</h3>
+                <div class="modal-section">
+                    <h4>주요 활동</h4>
+                    <ul>
+                        <li>YGEMS 홈페이지 관리 및 운영</li>
+                        <li>홈페이지 Ad 배너 제작 및 업로드</li>
+                        <li>취업 이벤트 홍보물 제작</li>
+                        <li>인스타, 블로그 연계 관리</li>
+                        <li>잡코리아, 사람인, 공공기관 등 정보 전달</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-sns-4" class="modal-overlay" onclick="closeModal('modal-sns-4')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal-sns-4')">×</button>
+            <div class="modal-image-area" id="slider-4">
+                <button class="slider-btn prev-btn" onclick="moveSlide('slider-4', -1)">&#10094;</button>
+                <img class="slide-img active" src="sns_4_1.jpg">
+                <img class="slide-img" src="sns_4_2.jpg">
+                <img class="slide-img" src="sns_4_3.jpg">
+                <button class="slider-btn next-btn" onclick="moveSlide('slider-4', 1)">&#10095;</button>
+            </div>
+            <div class="modal-text-area">
+                <h3>(대외) 부트캠프 런칭앱 마케팅</h3>
+                <div class="modal-section">
+                    <h4>주요 활동</h4>
+                    <ul>
+                        <li>앱 아이디어 기획 및 PM·마케팅</li>
+                        <li>어플리케이션 런칭 이벤트 기획</li>
+                        <li>홍보물 제작 및 SNS 마케팅</li>
+                        <li>구글폼 이용자 데이터 취합</li>
+                        <li>기능 홍보 및 런칭 정보 제공</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-sns-5" class="modal-overlay" onclick="closeModal('modal-sns-5')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal-sns-5')">×</button>
+            <div class="modal-image-area" id="slider-5">
+                <button class="slider-btn prev-btn" onclick="moveSlide('slider-5', -1)">&#10094;</button>
+                <img class="slide-img active" src="sns_5_1.jpg">
+                <img class="slide-img" src="sns_5_2.jpg">
+                <img class="slide-img" src="sns_5_3.jpg">
+                <button class="slider-btn next-btn" onclick="moveSlide('slider-5', 1)">&#10095;</button>
+            </div>
+            <div class="modal-text-area">
+                <h3>(대외) 전공 연계 매거진 활동</h3>
+                <div class="modal-section">
+                    <h4>주요 활동</h4>
+                    <ul>
+                        <li>전공 연계 대외활동 및 다매체 연계 콘텐츠 기획</li>
+                        <li>SNS 매거진 게시물 업로드</li>
+                        <li>인스타 운영 및 영상 제작</li>
+                        <li>팀 로고 및 메인 배너 제작</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="modal-1" class="modal-overlay" onclick="closeModal('modal-1')">
         <div class="modal-content" onclick="event.stopPropagation()">
             <button class="modal-close" onclick="closeModal('modal-1')">×</button>
@@ -697,132 +659,20 @@
                 <h3>트라이폴드 버거</h3>
                 <div class="modal-section">
                     <h4>삼성 신규 핸드폰 Galaxy Z TriFold ('25.12.05 출시)</h4>
-                    <ul>
-                        <li>삼성의 신기술이 반영된, 세 번 폴딩되는 핸드폰 최초 출시로 화제</li>
-                    </ul>
+                    <ul><li>삼성의 신기술이 반영된, 세 번 폴딩되는 핸드폰 최초 출시로 화제</li></ul>
                 </div>
                 <div class="modal-section">
                     <h4>박정민 배우</h4>
-                    <ul>
-                        <li>가수 화사의 청룡영화상 축하 공연에서 박정민 배우와의 케미로 이슈화 ('25.11.19)</li>
-                        <li>'25.06.09 짐빔 하이볼 광고로 이슈화</li>
-                        <li>'25.06.12 유퀴즈 2인 출판사 및 기타 방송 키워드로 이력 이슈화</li>
-                    </ul>
+                    <ul><li>가수 화사의 청룡영화상 축하 공연 이슈, 짐빔 하이볼 광고 등</li></ul>
                 </div>
             </div>
         </div>
     </div>
-
-    <div id="modal-2" class="modal-overlay" onclick="closeModal('modal-2')">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeModal('modal-2')">×</button>
-            <div class="modal-image-area"><img src="ad_2.jpg" alt="흑백요리사"></div>
-            <div class="modal-text-area">
-                <h3>흑백요리사 시즌 2</h3>
-                <div class="modal-section">
-                    <h4>흑백요리사 시즌 2 ('25.12.16 출시 예정)</h4>
-                    <ul>
-                        <li>'25.12 냉장고를 부탁해 출연으로 인해 이슈 활성화</li>
-                        <li>이슈 이후 라디오스타, 침착맨 등에서 '암흑 요리사'로 소개되며 이슈</li>
-                        <li>'25.04. 김풍 출연 거절 기사 이후, AI로 만들어진 김풍 출연밈 SNS 확산</li>
-                    </ul>
-                </div>
-                <div class="modal-section">
-                    <h4>카카오페이지 「괴담에 출근해도 출근을 해야하는구나」 ('25.07.07 2부)</h4>
-                    <ul>
-                        <li>S급 백덕수 작가의 2.9억뷰 초 메가 IP</li>
-                        <li>SCP, 파피 플레이 타임 등 '괴담' 키워드 트렌드 반영</li>
-                        <li>X(트위터), 픽시브 등에서 2차 창작 활발</li>
-                        <li>'25.10. 팝업 매진 및 출판사 이슈로 검색량 폭증</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-3" class="modal-overlay" onclick="closeModal('modal-3')">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeModal('modal-3')">×</button>
-            <div class="modal-image-area"><img src="ad_3.jpg" alt="도시정형외과"></div>
-            <div class="modal-text-area">
-                <h3>도시정형외과</h3>
-                <div class="modal-section">
-                    <h4>체인소맨 ('25.09.24 개봉)</h4>
-                    <ul>
-                        <li>300만 이상 관객 동원</li>
-                        <li>주요 히로인 레제 밈 활성화 ("시골쥐가 좋아 도시쥐가 좋아")</li>
-                    </ul>
-                </div>
-                <div class="modal-section">
-                    <h4>마동석 배우</h4>
-                    <ul>
-                        <li>더 게임 어워드(TGA) '갱 오브 드래곤' 제작 발표 ('25.12.12)</li>
-                        <li>'용과 함께' 기획자 나고시 토시히로와 마동석 주연의 기대작</li>
-                        <li>범죄도시 4 OTT 개봉으로 인한 쇼츠 밈 활성화</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-4" class="modal-overlay" onclick="closeModal('modal-4')">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeModal('modal-4')">×</button>
-            <div class="modal-image-area"><img src="ad_4.jpg" alt="침토피아"></div>
-            <div class="modal-text-area">
-                <h3>침토피아 채널</h3>
-                <div class="modal-section">
-                    <h4>주토피아 2 ('25.11.26 오픈)</h4>
-                    <ul>
-                        <li>500만 관객 돌파, 강력한 팬덤 및 2차 창작 활발</li>
-                    </ul>
-                </div>
-                <div class="modal-section">
-                    <h4>동물 스파이카메라 밈</h4>
-                    <ul>
-                        <li>'25.11 스파이 로봇 카메라 쇼츠 유행 ('돌핀-' BGM)</li>
-                    </ul>
-                </div>
-                <div class="modal-section">
-                    <h4>침착맨 유튜버</h4>
-                    <ul>
-                        <li>구독자 300만 유튜버, '25.12.08 영상에서 해당 밈 언급</li>
-                        <li>주토피아 주인공 '닉'과 닮은꼴 밈 확산</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-5" class="modal-overlay" onclick="closeModal('modal-5')">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeModal('modal-5')">×</button>
-            <div class="modal-image-area"><img src="ad_5.jpg" alt="카더가든"></div>
-            <div class="modal-text-area">
-                <h3>카더가든 라이브다큐</h3>
-                <div class="modal-section">
-                    <h4>유이진 아역모델</h4>
-                    <ul>
-                        <li>'25.02.20 카더정원 채널 출연 이후 카더가든과의 케미 유행</li>
-                        <li>'25.08.18 유병재 채널 GD와 함께 출연 (yoo_may 100만 팔로워)</li>
-                    </ul>
-                </div>
-                <div class="modal-section">
-                    <h4>아이돌 다큐멘터리</h4>
-                    <ul>
-                        <li>넷플릭스 K-POP 트렌드 이후 아이돌 일상 다큐멘터리 유행</li>
-                    </ul>
-                </div>
-                <div class="modal-section">
-                    <h4>카더가든 가수</h4>
-                    <ul>
-                        <li>'카더정원' 120만 채널 운영 및 '25년 음반 발매로 팬덤 보유</li>
-                        <li>'25.11.08 라이브 공연 게시글 관련 이슈화</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+    
+    <div id="modal-2" class="modal-overlay" onclick="closeModal('modal-2')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-2')">×</button><div class="modal-image-area"><img src="ad_2.jpg" alt=""></div><div class="modal-text-area"><h3>흑백요리사 시즌 2</h3><div class="modal-section"><h4>흑백요리사 시즌 2</h4><ul><li>'25.12 냉장고를 부탁해 출연, 암흑 요리사 밈</li></ul></div><div class="modal-section"><h4>카카오페이지 「괴담에 출근해도...」</h4><ul><li>백덕수 작가 메가 IP, 괴담 트렌드 반영</li></ul></div></div></div></div>
+    <div id="modal-3" class="modal-overlay" onclick="closeModal('modal-3')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-3')">×</button><div class="modal-image-area"><img src="ad_3.jpg" alt=""></div><div class="modal-text-area"><h3>도시정형외과</h3><div class="modal-section"><h4>체인소맨</h4><ul><li>300만 관객, 레제 밈 활성화</li></ul></div><div class="modal-section"><h4>마동석 배우</h4><ul><li>TGA 갱 오브 드래곤 제작 발표, 범죄도시4 쇼츠 밈</li></ul></div></div></div></div>
+    <div id="modal-4" class="modal-overlay" onclick="closeModal('modal-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-4')">×</button><div class="modal-image-area"><img src="ad_4.jpg" alt=""></div><div class="modal-text-area"><h3>침토피아 채널</h3><div class="modal-section"><h4>주토피아 2</h4><ul><li>500만 관객, 강력한 팬덤</li></ul></div><div class="modal-section"><h4>침착맨 유튜버</h4><ul><li>구독자 300만, 주토피아 닉 닮은꼴 밈</li></ul></div></div></div></div>
+    <div id="modal-5" class="modal-overlay" onclick="closeModal('modal-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-5')">×</button><div class="modal-image-area"><img src="ad_5.jpg" alt=""></div><div class="modal-text-area"><h3>카더가든 라이브다큐</h3><div class="modal-section"><h4>유이진 아역모델</h4><ul><li>카더가든, GD 케미로 이슈화</li></ul></div><div class="modal-section"><h4>카더가든 가수</h4><ul><li>음반 발매 및 라이브 공연 이슈</li></ul></div></div></div></div>
 
 
     <script>
@@ -850,12 +700,34 @@
         // Modal Logic
         function openModal(id) {
             document.getElementById(id).classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling bg
+            document.body.style.overflow = 'hidden'; 
         }
 
         function closeModal(id) {
             document.getElementById(id).classList.remove('active');
-            document.body.style.overflow = 'auto'; // Restore scrolling
+            document.body.style.overflow = 'auto'; 
+        }
+
+        // Modal Image Slider Logic
+        function moveSlide(containerId, step) {
+            const container = document.getElementById(containerId);
+            const images = container.getElementsByClassName('slide-img');
+            let activeIndex = 0;
+
+            for (let i = 0; i < images.length; i++) {
+                if (images[i].classList.contains('active')) {
+                    activeIndex = i;
+                    break;
+                }
+            }
+
+            images[activeIndex].classList.remove('active');
+            
+            let newIndex = activeIndex + step;
+            if (newIndex >= images.length) newIndex = 0;
+            if (newIndex < 0) newIndex = images.length - 1;
+
+            images[newIndex].classList.add('active');
         }
     </script>
 
