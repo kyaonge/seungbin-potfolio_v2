@@ -139,11 +139,7 @@
         /* [SECTION 5] PROJECTS */
         .project-item { display: flex; border-bottom: 1px solid var(--black); transition: background-color 0.3s; cursor: pointer; min-height: 450px; }
         .project-item:hover { background-color: var(--gray); }
-        .project-left { 
-            /* [수정] 350px -> 400px로 변경하여 Tech & Automation 줄바꿈 방지 */
-            flex: 0 0 400px; 
-            padding: 60px 40px; border-right: 1px solid var(--black); font-size: 2.2rem; font-weight: 900; text-transform: uppercase; display: flex; flex-direction: column; justify-content: space-between; line-height: 1.1; 
-        }
+        .project-left { flex: 0 0 400px; padding: 60px 40px; border-right: 1px solid var(--black); font-size: 2.2rem; font-weight: 900; text-transform: uppercase; display: flex; flex-direction: column; justify-content: space-between; line-height: 1.1; }
         .project-num { font-size: 1.2rem; font-weight: 500; margin-bottom: 40px; color: #666; font-family: monospace; }
         .project-right { flex: 1; padding: 60px 50px; display: flex; flex-direction: column; justify-content: center; }
         .project-right .tag { display: inline-block; padding: 6px 14px; border: 1px solid var(--black); border-radius: 50px; font-size: 0.85rem; font-weight: 700; margin-bottom: 20px; background: var(--white); width: fit-content; }
@@ -157,16 +153,32 @@
         .media-row { display: flex; justify-content: space-between; gap: 60px; width: 100%; margin-bottom: 100px; }
         .media-col { flex: 1; display: flex; flex-direction: column; gap: 40px; }
         .media-col h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; padding-bottom: 15px; border-bottom: 3px solid var(--black); text-transform: uppercase; letter-spacing: -0.5px; }
+        
         .media-card { display: block; text-decoration: none; color: var(--black); }
         .media-thumb-wrapper { width: 100%; aspect-ratio: 16 / 9; background: #eee; position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; }
         .media-card:hover .media-thumb-wrapper { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
         .media-thumb-wrapper img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 0.5s; }
         .media-card:hover .media-thumb-wrapper img { transform: scale(1.05); }
+        
+        /* Play Icon for Active Media */
         .media-thumb-wrapper::after { content: '▶'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); opacity: 0.8; transition: opacity 0.3s; }
         .media-card:hover .media-thumb-wrapper::after { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        
+        /* Hide Play Icon for Preparing */
+        .media-card.preparing .media-thumb-wrapper::after { display: none; }
+        .media-card.preparing { cursor: default; }
+
         .media-title { font-size: 1.25rem; font-weight: 800; margin-top: 15px; margin-bottom: 5px; line-height: 1.4; border-bottom: 1px solid transparent; display: inline-block; transition: border-color 0.3s; word-break: keep-all; }
-        .media-card:hover .media-title { border-bottom: 2px solid var(--black); }
+        .media-card:not(.preparing):hover .media-title { border-bottom: 2px solid var(--black); }
         .media-desc { font-size: 0.95rem; color: #666; font-weight: 500; }
+
+        /* [NEW: CONTEST GRID (2x2 Fixed)] */
+        .contest-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 Columns Fixed */
+            gap: 40px;
+            width: 100%;
+        }
 
         /* [AD CREATIVE & SNS GRID] */
         .grid-section-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 30px; text-transform: uppercase; margin-top: 80px; }
@@ -233,7 +245,10 @@
             .project-left { border-right: none; border-bottom: 1px solid var(--black); padding: 40px 20px; flex: auto; width: 100%; font-size: 1.8rem;}
             .project-right { padding: 40px 20px; } .project-right h3 { font-size: 1.5rem; }
             .contact-box { flex-direction: column; gap: 30px; text-align: center; } .contact-item { text-align: center; }
+            
             .media-row { flex-direction: column; gap: 60px; }
+            .contest-grid { grid-template-columns: 1fr; } /* Mobile: 1 Column */
+            
             .modal-content { max-height: 85vh; width: 95%; }
             .modal-text-area { padding: 20px; }
         }
@@ -463,6 +478,41 @@
             </div>
         </div>
 
+        <h3 class="grid-section-title" style="margin-top: 80px;">공모전 출품작</h3>
+        <div class="contest-grid">
+            <a href="https://youtube.com/shorts/6yfNwLtzqiM?feature=share" target="_blank" class="media-card">
+                <div class="media-thumb-wrapper">
+                    <img src="contest_1.jpg" alt="퓨리얼 AI 영상 콘테스트">
+                </div>
+                <div class="media-title">퓨리얼 AI 영상 콘테스트(심사중)</div>
+                <div class="media-desc">AI 영상 제작</div>
+            </a>
+
+            <div class="media-card preparing">
+                <div class="media-thumb-wrapper">
+                    <img src="contest_preparing.jpg" alt="준비중">
+                </div>
+                <div class="media-title">출품 예정</div>
+                <div class="media-desc">준비중</div>
+            </div>
+
+            <div class="media-card preparing">
+                <div class="media-thumb-wrapper">
+                    <img src="contest_preparing.jpg" alt="준비중">
+                </div>
+                <div class="media-title">출품 예정</div>
+                <div class="media-desc">준비중</div>
+            </div>
+
+            <div class="media-card preparing">
+                <div class="media-thumb-wrapper">
+                    <img src="contest_preparing.jpg" alt="준비중">
+                </div>
+                <div class="media-title">출품 예정</div>
+                <div class="media-desc">준비중</div>
+            </div>
+        </div>
+
         <h3 class="grid-section-title">SNS 마케팅 및 매니지먼트</h3>
         <div class="ad-grid">
             <div class="ad-card" onclick="openModal('modal-sns-1')">
@@ -517,6 +567,7 @@
     <footer id="contact">
         <h2>Let's Make Next Story.</h2>
         <div class="contact-box">
+            <div class="contact-item">
             </div>
         </div>
         <p style="margin-top: 60px; opacity: 0.5; font-size: 0.8rem;">© 2025 Kim Seung Bin. All Rights Reserved.</p>
