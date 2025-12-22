@@ -92,14 +92,7 @@
         h2.section-title { font-size: 3rem; font-weight: 800; margin-bottom: 60px; text-transform: uppercase; letter-spacing: -1px; }
 
         /* [SECTION 2] IDENTITY & VIEWER */
-        .identity-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 60px;
-            margin-top: 40px;
-        }
-
+        .identity-container { display: flex; justify-content: space-between; align-items: flex-start; gap: 60px; margin-top: 40px; }
         .identity-text-area { flex: 1; padding-right: 20px; position: static; }
         .identity-text-area h2 { font-size: 3rem; font-weight: 700; line-height: 1.4; margin-bottom: 40px; word-break: keep-all; }
         .identity-text-area p { font-size: 1.1rem; margin-bottom: 20px; color: #333; word-break: keep-all;}
@@ -153,32 +146,21 @@
         .media-row { display: flex; justify-content: space-between; gap: 60px; width: 100%; margin-bottom: 100px; }
         .media-col { flex: 1; display: flex; flex-direction: column; gap: 40px; }
         .media-col h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; padding-bottom: 15px; border-bottom: 3px solid var(--black); text-transform: uppercase; letter-spacing: -0.5px; }
-        
         .media-card { display: block; text-decoration: none; color: var(--black); }
         .media-thumb-wrapper { width: 100%; aspect-ratio: 16 / 9; background: #eee; position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; }
         .media-card:hover .media-thumb-wrapper { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
         .media-thumb-wrapper img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 0.5s; }
         .media-card:hover .media-thumb-wrapper img { transform: scale(1.05); }
-        
-        /* Play Icon for Active Media */
         .media-thumb-wrapper::after { content: '▶'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); opacity: 0.8; transition: opacity 0.3s; }
         .media-card:hover .media-thumb-wrapper::after { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-        
-        /* Hide Play Icon for Preparing */
         .media-card.preparing .media-thumb-wrapper::after { display: none; }
         .media-card.preparing { cursor: default; }
-
         .media-title { font-size: 1.25rem; font-weight: 800; margin-top: 15px; margin-bottom: 5px; line-height: 1.4; border-bottom: 1px solid transparent; display: inline-block; transition: border-color 0.3s; word-break: keep-all; }
         .media-card:not(.preparing):hover .media-title { border-bottom: 2px solid var(--black); }
         .media-desc { font-size: 0.95rem; color: #666; font-weight: 500; }
 
         /* [NEW: CONTEST GRID (2x2 Fixed)] */
-        .contest-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2 Columns Fixed */
-            gap: 40px;
-            width: 100%;
-        }
+        .contest-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; width: 100%; }
 
         /* [AD CREATIVE & SNS GRID] */
         .grid-section-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 30px; text-transform: uppercase; margin-top: 80px; }
@@ -245,10 +227,8 @@
             .project-left { border-right: none; border-bottom: 1px solid var(--black); padding: 40px 20px; flex: auto; width: 100%; font-size: 1.8rem;}
             .project-right { padding: 40px 20px; } .project-right h3 { font-size: 1.5rem; }
             .contact-box { flex-direction: column; gap: 30px; text-align: center; } .contact-item { text-align: center; }
-            
             .media-row { flex-direction: column; gap: 60px; }
-            .contest-grid { grid-template-columns: 1fr; } /* Mobile: 1 Column */
-            
+            .contest-grid { grid-template-columns: 1fr; } 
             .modal-content { max-height: 85vh; width: 95%; }
             .modal-text-area { padding: 20px; }
         }
@@ -482,19 +462,19 @@
         <div class="contest-grid">
             <a href="https://youtube.com/shorts/6yfNwLtzqiM?feature=share" target="_blank" class="media-card">
                 <div class="media-thumb-wrapper">
-                    <img src="contest_1.jpg" alt="퓨리얼 AI 영상 콘테스트">
+                    <img src="contest_1.jpg" alt="퓨리얼 AI 영상 콘테스트 우주편">
                 </div>
-                <div class="media-title">퓨리얼 AI 영상 콘테스트(심사중)</div>
+                <div class="media-title">퓨리얼 AI 영상 콘테스트_우주편(심사중)</div>
                 <div class="media-desc">AI 영상 제작</div>
             </a>
 
-            <div class="media-card preparing">
+            <a href="https://youtube.com/shorts/zAQXZcX1YKA?si=Yt1CCubDvn-xj0bR" target="_blank" class="media-card">
                 <div class="media-thumb-wrapper">
-                    <img src="contest_preparing.jpg" alt="준비중">
+                    <img src="contest_2.jpg" alt="퓨리얼 AI 영상 콘테스트 바다편">
                 </div>
-                <div class="media-title">출품 예정</div>
-                <div class="media-desc">준비중</div>
-            </div>
+                <div class="media-title">퓨리얼 AI 영상 콘테스트_바다편(심사중)</div>
+                <div class="media-desc">AI 영상 제작</div>
+            </a>
 
             <div class="media-card preparing">
                 <div class="media-thumb-wrapper">
@@ -567,7 +547,6 @@
     <footer id="contact">
         <h2>Let's Make Next Story.</h2>
         <div class="contact-box">
-            <div class="contact-item">
             </div>
         </div>
         <p style="margin-top: 60px; opacity: 0.5; font-size: 0.8rem;">© 2025 Kim Seung Bin. All Rights Reserved.</p>
