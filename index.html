@@ -48,6 +48,43 @@
         }
         header nav a:hover::after { width: 100%; }
 
+        /* [SECTION 0] SPLINE INTRO */
+        .spline-intro {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background-color: #000;
+            overflow: hidden;
+        }
+        
+        .spline-intro iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            animation: bounce 2s infinite;
+            pointer-events: none;
+            z-index: 10;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+            40% {transform: translateX(-50%) translateY(-10px);}
+            60% {transform: translateX(-50%) translateY(-5px);}
+        }
+
         /* [SECTION 1] HERO */
         .hero {
             min-height: 95vh;
@@ -58,28 +95,58 @@
             padding-left: 5vw; padding-right: 5vw;
             gap: 20px;
         }
-        .hero-text { flex: 1.4; z-index: 2; padding-right: 0; }
+        
+        .hero-text { 
+            flex: 1.4; 
+            z-index: 2; 
+            padding-right: 0; 
+        }
+        
+        /* [수정] 폰트 사이즈 축소 (9vw -> 6.2vw) */
         .hero h1 {
-            font-size: 9vw;
-            line-height: 0.85;
+            font-size: 6.2vw; 
+            line-height: 1.1;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: -4px;
-            margin-bottom: 50px;
+            letter-spacing: -2px;
+            margin-bottom: 30px;
             word-break: keep-all;
+            color: var(--black);
         }
+        
         .hero p.sub-title { 
-            font-size: 2.8vw; font-weight: 700; margin-bottom: 20px; 
-            text-transform: uppercase; letter-spacing: -0.5px; color: #222;
+            font-size: 2.5vw; 
+            font-weight: 800; 
+            margin-bottom: 20px; 
+            text-transform: uppercase; 
+            letter-spacing: 0px; 
+            color: #333;
         }
+        
         .hero p.desc { 
-            font-size: 2.2vw; font-weight: 500; color: #444; word-break: keep-all; line-height: 1.3;
+            font-size: 1.8vw; 
+            font-weight: 500; 
+            color: #555; 
+            word-break: keep-all; 
+            line-height: 1.5;
+            margin-top: 10px;
         }
-        .hero-image { flex: 1; display: flex; justify-content: flex-end; align-items: center; height: 100%; }
+
+        .hero-image { 
+            flex: 1; 
+            display: flex; 
+            justify-content: flex-end; 
+            align-items: center; 
+            height: 100%; 
+        }
         .hero-image img {
-            width: auto; max-width: 100%; height: 85vh;
-            object-fit: cover; object-position: top center;
-            filter: grayscale(100%); transition: filter 0.5s, transform 0.5s;
+            width: auto;
+            max-width: 100%;
+            height: 85vh;
+            object-fit: cover;
+            object-position: top center;
+            filter: grayscale(100%);
+            transition: filter 0.5s, transform 0.5s;
         }
         .hero-image img:hover { filter: grayscale(0%); transform: scale(1.01); }
 
@@ -92,7 +159,14 @@
         h2.section-title { font-size: 3rem; font-weight: 800; margin-bottom: 60px; text-transform: uppercase; letter-spacing: -1px; }
 
         /* [SECTION 2] IDENTITY & VIEWER */
-        .identity-container { display: flex; justify-content: space-between; align-items: flex-start; gap: 60px; margin-top: 40px; }
+        .identity-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 60px;
+            margin-top: 40px;
+        }
+
         .identity-text-area { flex: 1; padding-right: 20px; position: static; }
         .identity-text-area h2 { font-size: 3rem; font-weight: 700; line-height: 1.4; margin-bottom: 40px; word-break: keep-all; }
         .identity-text-area p { font-size: 1.1rem; margin-bottom: 20px; color: #333; word-break: keep-all;}
@@ -159,7 +233,7 @@
         .media-card:not(.preparing):hover .media-title { border-bottom: 2px solid var(--black); }
         .media-desc { font-size: 0.95rem; color: #666; font-weight: 500; }
 
-        /* [NEW: CONTEST GRID (2x2 Fixed)] */
+        /* [CONTEST GRID] */
         .contest-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; width: 100%; }
 
         /* [AD CREATIVE & SNS GRID] */
@@ -209,13 +283,23 @@
         /* 모바일 반응형 */
         @media (max-width: 960px) {
             header { padding: 0 20px; height: 60px; } header .logo { font-size: 1.2rem; } header nav { display: none; }
-            .hero { flex-direction: column-reverse; justify-content: center; text-align: center; padding-top: 100px; padding-bottom: 60px; gap: 30px; min-height: auto; }
+            
+            /* HERO 모바일 수정 */
+            .hero { 
+                flex-direction: column-reverse; 
+                justify-content: center; 
+                text-align: center; 
+                padding-top: 100px; padding-bottom: 60px;
+                gap: 30px;
+                min-height: auto;
+            }
             .hero-text { flex: auto; width: 100%; padding-right: 0; }
             .hero h1 { font-size: 14vw; margin-bottom: 20px; letter-spacing: -2px; }
             .hero p.sub-title { font-size: 6vw; margin-bottom: 10px; }
             .hero p.desc { font-size: 4.5vw; }
             .hero-image { flex: auto; width: 100%; height: auto; justify-content: center; }
             .hero-image img { width: 100%; max-width: 450px; height: auto; }
+
             section { padding: 80px 20px; } h2.section-title { font-size: 2rem; }
             .identity-container { flex-direction: column; gap: 40px; }
             .identity-text-area { padding-right: 0; width: 100%; position: static; }
@@ -249,10 +333,17 @@
         </nav>
     </header>
 
-    <section class="hero">
+    <div class="spline-intro" id="spline-intro">
+        <iframe src='https://my.spline.design/distortingtypography-hQSONaQmEZ4ppZneS2jl2XC9/' frameborder='0' width='100%' height='100%'></iframe>
+        <div class="scroll-indicator">
+            Scroll or Drag to Explore<br>▼
+        </div>
+    </div>
+
+    <section class="hero" id="hero">
         <div class="hero-text">
-            <h1>I Believe In<br>Narrative</h1>
-            <p class="sub-title">CONTENTS MARKETER & MD</p>
+            <h1>"I Believe in<br>Narrative"</h1>
+            <p class="sub-title">CONTENT MARKETER & MD</p>
             <p class="desc">장르 간, 사람 간의 소통을 중시하는 인재.</p>
         </div>
         <div class="hero-image">
@@ -419,7 +510,7 @@
 
     <section id="media">
         <span class="section-label">Media & Creative</span>
-        <h2 class="section-title">PRODUCED CONTENTS</h2>
+        <h2 class="section-title">PRODUCED CONTENT</h2>
 
         <div class="media-row">
             <div class="media-col">
@@ -545,160 +636,20 @@
     </section>
 
     <footer id="contact">
-        <h2>Let's Make Next Story.</h2>
+        <h2>Let's Make the Next Story.</h2>
         <div class="contact-box">
             </div>
         </div>
         <p style="margin-top: 60px; opacity: 0.5; font-size: 0.8rem;">© 2025 Kim Seung Bin. All Rights Reserved.</p>
     </footer>
 
-    <div id="modal-sns-1" class="modal-overlay" onclick="closeModal('modal-sns-1')">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeModal('modal-sns-1')">×</button>
-            <div class="modal-image-area" id="slider-1">
-                <button class="slider-btn prev-btn" onclick="moveSlide('slider-1', -1)">&#10094;</button>
-                <img class="slide-img active" src="sns_1_1.jpg">
-                <img class="slide-img" src="sns_1_2.jpg">
-                <img class="slide-img" src="sns_1_3.jpg">
-                <button class="slider-btn next-btn" onclick="moveSlide('slider-1', 1)">&#10095;</button>
-            </div>
-            <div class="modal-text-area">
-                <h3>스토리위즈 공식 SNS</h3>
-                <div class="modal-section">
-                    <h4>주요 활동</h4>
-                    <ul>
-                        <li>공식 SNS 채널 운영</li>
-                        <li>신간, 매열무 이벤트 기획 및 진행</li>
-                        <li>작품 캘린더 리뉴얼 및 관리</li>
-                        <li>월페이퍼 홍보페이지 제작</li>
-                        <li>굿즈 재고 관리 및 이벤트 진행</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="modal-sns-1" class="modal-overlay" onclick="closeModal('modal-sns-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-1')">×</button><div class="modal-image-area" id="slider-1"><button class="slider-btn prev-btn" onclick="moveSlide('slider-1', -1)">&#10094;</button><img class="slide-img active" src="sns_1_1.jpg"><img class="slide-img" src="sns_1_2.jpg"><img class="slide-img" src="sns_1_3.jpg"><button class="slider-btn next-btn" onclick="moveSlide('slider-1', 1)">&#10095;</button></div><div class="modal-text-area"><h3>스토리위즈 공식 SNS</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>공식 SNS 채널 운영</li><li>신간, 매열무 이벤트 기획 및 진행</li><li>작품 캘린더 리뉴얼 및 관리</li><li>월페이퍼 홍보페이지 제작</li><li>굿즈 재고 관리 및 이벤트 진행</li></ul></div></div></div></div>
+    <div id="modal-sns-2" class="modal-overlay" onclick="closeModal('modal-sns-2')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-2')">×</button><div class="modal-image-area" id="slider-2"><button class="slider-btn prev-btn" onclick="moveSlide('slider-2', -1)">&#10094;</button><img class="slide-img active" src="sns_2_1.jpg"><img class="slide-img" src="sns_2_2.jpg"><img class="slide-img" src="sns_2_3.jpg"><button class="slider-btn next-btn" onclick="moveSlide('slider-2', 1)">&#10095;</button></div><div class="modal-text-area"><h3>위즈스타(바이럴) SNS</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>캐릭터 IP 마케팅</li><li>퀴즈 이벤트 및 팔로워 소통</li><li>작품 특별 홍보</li><li>당첨자 발표 및 상품 전달</li><li>굿즈 수요 조사</li></ul></div></div></div></div>
+    <div id="modal-sns-3" class="modal-overlay" onclick="closeModal('modal-sns-3')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-3')">×</button><div class="modal-image-area" id="slider-3"><button class="slider-btn prev-btn" onclick="moveSlide('slider-3', -1)">&#10094;</button><img class="slide-img active" src="sns_3_1.jpg"><img class="slide-img" src="sns_3_2.jpg"><img class="slide-img" src="sns_3_3.jpg"><button class="slider-btn next-btn" onclick="moveSlide('slider-3', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(인턴) 인재개발원 홈페이지 관리</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>YGEMS 홈페이지 관리 및 운영</li><li>홈페이지 Ad 배너 제작 및 업로드</li><li>취업 이벤트 홍보물 제작</li><li>인스타, 블로그 연계 관리</li><li>잡코리아, 사람인, 공공기관 등 정보 전달</li></ul></div></div></div></div>
+    <div id="modal-sns-4" class="modal-overlay" onclick="closeModal('modal-sns-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-4')">×</button><div class="modal-image-area" id="slider-4"><button class="slider-btn prev-btn" onclick="moveSlide('slider-4', -1)">&#10094;</button><img class="slide-img active" src="sns_4_1.jpg"><img class="slide-img" src="sns_4_2.jpg"><img class="slide-img" src="sns_4_3.jpg"><button class="slider-btn next-btn" onclick="moveSlide('slider-4', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(대외) 부트캠프 런칭앱 마케팅</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>앱 아이디어 기획 및 PM·마케팅</li><li>어플리케이션 런칭 이벤트 기획</li><li>홍보물 제작 및 SNS 마케팅</li><li>구글폼 이용자 데이터 취합</li><li>기능 홍보 및 런칭 정보 제공</li></ul></div></div></div></div>
+    <div id="modal-sns-5" class="modal-overlay" onclick="closeModal('modal-sns-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-5')">×</button><div class="modal-image-area" id="slider-5"><button class="slider-btn prev-btn" onclick="moveSlide('slider-5', -1)">&#10094;</button><img class="slide-img active" src="sns_5_1.jpg"><img class="slide-img" src="sns_5_2.jpg"><img class="slide-img" src="sns_5_3.jpg"><button class="slider-btn next-btn" onclick="moveSlide('slider-5', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(대외) 전공 연계 매거진 활동</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>전공 연계 대외활동 및 다매체 연계 콘텐츠 기획</li><li>SNS 매거진 게시물 업로드</li><li>인스타 운영 및 영상 제작</li><li>팀 로고 및 메인 배너 제작</li></ul></div></div></div></div>
 
-    <div id="modal-sns-2" class="modal-overlay" onclick="closeModal('modal-sns-2')">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeModal('modal-sns-2')">×</button>
-            <div class="modal-image-area" id="slider-2">
-                <button class="slider-btn prev-btn" onclick="moveSlide('slider-2', -1)">&#10094;</button>
-                <img class="slide-img active" src="sns_2_1.jpg">
-                <img class="slide-img" src="sns_2_2.jpg">
-                <img class="slide-img" src="sns_2_3.jpg">
-                <button class="slider-btn next-btn" onclick="moveSlide('slider-2', 1)">&#10095;</button>
-            </div>
-            <div class="modal-text-area">
-                <h3>위즈스타(바이럴) SNS</h3>
-                <div class="modal-section">
-                    <h4>주요 활동</h4>
-                    <ul>
-                        <li>캐릭터 IP 마케팅</li>
-                        <li>퀴즈 이벤트 및 팔로워 소통</li>
-                        <li>작품 특별 홍보</li>
-                        <li>당첨자 발표 및 상품 전달</li>
-                        <li>굿즈 수요 조사</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-sns-3" class="modal-overlay" onclick="closeModal('modal-sns-3')">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeModal('modal-sns-3')">×</button>
-            <div class="modal-image-area" id="slider-3">
-                <button class="slider-btn prev-btn" onclick="moveSlide('slider-3', -1)">&#10094;</button>
-                <img class="slide-img active" src="sns_3_1.jpg">
-                <img class="slide-img" src="sns_3_2.jpg">
-                <img class="slide-img" src="sns_3_3.jpg">
-                <button class="slider-btn next-btn" onclick="moveSlide('slider-3', 1)">&#10095;</button>
-            </div>
-            <div class="modal-text-area">
-                <h3>(인턴) 인재개발원 홈페이지 관리</h3>
-                <div class="modal-section">
-                    <h4>주요 활동</h4>
-                    <ul>
-                        <li>YGEMS 홈페이지 관리 및 운영</li>
-                        <li>홈페이지 Ad 배너 제작 및 업로드</li>
-                        <li>취업 이벤트 홍보물 제작</li>
-                        <li>인스타, 블로그 연계 관리</li>
-                        <li>잡코리아, 사람인, 공공기관 등 정보 전달</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-sns-4" class="modal-overlay" onclick="closeModal('modal-sns-4')">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeModal('modal-sns-4')">×</button>
-            <div class="modal-image-area" id="slider-4">
-                <button class="slider-btn prev-btn" onclick="moveSlide('slider-4', -1)">&#10094;</button>
-                <img class="slide-img active" src="sns_4_1.jpg">
-                <img class="slide-img" src="sns_4_2.jpg">
-                <img class="slide-img" src="sns_4_3.jpg">
-                <button class="slider-btn next-btn" onclick="moveSlide('slider-4', 1)">&#10095;</button>
-            </div>
-            <div class="modal-text-area">
-                <h3>(대외) 부트캠프 런칭앱 마케팅</h3>
-                <div class="modal-section">
-                    <h4>주요 활동</h4>
-                    <ul>
-                        <li>앱 아이디어 기획 및 PM·마케팅</li>
-                        <li>어플리케이션 런칭 이벤트 기획</li>
-                        <li>홍보물 제작 및 SNS 마케팅</li>
-                        <li>구글폼 이용자 데이터 취합</li>
-                        <li>기능 홍보 및 런칭 정보 제공</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-sns-5" class="modal-overlay" onclick="closeModal('modal-sns-5')">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeModal('modal-sns-5')">×</button>
-            <div class="modal-image-area" id="slider-5">
-                <button class="slider-btn prev-btn" onclick="moveSlide('slider-5', -1)">&#10094;</button>
-                <img class="slide-img active" src="sns_5_1.jpg">
-                <img class="slide-img" src="sns_5_2.jpg">
-                <img class="slide-img" src="sns_5_3.jpg">
-                <button class="slider-btn next-btn" onclick="moveSlide('slider-5', 1)">&#10095;</button>
-            </div>
-            <div class="modal-text-area">
-                <h3>(대외) 전공 연계 매거진 활동</h3>
-                <div class="modal-section">
-                    <h4>주요 활동</h4>
-                    <ul>
-                        <li>전공 연계 대외활동 및 다매체 연계 콘텐츠 기획</li>
-                        <li>SNS 매거진 게시물 업로드</li>
-                        <li>인스타 운영 및 영상 제작</li>
-                        <li>팀 로고 및 메인 배너 제작</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-1" class="modal-overlay" onclick="closeModal('modal-1')">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeModal('modal-1')">×</button>
-            <div class="modal-image-area"><img src="ad_1.jpg" alt="트라이폴드 버거"></div>
-            <div class="modal-text-area">
-                <h3>트라이폴드 버거</h3>
-                <div class="modal-section">
-                    <h4>삼성 신규 핸드폰 Galaxy Z TriFold ('25.12.05 출시)</h4>
-                    <ul><li>삼성의 신기술이 반영된, 세 번 폴딩되는 핸드폰 최초 출시로 화제</li></ul>
-                </div>
-                <div class="modal-section">
-                    <h4>박정민 배우</h4>
-                    <ul><li>가수 화사의 청룡영화상 축하 공연 이슈, 짐빔 하이볼 광고 등</li></ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    
+    <div id="modal-1" class="modal-overlay" onclick="closeModal('modal-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-1')">×</button><div class="modal-image-area"><img src="ad_1.jpg" alt="트라이폴드 버거"></div><div class="modal-text-area"><h3>트라이폴드 버거</h3><div class="modal-section"><h4>삼성 신규 핸드폰 Galaxy Z TriFold ('25.12.05 출시)</h4><ul><li>삼성의 신기술이 반영된, 세 번 폴딩되는 핸드폰 최초 출시로 화제</li></ul></div><div class="modal-section"><h4>박정민 배우</h4><ul><li>가수 화사의 청룡영화상 축하 공연 이슈, 짐빔 하이볼 광고 등</li></ul></div></div></div></div>
     <div id="modal-2" class="modal-overlay" onclick="closeModal('modal-2')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-2')">×</button><div class="modal-image-area"><img src="ad_2.jpg" alt=""></div><div class="modal-text-area"><h3>흑백요리사 시즌 2</h3><div class="modal-section"><h4>흑백요리사 시즌 2</h4><ul><li>'25.12 냉장고를 부탁해 출연, 암흑 요리사 밈</li></ul></div><div class="modal-section"><h4>카카오페이지 「괴담에 출근해도...」</h4><ul><li>백덕수 작가 메가 IP, 괴담 트렌드 반영</li></ul></div></div></div></div>
     <div id="modal-3" class="modal-overlay" onclick="closeModal('modal-3')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-3')">×</button><div class="modal-image-area"><img src="ad_3.jpg" alt=""></div><div class="modal-text-area"><h3>도시정형외과</h3><div class="modal-section"><h4>체인소맨</h4><ul><li>300만 관객, 레제 밈 활성화</li></ul></div><div class="modal-section"><h4>마동석 배우</h4><ul><li>TGA 갱 오브 드래곤 제작 발표, 범죄도시4 쇼츠 밈</li></ul></div></div></div></div>
     <div id="modal-4" class="modal-overlay" onclick="closeModal('modal-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-4')">×</button><div class="modal-image-area"><img src="ad_4.jpg" alt=""></div><div class="modal-text-area"><h3>침토피아 채널</h3><div class="modal-section"><h4>주토피아 2</h4><ul><li>500만 관객, 강력한 팬덤</li></ul></div><div class="modal-section"><h4>침착맨 유튜버</h4><ul><li>구독자 300만, 주토피아 닉 닮은꼴 밈</li></ul></div></div></div></div>
@@ -706,6 +657,34 @@
 
 
     <script>
+        // Intro Click/Drag Logic
+        const intro = document.getElementById('spline-intro');
+        
+        function goNext() {
+            document.getElementById('hero').scrollIntoView({behavior: 'smooth'});
+        }
+
+        // Click or Scroll events on Intro
+        if(intro) {
+            intro.addEventListener('click', goNext);
+            intro.addEventListener('wheel', (e) => {
+                // If scrolling down, move to next section
+                if(e.deltaY > 0) {
+                    e.preventDefault();
+                    goNext();
+                }
+            });
+            // Simple Touch support for mobile drag
+            let startY;
+            intro.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; });
+            intro.addEventListener('touchmove', (e) => {
+                let currentY = e.touches[0].clientY;
+                if (startY - currentY > 50) { // Swipe Up
+                    goNext();
+                }
+            });
+        }
+
         // Slideshow Logic
         let currentPage = 1;
         const totalPages = 47; 
