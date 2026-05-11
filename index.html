@@ -30,62 +30,31 @@
             transition: background-color 0.5s ease;
         }
 
-        /* [HEADER] 메뉴 스타일 초기화 및 구조 */
+        /* [HEADER] */
         header {
             position: fixed; top: 0; left: 0; width: 100%; height: 110px;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px); border-bottom: 1px solid var(--black); z-index: 1000;
         }
-        
-        header a { 
-            text-decoration: none !important; 
-            color: var(--black) !important; 
-            transition: opacity 0.3s;
-        }
+        header a { text-decoration: none !important; color: var(--black) !important; transition: opacity 0.3s; }
 
-        /* 상단 기업 선택 메뉴 */
-        .header-mode-selector { 
-            display: flex; gap: 40px; margin-bottom: 12px;
-            font-size: 0.9rem; font-weight: 800; letter-spacing: 1px;
-        }
+        .header-mode-selector { display: flex; gap: 40px; margin-bottom: 12px; font-size: 0.9rem; font-weight: 800; letter-spacing: 1px; }
         .mode-tab { cursor: pointer; opacity: 0.3; transition: 0.3s; padding-bottom: 4px; border-bottom: 2px solid transparent; }
         .mode-tab.active { opacity: 1; border-color: var(--black); }
         .mode-tab.shinhan-tab.active { color: var(--shinhan-blue) !important; border-color: var(--shinhan-blue); }
 
-        /* 하단 섹션 내비게이션 */
         header nav ul { display: flex; gap: 30px; list-style: none; }
         header nav a { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
         header nav a:hover { opacity: 0.6; }
 
         /* Spline Intro */
-        .spline-intro {
-            position: relative; width: 100%; height: 100vh;
-            background-color: #000; overflow: hidden; cursor: pointer;
-        }
+        .spline-intro { position: relative; width: 100%; height: 100vh; background-color: #000; overflow: hidden; cursor: pointer; }
         .spline-intro iframe { width: 100%; height: 100%; border: none; }
-        .scroll-indicator {
-            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-            color: #fff; font-size: 0.9rem; font-weight: 600; text-transform: uppercase;
-            animation: bounce 2s infinite; pointer-events: none; z-index: 10; text-align: center;
-        }
+        .scroll-indicator { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); color: #fff; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; animation: bounce 2s infinite; pointer-events: none; z-index: 10; text-align: center; }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);} 40% {transform: translateX(-50%) translateY(-10px);} 60% {transform: translateX(-50%) translateY(-5px);} }
 
-        /* Hero */
-        .hero {
-            min-height: 95vh; padding-top: 130px; padding-bottom: 50px;
-            display: flex; align-items: center; justify-content: space-between;
-            padding-left: 5vw; padding-right: 5vw; gap: 20px;
-        }
-        .hero-text { flex: 1.4; z-index: 2; }
-        .hero h1 { font-size: 6.2vw; line-height: 1.1; font-weight: 900; text-transform: uppercase; letter-spacing: -2px; margin-bottom: 30px; word-break: keep-all; }
-        .hero p.sub-title { font-size: 2.5vw; font-weight: 800; margin-bottom: 20px; text-transform: uppercase; color: #333; }
-        .hero p.desc { font-size: 1.8vw; font-weight: 500; color: #555; word-break: keep-all; line-height: 1.5; margin-top: 10px; }
-        .hero-image { flex: 1; display: flex; justify-content: flex-end; align-items: center; height: 100%; }
-        .hero-image img { width: auto; max-width: 100%; height: 85vh; object-fit: cover; filter: grayscale(100%); transition: 0.5s; }
-        .hero-image img:hover { filter: grayscale(0%); transform: scale(1.01); }
-
-        /* Common Section Layout */
+        /* Sections */
         section { padding: 120px 5vw; border-top: 1px solid var(--black); }
         .section-label { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; display: inline-block; border-bottom: 2px solid var(--black); padding-bottom: 5px; }
         h2.section-title { font-size: 3.2rem; font-weight: 900; margin-bottom: 60px; text-transform: uppercase; letter-spacing: -1px; }
@@ -93,32 +62,28 @@
         /* Career History */
         .history-container { display: flex; flex-direction: column; gap: 60px; }
         .history-group h3 { font-size: 1.8rem; font-weight: 800; margin-bottom: 25px; display: flex; align-items: center; }
-        .history-group h3::before { content: ''; display: inline-block; width: 10px; height: 10px; background: var(--black); margin-right: 12px; }
+        .history-group h3::before { content: ''; display: inline-block; width: 12px; height: 12px; background: var(--black); margin-right: 12px; }
         .history-list { border-left: 1px solid var(--line); padding-left: 30px; margin-left: 6px; list-style: none; }
         .history-item { margin-bottom: 15px; font-size: 1.15rem; color: #333; }
         .history-item .date { display: inline-block; min-width: 180px; color: #777; font-weight: 600; }
         .history-item.highlight { font-weight: 800; color: var(--black); }
 
-        /* Career Selector Cards */
+        /* Career Selector */
         .selector-area { padding: 100px 5vw; background: #f4f4f4; text-align: center; border-top: 1px solid var(--black); border-bottom: 1px solid var(--black); }
         .selector-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
-        .career-card {
-            width: 450px; background: #fff; padding: 60px 40px; border: 2px solid transparent; cursor: pointer;
-            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); display: flex; flex-direction: column; align-items: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-        }
+        .career-card { width: 450px; background: #fff; padding: 60px 40px; border: 2px solid transparent; cursor: pointer; transition: 0.4s; display: flex; flex-direction: column; align-items: center; box-shadow: 0 15px 35px rgba(0,0,0,0.05); }
         .career-card img { height: 50px; margin-bottom: 30px; filter: grayscale(100%); transition: 0.3s; }
         .career-card:hover { transform: translateY(-10px); border-color: #ccc; }
         .career-card:hover img { filter: grayscale(0%); }
         .career-card.active-shinhan { border-color: var(--shinhan-blue); background: #f0f5ff; }
         .career-card.active-storywiz { border-color: var(--black); background: #f9f9f9; }
 
-        /* Dynamic Content Toggle */
+        /* Dynamic Mode Content */
         .career-mode-content { display: none; }
         .career-mode-content.active { display: block; animation: fadeIn 0.8s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Projects & Lists (Dots Fix) */
+        /* Projects & Lists */
         .project-item { display: flex; border-bottom: 1px solid var(--black); min-height: 400px; }
         .project-left { flex: 0 0 380px; padding: 60px 40px; border-right: 1px solid var(--black); font-size: 2.2rem; font-weight: 900; line-height: 1.1; }
         .project-right { flex: 1; padding: 60px 50px; display: flex; flex-direction: column; justify-content: center; }
@@ -127,39 +92,32 @@
         .project-right ul li::before { content: '•'; position: absolute; left: 0; font-weight: bold; }
         .project-right .tag { display: inline-block; padding: 6px 14px; border: 1px solid var(--black); border-radius: 50px; font-size: 0.85rem; font-weight: 700; margin-bottom: 20px; width: fit-content; }
 
-        /* Skills */
-        .skill-container { display: flex; flex-direction: column; gap: 80px; }
-        .skill-row { display: flex; align-items: center; justify-content: space-between; }
-        .skill-text { flex: 0 0 30%; }
-        .skill-text h3 { font-size: 1.8rem; font-weight: 800; margin-bottom: 15px; }
-        .skill-image { flex: 1; background: var(--skill-bg); border: 1px solid var(--skill-border); padding: 40px; border-radius: 20px; display: flex; justify-content: center; align-items: center; transition: 0.4s; }
-        .skill-image img { width: 100%; max-width: 700px; height: auto; object-fit: contain; }
-
-        /* Media Grids */
-        .media-row { display: flex; justify-content: space-between; gap: 40px; margin-bottom: 80px; }
-        .media-col { flex: 1; display: flex; flex-direction: column; gap: 40px; }
-        .media-col h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; padding-bottom: 15px; border-bottom: 3px solid var(--black); text-transform: uppercase; }
-        .media-card { display: block; }
+        /* Media Grid */
+        .media-row { display: flex; justify-content: space-between; gap: 40px; margin-bottom: 40px; flex-wrap: wrap; }
+        .media-col { flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 40px; }
+        .media-col h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 10px; padding-bottom: 15px; border-bottom: 2px solid var(--black); text-transform: uppercase; }
+        .media-card { display: block; text-decoration: none; color: inherit; }
         .media-thumb-wrapper { width: 100%; aspect-ratio: 16 / 9; background: #eee; border-radius: 8px; overflow: hidden; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: 0.3s; }
         .media-thumb-wrapper img { width: 100%; height: 100%; object-fit: cover; }
         .media-card:hover .media-thumb-wrapper { transform: translateY(-5px); }
-        .media-title { font-size: 1.2rem; font-weight: 800; margin-top: 15px; margin-bottom: 5px; }
+        .media-title { font-size: 1.1rem; font-weight: 800; margin-top: 15px; margin-bottom: 5px; }
+        
+        .sub-category-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; color: #555; background: #f0f0f0; padding: 8px 15px; border-radius: 4px; display: inline-block; }
 
-        .contest-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-top: 40px; }
-        .ad-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 30px; margin-top: 40px; }
-        .ad-card { border: 1px solid #eee; background: #fff; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; }
-        .ad-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
-        .ad-footer { padding: 15px; text-align: center; font-weight: 800; border-top: 1px solid #eee; }
-        .ad-card:hover { transform: translateY(-5px); border-color: var(--black); }
-
-        /* Shinhan Theme Color Override */
+        /* Shinhan Theme Color */
         .shinhan-theme-container .name-highlight { background-color: var(--shinhan-blue); }
         .shinhan-theme-container .section-label { border-color: var(--shinhan-blue); color: var(--shinhan-blue); }
         .shinhan-theme-container h2.section-title { color: var(--shinhan-blue); }
         .shinhan-theme-container .history-group h3::before { background: var(--shinhan-blue); }
         .shinhan-theme-container .tag { border-color: var(--shinhan-blue); color: var(--shinhan-blue); }
+        .shinhan-theme-container .sub-category-title { color: var(--shinhan-blue); background: #f0f5ff; }
 
-        /* Modal System */
+        /* Viewer */
+        .portfolio-viewer-area { flex: 0 0 580px; background: #FAFAFA; padding: 25px; border: 1px solid #E5E5E5; text-align: center; }
+        .viewer-screen { width: 100%; aspect-ratio: 16 / 9; background: #fff; border: 1px solid #eee; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 25px; }
+        .viewer-screen img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+        /* Modals */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center; padding: 30px; backdrop-filter: blur(8px); }
         .modal-overlay.active { display: flex; }
         .modal-content { background: #fff; width: 100%; max-width: 1000px; max-height: 90vh; overflow-y: auto; position: relative; }
@@ -167,39 +125,15 @@
         .modal-image-area { width: 100%; background: #f4f4f4; aspect-ratio: 16/9; display: flex; justify-content: center; overflow: hidden; position: relative; }
         .slide-img { display: none; width: 100%; height: 100%; object-fit: contain; }
         .slide-img.active { display: block; }
-        .modal-text-area { padding: 40px; }
-        .modal-section { margin-bottom: 30px; }
-        .modal-section h4 { font-size: 1.3rem; font-weight: 800; border-left: 4px solid #000; padding-left: 12px; margin-bottom: 15px; }
-        .modal-section ul { list-style: none; }
-        .modal-section li { margin-bottom: 8px; position: relative; padding-left: 15px; }
-        .modal-section li::before { content: '-'; position: absolute; left: 0; }
-        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: #fff; border: none; padding: 12px; cursor: pointer; z-index: 5; }
-
-        /* Identity Container for Shinhan (Simplified) */
-        .identity-container { display: flex; justify-content: space-between; gap: 60px; margin-top: 40px; }
-        .identity-text-area { flex: 1; }
-        .identity-text-area h2 { font-size: 3rem; font-weight: 700; line-height: 1.4; margin-bottom: 40px; word-break: keep-all; }
-        
-        .portfolio-viewer-area { flex: 0 0 580px; background: #FAFAFA; padding: 25px; border: 1px solid #E5E5E5; text-align: center; }
-        .viewer-screen { width: 100%; aspect-ratio: 16 / 9; background: #fff; border: 1px solid #eee; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 25px; }
-        .viewer-screen img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .viewer-controls { display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 25px; }
-        .btn-control { background: transparent; border: 1px solid var(--black); width: 42px; height: 42px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
-        .btn-control:hover { background: var(--black); color: var(--white); }
-        .page-indicator { font-size: 1rem; font-weight: 600; min-width: 80px; }
-        .btn-download { display: inline-block; padding: 14px 40px; background: var(--black); color: var(--white); font-weight: 700; text-transform: uppercase; border: 1px solid var(--black); transition: 0.3s; font-size: 0.9rem; }
-        .btn-download:hover { background: var(--white); color: var(--black); }
 
         footer { background: var(--black); color: var(--white); padding: 80px 5vw; text-align: center; }
 
         @media (max-width: 960px) {
             header { height: auto; padding: 20px 0; }
-            header nav ul { gap: 15px; flex-wrap: wrap; justify-content: center; }
             .hero { flex-direction: column-reverse; text-align: center; padding-top: 150px; }
-            .identity-container { flex-direction: column; }
             .project-item { flex-direction: column; }
             .project-left { border-right: none; border-bottom: 1px solid var(--black); width: 100%; padding: 40px 20px; }
-            .contest-grid { grid-template-columns: 1fr; }
+            .media-col { min-width: 100%; }
         }
     </style>
 </head>
@@ -213,8 +147,7 @@
         </div>
         <nav>
             <ul id="dynamic-nav">
-                <!-- JS로 자동 채움 -->
-            </ul>
+                </ul>
         </nav>
     </header>
 
@@ -223,7 +156,6 @@
         <div class="scroll-indicator">Explore Narrative<br>▼</div>
     </div>
 
-    <!-- [HERO] -->
     <section class="hero" id="hero">
         <div class="hero-text">
             <h1>"I Believe in<br>Narrative"</h1>
@@ -235,7 +167,6 @@
         </div>
     </section>
 
-    <!-- [1. CAREER HISTORY] -->
     <section id="career-history">
         <h2 class="section-title">GLOBAL CAREER HISTORY</h2>
         <div class="history-container">
@@ -252,13 +183,11 @@
                 <ul class="history-list">
                     <li class="history-item highlight"><span class="date">26.04.08.</span> 신한금융플러스 이 달의 우수 사원 선정</li>
                     <li class="history-item highlight"><span class="date">21.11.26.</span> 제6회 LG화학 대학생 광고 공모전 최우수상</li>
-                    <li class="history-item"><span class="date">22.08.26.</span> 진리장학금 학업성적 최우등상</li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <!-- [2. CAREER SELECTOR CARDS] -->
     <div class="selector-area" id="career-selector">
         <div class="selector-grid">
             <div class="career-card" id="card-shinhan" onclick="toggleMode('shinhan')">
@@ -274,7 +203,6 @@
         </div>
     </div>
 
-    <!-- [MODE: SHINHAN] -->
     <div id="shinhan-content" class="career-mode-content shinhan-theme-container">
         <section id="identity-shinhan">
             <span class="section-label">Identity</span>
@@ -282,9 +210,7 @@
                 <div class="identity-text-area">
                     <h2>금융의 가치를 소셜의 언어로,<br><span class="name-highlight">신한금융플러스</span> SNS 마케터 김승빈입니다.</h2>
                     <p>복잡하고 딱딱한 금융 정보를 고객의 눈높이에 맞는 친숙한 콘텐츠로 재해석하여 강력한 브랜드 경험을 설계합니다.</p>
-                    <p>현재 공식 유튜브 채널의 비약적인 성장을 견인하며, 전사적 대규모 행사를 성공적으로 주관하는 등 온·오프라인 마케팅 역량을 발휘하고 있습니다.</p>
                 </div>
-                <!-- 요청에 따라 상단 영상 제작 부분 제거 (하단 Media 섹션에서 통합 노출) -->
             </div>
         </section>
 
@@ -296,67 +222,90 @@
                     <span class="tag">MAIN MISSION</span>
                     <h3>신한금융플러스 연도대상 조직성장파트 주관 개최</h3>
                     <ul>
-                        <li><strong>행사 일자:</strong> 2026.03.10</li>
                         <li><strong>행사 규모:</strong> 총 참석자 350명, 주관 예산 5억 원 이상</li>
-                        <li><strong>핵심 성과:</strong> 행사 실무 총괄 및 영상 2종(오프닝, 시상) 직접 제작</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="project-item">
-                <div class="project-left">YouTube Success</div>
-                <div class="project-right">
-                    <span class="tag">SNS GROWTH</span>
-                    <h3>공식 유튜브 채널 급성장 및 성과 도출</h3>
-                    <ul>
-                        <li><strong>26.04.02:</strong> 채널 첫 20만 조회수 영상 달성 (현재 22.9만)</li>
-                        <li><strong>26.03.27:</strong> 첫 5만 조회수 영상 달성 (현재 6.3만)</li>
-                        <li><strong>26.03.20:</strong> 공식 계정 첫 제작 게시물 업로드 및 채널 정체성 구축</li>
-                        <li><strong>26.04.11:</strong> 신한금융플러스 공식 회사소개 영상 제작 총괄</li>
+                        <li><strong>핵심 성과:</strong> 행사 실무 총괄 및 영상 2종 직접 제작</li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section id="media-shinhan">
-            <h2 class="section-title">PRODUCED VIDEOS</h2>
-            <div class="media-row">
-                <div class="media-col">
-                    <h3>Viral Shorts</h3>
-                    <a href="https://youtube.com/shorts/ZM9lb3GXAW8" target="_blank" class="media-card">
-                        <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/ZM9lb3GXAW8/maxresdefault.jpg"></div>
-                        <div class="media-title">조회수 22.9만 돌파 숏폼</div>
-                    </a>
-                    <a href="https://www.youtube.com/shorts/lOd6zm7s5ow" target="_blank" class="media-card">
-                        <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/lOd6zm7s5ow/maxresdefault.jpg"></div>
-                        <div class="media-title">조회수 6.3만 돌파 숏폼</div>
-                    </a>
+            <h2 class="section-title">SHINHAN MEDIA</h2>
+            
+            <div style="margin-bottom: 80px;">
+                <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 40px; display: flex; align-items: center;">
+                    <span style="width: 8px; height: 30px; background: var(--shinhan-blue); margin-right: 15px;"></span>업무 영상
+                </h3>
+                
+                <div class="media-row">
+                    <div class="media-col">
+                        <div class="sub-category-title">Long-form 콘텐츠</div>
+                        <a href="https://youtu.be/Z8-g1n5b2J8" target="_blank" class="media-card">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/Z8-g1n5b2J8/maxresdefault.jpg"></div>
+                            <div class="media-title">신한금융플러스 브랜드 광고</div>
+                        </a>
+                        <a href="https://youtu.be/C3i2OVxMvJc" target="_blank" class="media-card">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/C3i2OVxMvJc/maxresdefault.jpg"></div>
+                            <div class="media-title">신규 업무 프로젝트 영상</div>
+                        </a>
+                    </div>
+                    <div class="media-col">
+                        <div class="sub-category-title">Shorts 콘텐츠 (Viral)</div>
+                        <a href="https://youtube.com/shorts/ZM9lb3GXAW8" target="_blank" class="media-card">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/ZM9lb3GXAW8/maxresdefault.jpg"></div>
+                            <div class="media-title">조회수 22.9만 돌파 숏폼</div>
+                        </a>
+                        <a href="https://www.youtube.com/shorts/lOd6zm7s5ow" target="_blank" class="media-card">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/lOd6zm7s5ow/maxresdefault.jpg"></div>
+                            <div class="media-title">조회수 6.3만 돌파 숏폼</div>
+                        </a>
+                        <a href="https://youtube.com/shorts/AVOLq4A1bmE" target="_blank" class="media-card">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/AVOLq4A1bmE/maxresdefault.jpg"></div>
+                            <div class="media-title">업무 관련 신규 숏폼</div>
+                        </a>
+                    </div>
                 </div>
-                <div class="media-col">
-                    <h3>Official Brand Ad</h3>
-                    <a href="https://youtu.be/Z8-g1n5b2J8" target="_blank" class="media-card">
-                        <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/Z8-g1n5b2J8/maxresdefault.jpg"></div>
-                        <div class="media-title">신한금융플러스 브랜드 광고 (26.05.04)</div>
-                    </a>
+            </div>
+
+            <div>
+                <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 40px; display: flex; align-items: center;">
+                    <span style="width: 8px; height: 30px; background: #666; margin-right: 15px;"></span>개인 프로젝트
+                </h3>
+                
+                <div class="media-row">
+                    <div class="media-col">
+                        <div class="sub-category-title">Long-form 콘텐츠</div>
+                        <a href="https://www.youtube.com/watch?v=2nO-dc9vxf4" target="_blank" class="media-card">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/2nO-dc9vxf4/maxresdefault.jpg"></div>
+                            <div class="media-title">개인 브랜딩 프로젝트</div>
+                        </a>
+                    </div>
+                    <div class="media-col">
+                        <div class="sub-category-title">Shorts 콘텐츠</div>
+                        <a href="https://www.youtube.com/shorts/V-rLfjMn-ww" target="_blank" class="media-card">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/V-rLfjMn-ww/maxresdefault.jpg"></div>
+                            <div class="media-title">개인 크리에이티브 숏폼</div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- [MODE: STORYWIZ] -->
     <div id="storywiz-content" class="career-mode-content active">
         <section id="identity-storywiz">
             <span class="section-label">Identity</span>
             <div class="identity-container">
                 <div class="identity-text-area">
                     <h2>시대를 관통하는 서사성을 지닌 마케터,<br><span class="name-highlight">김승빈</span>입니다.</h2>
-                    <p>데이터와 문학, 기술과 감성을 연결하여 플랫폼의 경계를 허뭅니다. KT Storywiz에서의 실무 경험과 업무 자동화 툴을 통해 가치를 증명해왔습니다.</p>
+                    <p>데이터와 문학, 기술과 감성을 연결하여 플랫폼의 경계를 허뭅니다.</p>
                 </div>
                 <div class="portfolio-viewer-area">
                     <div class="viewer-screen"><img id="pf-image" src="slides/page_1.jpg"></div>
                     <div class="viewer-controls">
-                        <button class="btn-control" onclick="prevPage()">◀</button>
-                        <span id="page-indicator" class="page-indicator">1 / 47</span>
-                        <button class="btn-control" onclick="nextPage()">▶</button>
+                        <button onclick="prevPage()">◀</button>
+                        <span id="page-indicator">1 / 47</span>
+                        <button onclick="nextPage()">▶</button>
                     </div>
                 </div>
             </div>
@@ -366,40 +315,21 @@
             <h2 class="section-title">STORYWIZ SKILLS</h2>
             <div class="skill-container">
                 <div class="skill-row">
-                    <div class="skill-text"><h3>MOS & 문서</h3><p>전략 분석, 기획안, 업무 관리 등 실무에 최적화된 능력.</p></div>
-                    <div class="skill-image"><img src="skill_doc.jpg" alt="문서"></div>
-                </div>
-                <div class="skill-row">
-                    <div class="skill-text"><h3>프로그램</h3><p>EPUB 유통, SNS 마케팅, 디자인 및 편집 툴 활용.</p></div>
-                    <div class="skill-image"><img src="skill_prog.jpg" alt="프로그램"></div>
-                </div>
-                <div class="skill-row">
-                    <div class="skill-text"><h3>Python & AI</h3><p>업무 자동화 툴 독자 개발을 통한 효율 극대화.</p></div>
-                    <div class="skill-image"><img src="skill_code.jpg" alt="코드"></div>
+                    <div class="skill-text"><h3>MOS & 문서</h3><p>전략 분석, 기획안 최적화.</p></div>
+                    <div class="skill-image"><img src="skill_doc.jpg"></div>
                 </div>
             </div>
         </section>
 
         <section id="projects-storywiz">
-            <h2 class="section-title">STORYWIZ PROJECTS</h2>
+            <h2 class="section-title">STORYWIZ WORK</h2>
             <div class="project-item">
-                <div class="project-left">01 Distribution</div>
+                <div class="project-left">Distribution</div>
                 <div class="project-right">
-                    <span class="tag">MAIN CAREER</span>
+                    <span class="tag">MAIN</span>
                     <h3>판권 제휴 및 유통 대행 총괄</h3>
                     <ul>
-                        <li>남성향 웹소설 작품 단독 관리 및 프로모션 제안</li>
-                        <li>30여 개 플랫폼 유통 메타 데이터 규격화 및 파일 유기화</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="project-item">
-                <div class="project-left">02 Automation</div>
-                <div class="project-right">
-                    <span class="tag">TECH INNOVATION</span>
-                    <h3>업무 효율화 프로그램 자체 개발</h3>
-                    <ul>
-                        <li>MetaNamer.exe, Sales Automator 등 독자적 툴 개발</li>
+                        <li>30여 개 플랫폼 유통 메타 데이터 규격화</li>
                     </ul>
                 </div>
             </div>
@@ -409,53 +339,14 @@
             <h2 class="section-title">STORYWIZ MEDIA</h2>
             <div class="media-row">
                 <div class="media-col">
-                    <h3>대외활동 및 수상작</h3>
                     <a href="https://youtu.be/JwtP9eBf3UY" target="_blank" class="media-card">
                         <div class="media-thumb-wrapper"><img src="media_1.jpg"></div>
                         <div class="media-title">LG화학 광고 공모전 최우수상</div>
                     </a>
-                    <a href="https://www.youtube.com/watch?v=YxuV_0BQvvY" target="_blank" class="media-card">
-                        <div class="media-thumb-wrapper"><img src="media_2.jpg"></div>
-                        <div class="media-title">부트캠프 '무드캐처' PM/마케터</div>
-                    </a>
-                </div>
-                <div class="media-col">
-                    <h3>개인 마케팅 채널</h3>
-                    <a href="https://youtu.be/o0eMDdf7TSg" target="_blank" class="media-card">
-                        <div class="media-thumb-wrapper"><img src="media_3.jpg"></div>
-                        <div class="media-title">허승기 Vlog</div>
-                    </a>
-                    <a href="https://youtube.com/shorts/UDWzKwlCiF8" target="_blank" class="media-card">
-                        <div class="media-thumb-wrapper"><img src="media_4.jpg"></div>
-                        <div class="media-title">웹타마툰 숏폼</div>
-                    </a>
                 </div>
             </div>
-
-            <h3 style="font-size:1.6rem; margin:80px 0 30px; text-transform:uppercase;">공모전 출품작</h3>
-            <div class="contest-grid">
-                <a href="https://youtube.com/shorts/6yfNwLtzqiM" target="_blank" class="media-card"><div class="media-thumb-wrapper"><img src="contest_1.jpg"></div><div class="media-title">퓨리얼 AI 우주편</div></a>
-                <a href="https://youtube.com/shorts/zAQXZcX1YKA" target="_blank" class="media-card"><div class="media-thumb-wrapper"><img src="contest_2.jpg"></div><div class="media-title">퓨리얼 AI 바다편</div></a>
-                <div class="media-card"><div class="media-thumb-wrapper"><img src="contest_preparing.jpg"></div><div class="media-title">출품 예정</div></div>
-                <div class="media-card"><div class="media-thumb-wrapper"><img src="contest_preparing.jpg"></div><div class="media-title">출품 예정</div></div>
-            </div>
-
-            <h3 style="font-size:1.6rem; margin:80px 0 30px; text-transform:uppercase;">SNS 마케팅 및 매니지먼트</h3>
             <div class="ad-grid">
                 <div class="ad-card" onclick="openModal('modal-sns-1')"><img src="sns_1_1.jpg"><div class="ad-footer">스토리위즈 SNS</div></div>
-                <div class="ad-card" onclick="openModal('modal-sns-2')"><img src="sns_2_1.jpg"><div class="ad-footer">위즈스타 SNS</div></div>
-                <div class="ad-card" onclick="openModal('modal-sns-3')"><img src="sns_3_1.jpg"><div class="ad-footer">인재개발원</div></div>
-                <div class="ad-card" onclick="openModal('modal-sns-4')"><img src="sns_4_1.jpg"><div class="ad-footer">부트캠프 마케팅</div></div>
-                <div class="ad-card" onclick="openModal('modal-sns-5')"><img src="sns_5_1.jpg"><div class="ad-footer">매거진 활동</div></div>
-            </div>
-
-            <h3 style="font-size:1.6rem; margin:80px 0 30px; text-transform:uppercase;">광고물 제작 시안</h3>
-            <div class="ad-grid">
-                <div class="ad-card" onclick="openModal('modal-1')"><img src="ad_1.jpg"><div class="ad-footer">트라이폴드 버거</div></div>
-                <div class="ad-card" onclick="openModal('modal-2')"><img src="ad_2.jpg"><div class="ad-footer">흑백요리사 S2</div></div>
-                <div class="ad-card" onclick="openModal('modal-3')"><img src="ad_3.jpg"><div class="ad-footer">도시정형외과</div></div>
-                <div class="ad-card" onclick="openModal('modal-4')"><img src="ad_4.jpg"><div class="ad-footer">침토피아 채널</div></div>
-                <div class="ad-card" onclick="openModal('modal-5')"><img src="ad_5.jpg"><div class="ad-footer">카더가든 다큐</div></div>
             </div>
         </section>
     </div>
@@ -464,19 +355,6 @@
         <h2>Let's Make the Next Story.</h2>
         <p>© 2026 Kim Seung Bin. All Rights Reserved.</p>
     </footer>
-
-    <!-- [MODALS] -->
-    <div id="modal-sns-1" class="modal-overlay" onclick="closeModal('modal-sns-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-1')">×</button><div class="modal-image-area" id="slider-1"><button class="slider-btn prev-btn" onclick="moveSlide('slider-1', -1)">&#10094;</button><img class="slide-img active" src="sns_1_1.jpg"><img class="slide-img" src="sns_1_2.jpg"><img class="slide-img" src="sns_1_3.jpg"><button class="slider-btn next-btn" onclick="moveSlide('slider-1', 1)">&#10095;</button></div><div class="modal-text-area"><h3>스토리위즈 공식 SNS</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>채널 브랜딩 및 콘텐츠 전략 수립</li><li>신간 이벤트 기획 및 매니지먼트</li></ul></div></div></div></div>
-    <div id="modal-sns-2" class="modal-overlay" onclick="closeModal('modal-sns-2')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-2')">×</button><div class="modal-image-area" id="slider-2"><button class="slider-btn prev-btn" onclick="moveSlide('slider-2', -1)">&#10094;</button><img class="slide-img active" src="sns_2_1.jpg"><img class="slide-img" src="sns_2_2.jpg"><button class="slider-btn next-btn" onclick="moveSlide('slider-2', 1)">&#10095;</button></div><div class="modal-text-area"><h3>위즈스타 SNS</h3><p>캐릭터 IP 마케팅 및 바이럴 소통 채널 운영</p></div></div></div>
-    <div id="modal-sns-3" class="modal-overlay" onclick="closeModal('modal-sns-3')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-3')">×</button><div class="modal-image-area" id="slider-3"><img class="slide-img active" src="sns_3_1.jpg"></div><div class="modal-text-area"><h3>인재개발원</h3><p>홈페이지 관리 및 정보 전달 최적화</p></div></div></div>
-    <div id="modal-sns-4" class="modal-overlay" onclick="closeModal('modal-sns-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-4')">×</button><div class="modal-image-area" id="slider-4"><img class="slide-img active" src="sns_4_1.jpg"></div><div class="modal-text-area"><h3>부트캠프 앱 마케팅</h3><p>앱 런칭 이벤트 및 PM 활동</p></div></div></div>
-    <div id="modal-sns-5" class="modal-overlay" onclick="closeModal('modal-sns-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-5')">×</button><div class="modal-image-area" id="slider-5"><img class="slide-img active" src="sns_5_1.jpg"></div><div class="modal-text-area"><h3>전공 연계 매거진</h3><p>콘텐츠 기획 및 디자인 활동</p></div></div></div>
-
-    <div id="modal-1" class="modal-overlay" onclick="closeModal('modal-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-1')">×</button><div class="modal-image-area"><img src="ad_1.jpg" style="width:100%;height:100%;object-fit:contain;"></div><div class="modal-text-area"><h3>트라이폴드 버거</h3><p>삼성 Z TriFold 이슈 연계 광고 시안</p></div></div></div>
-    <div id="modal-2" class="modal-overlay" onclick="closeModal('modal-2')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-2')">×</button><div class="modal-image-area"><img src="ad_2.jpg" style="width:100%;height:100%;object-fit:contain;"></div><div class="modal-text-area"><h3>흑백요리사 시즌 2</h3><p>트렌디한 예능 모티프 마케팅 디자인</p></div></div></div>
-    <div id="modal-3" class="modal-overlay" onclick="closeModal('modal-3')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-3')">×</button><div class="modal-image-area"><img src="ad_3.jpg" style="width:100%;height:100%;object-fit:contain;"></div><div class="modal-text-area"><h3>도시정형외과</h3><p>비주얼 임팩트 중심 시안</p></div></div></div>
-    <div id="modal-4" class="modal-overlay" onclick="closeModal('modal-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-4')">×</button><div class="modal-image-area"><img src="ad_4.jpg" style="width:100%;height:100%;object-fit:contain;"></div><div class="modal-text-area"><h3>침토피아 채널</h3><p>유튜브 채널 맞춤 크리에이티브</p></div></div></div>
-    <div id="modal-5" class="modal-overlay" onclick="closeModal('modal-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-5')">×</button><div class="modal-image-area"><img src="ad_5.jpg" style="width:100%;height:100%;object-fit:contain;"></div><div class="modal-text-area"><h3>카더가든 다큐</h3><p>뮤지션 브랜딩 콘텐츠 시안</p></div></div></div>
 
     <script>
         function toggleMode(mode) {
@@ -496,12 +374,11 @@
                 cardShinhan.classList.add('active-shinhan');
                 cardStorywiz.classList.remove('active-storywiz');
                 document.body.style.backgroundColor = "#f0f5ff";
-                
                 nav.innerHTML = `
                     <li><a href="#identity-shinhan">Identity</a></li>
                     <li><a href="#career-history">Career</a></li>
                     <li><a href="#projects-shinhan">Achievements</a></li>
-                    <li><a href="#media-shinhan">Videos</a></li>
+                    <li><a href="#media-shinhan">Media</a></li>
                     <li><a href="#career-selector">Switch</a></li>
                 `;
                 shinhanCont.scrollIntoView({ behavior: 'smooth' });
@@ -513,7 +390,6 @@
                 cardStorywiz.classList.add('active-storywiz');
                 cardShinhan.classList.remove('active-shinhan');
                 document.body.style.backgroundColor = "#fff";
-
                 nav.innerHTML = `
                     <li><a href="#identity-storywiz">Identity</a></li>
                     <li><a href="#career-history">Career</a></li>
@@ -525,32 +401,17 @@
                 storywizCont.scrollIntoView({ behavior: 'smooth' });
             }
         }
-
-        // 초기화
         toggleMode('storywiz');
 
         let currentPage = 1; const totalPages = 47; 
         function updateViewer() {
-            const img = document.getElementById("pf-image");
-            if(img) img.src = `slides/page_${currentPage}.jpg`;
-            const indicator = document.getElementById("page-indicator");
-            if(indicator) indicator.innerText = `${currentPage} / ${totalPages}`;
+            document.getElementById("pf-image").src = `slides/page_${currentPage}.jpg`;
+            document.getElementById("page-indicator").innerText = `${currentPage} / ${totalPages}`;
         }
         function nextPage() { currentPage = (currentPage < totalPages) ? currentPage + 1 : 1; updateViewer(); }
         function prevPage() { currentPage = (currentPage > 1) ? currentPage - 1 : totalPages; updateViewer(); }
-
         function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = 'auto'; }
-
-        function moveSlide(containerId, step) {
-            const container = document.getElementById(containerId);
-            const images = container.getElementsByClassName('slide-img');
-            let idx = 0;
-            for(let i=0; i<images.length; i++) { if(images[i].classList.contains('active')) { idx = i; break; } }
-            images[idx].classList.remove('active');
-            let nextIdx = (idx + step + images.length) % images.length;
-            images[nextIdx].classList.add('active');
-        }
     </script>
 </body>
 </html>
