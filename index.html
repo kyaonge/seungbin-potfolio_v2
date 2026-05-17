@@ -30,31 +30,86 @@
             transition: background-color 0.5s ease;
         }
 
-        /* [HEADER] */
+        /* 깨진 이미지 아이콘 우아하게 숨기기 */
+        img[onerror] {
+            transition: opacity 0.3s;
+        }
+
+        /* [HEADER] 메뉴 스타일 초기화 */
         header {
             position: fixed; top: 0; left: 0; width: 100%; height: 110px;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px); border-bottom: 1px solid var(--black); z-index: 1000;
         }
-        header a { text-decoration: none !important; color: var(--black) !important; transition: opacity 0.3s; }
+        
+        header a { 
+            text-decoration: none !important; 
+            color: var(--black) !important; 
+            transition: opacity 0.3s;
+        }
 
-        .header-mode-selector { display: flex; gap: 40px; margin-bottom: 12px; font-size: 0.9rem; font-weight: 800; letter-spacing: 1px; }
+        /* 상단 기업 선택 메뉴 */
+        .header-mode-selector { 
+            display: flex; gap: 40px; margin-bottom: 12px;
+            font-size: 0.9rem; font-weight: 800; letter-spacing: 1px;
+        }
         .mode-tab { cursor: pointer; opacity: 0.3; transition: 0.3s; padding-bottom: 4px; border-bottom: 2px solid transparent; }
         .mode-tab.active { opacity: 1; border-color: var(--black); }
         .mode-tab.shinhan-tab.active { color: var(--shinhan-blue) !important; border-color: var(--shinhan-blue); }
 
+        /* 하단 섹션 내비게이션 및 호버 애니메이션 라인 */
         header nav ul { display: flex; gap: 30px; list-style: none; }
-        header nav a { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
-        header nav a:hover { opacity: 0.6; }
+        header nav a { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; position: relative; display: inline-block; padding-bottom: 4px; }
+        header nav a::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0;
+            background-color: var(--black); transition: width 0.3s;
+        }
+        header nav a:hover::after { width: 100%; }
+
+        /* 신한 모드일 때 내비게이션 라인 컬러 동적 변경 */
+        .shinhan-theme-container header nav a::after {
+            background-color: var(--shinhan-blue);
+        }
 
         /* Spline Intro */
-        .spline-intro { position: relative; width: 100%; height: 100vh; background-color: #000; overflow: hidden; cursor: pointer; }
+        .spline-intro {
+            position: relative; width: 100%; height: 100vh;
+            background-color: #000; overflow: hidden; cursor: pointer;
+        }
         .spline-intro iframe { width: 100%; height: 100%; border: none; }
-        .scroll-indicator { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); color: #fff; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; animation: bounce 2s infinite; pointer-events: none; z-index: 10; text-align: center; }
+        .scroll-indicator {
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+            color: #fff; font-size: 0.9rem; font-weight: 600; text-transform: uppercase;
+            animation: bounce 2s infinite; pointer-events: none; z-index: 10; text-align: center;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);} 40% {transform: translateX(-50%) translateY(-10px);} 60% {transform: translateX(-50%) translateY(-5px);} }
 
-        /* Sections */
+        /* [SECTION 1] HERO - 좌측 타이포그래피, 우측 프로필 정렬 및 흑백 호버 트랜지션 완벽 반영 */
+        .hero {
+            min-height: 95vh; padding-top: 130px; padding-bottom: 50px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding-left: 5vw; padding-right: 5vw; gap: 20px;
+        }
+        .hero-text { flex: 1.4; z-index: 2; padding-right: 0; }
+        .hero h1 {
+            font-size: 6.2vw; line-height: 1.1; font-weight: 900;
+            text-transform: uppercase; letter-spacing: -2px; margin-bottom: 30px;
+            word-break: keep-all; color: var(--black);
+        }
+        .hero p.sub-title { font-size: 2.5vw; font-weight: 800; margin-bottom: 20px; text-transform: uppercase; color: #333; letter-spacing: 0px; }
+        .hero p.desc { font-size: 1.8vw; font-weight: 500; color: #555; word-break: keep-all; line-height: 1.5; margin-top: 10px; }
+        
+        .hero-image { flex: 1; display: flex; justify-content: flex-end; align-items: center; height: 100%; }
+        .hero-image img {
+            width: auto; max-width: 100%; height: 85vh; object-fit: cover;
+            object-position: top center; filter: grayscale(100%);
+            transition: filter 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .hero-image img:hover { filter: grayscale(0%); transform: scale(1.01); }
+
+        /* Common Section Layout */
         section { padding: 120px 5vw; border-top: 1px solid var(--black); }
         .section-label { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; display: inline-block; border-bottom: 2px solid var(--black); padding-bottom: 5px; }
         h2.section-title { font-size: 3.2rem; font-weight: 900; margin-bottom: 60px; text-transform: uppercase; letter-spacing: -1px; }
@@ -68,43 +123,92 @@
         .history-item .date { display: inline-block; min-width: 180px; color: #777; font-weight: 600; }
         .history-item.highlight { font-weight: 800; color: var(--black); }
 
-        /* Career Selector */
+        /* 성과 및 수상 연도별 디자인 스타일 */
+        .award-yearly-container { display: flex; flex-direction: column; gap: 30px; border-left: 1px solid var(--line); padding-left: 30px; margin-left: 6px; }
+        .year-block { position: relative; }
+        .year-title { font-weight: 800; font-size: 1.3rem; margin-bottom: 12px; color: var(--black); display: flex; align-items: center; }
+        .year-title::before { content: ''; width: 8px; height: 8px; background: var(--black); border-radius: 50%; display: inline-block; margin-right: 12px; }
+        .shinhan-theme-container .year-title::before { background: var(--shinhan-blue); }
+        .year-list { list-style: none; padding-left: 20px; }
+        .year-item { margin-bottom: 10px; font-size: 1.1rem; color: #444; line-height: 1.5; }
+        .year-item .date-small { display: inline-block; min-width: 70px; color: #888; font-weight: 600; font-family: monospace; }
+        .year-item.highlight { font-weight: 700; color: var(--black); }
+        .year-item.highlight .date-small { color: var(--black); }
+
+        /* Career Selector Cards */
         .selector-area { padding: 100px 5vw; background: #f4f4f4; text-align: center; border-top: 1px solid var(--black); border-bottom: 1px solid var(--black); }
         .selector-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
-        .career-card { width: 450px; background: #fff; padding: 60px 40px; border: 2px solid transparent; cursor: pointer; transition: 0.4s; display: flex; flex-direction: column; align-items: center; box-shadow: 0 15px 35px rgba(0,0,0,0.05); }
+        .career-card {
+            width: 450px; background: #fff; padding: 60px 40px; border: 2px solid transparent; cursor: pointer;
+            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); display: flex; flex-direction: column; align-items: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        }
         .career-card img { height: 50px; margin-bottom: 30px; filter: grayscale(100%); transition: 0.3s; }
         .career-card:hover { transform: translateY(-10px); border-color: #ccc; }
         .career-card:hover img { filter: grayscale(0%); }
         .career-card.active-shinhan { border-color: var(--shinhan-blue); background: #f0f5ff; }
+        .career-card.active-shinhan img { filter: grayscale(0%); }
         .career-card.active-storywiz { border-color: var(--black); background: #f9f9f9; }
+        .career-card.active-storywiz img { filter: grayscale(0%); }
 
-        /* Dynamic Mode Content */
+        /* Dynamic Content Toggle */
         .career-mode-content { display: none; }
         .career-mode-content.active { display: block; animation: fadeIn 0.8s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Projects & Lists */
+        /* Projects & Lists (Bullets 점 중복 제거 반영) */
         .project-item { display: flex; border-bottom: 1px solid var(--black); min-height: 400px; }
-        .project-left { flex: 0 0 380px; padding: 60px 40px; border-right: 1px solid var(--black); font-size: 2.2rem; font-weight: 900; line-height: 1.1; }
+        .project-left { flex: 0 0 380px; padding: 60px 40px; border-right: 1px solid var(--black); font-size: 2.2rem; font-weight: 900; line-height: 1.1; display: flex; flex-direction: column; justify-content: space-between; }
+        .project-num { font-size: 1.2rem; font-weight: 500; margin-bottom: 40px; color: #666; font-family: monospace; }
         .project-right { flex: 1; padding: 60px 50px; display: flex; flex-direction: column; justify-content: center; }
         .project-right ul { list-style: none; }
-        .project-right ul li { margin-bottom: 15px; font-size: 1.1rem; position: relative; padding-left: 20px; }
-        .project-right ul li::before { content: '•'; position: absolute; left: 0; font-weight: bold; }
-        .project-right .tag { display: inline-block; padding: 6px 14px; border: 1px solid var(--black); border-radius: 50px; font-size: 0.85rem; font-weight: 700; margin-bottom: 20px; width: fit-content; }
+        .project-right ul li { margin-bottom: 15px; font-size: 1.15rem; position: relative; padding-left: 20px; color: #333; line-height: 1.6; }
+        .project-right ul li::before { content: '•'; position: absolute; left: 0; font-weight: bold; color: var(--black); }
+        .project-right .tag { display: inline-block; padding: 6px 14px; border: 1px solid var(--black); border-radius: 50px; font-size: 0.85rem; font-weight: 700; margin-bottom: 20px; width: fit-content; background: var(--white); }
 
-        /* Media Grid */
+        /* Skills Layout */
+        .skill-container { display: flex; flex-direction: column; gap: 80px; }
+        .skill-row { display: flex; align-items: center; justify-content: space-between; }
+        .skill-text { flex: 0 0 30%; padding-right: 20px; }
+        .skill-text h3 { font-size: 1.8rem; font-weight: 800; margin-bottom: 15px; }
+        .skill-text p { font-size: 1rem; color: #555; word-break: keep-all; }
+        .skill-image { flex: 1; background: var(--skill-bg); border: 1px solid var(--skill-border); padding: 40px; border-radius: 20px; display: flex; justify-content: center; align-items: center; transition: transform 0.4s, box-shadow 0.4s, border-color 0.3s; cursor: default; }
+        .skill-image img { width: 100%; max-width: 700px; height: auto; object-fit: contain; }
+        .skill-image:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: #d0d0d0; }
+
+        /* Media Grids */
         .media-row { display: flex; justify-content: space-between; gap: 40px; margin-bottom: 40px; flex-wrap: wrap; }
         .media-col { flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 40px; }
-        .media-col h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 10px; padding-bottom: 15px; border-bottom: 2px solid var(--black); text-transform: uppercase; }
+        .media-col h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; padding-bottom: 15px; border-bottom: 3px solid var(--black); text-transform: uppercase; }
         .media-card { display: block; text-decoration: none; color: inherit; }
         .media-thumb-wrapper { width: 100%; aspect-ratio: 16 / 9; background: #eee; border-radius: 8px; overflow: hidden; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: 0.3s; }
-        .media-thumb-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        .media-thumb-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .media-card:hover .media-thumb-wrapper img { transform: scale(1.05); }
         .media-card:hover .media-thumb-wrapper { transform: translateY(-5px); }
-        .media-title { font-size: 1.1rem; font-weight: 800; margin-top: 15px; margin-bottom: 5px; }
         
+        .media-thumb-wrapper::after { content: '▶'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); opacity: 0.8; transition: opacity 0.3s; }
+        .media-card:hover .media-thumb-wrapper::after { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        .media-card.preparing .media-thumb-wrapper::after { display: none; }
+        .media-card.preparing { cursor: default; }
+
+        .media-title { font-size: 1.2rem; font-weight: 800; margin-top: 15px; margin-bottom: 5px; word-break: keep-all; transition: border-color 0.3s; display: inline-block; }
+        .media-card:not(.preparing):hover .media-title { border-bottom: 2px solid var(--black); }
+        .media-desc { font-size: 0.95rem; color: #666; font-weight: 500; }
+
+        .grid-section-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 30px; text-transform: uppercase; margin-top: 80px; }
+        .contest-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-top: 40px; }
+        .ad-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 30px; margin-top: 40px; }
+        
+        .ad-card { border: 1px solid #eee; background: #fff; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; }
+        .ad-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+        .ad-footer { padding: 15px; text-align: center; font-weight: 800; border-top: 1px solid #eee; }
+        .ad-card:hover { transform: translateY(-5px); border-color: var(--black); }
+        .ad-card:hover::after { content: 'Click to View Detail +'; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; opacity: 0; transition: opacity 0.3s; }
+        .ad-card:hover::after { opacity: 1; }
+
         .sub-category-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; color: #555; background: #f0f0f0; padding: 8px 15px; border-radius: 4px; display: inline-block; }
 
-        /* Shinhan Theme Color */
+        /* Shinhan Theme Color Override */
         .shinhan-theme-container .name-highlight { background-color: var(--shinhan-blue); }
         .shinhan-theme-container .section-label { border-color: var(--shinhan-blue); color: var(--shinhan-blue); }
         .shinhan-theme-container h2.section-title { color: var(--shinhan-blue); }
@@ -112,42 +216,185 @@
         .shinhan-theme-container .tag { border-color: var(--shinhan-blue); color: var(--shinhan-blue); }
         .shinhan-theme-container .sub-category-title { color: var(--shinhan-blue); background: #f0f5ff; }
 
-        /* Viewer */
+        /* Viewer UI */
         .portfolio-viewer-area { flex: 0 0 580px; background: #FAFAFA; padding: 25px; border: 1px solid #E5E5E5; text-align: center; }
         .viewer-screen { width: 100%; aspect-ratio: 16 / 9; background: #fff; border: 1px solid #eee; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 25px; }
         .viewer-screen img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .viewer-controls { display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 25px; }
+        .btn-control { background: transparent; border: 1px solid var(--black); width: 42px; height: 42px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; color: var(--black); }
+        .btn-control:hover { background: var(--black); color: var(--white); }
+        .page-indicator { font-size: 1rem; font-weight: 600; min-width: 80px; }
+        .btn-download { display: inline-block; padding: 14px 40px; background: var(--black); color: var(--white); font-weight: 700; text-transform: uppercase; border: 1px solid var(--black); transition: 0.3s; font-size: 0.9rem; }
+        .btn-download:hover { background: var(--white); color: var(--black); }
 
-        /* Modals */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center; padding: 30px; backdrop-filter: blur(8px); }
+        /* 신한 상세 업무 리스트 전용 스타일 */
+        .shinhan-roles { margin-top: 40px; display: flex; flex-direction: column; gap: 20px; }
+        .role-card { background: #f4f7ff; padding: 22px; border-left: 4px solid var(--shinhan-blue); border-radius: 4px; transition: transform 0.3s, box-shadow 0.3s; }
+        .role-card:hover { transform: translateX(5px); box-shadow: 0 5px 15px rgba(0, 70, 255, 0.08); }
+        .role-card-title { font-weight: 800; font-size: 1.15rem; color: #111; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .role-card-desc { font-size: 0.98rem; color: #555; line-height: 1.6; }
+
+        /* [MODAL SYSTEM CSS - 복구 완벽 반영] */
+        .modal-overlay { 
+            display: none; 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.9); 
+            z-index: 9999; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 30px; 
+            backdrop-filter: blur(8px); 
+        }
         .modal-overlay.active { display: flex; }
-        .modal-content { background: #fff; width: 100%; max-width: 1000px; max-height: 90vh; overflow-y: auto; position: relative; }
-        .modal-close { position: absolute; top: 20px; right: 20px; font-size: 2.2rem; cursor: pointer; border: none; background: none; z-index: 10; }
-        .modal-image-area { width: 100%; background: #f4f4f4; aspect-ratio: 16/9; display: flex; justify-content: center; overflow: hidden; position: relative; }
+        .modal-content { 
+            background: #fff; 
+            width: 100%; 
+            max-width: 1000px; 
+            max-height: 90vh; 
+            overflow-y: auto; 
+            position: relative; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        .modal-close { 
+            position: absolute; 
+            top: 20px; right: 20px; 
+            font-size: 2.2rem; 
+            cursor: pointer; 
+            border: none; 
+            background: none; 
+            z-index: 10; 
+            color: #000; 
+        }
+        .modal-image-area { 
+            width: 100%; 
+            background: #f4f4f4; 
+            aspect-ratio: 16/9; 
+            display: flex; 
+            justify-content: center; 
+            overflow: hidden; 
+            position: relative; 
+        }
         .slide-img { display: none; width: 100%; height: 100%; object-fit: contain; }
         .slide-img.active { display: block; }
+        .modal-text-area { padding: 40px; }
+        .modal-text-area h3 { font-size: 2rem; font-weight: 800; margin-bottom: 30px; border-bottom: 2px solid #000; padding-bottom: 15px; }
+        .modal-section { margin-bottom: 30px; }
+        .modal-section h4 { font-size: 1.3rem; font-weight: 800; border-left: 4px solid #000; padding-left: 12px; margin-bottom: 15px; }
+        .modal-section ul { list-style: none; }
+        .modal-section li { margin-bottom: 10px; position: relative; padding-left: 15px; font-size: 1.05rem; color: #444; }
+        .modal-section li::before { content: '-'; position: absolute; left: 0; }
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: #fff; border: none; padding: 12px; cursor: pointer; z-index: 5; font-size: 1.5rem; transition: background 0.3s; }
+        .slider-btn:hover { background: rgba(0,0,0,0.8); }
+        .prev-btn { left: 0; } .next-btn { right: 0; }
+
+        /* 깨진 이미지 시안 보완 및 고급 백그라운드 플레이스홀더 */
+        .ad-image {
+            position: relative;
+            background: #eaeaea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* [만족도 조사 결과 전용 스타일링] */
+        .survey-insight-container {
+            margin-top: 30px;
+            background: #f8faff;
+            border: 1px solid #e0e8f9;
+            padding: 25px;
+            border-radius: 6px;
+        }
+        .survey-insight-container h4 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--shinhan-blue);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .survey-insight-container p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+        .survey-chart-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .survey-chart-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .survey-chart-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        .survey-chart-label.highlight-item {
+            font-size: 0.98rem;
+            font-weight: 800;
+            color: var(--shinhan-blue);
+        }
+        .survey-bar-track {
+            width: 100%;
+            height: 8px;
+            background: #eef2f6;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .survey-bar-track.highlight-track {
+            height: 12px;
+            border-radius: 6px;
+        }
+        .survey-bar-fill {
+            height: 100%;
+            background: #cbd4e1;
+            border-radius: 4px;
+            transition: width 1s ease-out;
+        }
+        .survey-bar-fill.highlight-fill {
+            background: var(--shinhan-blue);
+            border-radius: 6px;
+        }
 
         footer { background: var(--black); color: var(--white); padding: 80px 5vw; text-align: center; }
 
         @media (max-width: 960px) {
             header { height: auto; padding: 20px 0; }
+            header nav ul { gap: 15px; flex-wrap: wrap; justify-content: center; }
             .hero { flex-direction: column-reverse; text-align: center; padding-top: 150px; }
+            .identity-container { flex-direction: column; }
             .project-item { flex-direction: column; }
             .project-left { border-right: none; border-bottom: 1px solid var(--black); width: 100%; padding: 40px 20px; }
-            .media-col { min-width: 100%; }
+            .media-row { flex-direction: column; gap: 60px; }
+            .contest-grid { grid-template-columns: 1fr; }
+            .modal-content { max-height: 85vh; width: 95%; }
+            .modal-text-area { padding: 20px; }
         }
     </style>
 </head>
-<body class="storywiz-mode">
+<body class="shinhan-theme-container"> <!-- 기본 로드 시 신한금융플러스 테마 적용 -->
 
     <header>
         <div class="header-mode-selector">
-            <div id="tab-shinhan" class="mode-tab shinhan-tab" onclick="toggleMode('shinhan')">SHINHAN FINANCIAL PLUS</div>
+            <div id="tab-shinhan" class="mode-tab shinhan-tab active" onclick="toggleMode('shinhan')">SHINHAN FINANCIAL PLUS</div>
             <div style="opacity:0.2">|</div>
-            <div id="tab-storywiz" class="mode-tab storywiz-tab active" onclick="toggleMode('storywiz')">KT STORYWIZ</div>
+            <div id="tab-storywiz" class="mode-tab storywiz-tab" onclick="toggleMode('storywiz')">KT STORYWIZ</div>
         </div>
         <nav>
             <ul id="dynamic-nav">
-                </ul>
+                <!-- JS로 자동 채움 -->
+            </ul>
         </nav>
     </header>
 
@@ -156,6 +403,7 @@
         <div class="scroll-indicator">Explore Narrative<br>▼</div>
     </div>
 
+    <!-- [HERO] 좌우 정렬 및 그레이스케일 마우스 호버 효과 복원 -->
     <section class="hero" id="hero">
         <div class="hero-text">
             <h1>"I Believe in<br>Narrative"</h1>
@@ -163,10 +411,11 @@
             <p class="desc">장르 간, 사람 간의 소통을 중시하는 인재.</p>
         </div>
         <div class="hero-image">
-            <img src="profile.jpg" alt="프로필">
+            <img src="profile.jpg" alt="김승빈 프로필 사진">
         </div>
     </section>
 
+    <!-- [1. CAREER HISTORY] -->
     <section id="career-history">
         <h2 class="section-title">GLOBAL CAREER HISTORY</h2>
         <div class="history-container">
@@ -175,27 +424,54 @@
                 <ul class="history-list">
                     <li class="history-item highlight"><span class="date">26.01.26. ~ 현재</span> 신한금융플러스 SNS 마케터 재직 중</li>
                     <li class="history-item"><span class="date">23.04.10. ~ 25.11.30.</span> KT 스토리위즈 재직 (퇴사)</li>
-                    <li class="history-item"><span class="date">22.01.03. ~ 22.02.28.</span> 연세대학교 미래캠퍼스 미래인재개발원 인턴</li>
+                    <li class="history-item"><span class="date">22.01.03. ~ 22.02.28.</span> 연세대학교 미래캠퍼스 미래인재개발원 학부생 인턴</li>
+                    <li class="history-item"><span class="date">20.06.09. ~ 21.05.08.</span> 한솔문화재단 뮤지엄산 전시장 서포터즈</li>
                 </ul>
             </div>
+            <!-- 수상이력 연도 단위 그룹화 -->
             <div class="history-group">
                 <h3>성과 및 수상</h3>
-                <ul class="history-list">
-                    <li class="history-item highlight"><span class="date">26.04.08.</span> 신한금융플러스 이 달의 우수 사원 선정</li>
-                    <li class="history-item highlight"><span class="date">21.11.26.</span> 제6회 LG화학 대학생 광고 공모전 최우수상</li>
-                </ul>
+                <div class="award-yearly-container">
+                    <div class="year-block">
+                        <div class="year-title">2026</div>
+                        <ul class="year-list">
+                            <li class="year-item highlight"><span class="date-small">04.08</span> 신한금융플러스 이 달의 우수 사원 선정</li>
+                        </ul>
+                    </div>
+                    <div class="year-block">
+                        <div class="year-title">2022</div>
+                        <ul class="year-list">
+                            <li class="year-item"><span class="date-small">08.26</span> 진리장학금 학업성적 최우등상</li>
+                        </ul>
+                    </div>
+                    <div class="year-block">
+                        <div class="year-title">2021</div>
+                        <ul class="year-list">
+                            <li class="year-item highlight"><span class="date-small">11.26</span> 제6회 LG화학 대학생 광고 공모전 최우수상</li>
+                            <li class="year-item"><span class="date-small">08.25</span> 연세대학교 인문예술대학 학과 홍보 영상 공모전 최우수상</li>
+                            <li class="year-item"><span class="date-small">04.19</span> 하루체험 유튜브 영상 공모전 우수상</li>
+                        </ul>
+                    </div>
+                    <div class="year-block">
+                        <div class="year-title">2019</div>
+                        <ul class="year-list">
+                            <li class="year-item"><span class="date-small">04.24</span> 19년 전반기 1포병여단 대대 전술훈련 유공 표창장</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- [2. CAREER SELECTOR CARDS] -->
     <div class="selector-area" id="career-selector">
         <div class="selector-grid">
-            <div class="career-card" id="card-shinhan" onclick="toggleMode('shinhan')">
+            <div class="career-card active-shinhan" id="card-shinhan" onclick="toggleMode('shinhan')">
                 <img src="image_0b6baa.png" alt="신한 로고">
                 <h3>Shinhan Financial Plus</h3>
                 <p>SNS Marketer (2026.01 ~ Present)</p>
             </div>
-            <div class="career-card active-storywiz" id="card-storywiz" onclick="toggleMode('storywiz')">
+            <div class="career-card" id="card-storywiz" onclick="toggleMode('storywiz')">
                 <img src="image_0b6c05.png" alt="스토리위즈 로고">
                 <h3>KT Storywiz</h3>
                 <p>Content Marketer & MD (2023.04 ~ 2025.11)</p>
@@ -203,13 +479,45 @@
         </div>
     </div>
 
-    <div id="shinhan-content" class="career-mode-content shinhan-theme-container">
+    <!-- [MODE: SHINHAN CONTENT] -->
+    <div id="shinhan-content" class="career-mode-content shinhan-theme-container active">
         <section id="identity-shinhan">
             <span class="section-label">Identity</span>
             <div class="identity-container">
                 <div class="identity-text-area">
                     <h2>금융의 가치를 소셜의 언어로,<br><span class="name-highlight">신한금융플러스</span> SNS 마케터 김승빈입니다.</h2>
-                    <p>복잡하고 딱딱한 금융 정보를 고객의 눈높이에 맞는 친숙한 콘텐츠로 재해석하여 강력한 브랜드 경험을 설계합니다.</p>
+                    <p style="margin-bottom: 25px;">복잡하고 딱딱한 금융 정보를 고객의 눈높이에 맞는 친숙한 콘텐츠로 재해석하여 강력한 브랜드 경험을 설계합니다.</p>
+                    <p style="margin-bottom: 35px;">현재 공식 유튜브 채널의 비약적인 성장을 견인하며, 전사적 대규모 행사를 성공적으로 주관하는 등 온·오프라인 마케팅 역량을 발휘하고 있습니다.</p>
+                    
+                    <!-- 신한 상세 업무 리스트 정리 -->
+                    <div class="shinhan-roles">
+                        <h4 style="font-size: 1.3rem; font-weight: 800; border-left: 4px solid var(--shinhan-blue); padding-left: 12px; margin-bottom: 10px;">주요 직무 및 실무 영역</h4>
+                        
+                        <div class="role-card">
+                            <div class="role-card-title">🎬 마케팅 광고 영상 기획 및 소재 제작</div>
+                            <div class="role-card-desc">매주 1회의 트렌디한 숏폼(Shorts) 소재 기획 및 제작, 격주 1회의 고품질 롱폼(Long-form) 영상 기획 및 연출을 전담하여 채널을 주기적으로 이끌어 가고 있습니다.</div>
+                        </div>
+
+                        <div class="role-card">
+                            <div class="role-card-title">🎨 프로모션 홍보 배너 제작 및 채널 송출</div>
+                            <div class="role-card-desc">일 2회, 주 5회 주기로 고효율 프로모션 홍보 배너 시안을 직접 제작하고 있습니다. 카카오톡 영업 알리미(플러스 친구) 발송 및 사내 내부 영업 어플리케이션 내의 배너 프로모션 홍보를 총괄합니다.</div>
+                        </div>
+
+                        <div class="role-card">
+                            <div class="role-card-title">🏆 대규모 사내 공식 행사 기획 및 총괄 PM</div>
+                            <div class="role-card-desc">전사 연도대상 시상식 주관 개최 및 포상 연수 행사인 '썸머페스티벌(해외 여행)'의 대외 비딩 등 굵직한 사내 핵심 행사의 실행을 주관하고 있으며, 본식 오프닝 및 시상 진행용 비디오 2종 제작 등 주요 실무를 총괄하고 있습니다.</div>
+                        </div>
+
+                        <div class="role-card">
+                            <div class="role-card-title">📄 대내외 공식 문서 수립 및 파트 행정</div>
+                            <div class="role-card-desc">파트 대내외 협조공문 작성, 대관 조율 및 내부 품의 기안서 등 전방위 파트 공식 문서를 책임 전담하며 정합성 높은 정기 마케팅 보고서를 수립합니다.</div>
+                        </div>
+
+                        <div class="role-card">
+                            <div class="role-card-title">🎤 인재 리쿠르팅 교육 기획 및 진행</div>
+                            <div class="role-card-desc">영업 조직의 핵심 리쿠르팅 역량 제고를 위해 체계적이고 깊이 있는 실무 교육 프로그램을 기획하고 성공적으로 전담 운영하였습니다.</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -222,16 +530,31 @@
                     <span class="tag">MAIN MISSION</span>
                     <h3>신한금융플러스 연도대상 조직성장파트 주관 개최</h3>
                     <ul>
+                        <li><strong>행사 일자:</strong> 2026.03.10</li>
                         <li><strong>행사 규모:</strong> 총 참석자 350명, 주관 예산 5억 원 이상</li>
-                        <li><strong>핵심 성과:</strong> 행사 실무 총괄 및 영상 2종 직접 제작</li>
+                        <li><strong>핵심 성과:</strong> 행사 실무 총괄 및 오프닝/시상 영상 2종 직접 제작</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="project-item">
+                <div class="project-left">YouTube Success</div>
+                <div class="project-right">
+                    <span class="tag">SNS GROWTH</span>
+                    <h3>공식 유튜브 채널 급성장 및 성과 도출</h3>
+                    <ul>
+                        <li><strong>26.04.02:</strong> 채널 첫 20만 조회수 영상 달성 (현재 22.9만)</li>
+                        <li><strong>26.03.27:</strong> 첫 5만 조회수 영상 달성 (현재 6.3만)</li>
+                        <li><strong>26.03.20:</strong> 공식 계정 첫 제작 게시물 업로드 및 채널 정체성 구축</li>
+                        <li><strong>26.04.11:</strong> 신한금융플러스 공식 회사소개 영상 제작 총괄</li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section id="media-shinhan">
-            <h2 class="section-title">SHINHAN MEDIA</h2>
+            <h2 class="section-title">SHINHAN VIDEOS & IMAGES</h2>
             
+            <!-- 업무 영상 구역 -->
             <div style="margin-bottom: 80px;">
                 <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 40px; display: flex; align-items: center;">
                     <span style="width: 8px; height: 30px; background: var(--shinhan-blue); margin-right: 15px;"></span>업무 영상
@@ -240,34 +563,103 @@
                 <div class="media-row">
                     <div class="media-col">
                         <div class="sub-category-title">Long-form 콘텐츠</div>
-                        <a href="https://youtu.be/Z8-g1n5b2J8" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/Z8-g1n5b2J8/maxresdefault.jpg"></div>
-                            <div class="media-title">신한금융플러스 브랜드 광고</div>
+                        <a href="https://youtu.be/Z8-g1n5b2J8" target="_blank" class="media-card" style="margin-bottom: 20px;">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/Z8-g1n5b2J8/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
+                            <div class="media-title">신한금융플러스 브랜드 광고 (26.05.04)</div>
                         </a>
                         <a href="https://youtu.be/C3i2OVxMvJc" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/C3i2OVxMvJc/maxresdefault.jpg"></div>
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/C3i2OVxMvJc/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
                             <div class="media-title">신규 업무 프로젝트 영상</div>
                         </a>
                     </div>
                     <div class="media-col">
                         <div class="sub-category-title">Shorts 콘텐츠 (Viral)</div>
-                        <a href="https://youtube.com/shorts/ZM9lb3GXAW8" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/ZM9lb3GXAW8/maxresdefault.jpg"></div>
+                        <a href="https://youtube.com/shorts/ZM9lb3GXAW8" target="_blank" class="media-card" style="margin-bottom: 20px;">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/ZM9lb3GXAW8/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
                             <div class="media-title">조회수 22.9만 돌파 숏폼</div>
                         </a>
-                        <a href="https://www.youtube.com/shorts/lOd6zm7s5ow" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/lOd6zm7s5ow/maxresdefault.jpg"></div>
+                        <a href="https://www.youtube.com/shorts/lOd6zm7s5ow" target="_blank" class="media-card" style="margin-bottom: 20px;">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/lOd6zm7s5ow/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
                             <div class="media-title">조회수 6.3만 돌파 숏폼</div>
                         </a>
                         <a href="https://youtube.com/shorts/AVOLq4A1bmE" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/AVOLq4A1bmE/maxresdefault.jpg"></div>
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/AVOLq4A1bmE/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
                             <div class="media-title">업무 관련 신규 숏폼</div>
                         </a>
                     </div>
                 </div>
+
+                <!-- 비공개 영상 섹션 -->
+                <div style="margin-top: 60px; padding-top: 40px; border-top: 1px dashed var(--line);">
+                    <div class="sub-category-title" style="background: #fff0f0; color: #ff4d4d; border: 1px solid #ffe3e3;">🔒 비공개 영상</div>
+                    <p style="margin-bottom: 25px; font-size: 0.95rem; color: #666; font-weight: 500;">
+                        * 해당 영상물은 내부 이용 목적 영상으로, 성과 확인용으로만 이용 부탁드립니다.
+                    </p>
+                    <div class="media-row">
+                        <div class="media-col">
+                            <a href="https://youtu.be/mWxe5FgP2-Y" target="_blank" class="media-card" style="margin-bottom: 20px;">
+                                <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/mWxe5FgP2-Y/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
+                                <div class="media-title">연도대상 브릿지 영상 1</div>
+                            </a>
+                            <a href="https://youtu.be/_4-7jBMEYlQ" target="_blank" class="media-card">
+                                <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/_4-7jBMEYlQ/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
+                                <div class="media-title">연도대상 브릿지 영상 2</div>
+                            </a>
+                        </div>
+                        <div class="media-col">
+                            <a href="https://youtu.be/TfaDyB57E5Y" target="_blank" class="media-card">
+                                <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/TfaDyB57E5Y/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
+                                <div class="media-title">회사소개영상 (타이포 미반영)</div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- [수정] 연도대상 만족도 피드백 데이터 분석 영역 추가 (sh367c08 기반 분석) -->
+                    <div class="survey-insight-container">
+                        <h4>📊 2026 연도대상 귀빈 피드백 분석 (만족도 조사 결과)</h4>
+                        <p>
+                            귀빈 350명 이상이 초청된 '2026 신한금융플러스 연도대상' 시상식 이후 실시된 현장 설문조사 결과입니다. 
+                            본 행사에서 직접 기획 및 연출을 총괄한 <strong>'AI 영상 콘텐츠 시청' 항목은 무려 <span style="color: var(--shinhan-blue); font-weight: 800;">44.8%</span>의 높은 지지율</strong>을 얻었습니다. 
+                            이는 단순 부가 프로그램을 넘어, 정통적인 강세를 보이는 '초청인 초대 및 동행(62.1%)' 다음으로 가장 높은 호평을 받은 성과이며, 시상식 무대 구성(42.5%)이나 고품격 답례품(31%) 구성을 뛰어넘어, <strong>입사 한 달 만에 기획력을 증명하며, 가시적인 성과를 낸 콘텐츠입니다.</strong>
+                        </p>
+                        <div class="survey-chart-list">
+                            <div class="survey-chart-item">
+                                <div class="survey-chart-label">초청인 초대 및 동행</div>
+                                <div class="survey-bar-track">
+                                    <div class="survey-bar-fill" style="width: 62.1%;"></div>
+                                </div>
+                            </div>
+                            <div class="survey-chart-item">
+                                <div class="survey-chart-label highlight-item">✨ AI 영상 콘텐츠 시청 (브릿지 영상 기획/제작)</div>
+                                <div class="survey-bar-track highlight-track">
+                                    <div class="survey-bar-fill highlight-fill" style="width: 44.8%;"></div>
+                                </div>
+                            </div>
+                            <div class="survey-chart-item">
+                                <div class="survey-chart-label">상패, 초대가수 등 시상식 구성</div>
+                                <div class="survey-bar-track">
+                                    <div class="survey-bar-fill" style="width: 42.5%;"></div>
+                                </div>
+                            </div>
+                            <div class="survey-chart-item">
+                                <div class="survey-chart-label">답례품, 럭키드로우 등 기념품 구성</div>
+                                <div class="survey-bar-track">
+                                    <div class="survey-bar-fill" style="width: 31%;"></div>
+                                </div>
+                            </div>
+                            <div class="survey-chart-item">
+                                <div class="survey-chart-label">대표님 건배사 및 만찬 식사</div>
+                                <div class="survey-bar-track">
+                                    <div class="survey-bar-fill" style="width: 21.8%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div>
+            <!-- 개인 프로젝트 구역 -->
+            <div style="margin-bottom: 80px;">
                 <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 40px; display: flex; align-items: center;">
                     <span style="width: 8px; height: 30px; background: #666; margin-right: 15px;"></span>개인 프로젝트
                 </h3>
@@ -276,88 +668,321 @@
                     <div class="media-col">
                         <div class="sub-category-title">Long-form 콘텐츠</div>
                         <a href="https://www.youtube.com/watch?v=2nO-dc9vxf4" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/2nO-dc9vxf4/maxresdefault.jpg"></div>
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/2nO-dc9vxf4/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
                             <div class="media-title">개인 브랜딩 프로젝트</div>
                         </a>
                     </div>
                     <div class="media-col">
                         <div class="sub-category-title">Shorts 콘텐츠</div>
-                        <a href="https://www.youtube.com/shorts/V-rLfjMn-ww" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/V-rLfjMn-ww/maxresdefault.jpg"></div>
-                            <div class="media-title">개인 크리에이티브 숏폼</div>
+                        <a href="https://www.youtube.com/shorts/V-rLfjMn-ww" target="_blank" class="media-card" style="margin-bottom: 20px;">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/V-rLfjMn-ww/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
+                            <div class="media-title">개인 크리에이티브 숏폼 01</div>
                         </a>
+                        <a href="https://youtube.com/shorts/yH0DdImER98" target="_blank" class="media-card">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/yH0DdImER98/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
+                            <div class="media-title">개인 크리에이티브 숏폼 02</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 홍보용 배너 6종 그리드 영역 -->
+            <div>
+                <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 40px; display: flex; align-items: center;">
+                    <span style="width: 8px; height: 30px; background: var(--shinhan-blue); margin-right: 15px;"></span>홍보용 배너 이미지
+                </h3>
+                <p style="margin-bottom: 30px; opacity: 0.7; font-weight: 500; line-height: 1.6;">
+                    * 카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 배너로 제작 및 유통된 이미지 시안입니다.<br>
+                    * 각 카드 시안을 클릭하면 상세 내용을 1:1 확대 비율로 확인하실 수 있습니다.
+                </p>
+                <div class="ad-grid">
+                    <div class="ad-card" onclick="openModal('modal-sh-1')">
+                        <div class="ad-image"><img src="sh1.jpg" alt="배너 1" onerror="this.style.opacity='0';"></div>
+                        <div class="ad-footer"><div class="ad-title">홍보 배너 시안 01</div></div>
+                    </div>
+                    <div class="ad-card" onclick="openModal('modal-sh-2')">
+                        <div class="ad-image"><img src="sh2.jpg" alt="배너 2" onerror="this.style.opacity='0';"></div>
+                        <div class="ad-footer"><div class="ad-title">홍보 배너 시안 02</div></div>
+                    </div>
+                    <div class="ad-card" onclick="openModal('modal-sh-3')">
+                        <div class="ad-image"><img src="sh3.jpg" alt="배너 3" onerror="this.style.opacity='0';"></div>
+                        <div class="ad-footer"><div class="ad-title">홍보 배너 시안 03</div></div>
+                    </div>
+                    <div class="ad-card" onclick="openModal('modal-sh-4')">
+                        <div class="ad-image"><img src="sh4.jpg" alt="배너 4" onerror="this.style.opacity='0';"></div>
+                        <div class="ad-footer"><div class="ad-title">홍보 배너 시안 04</div></div>
+                    </div>
+                    <div class="ad-card" onclick="openModal('modal-sh-5')">
+                        <div class="ad-image"><img src="sh5.jpg" alt="배너 5" onerror="this.style.opacity='0';"></div>
+                        <div class="ad-footer"><div class="ad-title">홍보 배너 시안 05</div></div>
+                    </div>
+                    <div class="ad-card" onclick="openModal('modal-sh-6')">
+                        <div class="ad-image"><img src="sh6.jpg" alt="배너 6" onerror="this.style.opacity='0';"></div>
+                        <div class="ad-footer"><div class="ad-title">홍보 배너 시안 06</div></div>
                     </div>
                 </div>
             </div>
         </section>
     </div>
 
-    <div id="storywiz-content" class="career-mode-content active">
+    <!-- [MODE: STORYWIZ CONTENT] -->
+    <div id="storywiz-content" class="career-mode-content">
         <section id="identity-storywiz">
             <span class="section-label">Identity</span>
             <div class="identity-container">
                 <div class="identity-text-area">
                     <h2>시대를 관통하는 서사성을 지닌 마케터,<br><span class="name-highlight">김승빈</span>입니다.</h2>
-                    <p>데이터와 문학, 기술과 감성을 연결하여 플랫폼의 경계를 허뭅니다.</p>
+                    <p>데이터와 문학, 기술과 감성을 연결하여 플랫폼의 경계를 허뭅니다. 단순한 유통을 넘어, 콘텐츠가 가진 잠재력을 폭발시키는 Complete Narrative를 설계합니다.</p>
+                    <p>KT Storywiz에서의 실무 경험 and 직접 개발한 업무 자동화 툴을 통해 불가능을 효율로 바꾸고, 크리에이티브한 기획으로 숫자를 넘어선 가치를 증명해왔습니다.</p>
                 </div>
                 <div class="portfolio-viewer-area">
-                    <div class="viewer-screen"><img id="pf-image" src="slides/page_1.jpg"></div>
+                    <div class="viewer-screen"><img id="pf-image" src="slides/page_1.jpg" alt="포트폴리오 슬라이드"></div>
                     <div class="viewer-controls">
-                        <button onclick="prevPage()">◀</button>
-                        <span id="page-indicator">1 / 47</span>
-                        <button onclick="nextPage()">▶</button>
+                        <button class="btn-control" onclick="prevPage()">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        </button>
+                        <span id="page-indicator" class="page-indicator">1 / 47</span>
+                        <button class="btn-control" onclick="nextPage()">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </button>
+                    </div>
+                    <div class="download-area">
+                        <a href="https://drive.google.com/file/d/1zmfo76xzGPdu0oTbub2PsWn8uAwmV8Fw/view?usp=sharing" target="_blank" class="btn-download">Download Full Portfolio</a>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- 스킬 상세 -->
         <section id="skills-storywiz">
-            <h2 class="section-title">STORYWIZ SKILLS</h2>
+            <h2 class="section-title">STORYWIZ SKILLS & COMPETENCIES</h2>
             <div class="skill-container">
                 <div class="skill-row">
-                    <div class="skill-text"><h3>MOS & 문서</h3><p>전략 분석, 기획안 최적화.</p></div>
-                    <div class="skill-image"><img src="skill_doc.jpg"></div>
+                    <div class="skill-text">
+                        <h3>MOS 및 문서</h3>
+                        <p>문서 작업, 보고, 전략 분석, 기획안, 업무 관리 등 실무에 최적화된 능력을 보유하고 있습니다.</p>
+                    </div>
+                    <div class="skill-image"><img src="skill_doc.jpg" alt="MOS 및 문서 툴"></div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-text">
+                        <h3>프로그램</h3>
+                        <p>EPUB 유통, SNS 마케팅, 미디어 제작, 프로모션 배너를 위한 전문 디자인 및 편집 툴을 다룹니다.</p>
+                    </div>
+                    <div class="skill-image"><img src="skill_prog.jpg" alt="디자인 프로그램"></div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-text">
+                        <h3>코드 및 AI</h3>
+                        <p>구글 시트 연동 및 자동화, 업무 보조 프로그램 제작(Python)을 통해 업무 효율을 극대화합니다.</p>
+                    </div>
+                    <div class="skill-image"><img src="skill_code.jpg" alt="코드 및 AI 툴"></div>
                 </div>
             </div>
         </section>
 
+        <!-- 프로젝트 상세 -->
         <section id="projects-storywiz">
-            <h2 class="section-title">STORYWIZ WORK</h2>
+            <span class="section-label">Key Projects</span>
+            <h2 class="section-title">PROJECT HIGHLIGHTS</h2>
+            
             <div class="project-item">
-                <div class="project-left">Distribution</div>
+                <div class="project-left">
+                    <span class="project-num">01</span> Distribution<br>& Operation
+                </div>
                 <div class="project-right">
-                    <span class="tag">MAIN</span>
+                    <span class="tag">MAIN CAREER</span>
                     <h3>판권 제휴 및 유통 대행 총괄</h3>
                     <ul>
-                        <li>30여 개 플랫폼 유통 메타 데이터 규격화</li>
+                        <li><strong>판권 제휴 관리:</strong> 남성향 웹소설 작품 단독 관리 및 프로모션 제안/유지</li>
+                        <li><strong>유통 메타 관리:</strong> 30여 개 플랫폼 유통 메타 데이터 규격화 및 파일 유기화</li>
+                        <li><strong>계약 및 정산:</strong> 유통사 계약 조율, 보증보험 갱신, 주간 매출 전략 분석 보고</li>
+                        <li><strong>성과:</strong> 월평균 120회 프로모션 진행, 제휴작 구작 매출 감소 방어 및 신규 입점 성공</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-left">
+                    <span class="project-num">02</span> Platform<br>& EPUB
+                </div>
+                <div class="project-right">
+                    <span class="tag">MAIN CAREER</span>
+                    <h3>플랫폼 작품 유통 등록 및 관리</h3>
+                    <ul>
+                        <li><strong>EPUB 제작/검수:</strong> 라이브 연재 총 59종 유통 검수 및 대행 업무 완수</li>
+                        <li><strong>가이드 작성:</strong> 30여 개 플랫폼별 내부 유통·등록 매뉴얼 제작 및 배포</li>
+                        <li><strong>시스템 개선:</strong> 메타 시트 효율화를 통한 사내 정산 코드 부여 시스템 개선</li>
+                        <li><strong>대면 미팅:</strong> 네이버, 알에스미디어 등 주요 플랫폼 및 제휴사 미팅 주도</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-left">
+                    <span class="project-num">03</span> Tech<br>& Automation
+                </div>
+                <div class="project-right">
+                    <span class="tag">PYTHON & AI</span>
+                    <h3>업무 효율화 프로그램 자체 개발</h3>
+                    <ul>
+                        <li><strong>MetaNamer.exe:</strong> 대량 작품 메타 데이터 일괄 수정 툴 개발 (기존 툴 한계 극복)</li>
+                        <li><strong>Sales Automator:</strong> 플랫폼별 상이한 정산서를 표준화하여 데이터 자동 취합</li>
+                        <li><strong>Hwp Splitter:</strong> 한글 원고 회차별 자동 분절 및 글자수 계산 프로그램 개발</li>
+                        <li><strong>Google Apps Script:</strong> 정산 코드 연동 및 시트 관리 자동화 (AI 보조 활용)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-left">
+                    <span class="project-num">04</span> Marketing<br>& Creative
+                </div>
+                <div class="project-right">
+                    <span class="tag">SNS & DESIGN</span>
+                    <h3>콘텐츠 마케팅 및 디자인</h3>
+                    <ul>
+                        <li><strong>SNS 리브랜딩:</strong> 파일럿 계정 '위즈스타' 기획 및 운영 (팔로워 2K 달성)</li>
+                        <li><strong>이벤트 기획:</strong> 자사 주요작 프로모션 배너 제작 및 굿즈 발송 이벤트 총괄</li>
+                        <li><strong>대외 수상:</strong> LG 화학 광고 공모전 및 연세대 학과 홍보 영상 최우수상 (기획/PM)</li>
+                        <li><strong>협업 주도:</strong> 사내 문화 행사 TF팀 기획 및 디자인 담당, 타 부서와 원활한 협업</li>
                     </ul>
                 </div>
             </div>
         </section>
 
+        <!-- 미디어, 공모전, SNS, 광고 시안 그리드 및 링크 -->
         <section id="media-storywiz">
-            <h2 class="section-title">STORYWIZ MEDIA</h2>
+            <span class="section-label">Media & Creative</span>
+            <h2 class="section-title">PRODUCED CONTENT</h2>
+
             <div class="media-row">
                 <div class="media-col">
-                    <a href="https://youtu.be/JwtP9eBf3UY" target="_blank" class="media-card">
-                        <div class="media-thumb-wrapper"><img src="media_1.jpg"></div>
-                        <div class="media-title">LG화학 광고 공모전 최우수상</div>
+                    <h3>대외활동 및 수상작</h3>
+                    <a href="https://youtu.be/JwtP9eBf3UY?si=sXb7r-WUWKUhiSDe" target="_blank" class="media-card">
+                        <div class="media-thumb-wrapper"><img src="media_1.jpg" alt="LG화학 공모전"></div>
+                        <div class="media-title">제6회 LG화학 대학생 공모전 최우수상</div>
+                        <div class="media-desc">기획/PM | 영상 제작 및 편집</div>
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=YxuV_0BQvvY" target="_blank" class="media-card">
+                        <div class="media-thumb-wrapper"><img src="media_2.jpg" alt="무드캐처 프로젝트"></div>
+                        <div class="media-title">개발자 부트캠프 프로젝트 '무드캐처' PM·마케터</div>
+                        <div class="media-desc">앱 아이디어 기획 및 서비스 기획</div>
+                    </a>
+                </div>
+                <div class="media-col">
+                    <h3>개인 마케팅 채널</h3>
+                    <a href="https://youtu.be/o0eMDdf7TSg?si=W6BKO1VoBMMc-_Bl" target="_blank" class="media-card">
+                        <div class="media-thumb-wrapper"><img src="media_3.jpg" alt="허승기 Vlog"></div>
+                        <div class="media-title">허승기 Vlog</div>
+                        <div class="media-desc">개인 마케팅 채널 운영</div>
+                    </a>
+                    <a href="https://youtube.com/shorts/UDWzKwlCiF8?si=jvBn3F9A5oUHvBlI" target="_blank" class="media-card">
+                        <div class="media-thumb-wrapper"><img src="media_4.jpg" alt="웹타마툰"></div>
+                        <div class="media-title">웹타마툰</div>
+                        <div class="media-desc">숏폼 콘텐츠 기획 및 제작</div>
                     </a>
                 </div>
             </div>
+
+            <h3 class="grid-section-title" style="margin-top: 80px;">공모전 출품작</h3>
+            <div class="contest-grid">
+                <a href="https://youtube.com/shorts/6yfNwLtzqiM?feature=share" target="_blank" class="media-card">
+                    <div class="media-thumb-wrapper"><img src="contest_1.jpg" alt="우주편"></div>
+                    <div class="media-title">퓨리얼 AI 영상 콘테스트_우주편(심사중)</div>
+                    <div class="media-desc">AI 영상 제작</div>
+                </a>
+                <a href="https://youtube.com/shorts/zAQXZcX1YKA?si=Yt1CCubDvn-xj0bR" target="_blank" class="media-card">
+                    <div class="media-thumb-wrapper"><img src="contest_2.jpg" alt="바다편"></div>
+                    <div class="media-title">퓨리얼 AI 영상 콘테스트_바다편(심사중)</div>
+                    <div class="media-desc">AI 영상 제작</div>
+                </a>
+                <div class="media-card preparing">
+                    <div class="media-thumb-wrapper"><img src="contest_preparing.jpg" alt="준비중"></div>
+                    <div class="media-title">출품 예정</div>
+                    <div class="media-desc">준비중</div>
+                </div>
+                <div class="media-card preparing">
+                    <div class="media-thumb-wrapper"><img src="contest_preparing.jpg" alt="준비중"></div>
+                    <div class="media-title">출품 예정</div>
+                    <div class="media-desc">준비중</div>
+                </div>
+            </div>
+
+            <h3 class="grid-section-title">SNS 마케팅 및 매니지먼트</h3>
             <div class="ad-grid">
-                <div class="ad-card" onclick="openModal('modal-sns-1')"><img src="sns_1_1.jpg"><div class="ad-footer">스토리위즈 SNS</div></div>
+                <div class="ad-card" onclick="openModal('modal-sns-1')">
+                    <div class="ad-image"><img src="sns_1_1.jpg" alt="스토리위즈 SNS"></div>
+                    <div class="ad-footer"><div class="ad-title">스토리위즈 공식 SNS</div></div>
+                </div>
+                <div class="ad-card" onclick="openModal('modal-sns-2')">
+                    <div class="ad-image"><img src="sns_2_1.jpg" alt="위즈스타 SNS"></div>
+                    <div class="ad-footer"><div class="ad-title">위즈스타(바이럴) SNS</div></div>
+                </div>
+                <div class="ad-card" onclick="openModal('modal-sns-3')">
+                    <div class="ad-image"><img src="sns_3_1.jpg" alt="인재개발원"></div>
+                    <div class="ad-footer"><div class="ad-title">인재개발원 홈페이지 관리</div></div>
+                </div>
+                <div class="ad-card" onclick="openModal('modal-sns-4')">
+                    <div class="ad-image"><img src="sns_4_1.jpg" alt="부트캠프 앱"></div>
+                    <div class="ad-footer"><div class="ad-title">부트캠프 런칭앱 마케팅</div></div>
+                </div>
+                <div class="ad-card" onclick="openModal('modal-sns-5')">
+                    <div class="ad-image"><img src="sns_5_1.jpg" alt="매거진"></div>
+                    <div class="ad-footer"><div class="ad-title">전공 연계 매거진 활동</div></div>
+                </div>
+            </div>
+
+            <h3 class="grid-section-title">광고물 제작 시안</h3>
+            <p style="margin-bottom: 30px; opacity: 0.6; font-weight: 500;">* 클릭 시 상세 내용과 함께 이미지가 확장됩니다.</p>
+            <div class="ad-grid">
+                <div class="ad-card" onclick="openModal('modal-1')">
+                    <div class="ad-image"><img src="ad_1.jpg" alt="트라이폴드"></div>
+                    <div class="ad-footer"><div class="ad-title">트라이폴드 버거</div></div>
+                </div>
+                <div class="ad-card" onclick="openModal('modal-2')">
+                    <div class="ad-image"><img src="ad_2.jpg" alt="흑백요리사"></div>
+                    <div class="ad-footer"><div class="ad-title">흑백요리사 시즌 2</div></div>
+                </div>
+                <div class="ad-card" onclick="openModal('modal-3')">
+                    <div class="ad-image"><img src="ad_3.jpg" alt="정형외과"></div>
+                    <div class="ad-footer"><div class="ad-title">도시정형외과</div></div>
+                </div>
+                <div class="ad-card" onclick="openModal('modal-4')">
+                    <div class="ad-image"><img src="ad_4.jpg" alt="침토피아"></div>
+                    <div class="ad-footer"><div class="ad-title">침토피아 채널</div></div>
+                </div>
+                <div class="ad-card" onclick="openModal('modal-5')">
+                    <div class="ad-image"><img src="ad_5.jpg" alt="카더가든"></div>
+                    <div class="ad-footer"><div class="ad-title">카더가든 라이브다큐</div></div>
+                </div>
             </div>
         </section>
     </div>
 
-    <footer>
-        <h2>Let's Make the Next Story.</h2>
-        <p>© 2026 Kim Seung Bin. All Rights Reserved.</p>
-    </footer>
+    <!-- [MODALS] 신한 배너 모달(sh1~sh6) 및 기존 오리지널 스토리위즈 모달 10개 완벽 탑재 -->
+    <div id="modal-sh-1" class="modal-overlay" onclick="closeModal('modal-sh-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-1')">×</button><div class="modal-image-area"><img src="sh1.jpg" alt="배너 1" onerror="this.style.opacity='0';"></div><div class="modal-text-area"><h3>홍보 배너 시안 01</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
+    <div id="modal-sh-2" class="modal-overlay" onclick="closeModal('modal-sh-2')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-2')">×</button><div class="modal-image-area"><img src="sh2.jpg" alt="배너 2" onerror="this.style.opacity='0';"></div><div class="modal-text-area"><h3>홍보 배너 시안 02</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
+    <div id="modal-sh-3" class="modal-overlay" onclick="closeModal('modal-sh-3')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-3')">×</button><div class="modal-image-area"><img src="sh3.jpg" alt="배너 3" onerror="this.style.opacity='0';"></div><div class="modal-text-area"><h3>홍보 배너 시안 03</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
+    <div id="modal-sh-4" class="modal-overlay" onclick="closeModal('modal-sh-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-4')">×</button><div class="modal-image-area"><img src="sh4.jpg" alt="배너 4" onerror="this.style.opacity='0';"></div><div class="modal-text-area"><h3>홍보 배너 시안 04</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
+    <div id="modal-sh-5" class="modal-overlay" onclick="closeModal('modal-sh-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-5')">×</button><div class="modal-image-area"><img src="sh5.jpg" alt="배너 5" onerror="this.style.opacity='0';"></div><div class="modal-text-area"><h3>홍보 배너 시안 05</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
+    <div id="modal-sh-6" class="modal-overlay" onclick="closeModal('modal-sh-6')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-6')">×</button><div class="modal-image-area"><img src="sh6.jpg" alt="배너 6" onerror="this.style.opacity='0';"></div><div class="modal-text-area"><h3>홍보 배너 시안 06</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
+
+    <div id="modal-sns-1" class="modal-overlay" onclick="closeModal('modal-sns-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-1')">×</button><div class="modal-image-area" id="slider-1"><button class="slider-btn prev-btn" onclick="moveSlide('slider-1', -1)">&#10094;</button><img class="slide-img active" src="sns_1_1.jpg"><img class="slide-img" src="sns_1_2.jpg"><img class="slide-img" src="sns_1_3.jpg"><button class="slider-btn next-btn" onclick="moveSlide('slider-1', 1)">&#10095;</button></div><div class="modal-text-area"><h3>스토리위즈 공식 SNS</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>공식 SNS 채널 운영</li><li>신간, 매열무 이벤트 기획 및 진행</li><li>작품 캘린더 리뉴얼 및 관리</li><li>월페이퍼 홍보페이지 제작</li><li>굿즈 재고 관리 및 이벤트 진행</li></ul></div></div></div></div>
+    <div id="modal-sns-2" class="modal-overlay" onclick="closeModal('modal-sns-2')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-2')">×</button><div class="modal-image-area" id="slider-2"><button class="slider-btn prev-btn" onclick="moveSlide('slider-2', -1)">&#10094;</button><img class="slide-img active" src="sns_2_1.jpg"><img class="slide-img" src="sns_2_2.jpg"><button class="slider-btn next-btn" onclick="moveSlide('slider-2', 1)">&#10095;</button></div><div class="modal-text-area"><h3>위즈스타(바이럴) SNS</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>캐릭터 IP 마케팅</li><li>퀴즈 이벤트 및 팔로워 소통</li><li>작품 특별 홍보</li><li>당첨자 발표 및 상품 전달</li><li>굿즈 수요 조사</li></ul></div></div></div></div>
+    <div id="modal-sns-3" class="modal-overlay" onclick="closeModal('modal-sns-3')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-3')">×</button><div class="modal-image-area" id="slider-3"><button class="slider-btn prev-btn" onclick="moveSlide('slider-3', -1)">&#10094;</button><img class="slide-img active" src="sns_3_1.jpg"><img class="slide-img" src="sns_3_2.jpg"><img class="slide-img" src="sns_3_3.jpg"><button class="slider-btn next-btn" onclick="moveSlide('slider-3', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(인턴) 인재개발원 홈페이지 관리</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>YGEMS 홈페이지 관리 및 운영</li><li>홈페이지 Ad 배너 제작 및 업로드</li><li>취업 이벤트 홍보물 제작</li><li>인스타, 블로그 연계 관리</li><li>잡코리아, 사람인, 공공기관 등 정보 전달</li></ul></div></div></div></div>
+    <div id="modal-sns-4" class="modal-overlay" onclick="closeModal('modal-sns-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-4')">×</button><div class="modal-image-area" id="slider-4"><button class="slider-btn prev-btn" onclick="moveSlide('slider-4', -1)">&#10094;</button><img class="slide-img active" src="sns_4_1.jpg"><img class="slide-img" src="sns_4_2.jpg"><img class="slide-img" src="sns_4_3.jpg"><button class="slider-btn next-btn" onclick="moveSlide('slider-4', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(대외) 부트캠프 런칭앱 마케팅</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>앱 아이디어 기획 및 PM·마케팅</li><li>어플리케이션 런칭 이벤트 기획</li><li>홍보물 제작 및 SNS 마케팅</li><li>구글폼 이용자 데이터 취합</li><li>기능 홍보 및 런칭 정보 제공</li></ul></div></div></div></div>
+    <div id="modal-sns-5" class="modal-overlay" onclick="closeModal('modal-sns-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-5')">×</button><div class="modal-image-area" id="slider-5"><button class="slider-btn prev-btn" onclick="moveSlide('slider-5', -1)">&#10094;</button><img class="slide-img active" src="sns_5_1.jpg"><img class="slide-img" src="sns_5_2.jpg"><img class="slide-img" src="sns_5_3.jpg"><button class="slider-btn next-btn" onclick="moveSlide('slider-5', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(대외) 전공 연계 매거진 활동</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>전공 연계 대외활동 및 다매체 연계 콘텐츠 기획</li><li>SNS 매거진 게시물 업로드</li><li>인스타 운영 및 영상 제작</li><li>팀 로고 및 메인 배너 제작</li></ul></div></div></div></div>
+
+    <div id="modal-1" class="modal-overlay" onclick="closeModal('modal-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-1')">×</button><div class="modal-image-area"><img src="ad_1.jpg" alt="트라이폴드 버거"></div><div class="modal-text-area"><h3>트라이폴드 버거</h3><div class="modal-section"><h4>삼성 신규 핸드폰 Galaxy Z TriFold ('25.12.05 출시)</h4><ul><li>삼성의 신기술이 반영된, 세 번 폴딩되는 핸드폰 최초 출시로 화제</li></ul></div><div class="modal-section"><h4>박정민 배우</h4><ul><li>가수 화사의 청룡영화상 축하 공연 이슈, 짐빔 하이볼 광고 등</li></ul></div></div></div></div>
+    <div id="modal-2" class="modal-overlay" onclick="closeModal('modal-2')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-2')">×</button><div class="modal-image-area"><img src="ad_2.jpg" alt=""></div><div class="modal-text-area"><h3>흑백요리사 시즌 2</h3><div class="modal-section"><h4>흑백요리사 시즌 2</h4><ul><li>'25.12 냉장고를 부탁해 출연, 암흑 요리사 밈</li></ul></div><div class="modal-section"><h4>카카오페이지 「괴담에 출근해도...」</h4><ul><li>백덕수 작가 메가 IP, 괴담 트렌드 반영</li></ul></div></div></div></div>
+    <div id="modal-3" class="modal-overlay" onclick="closeModal('modal-3')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-3')">×</button><div class="modal-image-area"><img src="ad_3.jpg" alt=""></div><div class="modal-text-area"><h3>도시정형외과</h3><div class="modal-section"><h4>체인소맨</h4><ul><li>300만 관객, 레제 밈 활성화</li></ul></div><div class="modal-section"><h4>마동석 배우</h4><ul><li>TGA 갱 오브 드래곤 제작 발표, 범죄도시4 쇼츠 밈</li></ul></div></div></div></div>
+    <div id="modal-4" class="modal-overlay" onclick="closeModal('modal-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-4')">×</button><div class="modal-image-area"><img src="ad_4.jpg" alt=""></div><div class="modal-text-area"><h3>침토피아 채널</h3><div class="modal-section"><h4>주토피아 2</h4><ul><li>500만 관객, 강력한 팬덤</li></ul></div><div class="modal-section"><h4>침착맨 유튜버</h4><ul><li>구독자 300만, 주토피아 닉 닮은꼴 밈</li></ul></div></div></div></div>
+    <div id="modal-5" class="modal-overlay" onclick="closeModal('modal-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-5')">×</button><div class="modal-image-area"><img src="ad_5.jpg" alt=""></div><div class="modal-text-area"><h3>카더가든 라이브다큐</h3><div class="modal-section"><h4>유이진 아역모델</h4><ul><li>카더가든, GD 케미로 이슈화</li></ul></div><div class="modal-section"><h4>카더가든 가수</h4><ul><li>음반 발매 및 라이브 공연 이슈</li></ul></div></div></div></div>
 
     <script>
-        function toggleMode(mode) {
+        // 모드 전환 및 내비게이션 동적 렌더링
+        function toggleMode(mode, scroll = true) {
             const shinhanCont = document.getElementById('shinhan-content');
             const storywizCont = document.getElementById('storywiz-content');
             const tabShinhan = document.getElementById('tab-shinhan');
@@ -373,15 +998,18 @@
                 tabStorywiz.classList.remove('active');
                 cardShinhan.classList.add('active-shinhan');
                 cardStorywiz.classList.remove('active-storywiz');
-                document.body.style.backgroundColor = "#f0f5ff";
+                document.body.className = "shinhan-theme-container"; // 신한 테마 클래스 부여
+                
                 nav.innerHTML = `
                     <li><a href="#identity-shinhan">Identity</a></li>
                     <li><a href="#career-history">Career</a></li>
                     <li><a href="#projects-shinhan">Achievements</a></li>
-                    <li><a href="#media-shinhan">Media</a></li>
+                    <li><a href="#media-shinhan">Videos & Images</a></li>
                     <li><a href="#career-selector">Switch</a></li>
                 `;
-                shinhanCont.scrollIntoView({ behavior: 'smooth' });
+                if (scroll) {
+                    shinhanCont.scrollIntoView({ behavior: 'smooth' });
+                }
             } else {
                 storywizCont.classList.add('active');
                 shinhanCont.classList.remove('active');
@@ -389,7 +1017,8 @@
                 tabShinhan.classList.remove('active');
                 cardStorywiz.classList.add('active-storywiz');
                 cardShinhan.classList.remove('active-shinhan');
-                document.body.style.backgroundColor = "#fff";
+                document.body.className = "storywiz-mode"; // 스토리위즈 테마 클래스 부여
+
                 nav.innerHTML = `
                     <li><a href="#identity-storywiz">Identity</a></li>
                     <li><a href="#career-history">Career</a></li>
@@ -398,20 +1027,40 @@
                     <li><a href="#media-storywiz">Media</a></li>
                     <li><a href="#career-selector">Switch</a></li>
                 `;
-                storywizCont.scrollIntoView({ behavior: 'smooth' });
+                if (scroll) {
+                    storywizCont.scrollIntoView({ behavior: 'smooth' });
+                }
             }
         }
-        toggleMode('storywiz');
 
+        // 페이지 진입 초기화: 첫 로드 시 스크롤 이동 없이 신한금융플러스 탭 활성화
+        toggleMode('shinhan', false);
+
+        // 스토리위즈 포트폴리오 슬라이더 로직
         let currentPage = 1; const totalPages = 47; 
         function updateViewer() {
-            document.getElementById("pf-image").src = `slides/page_${currentPage}.jpg`;
-            document.getElementById("page-indicator").innerText = `${currentPage} / ${totalPages}`;
+            const img = document.getElementById("pf-image");
+            if(img) img.src = `slides/page_${currentPage}.jpg`;
+            const indicator = document.getElementById("page-indicator");
+            if(indicator) indicator.innerText = `${currentPage} / ${totalPages}`;
         }
         function nextPage() { currentPage = (currentPage < totalPages) ? currentPage + 1 : 1; updateViewer(); }
         function prevPage() { currentPage = (currentPage > 1) ? currentPage - 1 : totalPages; updateViewer(); }
+
+        // 모달 제어 함수
         function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = 'auto'; }
+
+        // 모달 슬라이드 제어
+        function moveSlide(containerId, step) {
+            const container = document.getElementById(containerId);
+            const images = container.getElementsByClassName('slide-img');
+            let idx = 0;
+            for(let i=0; i<images.length; i++) { if(images[i].classList.contains('active')) { idx = i; break; } }
+            images[idx].classList.remove('active');
+            let nextIdx = (idx + step + images.length) % images.length;
+            images[nextIdx].classList.add('active');
+        }
     </script>
 </body>
 </html>
