@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KIM SEUNG BIN | PORTFOLIO</title>
+    
+    <!-- 이미지 에러 핸들링 함수를 최상단에 배치하여 ReferenceError 완벽 해결 -->
+    <script>
+        function handleImageError(img) {
+            img.style.display = 'none'; // 깨진 이미지 엑박 아이콘 제거
+            const imgContainer = img.parentElement;
+            if (imgContainer) {
+                imgContainer.classList.add('fallback-bg'); // CSS 플레이스홀더 활성화
+            }
+        }
+    </script>
+
     <style>
         /* 폰트 불러오기 */
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
@@ -191,19 +203,47 @@
         .media-card.preparing .media-thumb-wrapper::after { display: none; }
         .media-card.preparing { cursor: default; }
 
-        .media-title { font-size: 1.2rem; font-weight: 800; margin-top: 15px; margin-bottom: 5px; word-break: keep-all; transition: border-color 0.3s; display: inline-block; }
+        .media-title { font-size: 1.2rem; font-weight: 800; margin-top: 15px; margin-bottom: 8px; word-break: keep-all; transition: border-color 0.3s; display: inline-block; line-height: 1.3;}
         .media-card:not(.preparing):hover .media-title { border-bottom: 2px solid var(--black); }
-        .media-desc { font-size: 0.95rem; color: #666; font-weight: 500; }
+        .media-desc { font-size: 0.95rem; color: #666; font-weight: 500; line-height: 1.5; margin-top: 5px; }
 
         .grid-section-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 30px; text-transform: uppercase; margin-top: 80px; }
         .contest-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-top: 40px; }
-        .ad-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 30px; margin-top: 40px; }
         
-        .ad-card { border: 1px solid #eee; background: #fff; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; }
-        .ad-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
-        .ad-footer { padding: 15px; text-align: center; font-weight: 800; border-top: 1px solid #eee; }
+        /* AD/SNS 마케팅 그리드 레이아웃 개선 및 엑박 방어형 스타일링 */
+        .ad-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 30px; margin-top: 40px; }
+        .ad-card { border: 1px solid #eee; background: #fdfdfd; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; display: flex; flex-direction: column; aspect-ratio: 1/1.22; }
+        .ad-image { width: 100%; aspect-ratio: 1/1; overflow: hidden; background: #f0f3f8; display: flex; align-items: center; justify-content: center; position: relative; }
+        .ad-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        
+        /* 이미지 로드 실패 시 나타날 대체 배경 텍스트 및 레이아웃 가드 */
+        .ad-image::before {
+            content: "Banner Graphic";
+            position: absolute;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #8fa0b5;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            z-index: 1;
+            opacity: 0.8;
+        }
+        /* 정상적으로 로드된 이미지가 있을 경우 덮어씌움 */
+        .ad-image img {
+            position: relative;
+            z-index: 2;
+            background: #fff;
+        }
+        /* 이미지 로드 실패 처리 클래스용 디자인 가이드 */
+        .ad-image.fallback-bg::before {
+            content: "PREVIEW IMAGE";
+            color: #7b8e9b;
+        }
+        
+        .ad-footer { padding: 12px 15px; text-align: center; font-weight: 800; border-top: 1px solid #eee; background: #fff; z-index: 3; flex-grow: 1; display: flex; align-items: center; justify-content: center; }
+        .ad-title { font-weight: 800; font-size: 1rem; text-align: center; margin: 0; line-height: 1.3; color: var(--black); word-break: keep-all; }
         .ad-card:hover { transform: translateY(-5px); border-color: var(--black); }
-        .ad-card:hover::after { content: 'Click to View Detail +'; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; opacity: 0; transition: opacity 0.3s; }
+        .ad-card:hover::after { content: 'Click to View Detail +'; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; opacity: 0; transition: opacity 0.3s; z-index: 4; }
         .ad-card:hover::after { opacity: 1; }
 
         .sub-category-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; color: #555; background: #f0f0f0; padding: 8px 15px; border-radius: 4px; display: inline-block; }
@@ -234,7 +274,7 @@
         .role-card-title { font-weight: 800; font-size: 1.15rem; color: #111; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
         .role-card-desc { font-size: 0.98rem; color: #555; line-height: 1.6; }
 
-        /* [MODAL SYSTEM CSS - 복구 완벽 반영] */
+        /* [MODAL SYSTEM CSS] */
         .modal-overlay { 
             display: none; 
             position: fixed; 
@@ -289,15 +329,6 @@
         .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: #fff; border: none; padding: 12px; cursor: pointer; z-index: 5; font-size: 1.5rem; transition: background 0.3s; }
         .slider-btn:hover { background: rgba(0,0,0,0.8); }
         .prev-btn { left: 0; } .next-btn { right: 0; }
-
-        /* 깨진 이미지 시안 보완 및 고급 백그라운드 플레이스홀더 */
-        .ad-image {
-            position: relative;
-            background: #eaeaea;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
 
         /* [만족도 조사 결과 전용 스타일링] */
         .survey-insight-container {
@@ -403,7 +434,7 @@
         <div class="scroll-indicator">Explore Narrative<br>▼</div>
     </div>
 
-    <!-- [HERO] 좌우 정렬 및 그레이스케일 마우스 호버 효과 복원 -->
+    <!-- [HERO] 좌우 정렬 및 그레이스케일 마우스 호버 효과 -->
     <section class="hero" id="hero">
         <div class="hero-text">
             <h1>"I Believe in<br>Narrative"</h1>
@@ -489,7 +520,6 @@
                     <p style="margin-bottom: 25px;">복잡하고 딱딱한 금융 정보를 고객의 눈높이에 맞는 친숙한 콘텐츠로 재해석하여 강력한 브랜드 경험을 설계합니다.</p>
                     <p style="margin-bottom: 35px;">현재 공식 유튜브 채널의 비약적인 성장을 견인하며, 전사적 대규모 행사를 성공적으로 주관하는 등 온·오프라인 마케팅 역량을 발휘하고 있습니다.</p>
                     
-                    <!-- 신한 상세 업무 리스트 정리 -->
                     <div class="shinhan-roles">
                         <h4 style="font-size: 1.3rem; font-weight: 800; border-left: 4px solid var(--shinhan-blue); padding-left: 12px; margin-bottom: 10px;">주요 직무 및 실무 영역</h4>
                         
@@ -564,27 +594,42 @@
                     <div class="media-col">
                         <div class="sub-category-title">Long-form 콘텐츠</div>
                         <a href="https://youtu.be/Z8-g1n5b2J8" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/Z8-g1n5b2J8/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/Z8-g1n5b2J8/maxresdefault.jpg" onerror="handleImageError(this)"></div>
                             <div class="media-title">신한금융플러스 브랜드 광고 (26.05.04)</div>
+                            <div class="media-desc">기획 : 15% | 제작, 연출 : 100%</div>
                         </a>
                         <a href="https://youtu.be/C3i2OVxMvJc" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/C3i2OVxMvJc/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
-                            <div class="media-title">신규 업무 프로젝트 영상</div>
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/C3i2OVxMvJc/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-title">이 구역의 '++놈'이 나타났다!</div>
+                            <div class="media-desc">기획 : 100% | 제작, 연출 : 100%</div>
                         </a>
                     </div>
                     <div class="media-col">
                         <div class="sub-category-title">Shorts 콘텐츠 (Viral)</div>
+                        <a href="https://youtube.com/shorts/j48viMA877Y" target="_blank" class="media-card" style="margin-bottom: 20px;">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/j48viMA877Y/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-title">지금 떠나요, 파타야로!(썸머 페스티벌 내부 홍보 영상)</div>
+                            <div class="media-desc">기획 : 100% | 제작, 연출 : 100%</div>
+                        </a>
+                        <a href="https://youtube.com/shorts/KI1ZATGlrvw" target="_blank" class="media-card" style="margin-bottom: 20px;">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/KI1ZATGlrvw/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-title">함께 떠나요, 파타야로!(썸머 페스티벌 내부 홍보 영상)</div>
+                            <div class="media-desc">기획 : 100% | 제작, 연출 : 100%</div>
+                        </a>
                         <a href="https://youtube.com/shorts/ZM9lb3GXAW8" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/ZM9lb3GXAW8/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
-                            <div class="media-title">조회수 22.9만 돌파 숏폼</div>
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/ZM9lb3GXAW8/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-title">신금플 멍멍뉴스!</div>
+                            <div class="media-desc">기획 : 100% | 제작, 연출 : 100%<br><span style="color: var(--shinhan-blue); font-weight: 700;">성과 : 조회수 22만 돌파</span></div>
                         </a>
                         <a href="https://www.youtube.com/shorts/lOd6zm7s5ow" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/lOd6zm7s5ow/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
-                            <div class="media-title">조회수 6.3만 돌파 숏폼</div>
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/lOd6zm7s5ow/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-title">신금플 멍멍뉴스! 2탄</div>
+                            <div class="media-desc">기획 : 100% | 제작, 연출 : 100%<br><span style="color: var(--shinhan-blue); font-weight: 700;">성과 : 조회수 6만 돌파</span></div>
                         </a>
                         <a href="https://youtube.com/shorts/AVOLq4A1bmE" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/AVOLq4A1bmE/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/AVOLq4A1bmE/maxresdefault.jpg" onerror="handleImageError(this)"></div>
                             <div class="media-title">업무 관련 신규 숏폼</div>
+                            <div class="media-desc">기획 : 100% | 제작, 연출 : 100%</div>
                         </a>
                     </div>
                 </div>
@@ -598,23 +643,25 @@
                     <div class="media-row">
                         <div class="media-col">
                             <a href="https://youtu.be/mWxe5FgP2-Y" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                                <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/mWxe5FgP2-Y/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
-                                <div class="media-title">연도대상 브릿지 영상 1</div>
+                                <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/mWxe5FgP2-Y/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                                <div class="media-title">신한의 미래(연도대상 브릿지 영상 1)</div>
+                                <div class="media-desc">기획 : 100% | 제작, 연출 : 100%<br><span style="color: var(--shinhan-blue); font-weight: 700;">성과 : 연도대상 참석자 대상 행사 만족도 설문 부문 2위</span></div>
                             </a>
                             <a href="https://youtu.be/_4-7jBMEYlQ" target="_blank" class="media-card">
-                                <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/_4-7jBMEYlQ/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
-                                <div class="media-title">연도대상 브릿지 영상 2</div>
+                                <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/_4-7jBMEYlQ/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                                <div class="media-title">우리는 모두 아이였습니다(연도대상 브릿지 영상 2)</div>
+                                <div class="media-desc">기획 : 100% | 제작, 연출 : 100%<br><span style="color: var(--shinhan-blue); font-weight: 700;">성과 : 연도대상 참석자 대상 행사 만족도 설문 부문 2위</span></div>
                             </a>
                         </div>
                         <div class="media-col">
                             <a href="https://youtu.be/TfaDyB57E5Y" target="_blank" class="media-card">
-                                <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/TfaDyB57E5Y/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
-                                <div class="media-title">회사소개영상 (타이포 미반영)</div>
+                                <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/TfaDyB57E5Y/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                                <div class="media-title">회사소개영상</div>
+                                <div class="media-desc">기획 : 45% | 제작, 연출 : 90%</div>
                             </a>
                         </div>
                     </div>
 
-                    <!-- [수정] 연도대상 만족도 피드백 데이터 분석 영역 추가 (sh367c08 기반 분석) -->
                     <div class="survey-insight-container">
                         <h4>📊 2026 연도대상 귀빈 피드백 분석 (만족도 조사 결과)</h4>
                         <p>
@@ -662,25 +709,46 @@
             <div style="margin-bottom: 80px;">
                 <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 40px; display: flex; align-items: center;">
                     <span style="width: 8px; height: 30px; background: #666; margin-right: 15px;"></span>개인 프로젝트
+                    <span style="font-size: 1.1rem; color: #888; font-weight: 600; margin-left: 15px;">* 100% 기획 연출 제작</span>
                 </h3>
                 
                 <div class="media-row">
                     <div class="media-col">
                         <div class="sub-category-title">Long-form 콘텐츠</div>
-                        <a href="https://www.youtube.com/watch?v=2nO-dc9vxf4" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/2nO-dc9vxf4/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
-                            <div class="media-title">개인 브랜딩 프로젝트</div>
+                        <a href="https://youtu.be/V5wmGEHDrCE" target="_blank" class="media-card" style="margin-bottom: 20px;">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/V5wmGEHDrCE/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-title">To Youth, 다신 오지 않을 Y에게(Y아티스트 AI 공모전)</div>
+                        </a>
+                        <a href="https://youtu.be/2nO-dc9vxf4" target="_blank" class="media-card">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/2nO-dc9vxf4/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-title">[MV] Who Knows Champ(참:眞) (후참잘 공모전)</div>
                         </a>
                     </div>
                     <div class="media-col">
                         <div class="sub-category-title">Shorts 콘텐츠</div>
+                        <a href="https://youtube.com/shorts/YdzWNYspmUQ" target="_blank" class="media-card" style="margin-bottom: 20px;">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/YdzWNYspmUQ/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-title">무신사랑해, 무진장!(무신사 공모전)</div>
+                        </a>
+                        <a href="https://youtube.com/shorts/r9ZIiHgw2V8" target="_blank" class="media-card" style="margin-bottom: 20px;">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/r9ZIiHgw2V8/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-title">상상하던 주말에 떠나요(상주공모전)</div>
+                        </a>
+                        <a href="https://youtube.com/shorts/6yfNwLtzqiM" target="_blank" class="media-card" style="margin-bottom: 20px;">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/6yfNwLtzqiM/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-title">퓨리얼 AI 영상 콘테스트_우주편</div>
+                        </a>
+                        <a href="https://youtube.com/shorts/zAQXZcX1YKA" target="_blank" class="media-card" style="margin-bottom: 20px;">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/zAQXZcX1YKA/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-title">퓨리얼 AI 영상 콘테스트_바다편</div>
+                        </a>
                         <a href="https://www.youtube.com/shorts/V-rLfjMn-ww" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/V-rLfjMn-ww/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
-                            <div class="media-title">개인 크리에이티브 숏폼 01</div>
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/V-rLfjMn-ww/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-title">Oh, Burn it up!(오븐마루 공모전)</div>
                         </a>
                         <a href="https://youtube.com/shorts/yH0DdImER98" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/yH0DdImER98/maxresdefault.jpg" onerror="this.style.opacity='0';"></div>
-                            <div class="media-title">개인 크리에이티브 숏폼 02</div>
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/yH0DdImER98/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-title">나주로 다이브(나주숏폼공모전)</div>
                         </a>
                     </div>
                 </div>
@@ -697,27 +765,27 @@
                 </p>
                 <div class="ad-grid">
                     <div class="ad-card" onclick="openModal('modal-sh-1')">
-                        <div class="ad-image"><img src="sh1.jpg" alt="배너 1" onerror="this.style.opacity='0';"></div>
+                        <div class="ad-image"><img src="sh1.jpg" alt="배너 1" onerror="handleImageError(this)"></div>
                         <div class="ad-footer"><div class="ad-title">홍보 배너 시안 01</div></div>
                     </div>
                     <div class="ad-card" onclick="openModal('modal-sh-2')">
-                        <div class="ad-image"><img src="sh2.jpg" alt="배너 2" onerror="this.style.opacity='0';"></div>
+                        <div class="ad-image"><img src="sh2.jpg" alt="배너 2" onerror="handleImageError(this)"></div>
                         <div class="ad-footer"><div class="ad-title">홍보 배너 시안 02</div></div>
                     </div>
                     <div class="ad-card" onclick="openModal('modal-sh-3')">
-                        <div class="ad-image"><img src="sh3.jpg" alt="배너 3" onerror="this.style.opacity='0';"></div>
+                        <div class="ad-image"><img src="sh3.jpg" alt="배너 3" onerror="handleImageError(this)"></div>
                         <div class="ad-footer"><div class="ad-title">홍보 배너 시안 03</div></div>
                     </div>
                     <div class="ad-card" onclick="openModal('modal-sh-4')">
-                        <div class="ad-image"><img src="sh4.jpg" alt="배너 4" onerror="this.style.opacity='0';"></div>
+                        <div class="ad-image"><img src="sh4.jpg" alt="배너 4" onerror="handleImageError(this)"></div>
                         <div class="ad-footer"><div class="ad-title">홍보 배너 시안 04</div></div>
                     </div>
                     <div class="ad-card" onclick="openModal('modal-sh-5')">
-                        <div class="ad-image"><img src="sh5.jpg" alt="배너 5" onerror="this.style.opacity='0';"></div>
+                        <div class="ad-image"><img src="sh5.jpg" alt="배너 5" onerror="handleImageError(this)"></div>
                         <div class="ad-footer"><div class="ad-title">홍보 배너 시안 05</div></div>
                     </div>
                     <div class="ad-card" onclick="openModal('modal-sh-6')">
-                        <div class="ad-image"><img src="sh6.jpg" alt="배너 6" onerror="this.style.opacity='0';"></div>
+                        <div class="ad-image"><img src="sh6.jpg" alt="배너 6" onerror="handleImageError(this)"></div>
                         <div class="ad-footer"><div class="ad-title">홍보 배너 시안 06</div></div>
                     </div>
                 </div>
@@ -807,7 +875,7 @@
                     <span class="project-num">02</span> Platform<br>& EPUB
                 </div>
                 <div class="project-right">
-                    <span class="tag">MAIN CAREER</span>
+                    <span class="tag">MD SPECIALTY</span>
                     <h3>플랫폼 작품 유통 등록 및 관리</h3>
                     <ul>
                         <li><strong>EPUB 제작/검수:</strong> 라이브 연재 총 59종 유통 검수 및 대행 업무 완수</li>
@@ -885,50 +953,26 @@
                 </div>
             </div>
 
-            <h3 class="grid-section-title" style="margin-top: 80px;">공모전 출품작</h3>
-            <div class="contest-grid">
-                <a href="https://youtube.com/shorts/6yfNwLtzqiM?feature=share" target="_blank" class="media-card">
-                    <div class="media-thumb-wrapper"><img src="contest_1.jpg" alt="우주편"></div>
-                    <div class="media-title">퓨리얼 AI 영상 콘테스트_우주편(심사중)</div>
-                    <div class="media-desc">AI 영상 제작</div>
-                </a>
-                <a href="https://youtube.com/shorts/zAQXZcX1YKA?si=Yt1CCubDvn-xj0bR" target="_blank" class="media-card">
-                    <div class="media-thumb-wrapper"><img src="contest_2.jpg" alt="바다편"></div>
-                    <div class="media-title">퓨리얼 AI 영상 콘테스트_바다편(심사중)</div>
-                    <div class="media-desc">AI 영상 제작</div>
-                </a>
-                <div class="media-card preparing">
-                    <div class="media-thumb-wrapper"><img src="contest_preparing.jpg" alt="준비중"></div>
-                    <div class="media-title">출품 예정</div>
-                    <div class="media-desc">준비중</div>
-                </div>
-                <div class="media-card preparing">
-                    <div class="media-thumb-wrapper"><img src="contest_preparing.jpg" alt="준비중"></div>
-                    <div class="media-title">출품 예정</div>
-                    <div class="media-desc">준비중</div>
-                </div>
-            </div>
-
             <h3 class="grid-section-title">SNS 마케팅 및 매니지먼트</h3>
             <div class="ad-grid">
                 <div class="ad-card" onclick="openModal('modal-sns-1')">
-                    <div class="ad-image"><img src="sns_1_1.jpg" alt="스토리위즈 SNS"></div>
+                    <div class="ad-image"><img src="sns_1_1.jpg" alt="스토리위즈 SNS" onerror="handleImageError(this)"></div>
                     <div class="ad-footer"><div class="ad-title">스토리위즈 공식 SNS</div></div>
                 </div>
                 <div class="ad-card" onclick="openModal('modal-sns-2')">
-                    <div class="ad-image"><img src="sns_2_1.jpg" alt="위즈스타 SNS"></div>
+                    <div class="ad-image"><img src="sns_2_1.jpg" alt="위즈스타 SNS" onerror="handleImageError(this)"></div>
                     <div class="ad-footer"><div class="ad-title">위즈스타(바이럴) SNS</div></div>
                 </div>
                 <div class="ad-card" onclick="openModal('modal-sns-3')">
-                    <div class="ad-image"><img src="sns_3_1.jpg" alt="인재개발원"></div>
+                    <div class="ad-image"><img src="sns_3_1.jpg" alt="인재개발원" onerror="handleImageError(this)"></div>
                     <div class="ad-footer"><div class="ad-title">인재개발원 홈페이지 관리</div></div>
                 </div>
                 <div class="ad-card" onclick="openModal('modal-sns-4')">
-                    <div class="ad-image"><img src="sns_4_1.jpg" alt="부트캠프 앱"></div>
+                    <div class="ad-image"><img src="sns_4_1.jpg" alt="부트캠프 앱" onerror="handleImageError(this)"></div>
                     <div class="ad-footer"><div class="ad-title">부트캠프 런칭앱 마케팅</div></div>
                 </div>
                 <div class="ad-card" onclick="openModal('modal-sns-5')">
-                    <div class="ad-image"><img src="sns_5_1.jpg" alt="매거진"></div>
+                    <div class="ad-image"><img src="sns_5_1.jpg" alt="매거진" onerror="handleImageError(this)"></div>
                     <div class="ad-footer"><div class="ad-title">전공 연계 매거진 활동</div></div>
                 </div>
             </div>
@@ -937,48 +981,53 @@
             <p style="margin-bottom: 30px; opacity: 0.6; font-weight: 500;">* 클릭 시 상세 내용과 함께 이미지가 확장됩니다.</p>
             <div class="ad-grid">
                 <div class="ad-card" onclick="openModal('modal-1')">
-                    <div class="ad-image"><img src="ad_1.jpg" alt="트라이폴드"></div>
+                    <div class="ad-image"><img src="ad_1.jpg" alt="트라이폴드" onerror="handleImageError(this)"></div>
                     <div class="ad-footer"><div class="ad-title">트라이폴드 버거</div></div>
                 </div>
                 <div class="ad-card" onclick="openModal('modal-2')">
-                    <div class="ad-image"><img src="ad_2.jpg" alt="흑백요리사"></div>
+                    <div class="ad-image"><img src="ad_2.jpg" alt="흑백요리사" onerror="handleImageError(this)"></div>
                     <div class="ad-footer"><div class="ad-title">흑백요리사 시즌 2</div></div>
                 </div>
                 <div class="ad-card" onclick="openModal('modal-3')">
-                    <div class="ad-image"><img src="ad_3.jpg" alt="정형외과"></div>
+                    <div class="ad-image"><img src="ad_3.jpg" alt="정형외과" onerror="handleImageError(this)"></div>
                     <div class="ad-footer"><div class="ad-title">도시정형외과</div></div>
                 </div>
                 <div class="ad-card" onclick="openModal('modal-4')">
-                    <div class="ad-image"><img src="ad_4.jpg" alt="침토피아"></div>
+                    <div class="ad-image"><img src="ad_4.jpg" alt="침토피아" onerror="handleImageError(this)"></div>
                     <div class="ad-footer"><div class="ad-title">침토피아 채널</div></div>
                 </div>
                 <div class="ad-card" onclick="openModal('modal-5')">
-                    <div class="ad-image"><img src="ad_5.jpg" alt="카더가든"></div>
+                    <div class="ad-image"><img src="ad_5.jpg" alt="카더가든" onerror="handleImageError(this)"></div>
                     <div class="ad-footer"><div class="ad-title">카더가든 라이브다큐</div></div>
                 </div>
             </div>
         </section>
     </div>
 
+    <footer>
+        <h2>Let's Make the Next Story.</h2>
+        <p>© 2026 Kim Seung Bin. All Rights Reserved.</p>
+    </footer>
+
     <!-- [MODALS] 신한 배너 모달(sh1~sh6) 및 기존 오리지널 스토리위즈 모달 10개 완벽 탑재 -->
-    <div id="modal-sh-1" class="modal-overlay" onclick="closeModal('modal-sh-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-1')">×</button><div class="modal-image-area"><img src="sh1.jpg" alt="배너 1" onerror="this.style.opacity='0';"></div><div class="modal-text-area"><h3>홍보 배너 시안 01</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
-    <div id="modal-sh-2" class="modal-overlay" onclick="closeModal('modal-sh-2')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-2')">×</button><div class="modal-image-area"><img src="sh2.jpg" alt="배너 2" onerror="this.style.opacity='0';"></div><div class="modal-text-area"><h3>홍보 배너 시안 02</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
-    <div id="modal-sh-3" class="modal-overlay" onclick="closeModal('modal-sh-3')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-3')">×</button><div class="modal-image-area"><img src="sh3.jpg" alt="배너 3" onerror="this.style.opacity='0';"></div><div class="modal-text-area"><h3>홍보 배너 시안 03</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
-    <div id="modal-sh-4" class="modal-overlay" onclick="closeModal('modal-sh-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-4')">×</button><div class="modal-image-area"><img src="sh4.jpg" alt="배너 4" onerror="this.style.opacity='0';"></div><div class="modal-text-area"><h3>홍보 배너 시안 04</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
-    <div id="modal-sh-5" class="modal-overlay" onclick="closeModal('modal-sh-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-5')">×</button><div class="modal-image-area"><img src="sh5.jpg" alt="배너 5" onerror="this.style.opacity='0';"></div><div class="modal-text-area"><h3>홍보 배너 시안 05</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
-    <div id="modal-sh-6" class="modal-overlay" onclick="closeModal('modal-sh-6')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-6')">×</button><div class="modal-image-area"><img src="sh6.jpg" alt="배너 6" onerror="this.style.opacity='0';"></div><div class="modal-text-area"><h3>홍보 배너 시안 06</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
+    <div id="modal-sh-1" class="modal-overlay" onclick="closeModal('modal-sh-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-1')">×</button><div class="modal-image-area"><img src="sh1.jpg" alt="배너 1" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>홍보 배너 시안 01</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
+    <div id="modal-sh-2" class="modal-overlay" onclick="closeModal('modal-sh-2')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-2')">×</button><div class="modal-image-area"><img src="sh2.jpg" alt="배너 2" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>홍보 배너 시안 02</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
+    <div id="modal-sh-3" class="modal-overlay" onclick="closeModal('modal-sh-3')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-3')">×</button><div class="modal-image-area"><img src="sh3.jpg" alt="배너 3" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>홍보 배너 시안 03</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
+    <div id="modal-sh-4" class="modal-overlay" onclick="closeModal('modal-sh-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-4')">×</button><div class="modal-image-area"><img src="sh4.jpg" alt="배너 4" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>홍보 배너 시안 04</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
+    <div id="modal-sh-5" class="modal-overlay" onclick="closeModal('modal-sh-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-5')">×</button><div class="modal-image-area"><img src="sh5.jpg" alt="배너 5" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>홍보 배너 시안 05</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
+    <div id="modal-sh-6" class="modal-overlay" onclick="closeModal('modal-sh-6')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-6')">×</button><div class="modal-image-area"><img src="sh6.jpg" alt="배너 6" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>홍보 배너 시안 06</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
 
-    <div id="modal-sns-1" class="modal-overlay" onclick="closeModal('modal-sns-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-1')">×</button><div class="modal-image-area" id="slider-1"><button class="slider-btn prev-btn" onclick="moveSlide('slider-1', -1)">&#10094;</button><img class="slide-img active" src="sns_1_1.jpg"><img class="slide-img" src="sns_1_2.jpg"><img class="slide-img" src="sns_1_3.jpg"><button class="slider-btn next-btn" onclick="moveSlide('slider-1', 1)">&#10095;</button></div><div class="modal-text-area"><h3>스토리위즈 공식 SNS</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>공식 SNS 채널 운영</li><li>신간, 매열무 이벤트 기획 및 진행</li><li>작품 캘린더 리뉴얼 및 관리</li><li>월페이퍼 홍보페이지 제작</li><li>굿즈 재고 관리 및 이벤트 진행</li></ul></div></div></div></div>
-    <div id="modal-sns-2" class="modal-overlay" onclick="closeModal('modal-sns-2')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-2')">×</button><div class="modal-image-area" id="slider-2"><button class="slider-btn prev-btn" onclick="moveSlide('slider-2', -1)">&#10094;</button><img class="slide-img active" src="sns_2_1.jpg"><img class="slide-img" src="sns_2_2.jpg"><button class="slider-btn next-btn" onclick="moveSlide('slider-2', 1)">&#10095;</button></div><div class="modal-text-area"><h3>위즈스타(바이럴) SNS</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>캐릭터 IP 마케팅</li><li>퀴즈 이벤트 및 팔로워 소통</li><li>작품 특별 홍보</li><li>당첨자 발표 및 상품 전달</li><li>굿즈 수요 조사</li></ul></div></div></div></div>
-    <div id="modal-sns-3" class="modal-overlay" onclick="closeModal('modal-sns-3')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-3')">×</button><div class="modal-image-area" id="slider-3"><button class="slider-btn prev-btn" onclick="moveSlide('slider-3', -1)">&#10094;</button><img class="slide-img active" src="sns_3_1.jpg"><img class="slide-img" src="sns_3_2.jpg"><img class="slide-img" src="sns_3_3.jpg"><button class="slider-btn next-btn" onclick="moveSlide('slider-3', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(인턴) 인재개발원 홈페이지 관리</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>YGEMS 홈페이지 관리 및 운영</li><li>홈페이지 Ad 배너 제작 및 업로드</li><li>취업 이벤트 홍보물 제작</li><li>인스타, 블로그 연계 관리</li><li>잡코리아, 사람인, 공공기관 등 정보 전달</li></ul></div></div></div></div>
-    <div id="modal-sns-4" class="modal-overlay" onclick="closeModal('modal-sns-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-4')">×</button><div class="modal-image-area" id="slider-4"><button class="slider-btn prev-btn" onclick="moveSlide('slider-4', -1)">&#10094;</button><img class="slide-img active" src="sns_4_1.jpg"><img class="slide-img" src="sns_4_2.jpg"><img class="slide-img" src="sns_4_3.jpg"><button class="slider-btn next-btn" onclick="moveSlide('slider-4', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(대외) 부트캠프 런칭앱 마케팅</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>앱 아이디어 기획 및 PM·마케팅</li><li>어플리케이션 런칭 이벤트 기획</li><li>홍보물 제작 및 SNS 마케팅</li><li>구글폼 이용자 데이터 취합</li><li>기능 홍보 및 런칭 정보 제공</li></ul></div></div></div></div>
-    <div id="modal-sns-5" class="modal-overlay" onclick="closeModal('modal-sns-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-5')">×</button><div class="modal-image-area" id="slider-5"><button class="slider-btn prev-btn" onclick="moveSlide('slider-5', -1)">&#10094;</button><img class="slide-img active" src="sns_5_1.jpg"><img class="slide-img" src="sns_5_2.jpg"><img class="slide-img" src="sns_5_3.jpg"><button class="slider-btn next-btn" onclick="moveSlide('slider-5', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(대외) 전공 연계 매거진 활동</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>전공 연계 대외활동 및 다매체 연계 콘텐츠 기획</li><li>SNS 매거진 게시물 업로드</li><li>인스타 운영 및 영상 제작</li><li>팀 로고 및 메인 배너 제작</li></ul></div></div></div></div>
+    <div id="modal-sns-1" class="modal-overlay" onclick="closeModal('modal-sns-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-1')">×</button><div class="modal-image-area" id="slider-1"><button class="slider-btn prev-btn" onclick="moveSlide('slider-1', -1)">&#10094;</button><img class="slide-img active" src="sns_1_1.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_1_2.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_1_3.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-1', 1)">&#10095;</button></div><div class="modal-text-area"><h3>스토리위즈 공식 SNS</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>공식 SNS 채널 운영</li><li>신간, 매열무 이벤트 기획 및 진행</li><li>작품 캘린더 리뉴얼 및 관리</li><li>월페이퍼 홍보페이지 제작</li><li>굿즈 재고 관리 및 이벤트 진행</li></ul></div></div></div></div>
+    <div id="modal-sns-2" class="modal-overlay" onclick="closeModal('modal-sns-2')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-2')">×</button><div class="modal-image-area" id="slider-2"><button class="slider-btn prev-btn" onclick="moveSlide('slider-2', -1)">&#10094;</button><img class="slide-img active" src="sns_2_1.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_2_2.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-2', 1)">&#10095;</button></div><div class="modal-text-area"><h3>위즈스타(바이럴) SNS</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>캐릭터 IP 마케팅</li><li>퀴즈 이벤트 및 팔로워 소통</li><li>작품 특별 홍보</li><li>당첨자 발표 및 상품 전달</li><li>굿즈 수요 조사</li></ul></div></div></div></div>
+    <div id="modal-sns-3" class="modal-overlay" onclick="closeModal('modal-sns-3')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-3')">×</button><div class="modal-image-area" id="slider-3"><button class="slider-btn prev-btn" onclick="moveSlide('slider-3', -1)">&#10094;</button><img class="slide-img active" src="sns_3_1.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_3_2.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_3_3.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-3', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(인턴) 인재개발원 홈페이지 관리</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>YGEMS 홈페이지 관리 및 운영</li><li>홈페이지 Ad 배너 제작 및 업로드</li><li>취업 이벤트 홍보물 제작</li><li>인스타, 블로그 연계 관리</li><li>잡코리아, 사람인, 공공기관 등 정보 전달</li></ul></div></div></div></div>
+    <div id="modal-sns-4" class="modal-overlay" onclick="closeModal('modal-sns-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-4')">×</button><div class="modal-image-area" id="slider-4"><button class="slider-btn prev-btn" onclick="moveSlide('slider-4', -1)">&#10094;</button><img class="slide-img active" src="sns_4_1.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_4_2.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_4_3.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-4', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(대외) 부트캠프 런칭앱 마케팅</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>앱 아이디어 기획 및 PM·마케팅</li><li>어플리케이션 런칭 이벤트 기획</li><li>홍보물 제작 및 SNS 마케팅</li><li>구글폼 이용자 데이터 취합</li><li>기능 홍보 및 런칭 정보 제공</li></ul></div></div></div></div>
+    <div id="modal-sns-5" class="modal-overlay" onclick="closeModal('modal-sns-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-5')">×</button><div class="modal-image-area" id="slider-5"><button class="slider-btn prev-btn" onclick="moveSlide('slider-5', -1)">&#10094;</button><img class="slide-img active" src="sns_5_1.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_5_2.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_5_3.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-5', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(대외) 전공 연계 매거진 활동</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>전공 연계 대외활동 및 다매체 연계 콘텐츠 기획</li><li>SNS 매거진 게시물 업로드</li><li>인스타 운영 및 영상 제작</li><li>팀 로고 및 메인 배너 제작</li></ul></div></div></div></div>
 
-    <div id="modal-1" class="modal-overlay" onclick="closeModal('modal-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-1')">×</button><div class="modal-image-area"><img src="ad_1.jpg" alt="트라이폴드 버거"></div><div class="modal-text-area"><h3>트라이폴드 버거</h3><div class="modal-section"><h4>삼성 신규 핸드폰 Galaxy Z TriFold ('25.12.05 출시)</h4><ul><li>삼성의 신기술이 반영된, 세 번 폴딩되는 핸드폰 최초 출시로 화제</li></ul></div><div class="modal-section"><h4>박정민 배우</h4><ul><li>가수 화사의 청룡영화상 축하 공연 이슈, 짐빔 하이볼 광고 등</li></ul></div></div></div></div>
-    <div id="modal-2" class="modal-overlay" onclick="closeModal('modal-2')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-2')">×</button><div class="modal-image-area"><img src="ad_2.jpg" alt=""></div><div class="modal-text-area"><h3>흑백요리사 시즌 2</h3><div class="modal-section"><h4>흑백요리사 시즌 2</h4><ul><li>'25.12 냉장고를 부탁해 출연, 암흑 요리사 밈</li></ul></div><div class="modal-section"><h4>카카오페이지 「괴담에 출근해도...」</h4><ul><li>백덕수 작가 메가 IP, 괴담 트렌드 반영</li></ul></div></div></div></div>
-    <div id="modal-3" class="modal-overlay" onclick="closeModal('modal-3')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-3')">×</button><div class="modal-image-area"><img src="ad_3.jpg" alt=""></div><div class="modal-text-area"><h3>도시정형외과</h3><div class="modal-section"><h4>체인소맨</h4><ul><li>300만 관객, 레제 밈 활성화</li></ul></div><div class="modal-section"><h4>마동석 배우</h4><ul><li>TGA 갱 오브 드래곤 제작 발표, 범죄도시4 쇼츠 밈</li></ul></div></div></div></div>
-    <div id="modal-4" class="modal-overlay" onclick="closeModal('modal-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-4')">×</button><div class="modal-image-area"><img src="ad_4.jpg" alt=""></div><div class="modal-text-area"><h3>침토피아 채널</h3><div class="modal-section"><h4>주토피아 2</h4><ul><li>500만 관객, 강력한 팬덤</li></ul></div><div class="modal-section"><h4>침착맨 유튜버</h4><ul><li>구독자 300만, 주토피아 닉 닮은꼴 밈</li></ul></div></div></div></div>
-    <div id="modal-5" class="modal-overlay" onclick="closeModal('modal-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-5')">×</button><div class="modal-image-area"><img src="ad_5.jpg" alt=""></div><div class="modal-text-area"><h3>카더가든 라이브다큐</h3><div class="modal-section"><h4>유이진 아역모델</h4><ul><li>카더가든, GD 케미로 이슈화</li></ul></div><div class="modal-section"><h4>카더가든 가수</h4><ul><li>음반 발매 및 라이브 공연 이슈</li></ul></div></div></div></div>
+    <div id="modal-1" class="modal-overlay" onclick="closeModal('modal-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-1')">×</button><div class="modal-image-area"><img src="ad_1.jpg" alt="트라이폴드 버거" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>트라이폴드 버거</h3><div class="modal-section"><h4>삼성 신규 핸드폰 Galaxy Z TriFold ('25.12.05 출시)</h4><ul><li>삼성의 신기술이 반영된, 세 번 폴딩되는 핸드폰 최초 출시로 화제</li></ul></div><div class="modal-section"><h4>박정민 배우</h4><ul><li>가수 화사의 청룡영화상 축하 공연 이슈, 짐빔 하이볼 광고 등</li></ul></div></div></div></div>
+    <div id="modal-2" class="modal-overlay" onclick="closeModal('modal-2')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-2')">×</button><div class="modal-image-area"><img src="ad_2.jpg" alt="" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>흑백요리사 시즌 2</h3><div class="modal-section"><h4>흑백요리사 시즌 2</h4><ul><li>'25.12 냉장고를 부탁해 출연, 암흑 요리사 밈</li></ul></div><div class="modal-section"><h4>카카오페이지 「괴담에 출근해도...」</h4><ul><li>백덕수 작가 메가 IP, 괴담 트렌드 반영</li></ul></div></div></div></div>
+    <div id="modal-3" class="modal-overlay" onclick="closeModal('modal-3')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-3')">×</button><div class="modal-image-area"><img src="ad_3.jpg" alt="" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>도시정형외과</h3><div class="modal-section"><h4>체인소맨</h4><ul><li>300만 관객, 레제 밈 활성화</li></ul></div><div class="modal-section"><h4>마동석 배우</h4><ul><li>TGA 갱 오브 드래곤 제작 발표, 범죄도시4 쇼츠 밈</li></ul></div></div></div></div>
+    <div id="modal-4" class="modal-overlay" onclick="closeModal('modal-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-4')">×</button><div class="modal-image-area"><img src="ad_4.jpg" alt="" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>침토피아 채널</h3><div class="modal-section"><h4>주토피아 2</h4><ul><li>500만 관객, 강력한 팬덤</li></ul></div><div class="modal-section"><h4>침착맨 유튜버</h4><ul><li>구독자 300만, 주토피아 닉 닮은꼴 밈</li></ul></div></div></div></div>
+    <div id="modal-5" class="modal-overlay" onclick="closeModal('modal-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-5')">×</button><div class="modal-image-area"><img src="ad_5.jpg" alt="" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>카더가든 라이브다큐</h3><div class="modal-section"><h4>유이진 아역모델</h4><ul><li>카더가든, GD 케미로 이슈화</li></ul></div><div class="modal-section"><h4>카더가든 가수</h4><ul><li>음반 발매 및 라이브 공연 이슈</li></ul></div></div></div></div>
 
     <script>
         // 모드 전환 및 내비게이션 동적 렌더링
