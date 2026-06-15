@@ -5,13 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KIM SEUNG BIN | PORTFOLIO</title>
     
-    <!-- 이미지 에러 핸들링 함수를 최상단에 배치하여 ReferenceError 완벽 해결 -->
+    <!-- 썸네일 로드 실패 및 오류 153 방어를 위한 스마트 에러 핸들링 함수 -->
     <script>
         function handleImageError(img) {
-            img.style.display = 'none'; // 깨진 이미지 엑박 아이콘 제거
+            // 1. 고해상도(maxresdefault) 썸네일이 없는 경우, 유튜브가 기본 제공하는(hqdefault) 썸네일로 자동 폴백
+            if (img.src.includes('maxresdefault.jpg')) {
+                img.src = img.src.replace('maxresdefault.jpg', 'hqdefault.jpg');
+                return;
+            }
+            // 2. 그럼에도 이미지가 없을 경우 레이아웃 붕괴를 막는 CSS 플레이스홀더 처리
+            img.style.display = 'none'; 
             const imgContainer = img.parentElement;
             if (imgContainer) {
-                imgContainer.classList.add('fallback-bg'); // CSS 플레이스홀더 활성화
+                imgContainer.classList.add('fallback-bg'); 
             }
         }
     </script>
@@ -42,7 +48,7 @@
             transition: background-color 0.5s ease;
         }
 
-        /* 깨진 이미지 아이콘 우아하게 숨기기 */
+        /* 깨진 이미지 아이콘 숨기기 트랜지션 */
         img[onerror] {
             transition: opacity 0.3s;
         }
@@ -98,7 +104,7 @@
         }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);} 40% {transform: translateX(-50%) translateY(-10px);} 60% {transform: translateX(-50%) translateY(-5px);} }
 
-        /* [SECTION 1] HERO - 좌측 타이포그래피, 우측 프로필 정렬 및 흑백 호버 트랜지션 완벽 반영 */
+        /* [SECTION 1] HERO */
         .hero {
             min-height: 95vh; padding-top: 130px; padding-bottom: 50px;
             display: flex; align-items: center; justify-content: space-between;
@@ -126,8 +132,15 @@
         .section-label { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; display: inline-block; border-bottom: 2px solid var(--black); padding-bottom: 5px; }
         h2.section-title { font-size: 3.2rem; font-weight: 900; margin-bottom: 60px; text-transform: uppercase; letter-spacing: -1px; }
 
-        /* Career History */
-        .history-container { display: flex; flex-direction: column; gap: 60px; }
+        /* Career History & Latest Work (Flex Layout) */
+        .history-latest-wrapper {
+            display: flex;
+            justify-content: space-between;
+            gap: 60px;
+            align-items: flex-start;
+        }
+
+        .history-container { flex: 1.2; display: flex; flex-direction: column; gap: 60px; }
         .history-group h3 { font-size: 1.8rem; font-weight: 800; margin-bottom: 25px; display: flex; align-items: center; }
         .history-group h3::before { content: ''; display: inline-block; width: 12px; height: 12px; background: var(--black); margin-right: 12px; }
         .history-list { border-left: 1px solid var(--line); padding-left: 30px; margin-left: 6px; list-style: none; }
@@ -146,6 +159,71 @@
         .year-item .date-small { display: inline-block; min-width: 70px; color: #888; font-weight: 600; font-family: monospace; }
         .year-item.highlight { font-weight: 700; color: var(--black); }
         .year-item.highlight .date-small { color: var(--black); }
+
+        /* Latest Work Container */
+        .latest-work-container {
+            flex: 0.8;
+            background: #FAFAFA;
+            padding: 40px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+        .latest-work-container h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            color: var(--black);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .latest-work-container h3::before {
+            content: '🔥';
+            font-size: 1.4rem;
+        }
+        
+        /* [수정] 최신 숏폼 비디오 에러 해결을 위한 링크 썸네일화 */
+        .latest-video-wrapper {
+            width: 100%;
+            max-width: 300px; /* 숏폼 비율 고려 */
+            aspect-ratio: 9 / 16;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .latest-video-wrapper a {
+            display: block; width: 100%; height: 100%;
+        }
+        .latest-video-wrapper img {
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;
+        }
+        .latest-video-wrapper:hover img {
+            transform: scale(1.05);
+        }
+        .latest-video-wrapper::after { 
+            content: '▶'; position: absolute; top: 50%; left: 50%; 
+            transform: translate(-50%, -50%); font-size: 3.5rem; color: #fff; 
+            text-shadow: 0 2px 15px rgba(0,0,0,0.6); pointer-events: none; opacity: 0.8; transition: 0.3s; 
+        }
+        .latest-video-wrapper:hover::after { 
+            opacity: 1; transform: translate(-50%, -50%) scale(1.1); 
+        }
+        
+        .latest-work-desc {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            color: #555;
+            text-align: center;
+            font-weight: 600;
+        }
 
         /* Career Selector Cards */
         .selector-area { padding: 100px 5vw; background: #f4f4f4; text-align: center; border-top: 1px solid var(--black); border-bottom: 1px solid var(--black); }
@@ -168,7 +246,7 @@
         .career-mode-content.active { display: block; animation: fadeIn 0.8s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Projects & Lists (Bullets 점 중복 제거 반영) */
+        /* Projects & Lists */
         .project-item { display: flex; border-bottom: 1px solid var(--black); min-height: 400px; }
         .project-left { flex: 0 0 380px; padding: 60px 40px; border-right: 1px solid var(--black); font-size: 2.2rem; font-weight: 900; line-height: 1.1; display: flex; flex-direction: column; justify-content: space-between; }
         .project-num { font-size: 1.2rem; font-weight: 500; margin-bottom: 40px; color: #666; font-family: monospace; }
@@ -404,6 +482,11 @@
             header { height: auto; padding: 20px 0; }
             header nav ul { gap: 15px; flex-wrap: wrap; justify-content: center; }
             .hero { flex-direction: column-reverse; text-align: center; padding-top: 150px; }
+            
+            /* 모바일에서 최신 작업물 레이아웃 변경 */
+            .history-latest-wrapper { flex-direction: column; }
+            .latest-work-container { width: 100%; }
+
             .identity-container { flex-direction: column; }
             .project-item { flex-direction: column; }
             .project-left { border-right: none; border-bottom: 1px solid var(--black); width: 100%; padding: 40px 20px; }
@@ -434,7 +517,7 @@
         <div class="scroll-indicator">Explore Narrative<br>▼</div>
     </div>
 
-    <!-- [HERO] 좌우 정렬 및 그레이스케일 마우스 호버 효과 -->
+    <!-- [HERO] 좌우 정렬 및 그레이스케일 마우스 호버 효과 복원 -->
     <section class="hero" id="hero">
         <div class="hero-text">
             <h1>"I Believe in<br>Narrative"</h1>
@@ -446,50 +529,66 @@
         </div>
     </section>
 
-    <!-- [1. CAREER HISTORY] -->
+    <!-- [1. CAREER HISTORY & LATEST WORK] -->
     <section id="career-history">
         <h2 class="section-title">GLOBAL CAREER HISTORY</h2>
-        <div class="history-container">
-            <div class="history-group">
-                <h3>경력사항</h3>
-                <ul class="history-list">
-                    <li class="history-item highlight"><span class="date">26.01.26. ~ 현재</span> 신한금융플러스 SNS 마케터 재직 중</li>
-                    <li class="history-item"><span class="date">23.04.10. ~ 25.11.30.</span> KT 스토리위즈 재직 (퇴사)</li>
-                    <li class="history-item"><span class="date">22.01.03. ~ 22.02.28.</span> 연세대학교 미래캠퍼스 미래인재개발원 학부생 인턴</li>
-                    <li class="history-item"><span class="date">20.06.09. ~ 21.05.08.</span> 한솔문화재단 뮤지엄산 전시장 서포터즈</li>
-                </ul>
-            </div>
-            <!-- 수상이력 연도 단위 그룹화 -->
-            <div class="history-group">
-                <h3>성과 및 수상</h3>
-                <div class="award-yearly-container">
-                    <div class="year-block">
-                        <div class="year-title">2026</div>
-                        <ul class="year-list">
-                            <li class="year-item highlight"><span class="date-small">04.08</span> 신한금융플러스 이 달의 우수 사원 선정</li>
-                        </ul>
-                    </div>
-                    <div class="year-block">
-                        <div class="year-title">2022</div>
-                        <ul class="year-list">
-                            <li class="year-item"><span class="date-small">08.26</span> 진리장학금 학업성적 최우등상</li>
-                        </ul>
-                    </div>
-                    <div class="year-block">
-                        <div class="year-title">2021</div>
-                        <ul class="year-list">
-                            <li class="year-item highlight"><span class="date-small">11.26</span> 제6회 LG화학 대학생 광고 공모전 최우수상</li>
-                            <li class="year-item"><span class="date-small">08.25</span> 연세대학교 인문예술대학 학과 홍보 영상 공모전 최우수상</li>
-                            <li class="year-item"><span class="date-small">04.19</span> 하루체험 유튜브 영상 공모전 우수상</li>
-                        </ul>
-                    </div>
-                    <div class="year-block">
-                        <div class="year-title">2019</div>
-                        <ul class="year-list">
-                            <li class="year-item"><span class="date-small">04.24</span> 19년 전반기 1포병여단 대대 전술훈련 유공 표창장</li>
-                        </ul>
+        
+        <div class="history-latest-wrapper">
+            <!-- 기존 경력 사항 영역 -->
+            <div class="history-container">
+                <div class="history-group">
+                    <h3>경력사항</h3>
+                    <ul class="history-list">
+                        <li class="history-item highlight"><span class="date">26.01.26. ~ 현재</span> 신한금융플러스 SNS 마케터 재직 중</li>
+                        <li class="history-item"><span class="date">23.04.10. ~ 25.11.30.</span> KT 스토리위즈 재직 (퇴사)</li>
+                        <li class="history-item"><span class="date">22.01.03. ~ 22.02.28.</span> 연세대학교 미래캠퍼스 미래인재개발원 학부생 인턴</li>
+                        <li class="history-item"><span class="date">20.06.09. ~ 21.05.08.</span> 한솔문화재단 뮤지엄산 전시장 서포터즈</li>
+                    </ul>
+                </div>
+                <!-- 수상이력 연도 단위 그룹화 -->
+                <div class="history-group">
+                    <h3>성과 및 수상</h3>
+                    <div class="award-yearly-container">
+                        <div class="year-block">
+                            <div class="year-title">2026</div>
+                            <ul class="year-list">
+                                <li class="year-item highlight"><span class="date-small">04.08</span> 신한금융플러스 이 달의 우수 사원 선정</li>
+                            </ul>
+                        </div>
+                        <div class="year-block">
+                            <div class="year-title">2022</div>
+                            <ul class="year-list">
+                                <li class="year-item"><span class="date-small">08.26</span> 진리장학금 학업성적 최우등상</li>
+                            </ul>
+                        </div>
+                        <div class="year-block">
+                            <div class="year-title">2021</div>
+                            <ul class="year-list">
+                                <li class="year-item highlight"><span class="date-small">11.26</span> 제6회 LG화학 대학생 광고 공모전 최우수상</li>
+                                <li class="year-item"><span class="date-small">08.25</span> 연세대학교 인문예술대학 학과 홍보 영상 공모전 최우수상</li>
+                                <li class="year-item"><span class="date-small">04.19</span> 하루체험 유튜브 영상 공모전 우수상</li>
+                            </ul>
+                        </div>
+                        <div class="year-block">
+                            <div class="year-title">2019</div>
+                            <ul class="year-list">
+                                <li class="year-item"><span class="date-small">04.24</span> 19년 전반기 1포병여단 대대 전술훈련 유공 표창장</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- [NEW] 최신 작업물 영역: iframe을 썸네일 링크로 대체하여 플레이어 오류 완벽 해결 -->
+            <div class="latest-work-container">
+                <h3>Latest Work</h3>
+                <div class="latest-video-wrapper">
+                    <a href="https://youtube.com/shorts/8YviOdMqErU" target="_blank">
+                        <!-- 쇼츠의 경우 maxresdefault가 없는 경우가 많으므로 hqdefault 사용으로 안전성 확보 -->
+                        <img src="https://img.youtube.com/vi/8YviOdMqErU/hqdefault.jpg" alt="최신 작업물" onerror="handleImageError(this)">
+                    </a>
+                </div>
+                <p class="latest-work-desc">가장 최근 기획/제작한 숏폼 콘텐츠입니다.</p>
             </div>
         </div>
     </section>
@@ -607,27 +706,27 @@
                     <div class="media-col">
                         <div class="sub-category-title">Shorts 콘텐츠 (Viral)</div>
                         <a href="https://youtube.com/shorts/j48viMA877Y" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/j48viMA877Y/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/j48viMA877Y/hqdefault.jpg" onerror="handleImageError(this)"></div>
                             <div class="media-title">지금 떠나요, 파타야로!(썸머 페스티벌 내부 홍보 영상)</div>
                             <div class="media-desc">기획 : 100% | 제작, 연출 : 100%</div>
                         </a>
                         <a href="https://youtube.com/shorts/KI1ZATGlrvw" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/KI1ZATGlrvw/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/KI1ZATGlrvw/hqdefault.jpg" onerror="handleImageError(this)"></div>
                             <div class="media-title">함께 떠나요, 파타야로!(썸머 페스티벌 내부 홍보 영상)</div>
                             <div class="media-desc">기획 : 100% | 제작, 연출 : 100%</div>
                         </a>
                         <a href="https://youtube.com/shorts/ZM9lb3GXAW8" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/ZM9lb3GXAW8/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/ZM9lb3GXAW8/hqdefault.jpg" onerror="handleImageError(this)"></div>
                             <div class="media-title">신금플 멍멍뉴스!</div>
                             <div class="media-desc">기획 : 100% | 제작, 연출 : 100%<br><span style="color: var(--shinhan-blue); font-weight: 700;">성과 : 조회수 22만 돌파</span></div>
                         </a>
                         <a href="https://www.youtube.com/shorts/lOd6zm7s5ow" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/lOd6zm7s5ow/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/lOd6zm7s5ow/hqdefault.jpg" onerror="handleImageError(this)"></div>
                             <div class="media-title">신금플 멍멍뉴스! 2탄</div>
                             <div class="media-desc">기획 : 100% | 제작, 연출 : 100%<br><span style="color: var(--shinhan-blue); font-weight: 700;">성과 : 조회수 6만 돌파</span></div>
                         </a>
                         <a href="https://youtube.com/shorts/AVOLq4A1bmE" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/AVOLq4A1bmE/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/AVOLq4A1bmE/hqdefault.jpg" onerror="handleImageError(this)"></div>
                             <div class="media-title">업무 관련 신규 숏폼</div>
                             <div class="media-desc">기획 : 100% | 제작, 연출 : 100%</div>
                         </a>
@@ -656,7 +755,7 @@
                         <div class="media-col">
                             <a href="https://youtu.be/TfaDyB57E5Y" target="_blank" class="media-card">
                                 <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/TfaDyB57E5Y/maxresdefault.jpg" onerror="handleImageError(this)"></div>
-                                <div class="media-title">회사소개영상</div>
+                                <div class="media-title">회사소개영상 (타이포 미반영)</div>
                                 <div class="media-desc">기획 : 45% | 제작, 연출 : 90%</div>
                             </a>
                         </div>
@@ -705,7 +804,7 @@
                 </div>
             </div>
 
-            <!-- 개인 프로젝트 구역 -->
+            <!-- 개인 프로젝트 구역 (신규 Playlist 영상 하단 배치 완벽 반영) -->
             <div style="margin-bottom: 80px;">
                 <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 40px; display: flex; align-items: center;">
                     <span style="width: 8px; height: 30px; background: #666; margin-right: 15px;"></span>개인 프로젝트
@@ -715,40 +814,51 @@
                 <div class="media-row">
                     <div class="media-col">
                         <div class="sub-category-title">Long-form 콘텐츠</div>
+                        <!-- 기존 Long-form 콘텐츠 -->
                         <a href="https://youtu.be/V5wmGEHDrCE" target="_blank" class="media-card" style="margin-bottom: 20px;">
                             <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/V5wmGEHDrCE/maxresdefault.jpg" onerror="handleImageError(this)"></div>
                             <div class="media-title">To Youth, 다신 오지 않을 Y에게(Y아티스트 AI 공모전)</div>
                         </a>
-                        <a href="https://youtu.be/2nO-dc9vxf4" target="_blank" class="media-card">
+                        <a href="https://youtu.be/2nO-dc9vxf4" target="_blank" class="media-card" style="margin-bottom: 20px;">
                             <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/2nO-dc9vxf4/maxresdefault.jpg" onerror="handleImageError(this)"></div>
                             <div class="media-title">[MV] Who Knows Champ(참:眞) (후참잘 공모전)</div>
+                        </a>
+                        <!-- 신규 플레이리스트 영상 기존 영상 하단 추가 -->
+                        <a href="https://youtu.be/Z0XyvwhnzHM" target="_blank" class="media-card" style="margin-bottom: 20px;">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/Z0XyvwhnzHM/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-title">[𝑷𝒍𝒂𝒚𝒍𝒊𝒔𝒕] 일단 연말 출근 자체가 괴담인 건에 대하여</div>
+                        </a>
+                        <a href="https://youtu.be/NPnB-w2OH8Y" target="_blank" class="media-card">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/NPnB-w2OH8Y/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-title">[𝑷𝒍𝒂𝒚𝒍𝒊𝒔𝒕] 아직도 나만 개백수야</div>
                         </a>
                     </div>
                     <div class="media-col">
                         <div class="sub-category-title">Shorts 콘텐츠</div>
+                        <a href="https://youtube.com/shorts/yH0DdImER98" target="_blank" class="media-card" style="margin-bottom: 20px;">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/yH0DdImER98/hqdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-title">나주로 다이브(나주숏폼공모전)</div>
+                        </a>
                         <a href="https://youtube.com/shorts/YdzWNYspmUQ" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/YdzWNYspmUQ/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/YdzWNYspmUQ/hqdefault.jpg" onerror="handleImageError(this)"></div>
                             <div class="media-title">무신사랑해, 무진장!(무신사 공모전)</div>
                         </a>
                         <a href="https://youtube.com/shorts/r9ZIiHgw2V8" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/r9ZIiHgw2V8/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/r9ZIiHgw2V8/hqdefault.jpg" onerror="handleImageError(this)"></div>
                             <div class="media-title">상상하던 주말에 떠나요(상주공모전)</div>
                         </a>
-                        <a href="https://youtube.com/shorts/6yfNwLtzqiM" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/6yfNwLtzqiM/maxresdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">퓨리얼 AI 영상 콘테스트_우주편</div>
-                        </a>
-                        <a href="https://youtube.com/shorts/zAQXZcX1YKA" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/zAQXZcX1YKA/maxresdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">퓨리얼 AI 영상 콘테스트_바다편</div>
-                        </a>
                         <a href="https://www.youtube.com/shorts/V-rLfjMn-ww" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/V-rLfjMn-ww/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/V-rLfjMn-ww/hqdefault.jpg" onerror="handleImageError(this)"></div>
                             <div class="media-title">Oh, Burn it up!(오븐마루 공모전)</div>
                         </a>
-                        <a href="https://youtube.com/shorts/yH0DdImER98" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/yH0DdImER98/maxresdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">나주로 다이브(나주숏폼공모전)</div>
+                        <!-- 퓨리얼 공모전 영상 (스토리위즈 탭에서 이동 완료) -->
+                        <a href="https://youtube.com/shorts/6yfNwLtzqiM" target="_blank" class="media-card" style="margin-bottom: 20px;">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/6yfNwLtzqiM/hqdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-title">퓨리얼 AI 영상 콘테스트_우주편</div>
+                        </a>
+                        <a href="https://youtube.com/shorts/zAQXZcX1YKA" target="_blank" class="media-card">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/zAQXZcX1YKA/hqdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-title">퓨리얼 AI 영상 콘테스트_바다편</div>
                         </a>
                     </div>
                 </div>
@@ -928,12 +1038,12 @@
                 <div class="media-col">
                     <h3>대외활동 및 수상작</h3>
                     <a href="https://youtu.be/JwtP9eBf3UY?si=sXb7r-WUWKUhiSDe" target="_blank" class="media-card">
-                        <div class="media-thumb-wrapper"><img src="media_1.jpg" alt="LG화학 공모전"></div>
+                        <div class="media-thumb-wrapper"><img src="media_1.jpg" alt="LG화학 공모전" onerror="handleImageError(this)"></div>
                         <div class="media-title">제6회 LG화학 대학생 공모전 최우수상</div>
                         <div class="media-desc">기획/PM | 영상 제작 및 편집</div>
                     </a>
                     <a href="https://www.youtube.com/watch?v=YxuV_0BQvvY" target="_blank" class="media-card">
-                        <div class="media-thumb-wrapper"><img src="media_2.jpg" alt="무드캐처 프로젝트"></div>
+                        <div class="media-thumb-wrapper"><img src="media_2.jpg" alt="무드캐처 프로젝트" onerror="handleImageError(this)"></div>
                         <div class="media-title">개발자 부트캠프 프로젝트 '무드캐처' PM·마케터</div>
                         <div class="media-desc">앱 아이디어 기획 및 서비스 기획</div>
                     </a>
@@ -941,15 +1051,30 @@
                 <div class="media-col">
                     <h3>개인 마케팅 채널</h3>
                     <a href="https://youtu.be/o0eMDdf7TSg?si=W6BKO1VoBMMc-_Bl" target="_blank" class="media-card">
-                        <div class="media-thumb-wrapper"><img src="media_3.jpg" alt="허승기 Vlog"></div>
+                        <div class="media-thumb-wrapper"><img src="media_3.jpg" alt="허승기 Vlog" onerror="handleImageError(this)"></div>
                         <div class="media-title">허승기 Vlog</div>
                         <div class="media-desc">개인 마케팅 채널 운영</div>
                     </a>
                     <a href="https://youtube.com/shorts/UDWzKwlCiF8?si=jvBn3F9A5oUHvBlI" target="_blank" class="media-card">
-                        <div class="media-thumb-wrapper"><img src="media_4.jpg" alt="웹타마툰"></div>
+                        <div class="media-thumb-wrapper"><img src="media_4.jpg" alt="웹타마툰" onerror="handleImageError(this)"></div>
                         <div class="media-title">웹타마툰</div>
                         <div class="media-desc">숏폼 콘텐츠 기획 및 제작</div>
                     </a>
+                </div>
+            </div>
+
+            <!-- 신한 탭으로 이동된 퓨리얼 AI 공모전 삭제 (공모전 출품작 타이틀은 여백용 플레이스홀더를 위해 유지) -->
+            <h3 class="grid-section-title" style="margin-top: 80px;">공모전 출품 예정작</h3>
+            <div class="contest-grid">
+                <div class="media-card preparing">
+                    <div class="media-thumb-wrapper"><img src="contest_preparing.jpg" alt="준비중" onerror="handleImageError(this)"></div>
+                    <div class="media-title">출품 예정</div>
+                    <div class="media-desc">준비중</div>
+                </div>
+                <div class="media-card preparing">
+                    <div class="media-thumb-wrapper"><img src="contest_preparing.jpg" alt="준비중" onerror="handleImageError(this)"></div>
+                    <div class="media-title">출품 예정</div>
+                    <div class="media-desc">준비중</div>
                 </div>
             </div>
 
