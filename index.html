@@ -347,6 +347,14 @@
         .vibe-card p { font-size: 0.94rem; color: #555; line-height: 1.58; margin-bottom: 12px; }
         .vibe-card .tech-tool { margin-bottom: 12px; }
         .vibe-card strong { color: var(--black); font-weight: 800; }
+        .jobkorea-showcase { margin-top: 26px; padding: 24px; background: #fff; border: 1px solid #dce6f5; border-radius: 8px; }
+        .jobkorea-showcase h5 { font-size: 1.2rem; font-weight: 900; margin-bottom: 10px; color: var(--black); }
+        .jobkorea-showcase p { font-size: 0.95rem; color: #555; line-height: 1.6; margin-bottom: 16px; word-break: keep-all; }
+        .jobkorea-gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+        .jobkorea-gallery img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border: 1px solid #e5eaf3; border-radius: 6px; background: #f4f7fb; }
+        .jobkorea-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+        .btn-link.primary-link { background: var(--shinhan-blue); border-color: var(--shinhan-blue); color: #fff; }
+        .btn-link.primary-link:hover { background: #fff; color: var(--shinhan-blue); }
 
         .btn-link { display: inline-block; padding: 10px 24px; background: var(--white); color: var(--black); border: 1px solid var(--black); font-weight: 700; border-radius: 4px; transition: 0.3s; font-size: 0.9rem; text-decoration: none; margin-top: 10px; }
         .btn-link:hover { background: var(--black); color: var(--white); }
@@ -560,6 +568,7 @@
             .contest-grid { grid-template-columns: 1fr; }
             .tech-detail-grid { grid-template-columns: 1fr; }
             .vibe-grid { grid-template-columns: 1fr; }
+            .jobkorea-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             .tech-meta-label { display: block; margin-bottom: 4px; }
             .modal-content { max-height: 85vh; width: 95%; }
             .modal-text-area { padding: 20px; }
@@ -797,7 +806,7 @@
                         </div>
                     </div>
                     <div class="tech-media-container is-comparison">
-                        <div class="comparison-note">배경 및 인물 변경 비교: 1편 호텔 콘셉트 → 2편 힐링&옵션 코스 콘셉트</div>
+                        <div class="comparison-note">썸머, 가자! 시리즈: 배경, 인물, 타이포그래피 연출을 편별 콘셉트에 맞춰 확장</div>
                         <a href="https://youtube.com/shorts/qfO7LUvRqow" target="_blank" class="media-card">
                             <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/qfO7LUvRqow/hqdefault.jpg" onerror="handleImageError(this)"></div>
                             <div class="media-title">썸머, 가자! 1.파타야 호텔편</div>
@@ -807,6 +816,16 @@
                             <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/mctJtzk49Wc/hqdefault.jpg" onerror="handleImageError(this)"></div>
                             <div class="media-title">썸머, 가자! 2.힐링&옵션 코스편</div>
                             <div class="media-desc">변화 영상 | 배경 및 인물 변경<br>기획, 제작, 연출 100%</div>
+                        </a>
+                        <a href="https://youtube.com/shorts/yGnccd9RCyA" target="_blank" class="media-card">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/yGnccd9RCyA/hqdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-title">썸머, 가자! 3.시암 C.C. 골프 코스편</div>
+                            <div class="media-desc">후속작 | 골프 코스 콘셉트<br>기획, 제작, 연출 100%</div>
+                        </a>
+                        <a href="https://youtube.com/shorts/PgigMIXXuPI" target="_blank" class="media-card">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/PgigMIXXuPI/hqdefault.jpg" onerror="handleImageError(this)"></div>
+                            <div class="media-title">썸머, 가자! 4.특별 방문지&관광지 편</div>
+                            <div class="media-desc">후속작 | 관광지 콘셉트<br>기획, 제작, 연출 100%</div>
                         </a>
                     </div>
                 </div>
@@ -898,6 +917,25 @@
                                 <h5>실무 특화 업무 보조 프로그램</h5>
                                 <p>스토리위즈 재직 당시부터 메타 데이터 일괄 수정, 정산 데이터 취합, 한글 원고 자동 분절 등 반복 업무를 줄이는 도구를 제작했습니다.</p>
                                 <p><strong>결과:</strong> MetaNamer.exe, Sales Automator, Hwp Splitter 등 운용</p>
+                            </div>
+                        </div>
+                        <div class="jobkorea-showcase">
+                            <h5>잡코리아 바이브톤 참여: 팀장님 뒷목 잡게 만드는 프로그램</h5>
+                            <p>잡코리아 바이브톤에 <strong>바이브 코딩 1인팀</strong>으로 참여했습니다. 공통 주제인 "팀장님 뒷목 잡게 만드는 프로그램"을 바탕으로 회의 음성 분석, 핵심 요약, 결정사항 추출, 액션 아이템 정리, 월급 루팡 후보 색출까지 이어지는 AI 회의록 분석 서비스를 기획하고 실제 배포 및 구현까지 진행했습니다.</p>
+                            <div class="tech-meta-list">
+                                <div class="tech-meta-item"><span class="tech-meta-label">참여 방식</span>바이브 코딩 1인팀 / 서비스 기획, 화면 구성, 구현, 배포 전 과정 담당</div>
+                                <div class="tech-meta-item"><span class="tech-meta-label">핵심 기능</span>회의 음성 업로드, 음성 전사, 요약 생성, 결정사항 추출, 액션 아이템 정리, 회의 분위기 기반 음악 생성 재료 도출</div>
+                                <div class="tech-meta-item"><span class="tech-meta-label">성과</span>114:1 경쟁률을 뚫고 참가자로 선발, 실제 서비스 URL 배포 및 발표 자료 구성</div>
+                            </div>
+                            <div class="jobkorea-gallery">
+                                <img src="jobkkorea (1).jpg" alt="잡코리아 바이브톤 참가 네임택" onerror="handleImageError(this)">
+                                <img src="jobkkorea (2).jpg" alt="잡코리아 바이브톤 선발 안내" onerror="handleImageError(this)">
+                                <img src="jobkkorea (3).jpg" alt="AI 회의록 분석기 서비스 화면" onerror="handleImageError(this)">
+                                <img src="jobkkorea (4).jpg" alt="AI 회의 분석 결과 화면" onerror="handleImageError(this)">
+                            </div>
+                            <div class="jobkorea-actions">
+                                <a href="https://find-waloo-5no5.vercel.app/" target="_blank" class="btn-link primary-link">서비스 바로가기</a>
+                                <a href="https://www.miricanvas.com/v2/ko/design2/v/09cb4abf-907c-4618-aad9-25ea368bb2d2" target="_blank" class="btn-link">기획의도 보기</a>
                             </div>
                         </div>
                         <a href="https://drive.google.com/drive/folders/1NsFsKVHKhfUpG29mgPvCwX4pStykCUZV" target="_blank" class="btn-link">📁 직접 개발한 보조 프로그램 확인하기 ('25년 상반기 기준)</a>
