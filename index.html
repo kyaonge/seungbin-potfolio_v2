@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIM SEUNG BIN | PORTFOLIO</title>
+    <title>AI MARKETER & CONTENT MD | PORTFOLIO</title>
     
     <!-- 썸네일 로드 실패 및 오류 153 방어를 위한 스마트 에러 핸들링 함수 -->
     <script>
@@ -55,8 +55,9 @@
 
         /* [HEADER] 메뉴 스타일 초기화 */
         header {
-            position: fixed; top: 0; left: 0; width: 100%; height: 110px;
+            position: fixed; top: 0; left: 0; width: 100%; min-height: 158px;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 10px 5vw;
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px); border-bottom: 1px solid var(--black); z-index: 1000;
         }
@@ -67,9 +68,82 @@
             transition: opacity 0.3s;
         }
 
+        .top-utility-bar {
+            width: min(1180px, 100%); display: flex; align-items: center; justify-content: space-between;
+            gap: 18px; margin-bottom: 8px;
+        }
+        .privacy-control { display: flex; align-items: center; gap: 10px; }
+        .privacy-label { font-size: 0.72rem; font-weight: 800; color: #555; white-space: nowrap; }
+        .privacy-switch {
+            position: relative; width: 210px; height: 38px; border: 1px solid #cfd5df; border-radius: 20px;
+            background: #eef1f5; cursor: pointer; overflow: hidden; flex: 0 0 auto;
+        }
+        .privacy-switch::before {
+            content: ''; position: absolute; top: 3px; left: 3px; width: 100px; height: 30px;
+            border-radius: 16px; background: var(--black); transition: transform 0.3s ease, background 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.16);
+        }
+        .privacy-switch.is-visible::before { transform: translateX(103px); background: var(--shinhan-blue); }
+        .privacy-switch span {
+            position: absolute; top: 0; width: 50%; height: 100%; display: flex; align-items: center; justify-content: center;
+            z-index: 1; font-size: 0.72rem; font-weight: 900; color: #555; transition: color 0.3s ease;
+        }
+        .privacy-switch .privacy-off { left: 0; color: #fff; }
+        .privacy-switch .privacy-on { right: 0; }
+        .privacy-switch.is-visible .privacy-off { color: #555; }
+        .privacy-switch.is-visible .privacy-on { color: #fff; }
+        body.privacy-hidden .private-photo,
+        body.privacy-hidden [data-private-portfolio] { display: none !important; }
+        body.privacy-hidden .hero-text { flex-basis: 100%; max-width: 1080px; }
+        [data-private-hidden] { display: none; }
+        body.privacy-hidden [data-private-visible] { display: none !important; }
+        body.privacy-hidden [data-private-hidden] { display: inline; }
+
+        .skill-search { position: relative; width: min(420px, 46vw); }
+        .skill-search-row {
+            height: 38px; display: flex; align-items: center; border: 1px solid #cfd5df;
+            background: #fff; border-radius: 20px; overflow: hidden;
+        }
+        .skill-search svg { width: 17px; height: 17px; margin-left: 14px; color: #555; flex: 0 0 auto; }
+        .skill-search input {
+            width: 100%; height: 100%; border: 0; outline: 0; padding: 0 10px;
+            font: inherit; font-size: 0.82rem; font-weight: 650; background: transparent;
+        }
+        .skill-search-row > button {
+            width: 38px; height: 38px; border: 0; background: transparent; cursor: pointer;
+            font-size: 1rem; color: #555; display: none;
+        }
+        .skill-search.has-value .skill-search-row > button { display: block; }
+        .search-results {
+            display: none; position: absolute; top: 44px; right: 0; width: min(460px, 90vw);
+            max-height: 360px; overflow-y: auto; background: #fff; border: 1px solid #cfd5df;
+            box-shadow: 0 16px 36px rgba(0,0,0,0.18); border-radius: 6px; text-align: left; z-index: 2200;
+        }
+        .search-results.is-open { display: block; }
+        .search-result-item {
+            display: block; width: 100%; height: auto; padding: 13px 15px; border: 0; border-bottom: 1px solid #e5e5e5;
+            background: #fff; color: #111; text-align: left; cursor: pointer; opacity: 1;
+        }
+        .search-result-item:hover, .search-result-item:focus { background: #f3f7ff; outline: 0; }
+        .search-result-title { display: block; color: #111; font-size: 0.9rem; font-weight: 850; line-height: 1.45; word-break: keep-all; }
+        .search-result-snippet { display: block; margin-top: 5px; color: #555; font-size: 0.74rem; line-height: 1.45; word-break: keep-all; }
+        .search-result-meta { display: block; margin-top: 5px; font-size: 0.7rem; font-weight: 800; color: var(--shinhan-blue); }
+        .search-suggestion-wrap { padding: 14px; background: #f7f8fa; }
+        .search-suggestion-label { display: block; margin-bottom: 10px; color: #555; font-size: 0.74rem; font-weight: 850; }
+        .search-suggestion-list { display: flex; flex-wrap: wrap; gap: 7px; }
+        .search-keyword-chip {
+            width: auto !important; height: auto !important; display: inline-flex !important; padding: 7px 10px !important;
+            border: 1px solid #ccd5e2 !important; border-radius: 14px; background: #fff !important; color: #27364a !important;
+            font: inherit; font-size: 0.72rem !important; font-weight: 800 !important; line-height: 1.2; cursor: pointer;
+        }
+        .search-keyword-chip:hover { border-color: var(--shinhan-blue) !important; color: var(--shinhan-blue) !important; }
+        .search-empty { padding: 18px; font-size: 0.8rem; color: #777; text-align: center; }
+        .search-focus-flash { animation: searchFlash 1.5s ease; }
+        @keyframes searchFlash { 0%, 100% { outline: 0 solid transparent; } 35% { outline: 5px solid rgba(0,70,255,0.24); outline-offset: 8px; } }
+
         /* 상단 기업 선택 메뉴 */
         .header-mode-selector { 
-            display: flex; gap: 40px; margin-bottom: 12px;
+            display: flex; gap: 40px; margin-bottom: 6px;
             font-size: 0.9rem; font-weight: 800; letter-spacing: 1px;
         }
         .mode-tab { cursor: pointer; opacity: 0.3; transition: 0.3s; padding-bottom: 4px; border-bottom: 2px solid transparent; }
@@ -90,12 +164,32 @@
             background-color: var(--shinhan-blue);
         }
 
-        /* Spline Intro */
-        .spline-intro {
-            position: relative; width: 100%; height: 100vh;
-            background-color: #000; overflow: hidden; cursor: pointer;
+        /* Game intro */
+        .game-intro {
+            position: relative; width: 100%; min-height: 100vh; overflow: hidden;
+            display: flex; align-items: stretch; padding: 188px 5vw 46px;
+            background-color: #090d13;
+            background-image: url('game/image/main1.png');
+            background-repeat: no-repeat;
+            background-size: auto 68%;
+            background-position: right 62%;
         }
-        .spline-intro iframe { width: 100%; height: 100%; border: none; }
+        .game-intro::before {
+            content: ''; position: absolute; inset: 0; background: rgba(4, 8, 14, 0.42);
+        }
+        .game-intro-content { position: relative; z-index: 1; width: 100%; display: flex; flex-direction: column; justify-content: space-between; color: #fff; }
+        .game-intro-copy { width: min(620px, 42vw); text-align: left; text-shadow: 0 3px 14px rgba(0,0,0,0.88); }
+        .game-intro-kicker { display: inline-block; margin-bottom: 14px; font-size: 0.84rem; font-weight: 900; color: #9edaff; }
+        .game-intro h1 { font-size: 2.2rem; line-height: 1.3; font-weight: 900; word-break: keep-all; }
+        .game-intro p { margin-top: 12px; font-size: 1rem; line-height: 1.6; font-weight: 650; word-break: keep-all; }
+        .game-intro-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+        .game-intro-button {
+            min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 12px 20px; border: 1px solid #fff; background: #fff; color: #111; text-decoration: none;
+            font-size: 0.9rem; font-weight: 900; cursor: pointer;
+        }
+        .game-intro-button.secondary { background: rgba(0,0,0,0.58); color: #fff; }
+        .game-intro-button:hover { background: var(--shinhan-blue); border-color: var(--shinhan-blue); color: #fff; }
         .scroll-indicator {
             position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
             color: #fff; font-size: 0.9rem; font-weight: 600; text-transform: uppercase;
@@ -106,18 +200,22 @@
 
         /* [SECTION 1] HERO */
         .hero {
-            min-height: 95vh; padding-top: 130px; padding-bottom: 50px;
+            min-height: 95vh; padding-top: 210px; padding-bottom: 60px;
             display: flex; align-items: center; justify-content: space-between;
-            padding-left: 5vw; padding-right: 5vw; gap: 20px;
+            padding-left: 5vw; padding-right: 5vw; gap: 48px;
         }
-        .hero-text { flex: 1.4; z-index: 2; padding-right: 0; }
+        .hero-text { flex: 1.35; z-index: 2; padding-right: 0; max-width: 980px; }
+        .hero-eyebrow { display: inline-block; margin-bottom: 24px; padding-bottom: 6px; border-bottom: 3px solid var(--shinhan-blue); font-size: 1rem; font-weight: 900; color: var(--shinhan-blue); }
         .hero h1 {
-            font-size: 6.2vw; line-height: 1.1; font-weight: 900;
-            text-transform: uppercase; letter-spacing: -2px; margin-bottom: 30px;
+            font-size: 4rem; line-height: 1.18; font-weight: 900;
+            letter-spacing: 0; margin-bottom: 30px;
             word-break: keep-all; color: var(--black);
         }
-        .hero p.sub-title { font-size: 2.5vw; font-weight: 800; margin-bottom: 20px; text-transform: uppercase; color: #333; letter-spacing: 0px; }
-        .hero p.desc { font-size: 1.8vw; font-weight: 500; color: #555; word-break: keep-all; line-height: 1.5; margin-top: 10px; }
+        .hero h1 span { display: block; font-size: 0.72em; margin-bottom: 18px; color: #333; }
+        .hero h1 strong { display: block; color: var(--shinhan-blue); font-size: 0.72em; line-height: 1.28; }
+        .hero p.sub-title { font-size: 2rem; font-weight: 900; margin-bottom: 12px; text-transform: uppercase; color: #111; letter-spacing: 0; }
+        .hero-capabilities { font-size: 1.18rem; font-weight: 800; color: #333; line-height: 1.7; word-break: keep-all; }
+        .hero p.desc { font-size: 1.25rem; font-weight: 600; color: #555; word-break: keep-all; line-height: 1.65; margin-top: 14px; }
         
         .hero-image { flex: 1; display: flex; justify-content: flex-end; align-items: center; height: 100%; }
         .hero-image img {
@@ -190,8 +288,8 @@
         
         .latest-video-wrapper {
             width: 100%;
-            max-width: 300px; /* 숏폼 비율 고려 */
-            aspect-ratio: 9 / 16;
+            max-width: 560px;
+            aspect-ratio: 16 / 9;
             background: #000;
             border-radius: 12px;
             overflow: hidden;
@@ -291,10 +389,12 @@
             background: #f8fbff; 
             border-radius: 12px; 
             border: 1px solid #dce6f5;
+            display: flex; flex-direction: column;
         }
-        .tech-section-heading { font-size: 1.8rem; font-weight: 800; margin-bottom: 24px; display: flex; align-items: center; }
+        .tech-section-heading { order: 0; font-size: 1.8rem; font-weight: 800; margin-bottom: 24px; display: flex; align-items: center; }
         .section-marker { width: 8px; height: 30px; background: var(--shinhan-blue); margin-right: 15px; display: inline-block; }
         .ai-tool-strip {
+            order: 1;
             display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 48px;
             padding: 16px; background: #fff; border: 1px solid #dce6f5; border-radius: 8px;
         }
@@ -314,7 +414,12 @@
             display: flex; gap: 40px; margin-bottom: 60px; border-bottom: 1px solid #e0e8f9; padding-bottom: 60px;
             flex-wrap: wrap;
         }
-        .tech-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .vibe-tech-block { order: 2; }
+        .omni-tech-block { order: 3; }
+        .transition-tech-block { order: 4; }
+        .motion-tech-block { order: 5; }
+        .upscale-tech-block { order: 6; }
+        .upscale-tech-block { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .tech-info { flex: 1; min-width: 300px; }
         .tech-info.full-width { flex: 0 0 100%; }
         .tech-info h4 { font-size: 1.4rem; font-weight: 800; margin-bottom: 15px; color: var(--black); display: flex; align-items: center; gap: 10px; }
@@ -352,12 +457,54 @@
         .jobkorea-showcase p { font-size: 0.95rem; color: #555; line-height: 1.6; margin-bottom: 16px; word-break: keep-all; }
         .jobkorea-gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
         .jobkorea-gallery img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border: 1px solid #e5eaf3; border-radius: 6px; background: #f4f7fb; }
+        .private-gallery-item { position: relative; min-width: 0; }
+        .private-gallery-placeholder {
+            display: none; width: 100%; aspect-ratio: 1 / 1; align-items: center; justify-content: center;
+            padding: 18px; background: #eef3fb; border: 1px dashed #9fb2ce; border-radius: 6px;
+            color: #53647b; font-size: 0.82rem; font-weight: 800; text-align: center; word-break: keep-all;
+        }
+        body.privacy-hidden .private-gallery-placeholder { display: flex; }
         .jobkorea-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
         .btn-link.primary-link { background: var(--shinhan-blue); border-color: var(--shinhan-blue); color: #fff; }
         .btn-link.primary-link:hover { background: #fff; color: var(--shinhan-blue); }
 
         .btn-link { display: inline-block; padding: 10px 24px; background: var(--white); color: var(--black); border: 1px solid var(--black); font-weight: 700; border-radius: 4px; transition: 0.3s; font-size: 0.9rem; text-decoration: none; margin-top: 10px; }
         .btn-link:hover { background: var(--black); color: var(--white); }
+
+        .program-showcase-list { display: flex; flex-direction: column; gap: 28px; margin-top: 28px; }
+        .program-showcase {
+            display: grid; grid-template-columns: minmax(280px, 0.9fr) minmax(420px, 1.35fr);
+            gap: 28px; padding: 28px; background: #fff; border: 1px solid #cddbf1; border-left: 6px solid var(--shinhan-blue); border-radius: 8px;
+        }
+        .program-kicker { display: block; margin-bottom: 8px; color: var(--shinhan-blue); font-size: 0.78rem; font-weight: 900; text-transform: uppercase; }
+        .program-showcase h5 { font-size: 1.42rem; font-weight: 900; line-height: 1.35; margin-bottom: 16px; word-break: break-word; }
+        .program-feature-list { list-style: none !important; margin: 0 !important; }
+        .program-feature-list li { padding-left: 18px !important; margin-bottom: 9px !important; font-size: 0.95rem !important; }
+        .program-feature-list li::before { content: '✓' !important; color: var(--shinhan-blue) !important; }
+        .program-api-note { margin-top: 16px; padding: 12px 14px; background: #f4f7fb; color: #4d5a6c; font-size: 0.84rem; font-weight: 700; line-height: 1.5; }
+        .program-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; align-items: start; }
+        .program-shot { margin: 0; min-width: 0; }
+        .program-shot img { width: 100%; aspect-ratio: 16 / 10; object-fit: contain; background: #eef2f7; border: 1px solid #d9e1ed; border-radius: 6px; display: block; }
+        .program-shot figcaption { margin-top: 8px; color: #555; font-size: 0.82rem; font-weight: 750; line-height: 1.45; word-break: keep-all; }
+        .other-programs { margin-top: 26px; padding: 20px; background: #f6f8fb; border: 1px solid #dde4ed; border-radius: 6px; }
+        .other-programs h5 { font-size: 1rem; font-weight: 900; margin-bottom: 12px; }
+        .other-program-list { display: flex; flex-wrap: wrap; gap: 8px; }
+        .other-program-item { padding: 7px 10px; background: #fff; border: 1px solid #d7dfe9; border-radius: 3px; font-size: 0.8rem; color: #505b68; line-height: 1.4; }
+        .other-program-item strong { color: #111; }
+        .program-download-cta {
+            display: flex; align-items: center; justify-content: space-between; gap: 18px; width: 100%;
+            margin-top: 22px; padding: 20px 24px; background: var(--shinhan-blue); color: #fff; border: 2px solid var(--shinhan-blue);
+            border-radius: 6px; text-decoration: none; font-size: 1.08rem; font-weight: 900; transition: 0.25s ease;
+        }
+        .program-download-cta::after { content: '↗'; font-size: 1.45rem; }
+        .program-download-cta:hover { background: #fff; color: var(--shinhan-blue); }
+        .program-global-note { margin-top: 10px !important; color: #666 !important; font-size: 0.86rem !important; font-weight: 650; }
+
+        .shorts-column { flex: 1.65; }
+        .shorts-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 22px; }
+        .shorts-grid .media-card { margin-bottom: 0 !important; min-width: 0; }
+        .shorts-grid .media-title { font-size: 1rem; }
+        .shorts-grid .media-desc { font-size: 0.86rem; }
 
         .grid-section-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 30px; text-transform: uppercase; margin-top: 80px; }
         .contest-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-top: 40px; }
@@ -418,6 +565,101 @@
         .page-indicator { font-size: 1rem; font-weight: 600; min-width: 80px; }
         .btn-download { display: inline-block; padding: 14px 40px; background: var(--black); color: var(--white); font-weight: 700; text-transform: uppercase; border: 1px solid var(--black); transition: 0.3s; font-size: 0.9rem; }
         .btn-download:hover { background: var(--white); color: var(--black); }
+
+        /* Storywiz identity and interactive competency radar */
+        .identity-container { display: flex; align-items: flex-start; gap: 64px; }
+        .identity-text-area { flex: 1; min-width: 0; }
+        .shinhan-identity-intro { max-width: 1160px; }
+        .shinhan-identity-intro h2 { font-size: 3.15rem; line-height: 1.3; font-weight: 900; word-break: keep-all; margin-bottom: 30px; }
+        .shinhan-rookie-quote {
+            max-width: 980px; margin: 0 0 28px; padding: 16px 20px; border-left: 6px solid var(--shinhan-blue);
+            background: #f1f6ff; color: var(--shinhan-blue); font-size: 1.72rem; line-height: 1.45; font-weight: 900; word-break: keep-all;
+        }
+        .shinhan-intro-copy { max-width: 980px; margin-bottom: 20px; color: #444; font-size: 1.16rem; line-height: 1.75; font-weight: 600; word-break: keep-all; }
+        .shinhan-intro-copy:last-of-type { margin-bottom: 38px; }
+        .shinhan-intro-copy strong { color: var(--shinhan-blue); font-weight: 900; }
+
+        .storywiz-identity-layout {
+            display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+            gap: 44px; align-items: center;
+        }
+        .storywiz-manifesto { max-width: none; }
+        .storywiz-manifesto .manifesto-lead {
+            font-size: 2.35rem; line-height: 1.35; font-weight: 900; word-break: keep-all; margin-bottom: 28px;
+        }
+        .storywiz-manifesto .manifesto-lead strong { background: #111; color: #fff; padding: 2px 8px; }
+        .storywiz-manifesto .manifesto-pivot {
+            font-size: 1.45rem; line-height: 1.62; font-weight: 700; color: #333; word-break: keep-all; margin-bottom: 22px;
+        }
+        .storywiz-manifesto .manifesto-claim {
+            max-width: 960px; padding-left: 22px; border-left: 6px solid var(--black);
+            font-size: 1.8rem; line-height: 1.5; font-weight: 900; word-break: keep-all; margin: 36px 0 18px;
+        }
+        .storywiz-manifesto .manifesto-signature { font-size: 2.5rem; font-weight: 900; margin-top: 12px; }
+        .storywiz-radar-panel { min-width: 0; padding-left: 24px; border-left: 1px solid #d9dde3; }
+        .competency-radar-wrap {
+            margin-top: 0; display: flex; flex-direction: column; gap: 24px; align-items: center;
+        }
+        .competency-radar { position: relative; width: 100%; aspect-ratio: 1 / 1; max-width: 450px; }
+        .competency-radar svg { width: 100%; height: 100%; overflow: visible; }
+        .radar-grid { fill: none; stroke: #cfd3da; stroke-width: 1; }
+        .radar-axis { stroke: #d9dde3; stroke-width: 1; }
+        .radar-shape {
+            fill: rgba(0, 70, 255, 0.18); stroke: var(--shinhan-blue); stroke-width: 3;
+            transform-origin: 250px 250px; animation: radarBloom 1.2s ease both, radarBreathe 4s ease-in-out 1.2s infinite;
+        }
+        .radar-point { fill: #fff; stroke: var(--shinhan-blue); stroke-width: 3; transition: r 0.25s ease, fill 0.25s ease; }
+        .radar-point.is-active { r: 9; fill: var(--shinhan-blue); }
+        @keyframes radarBloom { from { transform: scale(0.15); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes radarBreathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.025); } }
+        .radar-controls { width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+        .radar-skill {
+            min-height: 72px; padding: 12px; border: 1px solid #d9dde3; background: #fff; cursor: pointer;
+            text-align: left; transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+        }
+        .radar-skill:hover, .radar-skill:focus, .radar-skill.is-active {
+            outline: 0; border-color: var(--shinhan-blue); background: #f1f6ff; transform: translateY(-2px);
+        }
+        .radar-skill strong { display: block; font-size: 0.96rem; margin-bottom: 4px; }
+        .radar-skill span { display: block; font-size: 0.78rem; color: #666; line-height: 1.4; }
+        .storywiz-proof-list { margin-top: 42px; padding-top: 26px; border-top: 1px solid #d9dde3; list-style: none; }
+        .storywiz-proof-list li { position: relative; padding-left: 22px; margin-bottom: 14px; font-size: 1.16rem; font-weight: 700; line-height: 1.6; }
+        .storywiz-proof-list li::before { content: ''; position: absolute; left: 0; top: 0.72em; width: 9px; height: 9px; background: var(--black); }
+        .portfolio-bottom-section { background: #f5f5f5; }
+        .portfolio-bottom-section .portfolio-viewer-area { width: min(1100px, 100%); margin: 0 auto; }
+
+        /* Global video-only carousel */
+        .video-reel-section { background: #111; color: #fff; border-top-color: #fff; overflow: hidden; }
+        .video-reel-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 34px; }
+        .video-reel-section .section-label { color: #fff; border-color: #fff; }
+        .video-reel-section .section-title { color: #fff !important; margin-bottom: 0; }
+        .video-reel-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+        .video-reel-tab {
+            padding: 9px 15px; border: 1px solid #555; background: transparent; color: #ccc;
+            font: inherit; font-size: 0.82rem; font-weight: 800; cursor: pointer; border-radius: 3px;
+        }
+        .video-reel-tab.is-active { color: #111; background: #fff; border-color: #fff; }
+        .video-reel-viewport { overflow: hidden; width: 100%; }
+        .video-reel-track { display: flex; gap: 22px; transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1); }
+        .video-reel-card { flex: 0 0 320px; color: #fff; text-decoration: none; }
+        .video-reel-thumb { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #292929; overflow: hidden; border-radius: 6px; }
+        .video-reel-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+        .video-reel-card:hover img { transform: scale(1.05); }
+        .video-reel-thumb::after {
+            content: '▶'; position: absolute; inset: 0; display: grid; place-items: center;
+            font-size: 2rem; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+        }
+        .video-reel-card strong { display: block; margin-top: 13px; font-size: 1rem; line-height: 1.4; word-break: keep-all; }
+        .video-reel-card small { display: block; margin-top: 5px; color: #aaa; font-size: 0.74rem; font-weight: 700; }
+        .video-reel-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 30px; }
+        .video-reel-count { color: #aaa; font-size: 0.84rem; font-weight: 700; }
+        .video-reel-controls { display: flex; gap: 10px; }
+        .video-reel-arrow {
+            width: 44px; height: 44px; border: 1px solid #666; background: transparent; color: #fff;
+            font-size: 1.8rem; line-height: 1; cursor: pointer; border-radius: 50%;
+        }
+        .video-reel-arrow:hover { background: #fff; color: #111; }
+        .video-reel-arrow:disabled { opacity: 0.3; cursor: default; }
 
         /* 신한 상세 업무 리스트 전용 스타일 */
         .shinhan-roles { margin-top: 40px; display: flex; flex-direction: column; gap: 20px; }
@@ -553,31 +795,93 @@
         footer { background: var(--black); color: var(--white); padding: 80px 5vw; text-align: center; }
 
         @media (max-width: 960px) {
-            header { height: auto; padding: 20px 0; }
+            header { min-height: 0; padding: 10px 14px; }
+            .top-utility-bar { flex-direction: column; gap: 8px; }
+            .privacy-control { width: 100%; justify-content: center; }
+            .skill-search { width: 100%; }
+            .privacy-switch { width: 200px; }
+            .privacy-switch::before { width: 95px; }
+            .privacy-switch.is-visible::before { transform: translateX(98px); }
+            .header-mode-selector { gap: 16px; font-size: 0.76rem; }
             header nav ul { gap: 15px; flex-wrap: wrap; justify-content: center; }
-            .hero { flex-direction: column-reverse; text-align: center; padding-top: 150px; }
+            header nav a { font-size: 0.7rem; }
+            .hero { flex-direction: column-reverse; text-align: center; padding-top: 240px; }
+            .game-intro { padding-top: 230px; background-size: 94% auto; background-position: center 72%; }
+            .game-intro::before { background: rgba(4, 8, 14, 0.68); }
+            .game-intro-copy { width: 100%; }
+            .game-intro h1 { font-size: 1.75rem; }
+            .hero h1 { font-size: 2.45rem; }
+            .hero p.sub-title { font-size: 1.45rem; }
+            .hero-capabilities { font-size: 1rem; }
+            .hero p.desc { font-size: 1.05rem; }
+            .hero-image img { height: 58vh; }
             
             /* 모바일에서 최신 작업물 레이아웃 변경 */
             .history-latest-wrapper { flex-direction: column; }
             .latest-work-container { width: 100%; }
 
             .identity-container { flex-direction: column; }
+            .shinhan-identity-intro h2 { font-size: 2.2rem; }
+            .shinhan-rookie-quote { font-size: 1.35rem; }
+            .shinhan-intro-copy { font-size: 1.04rem; }
+            .storywiz-identity-layout { grid-template-columns: 1fr; gap: 44px; }
+            .storywiz-manifesto .manifesto-lead { font-size: 1.75rem; }
+            .storywiz-manifesto .manifesto-pivot { font-size: 1.15rem; }
+            .storywiz-manifesto .manifesto-claim { font-size: 1.4rem; }
+            .storywiz-manifesto .manifesto-signature { font-size: 2rem; }
+            .storywiz-radar-panel { padding-left: 0; padding-top: 36px; border-left: 0; border-top: 1px solid #d9dde3; }
+            .competency-radar-wrap { gap: 28px; }
+            .competency-radar { margin: 0 auto; }
+            .radar-controls { grid-template-columns: 1fr; }
             .project-item { flex-direction: column; }
             .project-left { border-right: none; border-bottom: 1px solid var(--black); width: 100%; padding: 40px 20px; }
             .media-row { flex-direction: column; gap: 60px; }
             .contest-grid { grid-template-columns: 1fr; }
             .tech-detail-grid { grid-template-columns: 1fr; }
             .vibe-grid { grid-template-columns: 1fr; }
+            .program-showcase { grid-template-columns: 1fr; }
             .jobkorea-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             .tech-meta-label { display: block; margin-bottom: 4px; }
+            .video-reel-header { align-items: flex-start; flex-direction: column; }
+            .video-reel-card { flex-basis: min(82vw, 320px); }
             .modal-content { max-height: 85vh; width: 95%; }
             .modal-text-area { padding: 20px; }
         }
+
+        @media (max-width: 620px) {
+            .program-showcase { padding: 20px; }
+            .program-gallery { grid-template-columns: 1fr; }
+            .shorts-grid { gap: 24px 12px; }
+            .shorts-grid .media-title { font-size: 0.9rem; }
+            .shorts-grid .media-desc { font-size: 0.78rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+        }
     </style>
 </head>
-<body class="shinhan-theme-container"> <!-- 기본 로드 시 신한금융플러스 테마 적용 -->
+<body class="shinhan-theme-container privacy-hidden"> <!-- 기본 로드 시 신한금융플러스 테마 및 개인정보 가림 적용 -->
 
     <header>
+        <div class="top-utility-bar">
+            <div class="privacy-control">
+                <span class="privacy-label">개인정보 설정</span>
+                <button id="privacy-switch" class="privacy-switch" type="button" role="switch" aria-checked="false" aria-label="개인정보 표시 전환" onclick="togglePrivacy()">
+                    <span class="privacy-off">개인정보 가림</span>
+                    <span class="privacy-on">개인정보 보기</span>
+                </button>
+            </div>
+            <div id="skill-search" class="skill-search">
+                <div class="skill-search-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.8-3.8"></path></svg>
+                    <input id="skill-search-input" type="search" placeholder="주요 역량 키워드 검색" autocomplete="off" aria-label="주요 역량 키워드 검색" aria-controls="search-results">
+                    <button type="button" aria-label="검색어 지우기" onclick="clearSkillSearch()">×</button>
+                </div>
+                <div id="search-results" class="search-results" role="listbox" aria-label="검색 결과"></div>
+            </div>
+        </div>
         <div class="header-mode-selector">
             <div id="tab-shinhan" class="mode-tab shinhan-tab active" onclick="toggleMode('shinhan')">SHINHAN FINANCIAL PLUS</div>
             <div style="opacity:0.2">|</div>
@@ -590,20 +894,37 @@
         </nav>
     </header>
 
-    <div class="spline-intro" id="spline-intro" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'})">
-        <iframe src='https://my.spline.design/distortingtypography-hQSONaQmEZ4ppZneS2jl2XC9/' frameborder='0' width='100%' height='100%'></iframe>
-        <div class="scroll-indicator">Explore Narrative<br>▼</div>
+    <div class="game-intro" id="game-intro">
+        <div class="game-intro-content">
+            <div class="game-intro-copy">
+                <span class="game-intro-kicker">AI MINI GAME · PORTFOLIO</span>
+                <h1>
+                    <span data-private-visible>김승빈 지원자의 포트폴리오 페이지가 맞습니다.</span>
+                    <span data-private-hidden>지원자의 포트폴리오 페이지입니다.</span>
+                </h1>
+                <p>지친 업무 중, 잠깐의 휴식을 가져보시는 건 어떨까요?<br>- 직접 AI로 제작한 미니 게임 파일.</p>
+            </div>
+            <div class="game-intro-actions">
+                <a href="game/index.html" target="_blank" rel="noopener noreferrer" class="game-intro-button">게임 실행하기 ↗</a>
+                <button type="button" class="game-intro-button secondary" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'})">포트폴리오 보기 ↓</button>
+            </div>
+        </div>
     </div>
 
     <!-- [HERO] 좌우 정렬 및 그레이스케일 마우스 호버 효과 복원 -->
     <section class="hero" id="hero">
         <div class="hero-text">
-            <h1>"I Believe in<br>Narrative"</h1>
-            <p class="sub-title">CONTENT MARKETER & MD</p>
-            <p class="desc">장르 간, 사람 간의 소통을 중시하는 인재.</p>
+            <span class="hero-eyebrow">AI MARKETER & CONTENT MD</span>
+            <h1><span>"3개월 뒤의 세상을<br>예측할 수 있으신가요?"</span><strong>"AI 기술이 급변하는 과도기.<br>더 이상 하나만 잘하면 되는 시대는 지났습니다."</strong></h1>
+            <p class="sub-title">AI MARKETER & CONTENT MD</p>
+            <p class="hero-capabilities">영상 소재 제작 · SNS 마케팅 · 웹소설·웹툰 머천다이징</p>
+            <p class="desc">
+                <span data-private-visible>바이브 코딩과 계약 관리 등 실무 역량을 겸비한 올라운더 지원자, 김승빈입니다.</span>
+                <span data-private-hidden>바이브 코딩과 계약 관리 등 실무 역량을 겸비한 올라운더 포트폴리오입니다.</span>
+            </p>
         </div>
-        <div class="hero-image">
-            <img src="profile.jpg" alt="김승빈 프로필 사진">
+        <div class="hero-image private-photo">
+            <img src="profile.jpg" alt="지원자 프로필 사진">
         </div>
     </section>
 
@@ -659,13 +980,13 @@
 
             <!-- 최신 작업물 영역 -->
             <div class="latest-work-container">
-                <h3>Latest Work</h3>
+                <h3>주요 작업물</h3>
                 <div class="latest-video-wrapper">
-                    <a href="https://youtube.com/shorts/8YviOdMqErU" target="_blank">
-                        <img src="https://img.youtube.com/vi/8YviOdMqErU/hqdefault.jpg" alt="최신 작업물" onerror="handleImageError(this)">
+                    <a href="https://www.youtube.com/watch?v=mWxe5FgP2-Y" target="_blank">
+                        <img src="https://img.youtube.com/vi/mWxe5FgP2-Y/maxresdefault.jpg" alt="신한의 미래 연도대상 브릿지 영상" onerror="handleImageError(this)">
                     </a>
                 </div>
-                <p class="latest-work-desc">가장 최근 기획/제작한 숏폼 콘텐츠입니다.</p>
+                <p class="latest-work-desc"><strong>신한의 미래(연도대상 브릿지 영상 1)</strong><br>'26년 3월 제작 · 기획, 제작, 연출 100%</p>
             </div>
         </div>
     </section>
@@ -691,37 +1012,36 @@
         <section id="identity-shinhan">
             <span class="section-label">Identity</span>
             <div class="identity-container">
-                <div class="identity-text-area">
-                    <h2>금융의 가치를 소셜의 언어로,<br><span class="name-highlight">신한금융플러스</span> SNS 마케터 김승빈입니다.</h2>
-                    <p style="margin-bottom: 25px;">복잡하고 딱딱한 금융 정보를 고객의 눈높이에 맞는 친숙한 콘텐츠로 재해석하여 강력한 브랜드 경험을 설계합니다.</p>
-                    <p style="margin-bottom: 35px;">현재 공식 유튜브 채널의 비약적인 성장을 견인하며, 전사적 대규모 행사를 성공적으로 주관하는 등 온·오프라인 마케팅 역량을 발휘하고 있습니다.</p>
+                <div class="identity-text-area shinhan-identity-intro">
+                    <h2>
+                        <span data-private-visible>금융의 가치를 소셜의 언어로,<br><span class="name-highlight">신한금융플러스</span> AI 마케터 김승빈입니다.</span>
+                        <span data-private-hidden>금융의 가치를 소셜의 언어로,<br><span class="name-highlight">신한금융플러스</span> AI 마케터 포트폴리오입니다.</span>
+                    </h2>
+                    <p class="shinhan-rookie-quote">"입사 3개월 만에 이달의 우수 사원으로 선정된 루키를 보셨나요?"</p>
+                    <p class="shinhan-intro-copy">복잡하고 딱딱한 보험·금융 서비스를 친숙하고 세련된 콘텐츠 감각으로 재해석하는 열정적인 마케터입니다.</p>
+                    <p class="shinhan-intro-copy">현재 공식 유튜브 채널의 비약적인 성장을 견인하며 <strong>채널 운영 초기 3개월 내 30만 뷰</strong>를 달성했습니다. 전사적 대규모 행사를 성공적으로 주관하는 등 온·오프라인 마케팅 역량을 발휘하고 있습니다.</p>
                     
                     <div class="shinhan-roles">
                         <h4 style="font-size: 1.3rem; font-weight: 800; border-left: 4px solid var(--shinhan-blue); padding-left: 12px; margin-bottom: 10px;">주요 직무 및 실무 영역</h4>
                         
                         <div class="role-card">
                             <div class="role-card-title">🎬 마케팅 광고 영상 기획 및 소재 제작</div>
-                            <div class="role-card-desc">매주 1회의 트렌디한 숏폼(Shorts) 소재 기획 및 제작, 격주 1회의 고품질 롱폼(Long-form) 영상 기획 및 연출을 전담하여 채널을 주기적으로 이끌어 가고 있습니다.</div>
+                            <div class="role-card-desc">매주 1회의 트렌디한 숏폼(Shorts) 소재 기획 및 제작, 격주 1회의 고품질 롱폼(Long-form) 영상 기획 및 연출을 전담</div>
                         </div>
 
                         <div class="role-card">
                             <div class="role-card-title">🎨 프로모션 홍보 배너 제작 및 채널 송출</div>
-                            <div class="role-card-desc">일 2회, 주 5회 주기로 고효율 프로모션 홍보 배너 시안을 직접 제작하고 있습니다. 카카오톡 영업 알리미(플러스 친구) 발송 및 사내 내부 영업 어플리케이션 내의 배너 프로모션 홍보를 총괄합니다.</div>
+                            <div class="role-card-desc">일 2~3회, 주 10회 이상 프로모션 홍보 배너 시안을 직접 제작<br>카카오톡 영업 알리미(플러스 친구) 발송 및 사내 영업 애플리케이션 내 배너 프로모션 홍보를 총괄</div>
                         </div>
 
                         <div class="role-card">
                             <div class="role-card-title">🏆 대규모 사내 공식 행사 기획 및 총괄 PM</div>
-                            <div class="role-card-desc">전사 연도대상 시상식 주관 개최 및 포상 연수 행사인 '썸머페스티벌(해외 여행)'의 대외 비딩 등 굵직한 사내 핵심 행사의 실행을 주관하고 있으며, 본식 오프닝 및 시상 진행용 비디오 2종 제작 등 주요 실무를 총괄하고 있습니다.</div>
+                            <div class="role-card-desc">전사 연도대상 시상식 주관, '썸머페스티벌(해외 여행)' 대외 비딩 실무 등 행사 실행을 주관<br>행사 오프닝 및 진행용 비디오 제작</div>
                         </div>
 
                         <div class="role-card">
                             <div class="role-card-title">📄 대내외 공식 문서 수립 및 파트 행정</div>
-                            <div class="role-card-desc">파트 대내외 협조공문 작성, 대관 조율 및 내부 품의 기안서 등 전방위 파트 공식 문서를 책임 전담하며 정합성 높은 정기 마케팅 보고서를 수립합니다.</div>
-                        </div>
-
-                        <div class="role-card">
-                            <div class="role-card-title">🎤 인재 리쿠르팅 교육 기획 및 진행</div>
-                            <div class="role-card-desc">영업 조직의 핵심 리쿠르팅 역량 제고를 위해 체계적이고 깊이 있는 실무 교육 프로그램을 기획하고 성공적으로 전담 운영하였습니다.</div>
+                            <div class="role-card-desc">파트 대내외 협조 공문 작성, 대관 조율 및 내부 품의 기안서 등 파트 공식 문서를 책임 전담</div>
                         </div>
                     </div>
                 </div>
@@ -768,6 +1088,7 @@
                 
                 <div class="ai-tool-strip" aria-label="활용 AI 기술">
                     <span class="ai-tool-pill"><span class="ai-tool-icon">O</span>OMNI</span>
+                    <span class="ai-tool-pill"><span class="ai-tool-icon">S</span>SEEDANCE</span>
                     <span class="ai-tool-pill"><span class="ai-tool-icon">K</span>KLING AI</span>
                     <span class="ai-tool-pill"><span class="ai-tool-icon">H</span>HitPaw</span>
                     <span class="ai-tool-pill"><span class="ai-tool-icon">G</span>ChatGPT</span>
@@ -777,31 +1098,24 @@
                 </div>
 
                 <!-- 기술 1 -->
-                <div class="tech-block">
+                <div class="tech-block omni-tech-block">
                     <div class="tech-info">
                         <h4>OMNI 편집 및 AI 타이포그래피 모션 그래픽</h4>
                         <p>같은 캠페인 시리즈 안에서 인물, 배경, 타이포그래피를 각각 분리해 설계하고 다시 합성한 핵심 AI 편집 사례입니다. 단순 컷 편집이 아니라, 영상 속 요소를 레이어 단위로 다루며 콘셉트 변화를 만든 작업입니다.</p>
                         <div class="tech-meta-list">
                             <div class="tech-meta-item"><span class="tech-meta-label">사용 툴</span><span class="tech-tool">OMNI</span><span class="tech-tool">ChatGPT</span><span class="tech-tool">Adobe Photoshop</span></div>
-                            <div class="tech-meta-item"><span class="tech-meta-label">적용 기능</span>인물/배경 개별 수정, AI 로토스코핑, 그린스크린 합성, 타이포그래피 리소스 생성, 레이어 합성 및 후반 보정</div>
+                            <div class="tech-meta-item"><span class="tech-meta-label">적용 기능</span>인물/배경 개별 수정, 그린스크린 합성, 타이포그래피 리소스 생성, 레이어 합성 및 후반 보정</div>
                             <div class="tech-meta-item"><span class="tech-meta-label">결과</span>1편과 2편의 배경 및 인물 연출을 다르게 구성하면서도, 같은 캠페인 톤과 브랜드 무드를 유지한 시리즈형 숏폼 제작</div>
                         </div>
                         <div class="tech-detail-grid">
                             <div class="tech-detail-card">
                                 <h5>OMNI 기반 요소 분리</h5>
-                                <p>영상 속 인물과 배경을 분리해 각각 수정하고, 동일한 캠페인 안에서도 장면별 콘셉트가 달라 보이도록 구성했습니다.</p>
-                            </div>
-                            <div class="tech-detail-card">
-                                <h5>AI 로토스코핑 / 그린스크린</h5>
-                                <p>촬영본 위에 타이포그래피와 그래픽 요소를 자연스럽게 얹기 위해 피사체 경계 처리와 합성 방식을 장면별로 조정했습니다.</p>
                             </div>
                             <div class="tech-detail-card">
                                 <h5>타이포그래피 리소스 제작</h5>
-                                <p>ChatGPT로 문구와 표현 방향을 정리하고, Photoshop 및 Photoshop Web을 활용해 영상 합성용 타이포 리소스를 제작했습니다.</p>
                             </div>
                             <div class="tech-detail-card">
                                 <h5>후반 합성 및 톤 보정</h5>
-                                <p>분리된 배경, 인물, 타이포 요소를 다시 결합하고 색감과 움직임을 맞춰 한 편의 캠페인 영상처럼 보이도록 마감했습니다.</p>
                             </div>
                         </div>
                     </div>
@@ -831,7 +1145,7 @@
                 </div>
 
                 <!-- 기술 2 -->
-                <div class="tech-block">
+                <div class="tech-block transition-tech-block">
                     <div class="tech-info">
                         <h4>KLING AI 트랜지션</h4>
                         <p>비디오 편집 단계에서 생성형 AI를 활용해 장면과 장면 사이를 자연스럽게 이어 붙인 사례입니다.</p>
@@ -851,7 +1165,7 @@
                 </div>
 
                 <!-- 기술 3 -->
-                <div class="tech-block">
+                <div class="tech-block motion-tech-block">
                     <div class="tech-info">
                         <h4>KLING AI 모션 컨트롤</h4>
                         <p>실제 인물 촬영본의 동작을 AI 가상 인플루언서 움직임에 반영한 모션 컨트롤 사례입니다.</p>
@@ -871,7 +1185,7 @@
                 </div>
 
                 <!-- 기술 4 -->
-                <div class="tech-block">
+                <div class="tech-block upscale-tech-block">
                     <div class="tech-info">
                         <h4>업스케일 및 대형 스크린 상영 최적화</h4>
                         <p>대형 전광판 상영 요구 스펙에 맞춰 1080p 출력물을 고해상도 영상으로 변환한 사례입니다.</p>
@@ -891,34 +1205,78 @@
                 </div>
 
                 <!-- 기술 5: Vibe Coding 내용 전문화 및 양식 통일 -->
-                <div class="tech-block">
+                <div class="tech-block vibe-tech-block">
                     <div class="tech-info full-width">
                         <h4>바이브 코딩 및 업무 자동화 툴 제작</h4>
                         <p>코딩 보조 AI를 하나의 기능으로 묶기보다, 목적에 따라 다른 도구를 나눠 활용해 콘텐츠 제작 보조와 반복 업무 자동화를 진행했습니다.</p>
                         <div class="tech-meta-list">
-                            <div class="tech-meta-item"><span class="tech-meta-label">사용 툴</span><span class="tech-tool">Codex</span><span class="tech-tool">Cursor AI</span><span class="tech-tool">Gemini Canvas</span><span class="tech-tool">API 연동</span></div>
+                            <div class="tech-meta-item"><span class="tech-meta-label">사용 툴</span><span class="tech-tool">Codex</span><span class="tech-tool">Cursor AI</span><span class="tech-tool">Google Gemini API</span><span class="tech-tool">OpenAI API</span><span class="tech-tool">Gemini Canvas</span></div>
                             <div class="tech-meta-item"><span class="tech-meta-label">운용 방식</span>프롬프트 설계, 프로토타입 제작, 데이터 처리 자동화, 콘텐츠 분석 기능을 목적별로 분리해 설계</div>
                         </div>
-                        <div class="vibe-grid">
-                            <div class="vibe-card">
-                                <span class="tech-tool">Codex</span>
-                                <h5>프롬프트 엔지니어링 보조 툴</h5>
-                                <p>이미지를 삽입하면 구성 요소와 프롬프트 방향을 분석하고, 자연어 입력을 API 기반 JSON 코드와 영문 프롬프트로 변환합니다.</p>
-                                <p><strong>역할:</strong> ComfyUI 유사 작업을 돕는 자체 제작 보조 프로그램 설계 및 구현</p>
-                            </div>
-                            <div class="vibe-card">
-                                <span class="tech-tool">Gemini Canvas</span>
-                                <h5>음악 키워드 분석 및 가사 생성기</h5>
-                                <p>유튜브 링크 기반으로 음악 요소와 키워드를 자동 분석하고, SUNO 키워드 특징을 반영해 음가와 라임을 맞춘 힙합 가사를 생성합니다.</p>
-                                <p><strong>역할:</strong> 음악 분석, 키워드 추출, 가사 초안 생성 워크플로우 구성</p>
-                            </div>
-                            <div class="vibe-card">
-                                <span class="tech-tool">Cursor AI</span>
-                                <h5>실무 특화 업무 보조 프로그램</h5>
-                                <p>스토리위즈 재직 당시부터 메타 데이터 일괄 수정, 정산 데이터 취합, 한글 원고 자동 분절 등 반복 업무를 줄이는 도구를 제작했습니다.</p>
-                                <p><strong>결과:</strong> MetaNamer.exe, Sales Automator, Hwp Splitter 등 운용</p>
+                        <div class="program-showcase-list">
+                            <article class="program-showcase">
+                                <div class="program-info">
+                                    <span class="program-kicker">01 · Prompt Builder</span>
+                                    <h5>프롬프트 제작기<br>PromptMasterPortable.exe</h5>
+                                    <ul class="program-feature-list">
+                                        <li>Google API(Gemini 기반)를 활용한 이미지 분석 및 이미지·영상 프롬프트 자동 생성</li>
+                                        <li>문장 입력 시 영문 프롬프트 자동 생성</li>
+                                        <li>영문 프롬프트의 한국어 자동 번역</li>
+                                        <li>프롬프트 세부 사항 반영 및 항목 고정·빠른 반영</li>
+                                        <li>색상 코드와 팔레트 분석 및 레퍼런스 소재 분류</li>
+                                    </ul>
+                                    <div class="program-api-note">프로그램 운용을 위해 별도의 API 키와 유료 토큰이 필요합니다.</div>
+                                </div>
+                                <div class="program-gallery">
+                                    <figure class="program-shot">
+                                        <img src="program1 (1).png" alt="PromptMasterPortable 자연어 요청 입력 화면" onerror="handleImageError(this)">
+                                        <figcaption>자연어 요청 입력</figcaption>
+                                    </figure>
+                                    <figure class="program-shot">
+                                        <img src="program1 (2).png" alt="JSON 코드 형식 프롬프트 자동 생성 화면" onerror="handleImageError(this)">
+                                        <figcaption>JSON 코드 형식 프롬프트 자동 생성 및 세부 설정 변경·유지</figcaption>
+                                    </figure>
+                                </div>
+                            </article>
+
+                            <article class="program-showcase">
+                                <div class="program-info">
+                                    <span class="program-kicker">02 · Image Generator</span>
+                                    <h5>이미지 생성기<br>OpenAIImageStudio.exe</h5>
+                                    <ul class="program-feature-list">
+                                        <li>OpenAI API 기반 ChatGPT 이미지 생성</li>
+                                        <li>이미지 비율과 출력 형식 조정</li>
+                                        <li>자연어 입력 및 레퍼런스 이미지 반영</li>
+                                        <li>제작 완료 알림 및 다중 작업 지원</li>
+                                    </ul>
+                                    <div class="program-api-note">프로그램 운용을 위해 별도의 API 키와 유료 토큰이 필요합니다.</div>
+                                </div>
+                                <div class="program-gallery">
+                                    <figure class="program-shot">
+                                        <img src="program2 (1).png" alt="OpenAIImageStudio 프롬프트 입력 화면" onerror="handleImageError(this)">
+                                        <figcaption>프롬프트 입력(자연어 문장 지원)</figcaption>
+                                    </figure>
+                                    <figure class="program-shot">
+                                        <img src="program2 (2).png" alt="이미지 자동 생성 및 알림 화면" onerror="handleImageError(this)">
+                                        <figcaption>이미지 자동 생성 및 알림(다중 작업 지원)</figcaption>
+                                    </figure>
+                                </div>
+                            </article>
+                        </div>
+
+                        <div class="other-programs">
+                            <h5>그 외 업무 보조 프로그램</h5>
+                            <div class="other-program-list">
+                                <span class="other-program-item"><strong>음악 키워드 분석기</strong> · 음악 요소 분석 및 가사 초안 생성</span>
+                                <span class="other-program-item"><strong>MetaNamer.exe</strong> · 메타데이터 일괄 수정</span>
+                                <span class="other-program-item"><strong>Sales Automator</strong> · 정산 데이터 표준화·취합</span>
+                                <span class="other-program-item"><strong>Hwp Splitter</strong> · 원고 자동 분절 및 글자 수 계산</span>
                             </div>
                         </div>
+
+                        <a href="https://drive.google.com/drive/folders/1NsFsKVHKhfUpG29mgPvCwX4pStykCUZV" target="_blank" class="program-download-cta">📁 직접 개발한 보조 프로그램 확인하기</a>
+                        <p class="program-global-note">* 일부 프로그램은 API 키를 입력해야 정상적으로 구동됩니다.</p>
+
                         <div class="jobkorea-showcase">
                             <h5>잡코리아 바이브톤 참여: 팀장님 뒷목 잡게 만드는 프로그램</h5>
                             <p>잡코리아 바이브톤에 <strong>바이브 코딩 1인팀</strong>으로 참여했습니다. 공통 주제인 "팀장님 뒷목 잡게 만드는 프로그램"을 바탕으로 회의 음성 분석, 핵심 요약, 결정사항 추출, 액션 아이템 정리, 월급 루팡 후보 색출까지 이어지는 AI 회의록 분석 서비스를 기획하고 실제 배포 및 구현까지 진행했습니다.</p>
@@ -928,17 +1286,19 @@
                                 <div class="tech-meta-item"><span class="tech-meta-label">성과</span>114:1 경쟁률을 뚫고 참가자로 선발, 실제 서비스 URL 배포 및 발표 자료 구성</div>
                             </div>
                             <div class="jobkorea-gallery">
-                                <img src="jobkkorea (1).jpg" alt="잡코리아 바이브톤 참가 네임택" onerror="handleImageError(this)">
+                                <div class="private-gallery-item">
+                                    <img class="private-photo" src="jobkkorea (1).jpg" alt="잡코리아 바이브톤 참가 네임택" onerror="handleImageError(this)">
+                                    <div class="private-gallery-placeholder">개인정보 보기를 선택하면 참가 네임택을 확인할 수 있습니다.</div>
+                                </div>
                                 <img src="jobkkorea (2).jpg" alt="잡코리아 바이브톤 선발 안내" onerror="handleImageError(this)">
                                 <img src="jobkkorea (3).jpg" alt="AI 회의록 분석기 서비스 화면" onerror="handleImageError(this)">
                                 <img src="jobkkorea (4).jpg" alt="AI 회의 분석 결과 화면" onerror="handleImageError(this)">
                             </div>
                             <div class="jobkorea-actions">
                                 <a href="https://find-waloo-5no5.vercel.app/" target="_blank" class="btn-link primary-link">서비스 바로가기</a>
-                                <a href="https://www.miricanvas.com/v2/ko/design2/v/09cb4abf-907c-4618-aad9-25ea368bb2d2" target="_blank" class="btn-link">기획의도 보기</a>
+                                <a href="https://www.miricanvas.com/v2/ko/design2/v/09cb4abf-907c-4618-aad9-25ea368bb2d2" target="_blank" class="btn-link">기획 의도 보기</a>
                             </div>
                         </div>
-                        <a href="https://drive.google.com/drive/folders/1NsFsKVHKhfUpG29mgPvCwX4pStykCUZV" target="_blank" class="btn-link">📁 직접 개발한 보조 프로그램 확인하기 ('25년 상반기 기준)</a>
                     </div>
                 </div>
             </div>
@@ -963,8 +1323,9 @@
                             <div class="media-desc">기획 : 100% | 제작, 연출 : 100%</div>
                         </a>
                     </div>
-                    <div class="media-col">
-                        <div class="sub-category-title">Shorts 콘텐츠 (Viral)</div>
+                    <div class="media-col shorts-column">
+                        <div class="sub-category-title">Shorts 콘텐츠</div>
+                        <div class="shorts-grid">
                         <a href="https://youtube.com/shorts/j48viMA877Y" target="_blank" class="media-card" style="margin-bottom: 20px;">
                             <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/j48viMA877Y/hqdefault.jpg" onerror="handleImageError(this)"></div>
                             <div class="media-title">지금 떠나요, 파타야로!(썸머 페스티벌 내부 홍보 영상)</div>
@@ -995,6 +1356,7 @@
                             <div class="media-title">밈어캣 등장!</div>
                             <div class="media-desc">기획 : 100% | 제작, 연출 : 100%</div>
                         </a>
+                        </div>
                     </div>
                 </div>
 
@@ -1032,7 +1394,7 @@
                             📺 11m x 9m 대형 전광판 8K 해상도 상영 스펙
                         </h4>
                         <p style="font-size: 0.95rem; color: #555; margin-bottom: 20px; line-height: 1.6; word-break: keep-all;">
-                            연도대상 본식 무대에 설치된 <strong>11m x 9m 규모의 초대형 LED 전광판</strong>에 브릿지 영상을 상영했습니다. 26년 3월 기준 <strong>최신 KILLING AI 기반 영상 제작 기술</strong>을 도입하여 <strong>8K 해상도 업스케일링 및 12,000 비트레이트 규격</strong>에 맞춰 최고 화질로 상영을 진행했습니다.
+                            연도대상 본식 무대에 설치된 <strong>11m x 9m 규모의 초대형 LED 전광판</strong>에 브릿지 영상을 상영했습니다. 26년 3월 기준 <strong>최신 KLING AI 기반 영상 제작 기술</strong>을 도입하여 <strong>8K 해상도 업스케일링 및 12,000 비트레이트 규격</strong>에 맞춰 최고 화질로 상영을 진행했습니다.
                         </p>
                         <div style="display: flex; gap: 20px; flex-wrap: wrap;">
                             <div style="flex: 1; min-width: 250px;">
@@ -1114,15 +1476,26 @@
                             <div class="media-title">[𝑷𝒍𝒂𝒚𝒍𝒊𝒔𝒕] 아직도 나만 개백수야</div>
                         </a>
                     </div>
-                    <div class="media-col">
+                    <div class="media-col shorts-column">
                         <div class="sub-category-title">Shorts 콘텐츠</div>
+                        <div class="shorts-grid">
                         <a href="https://youtube.com/shorts/yH0DdImER98" target="_blank" class="media-card" style="margin-bottom: 20px;">
                             <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/yH0DdImER98/hqdefault.jpg" onerror="handleImageError(this)"></div>
                             <div class="media-title">나주로 다이브(나주숏폼공모전)</div>
                         </a>
+                        <a href="https://www.youtube.com/shorts/8YviOdMqErU" target="_blank" class="media-card" style="margin-bottom: 20px;">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/8YviOdMqErU/hqdefault.jpg" onerror="handleImageError(this)" alt="한국판 다크판타지 애니메이션 오프닝"></div>
+                            <div class="media-title">한국판 다크판타지 애니메이션 오프닝</div>
+                            <div class="media-desc">숏폼 콘텐츠 기획 및 제작</div>
+                        </a>
                         <a href="https://youtube.com/shorts/YdzWNYspmUQ" target="_blank" class="media-card" style="margin-bottom: 20px;">
                             <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/YdzWNYspmUQ/hqdefault.jpg" onerror="handleImageError(this)"></div>
                             <div class="media-title">무신사랑해, 무진장!(무신사 공모전)</div>
+                        </a>
+                        <a href="https://www.youtube.com/shorts/Pf8lAtTwuBs" target="_blank" class="media-card" style="margin-bottom: 20px;">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/Pf8lAtTwuBs/hqdefault.jpg" onerror="handleImageError(this)" alt="우리 아이들의 선생님, 참교육이 필요해요"></div>
+                            <div class="media-title">우리 '아이'들의 선생님, 참교육이 필요해요!(#전국민AI경진대회)</div>
+                            <div class="media-desc">숏폼 콘텐츠 기획 및 제작</div>
                         </a>
                         <a href="https://youtube.com/shorts/r9ZIiHgw2V8" target="_blank" class="media-card" style="margin-bottom: 20px;">
                             <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/r9ZIiHgw2V8/hqdefault.jpg" onerror="handleImageError(this)"></div>
@@ -1140,6 +1513,7 @@
                             <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/zAQXZcX1YKA/hqdefault.jpg" onerror="handleImageError(this)"></div>
                             <div class="media-title">퓨리얼 AI 영상 콘테스트_바다편</div>
                         </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1187,25 +1561,54 @@
     <div id="storywiz-content" class="career-mode-content">
         <section id="identity-storywiz">
             <span class="section-label">Identity</span>
-            <div class="identity-container">
-                <div class="identity-text-area">
-                    <h2>시대를 관통하는 서사성을 지닌 마케터,<br><span class="name-highlight">김승빈</span>입니다.</h2>
-                    <p>데이터와 문학, 기술과 감성을 연결하여 플랫폼의 경계를 허뭅니다. 단순한 유통을 넘어, 콘텐츠가 가진 잠재력을 폭발시키는 Complete Narrative를 설계합니다.</p>
-                    <p>KT Storywiz에서의 실무 경험 and 직접 개발한 업무 자동화 툴을 통해 불가능을 효율로 바꾸고, 크리에이티브한 기획으로 숫자를 넘어선 가치를 증명해왔습니다.</p>
+            <div class="identity-container storywiz-identity-layout">
+                <div class="identity-text-area storywiz-manifesto">
+                    <p class="manifesto-lead">"영상만 만질 줄 아는 사람, 마케팅 데이터만 볼 줄 아는 사람?"</p>
+                    <p class="manifesto-pivot">AI 혁명의 과도기를 살아가는 지금, 그 모든 역량을 갖춘 <strong>'올라운더(All-rounder)'</strong>가 필요합니다.<br>3개월마다 기술 혁신이 일어나는 시대. 더 이상 중요한 것은 '한 우물'이 아닙니다.</p>
+                    <p class="manifesto-claim">영상 소재 제작뿐만 아니라 빠르게 변모하는 웹툰·웹소설 콘텐츠 시장의 감각까지 이해하며 실무 역량을 갖춘 육각형 MD.</p>
+                    <p class="manifesto-signature">
+                        <span data-private-visible>마케터 김승빈입니다.</span>
+                        <span data-private-hidden>마케터의 포트폴리오입니다.</span>
+                    </p>
+
+                    <ul class="storywiz-proof-list">
+                        <li>카카오, 네이버, 리디 등 대표 플랫폼 계약작과 여러 제휴사 작품의 마케팅 및 머천다이징 담당</li>
+                        <li>공식·서브 SNS 운영 및 메가 IP 프로모션 이벤트 진행</li>
+                    </ul>
                 </div>
-                <div class="portfolio-viewer-area">
-                    <div class="viewer-screen"><img id="pf-image" src="slides/page_1.jpg" alt="포트폴리오 슬라이드"></div>
-                    <div class="viewer-controls">
-                        <button class="btn-control" onclick="prevPage()">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                        </button>
-                        <span id="page-indicator" class="page-indicator">1 / 47</span>
-                        <button class="btn-control" onclick="nextPage()">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                        </button>
-                    </div>
-                    <div class="download-area">
-                        <a href="https://drive.google.com/file/d/1zmfo76xzGPdu0oTbub2PsWn8uAwmV8Fw/view?usp=sharing" target="_blank" class="btn-download">Download Full Portfolio</a>
+
+                <div class="storywiz-radar-panel">
+                    <div class="competency-radar-wrap" aria-label="육각형 실무 역량 그래프">
+                        <div class="competency-radar">
+                            <svg viewBox="0 0 500 500" role="img" aria-labelledby="radar-title radar-desc">
+                                <title id="radar-title">6개 실무 역량 균형도</title>
+                                <desc id="radar-desc">영상 제작, SNS 마케팅, 콘텐츠 MD, 바이브 코딩, 계약 관리, 데이터 분석 역량을 육각형으로 표현한 그래프</desc>
+                                <polygon class="radar-grid" points="250,70 406,160 406,340 250,430 94,340 94,160"></polygon>
+                                <polygon class="radar-grid" points="250,115 367,182.5 367,317.5 250,385 133,317.5 133,182.5"></polygon>
+                                <polygon class="radar-grid" points="250,160 328,205 328,295 250,340 172,295 172,205"></polygon>
+                                <line class="radar-axis" x1="250" y1="250" x2="250" y2="70"></line>
+                                <line class="radar-axis" x1="250" y1="250" x2="406" y2="160"></line>
+                                <line class="radar-axis" x1="250" y1="250" x2="406" y2="340"></line>
+                                <line class="radar-axis" x1="250" y1="250" x2="250" y2="430"></line>
+                                <line class="radar-axis" x1="250" y1="250" x2="94" y2="340"></line>
+                                <line class="radar-axis" x1="250" y1="250" x2="94" y2="160"></line>
+                                <polygon class="radar-shape" points="250,81 390,169 382,326 250,412 110,331 118,174"></polygon>
+                                <circle class="radar-point" data-radar-point="0" cx="250" cy="81" r="6"></circle>
+                                <circle class="radar-point" data-radar-point="1" cx="390" cy="169" r="6"></circle>
+                                <circle class="radar-point" data-radar-point="2" cx="382" cy="326" r="6"></circle>
+                                <circle class="radar-point" data-radar-point="3" cx="250" cy="412" r="6"></circle>
+                                <circle class="radar-point" data-radar-point="4" cx="110" cy="331" r="6"></circle>
+                                <circle class="radar-point" data-radar-point="5" cx="118" cy="174" r="6"></circle>
+                            </svg>
+                        </div>
+                        <div class="radar-controls">
+                            <button class="radar-skill" type="button" data-radar-index="0"><strong>영상 소재 제작</strong><span>기획 · 촬영 · 편집 · AI 합성</span></button>
+                            <button class="radar-skill" type="button" data-radar-index="1"><strong>SNS 마케팅</strong><span>채널 운영 · 프로모션 · 성과 분석</span></button>
+                            <button class="radar-skill" type="button" data-radar-index="2"><strong>콘텐츠 MD</strong><span>웹소설·웹툰 유통 · 머천다이징</span></button>
+                            <button class="radar-skill" type="button" data-radar-index="3"><strong>바이브 코딩</strong><span>업무 자동화 · AI 서비스 구현</span></button>
+                            <button class="radar-skill" type="button" data-radar-index="4"><strong>계약 관리</strong><span>판권 제휴 · 계약 · 정산 운영</span></button>
+                            <button class="radar-skill" type="button" data-radar-index="5"><strong>데이터 분석</strong><span>매출 · 캠페인 · 운영 지표 해석</span></button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1253,7 +1656,7 @@
                     <h3>판권 제휴 및 유통 대행 총괄</h3>
                     <ul>
                         <li><strong>판권 제휴 관리:</strong> 남성향 웹소설 작품 단독 관리 및 프로모션 제안/유지</li>
-                        <li><strong>유통 메타 관리:</strong> 30여 개 플랫폼 유통 메타 데이터 규격화 및 파일 유기화</li>
+                        <li><strong>유통 메타 관리:</strong> 30여 개 플랫폼 유통 메타데이터 규격화 및 파일 유기화</li>
                         <li><strong>계약 및 정산:</strong> 유통사 계약 조율, 보증보험 갱신, 주간 매출 전략 분석 보고</li>
                         <li><strong>성과:</strong> 월평균 120회 프로모션 진행, 제휴작 구작 매출 감소 방어 및 신규 입점 성공</li>
                     </ul>
@@ -1284,9 +1687,9 @@
                     <span class="tag">PYTHON & AI</span>
                     <h3>업무 효율화 프로그램 자체 개발</h3>
                     <ul>
-                        <li><strong>MetaNamer.exe:</strong> 대량 작품 메타 데이터 일괄 수정 툴 개발 (기존 툴 한계 극복)</li>
+                        <li><strong>MetaNamer.exe:</strong> 대량 작품 메타데이터 일괄 수정 툴 개발 (기존 툴 한계 극복)</li>
                         <li><strong>Sales Automator:</strong> 플랫폼별 상이한 정산서를 표준화하여 데이터 자동 취합</li>
-                        <li><strong>Hwp Splitter:</strong> 한글 원고 회차별 자동 분절 및 글자수 계산 프로그램 개발</li>
+                        <li><strong>Hwp Splitter:</strong> 한글 원고 회차별 자동 분절 및 글자 수 계산 프로그램 개발</li>
                         <li><strong>Google Apps Script:</strong> 정산 코드 연동 및 시트 관리 자동화 (AI 보조 활용)</li>
                     </ul>
                 </div>
@@ -1302,14 +1705,14 @@
                     <ul>
                         <li><strong>SNS 리브랜딩:</strong> 파일럿 계정 '위즈스타' 기획 및 운영 (팔로워 2K 달성)</li>
                         <li><strong>이벤트 기획:</strong> 자사 주요작 프로모션 배너 제작 및 굿즈 발송 이벤트 총괄</li>
-                        <li><strong>대외 수상:</strong> LG 화학 광고 공모전 및 연세대 학과 홍보 영상 최우수상 (기획/PM)</li>
+                        <li><strong>대외 수상:</strong> LG화학 광고 공모전 및 연세대 학과 홍보 영상 최우수상 (기획/PM)</li>
                         <li><strong>협업 주도:</strong> 사내 문화 행사 TF팀 기획 및 디자인 담당, 타 부서와 원활한 협업</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- 미디어, 공모전, SNS, 광고 시안 그리드 및 링크 -->
+        <!-- 미디어, SNS, 광고 시안 그리드 및 링크 -->
         <section id="media-storywiz">
             <span class="section-label">Media & Creative</span>
             <h2 class="section-title">PRODUCED CONTENT</h2>
@@ -1343,20 +1746,6 @@
                 </div>
             </div>
 
-            <h3 class="grid-section-title" style="margin-top: 80px;">공모전 출품 예정작</h3>
-            <div class="contest-grid">
-                <div class="media-card preparing">
-                    <div class="media-thumb-wrapper"><img src="contest_preparing.jpg" alt="준비중" onerror="handleImageError(this)"></div>
-                    <div class="media-title">출품 예정</div>
-                    <div class="media-desc">준비중</div>
-                </div>
-                <div class="media-card preparing">
-                    <div class="media-thumb-wrapper"><img src="contest_preparing.jpg" alt="준비중" onerror="handleImageError(this)"></div>
-                    <div class="media-title">출품 예정</div>
-                    <div class="media-desc">준비중</div>
-                </div>
-            </div>
-
             <h3 class="grid-section-title">SNS 마케팅 및 매니지먼트</h3>
             <div class="ad-grid">
                 <div class="ad-card" onclick="openModal('modal-sns-1')">
@@ -1373,7 +1762,7 @@
                 </div>
                 <div class="ad-card" onclick="openModal('modal-sns-4')">
                     <div class="ad-image"><img src="sns_4_1.jpg" alt="부트캠프 앱" onerror="handleImageError(this)"></div>
-                    <div class="ad-footer"><div class="ad-title">부트캠프 런칭앱 마케팅</div></div>
+                    <div class="ad-footer"><div class="ad-title">부트캠프 론칭 앱 마케팅</div></div>
                 </div>
                 <div class="ad-card" onclick="openModal('modal-sns-5')">
                     <div class="ad-image"><img src="sns_5_1.jpg" alt="매거진" onerror="handleImageError(this)"></div>
@@ -1406,11 +1795,56 @@
                 </div>
             </div>
         </section>
+
+        <section id="portfolio-storywiz" class="portfolio-bottom-section" data-private-portfolio>
+            <span class="section-label">Full Portfolio</span>
+            <h2 class="section-title">KT STORYWIZ PORTFOLIO</h2>
+            <div class="portfolio-viewer-area">
+                <div class="viewer-screen"><img id="pf-image" src="slides/page_1.jpg" alt="포트폴리오 슬라이드"></div>
+                <div class="viewer-controls">
+                    <button class="btn-control" type="button" onclick="prevPage()" aria-label="이전 포트폴리오 페이지">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <span id="page-indicator" class="page-indicator">1 / 47</span>
+                    <button class="btn-control" type="button" onclick="nextPage()" aria-label="다음 포트폴리오 페이지">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
+                <div class="download-area">
+                    <a href="https://drive.google.com/file/d/1zmfo76xzGPdu0oTbub2PsWn8uAwmV8Fw/view?usp=sharing" target="_blank" class="btn-download">Download Full Portfolio</a>
+                </div>
+            </div>
+        </section>
     </div>
+
+    <section id="video-reel" class="video-reel-section" data-search-exclude>
+        <div class="video-reel-header">
+            <div>
+                <span class="section-label">Video Archive</span>
+                <h2 class="section-title">영상물만 모아 보기</h2>
+            </div>
+            <div class="video-reel-tabs" role="tablist" aria-label="영상 작업물 분류">
+                <button class="video-reel-tab is-active" type="button" role="tab" aria-selected="true" data-video-filter="all">전체</button>
+                <button class="video-reel-tab" type="button" role="tab" aria-selected="false" data-video-filter="ai">AI 기술</button>
+                <button class="video-reel-tab" type="button" role="tab" aria-selected="false" data-video-filter="shinhan">신한금융플러스</button>
+                <button class="video-reel-tab" type="button" role="tab" aria-selected="false" data-video-filter="storywiz">KT Storywiz 및 학부생 활동</button>
+            </div>
+        </div>
+        <div class="video-reel-viewport">
+            <div id="video-reel-track" class="video-reel-track"></div>
+        </div>
+        <div class="video-reel-footer">
+            <span id="video-reel-count" class="video-reel-count">0개 영상</span>
+            <div class="video-reel-controls">
+                <button id="video-reel-prev" class="video-reel-arrow" type="button" aria-label="이전 영상">‹</button>
+                <button id="video-reel-next" class="video-reel-arrow" type="button" aria-label="다음 영상">›</button>
+            </div>
+        </div>
+    </section>
 
     <footer>
         <h2>Let's Make the Next Story.</h2>
-        <p>© 2026 Kim Seung Bin. All Rights Reserved.</p>
+        <p>© 2026 <span data-private-visible>Kim Seung Bin</span><span data-private-hidden>Portfolio Owner</span>. All Rights Reserved.</p>
     </footer>
 
     <!-- [MODALS] 신한 배너 모달(sh1~sh6) 및 기존 오리지널 스토리위즈 모달 10개 완벽 탑재 -->
@@ -1421,10 +1855,10 @@
     <div id="modal-sh-5" class="modal-overlay" onclick="closeModal('modal-sh-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-5')">×</button><div class="modal-image-area"><img src="sh5.jpg" alt="배너 5" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>홍보 배너 시안 05</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
     <div id="modal-sh-6" class="modal-overlay" onclick="closeModal('modal-sh-6')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-6')">×</button><div class="modal-image-area"><img src="sh6.jpg" alt="배너 6" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>홍보 배너 시안 06</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
 
-    <div id="modal-sns-1" class="modal-overlay" onclick="closeModal('modal-sns-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-1')">×</button><div class="modal-image-area" id="slider-1"><button class="slider-btn prev-btn" onclick="moveSlide('slider-1', -1)">&#10094;</button><img class="slide-img active" src="sns_1_1.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_1_2.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_1_3.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-1', 1)">&#10095;</button></div><div class="modal-text-area"><h3>스토리위즈 공식 SNS</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>공식 SNS 채널 운영</li><li>신간, 매열무 이벤트 기획 및 진행</li><li>작품 캘린더 리뉴얼 및 관리</li><li>월페이퍼 홍보페이지 제작</li><li>굿즈 재고 관리 및 이벤트 진행</li></ul></div></div></div></div>
+    <div id="modal-sns-1" class="modal-overlay" onclick="closeModal('modal-sns-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-1')">×</button><div class="modal-image-area" id="slider-1"><button class="slider-btn prev-btn" onclick="moveSlide('slider-1', -1)">&#10094;</button><img class="slide-img active" src="sns_1_1.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_1_2.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_1_3.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-1', 1)">&#10095;</button></div><div class="modal-text-area"><h3>스토리위즈 공식 SNS</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>공식 SNS 채널 운영</li><li>신간, 매열무 이벤트 기획 및 진행</li><li>작품 캘린더 리뉴얼 및 관리</li><li>월페이퍼 홍보 페이지 제작</li><li>굿즈 재고 관리 및 이벤트 진행</li></ul></div></div></div></div>
     <div id="modal-sns-2" class="modal-overlay" onclick="closeModal('modal-sns-2')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-2')">×</button><div class="modal-image-area" id="slider-2"><button class="slider-btn prev-btn" onclick="moveSlide('slider-2', -1)">&#10094;</button><img class="slide-img active" src="sns_2_1.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_2_2.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-2', 1)">&#10095;</button></div><div class="modal-text-area"><h3>위즈스타(바이럴) SNS</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>캐릭터 IP 마케팅</li><li>퀴즈 이벤트 및 팔로워 소통</li><li>작품 특별 홍보</li><li>당첨자 발표 및 상품 전달</li><li>굿즈 수요 조사</li></ul></div></div></div></div>
     <div id="modal-sns-3" class="modal-overlay" onclick="closeModal('modal-sns-3')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-3')">×</button><div class="modal-image-area" id="slider-3"><button class="slider-btn prev-btn" onclick="moveSlide('slider-3', -1)">&#10094;</button><img class="slide-img active" src="sns_3_1.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_3_2.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_3_3.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-3', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(인턴) 인재개발원 홈페이지 관리</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>YGEMS 홈페이지 관리 및 운영</li><li>홈페이지 Ad 배너 제작 및 업로드</li><li>취업 이벤트 홍보물 제작</li><li>인스타, 블로그 연계 관리</li><li>잡코리아, 사람인, 공공기관 등 정보 전달</li></ul></div></div></div></div>
-    <div id="modal-sns-4" class="modal-overlay" onclick="closeModal('modal-sns-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-4')">×</button><div class="modal-image-area" id="slider-4"><button class="slider-btn prev-btn" onclick="moveSlide('slider-4', -1)">&#10094;</button><img class="slide-img active" src="sns_4_1.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_4_2.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_4_3.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-4', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(대외) 부트캠프 런칭앱 마케팅</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>앱 아이디어 기획 및 PM·마케팅</li><li>어플리케이션 런칭 이벤트 기획</li><li>홍보물 제작 및 SNS 마케팅</li><li>구글폼 이용자 데이터 취합</li><li>기능 홍보 및 런칭 정보 제공</li></ul></div></div></div></div>
+    <div id="modal-sns-4" class="modal-overlay" onclick="closeModal('modal-sns-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-4')">×</button><div class="modal-image-area" id="slider-4"><button class="slider-btn prev-btn" onclick="moveSlide('slider-4', -1)">&#10094;</button><img class="slide-img active" src="sns_4_1.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_4_2.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_4_3.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-4', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(대외) 부트캠프 론칭 앱 마케팅</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>앱 아이디어 기획 및 PM·마케팅</li><li>애플리케이션 론칭 이벤트 기획</li><li>홍보물 제작 및 SNS 마케팅</li><li>구글 폼 이용자 데이터 취합</li><li>기능 홍보 및 론칭 정보 제공</li></ul></div></div></div></div>
     <div id="modal-sns-5" class="modal-overlay" onclick="closeModal('modal-sns-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-5')">×</button><div class="modal-image-area" id="slider-5"><button class="slider-btn prev-btn" onclick="moveSlide('slider-5', -1)">&#10094;</button><img class="slide-img active" src="sns_5_1.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_5_2.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_5_3.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-5', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(대외) 전공 연계 매거진 활동</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>전공 연계 대외활동 및 다매체 연계 콘텐츠 기획</li><li>SNS 매거진 게시물 업로드</li><li>인스타 운영 및 영상 제작</li><li>팀 로고 및 메인 배너 제작</li></ul></div></div></div></div>
 
     <div id="modal-1" class="modal-overlay" onclick="closeModal('modal-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-1')">×</button><div class="modal-image-area"><img src="ad_1.jpg" alt="트라이폴드 버거" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>트라이폴드 버거</h3><div class="modal-section"><h4>삼성 신규 핸드폰 Galaxy Z TriFold ('25.12.05 출시)</h4><ul><li>삼성의 신기술이 반영된, 세 번 폴딩되는 핸드폰 최초 출시로 화제</li></ul></div><div class="modal-section"><h4>박정민 배우</h4><ul><li>가수 화사의 청룡영화상 축하 공연 이슈, 짐빔 하이볼 광고 등</li></ul></div></div></div></div>
@@ -1451,7 +1885,8 @@
                 tabStorywiz.classList.remove('active');
                 cardShinhan.classList.add('active-shinhan');
                 cardStorywiz.classList.remove('active-storywiz');
-                document.body.className = "shinhan-theme-container"; // 신한 테마 클래스 부여
+                document.body.classList.add('shinhan-theme-container');
+                document.body.classList.remove('storywiz-mode');
                 
                 nav.innerHTML = `
                     <li><a href="#identity-shinhan">Identity</a></li>
@@ -1470,7 +1905,8 @@
                 tabShinhan.classList.remove('active');
                 cardStorywiz.classList.add('active-storywiz');
                 cardShinhan.classList.remove('active-shinhan');
-                document.body.className = "storywiz-mode"; // 스토리위즈 테마 클래스 부여
+                document.body.classList.add('storywiz-mode');
+                document.body.classList.remove('shinhan-theme-container');
 
                 nav.innerHTML = `
                     <li><a href="#identity-storywiz">Identity</a></li>
@@ -1514,6 +1950,313 @@
             let nextIdx = (idx + step + images.length) % images.length;
             images[nextIdx].classList.add('active');
         }
+
+        // 개인정보 표시 설정
+        let privacyVisible = false;
+        function applyPrivacy(visible) {
+            privacyVisible = visible;
+            document.body.classList.toggle('privacy-hidden', !visible);
+
+            const privacySwitch = document.getElementById('privacy-switch');
+            privacySwitch.classList.toggle('is-visible', visible);
+            privacySwitch.setAttribute('aria-checked', String(visible));
+            document.title = visible ? 'KIM SEUNG BIN | PORTFOLIO' : 'AI MARKETER & CONTENT MD | PORTFOLIO';
+        }
+
+        function togglePrivacy() {
+            applyPrivacy(!privacyVisible);
+            try { localStorage.setItem('portfolioPrivacyVisible', String(privacyVisible)); } catch (error) { /* 저장 불가 환경에서는 현재 세션만 유지 */ }
+        }
+
+        let savedPrivacy = null;
+        try { savedPrivacy = localStorage.getItem('portfolioPrivacyVisible'); } catch (error) { savedPrivacy = null; }
+        applyPrivacy(savedPrivacy === 'true');
+
+        // 상단 역량 검색
+        const searchInput = document.getElementById('skill-search-input');
+        const searchBox = document.getElementById('skill-search');
+        const searchResults = document.getElementById('search-results');
+        const searchableElements = Array.from(document.querySelectorAll(
+            '.history-group, .role-card, .tech-section, .tech-block, .project-item, .skill-row, .media-card, .storywiz-manifesto'
+        )).filter((element) => !element.closest('[data-search-exclude], .modal-overlay'));
+
+        const normalizeSearchText = (value) => value.toLocaleLowerCase('ko-KR').replace(/\s+/g, ' ').trim();
+        const searchIndex = searchableElements.map((element) => {
+            const heading = element.querySelector('h2, h3, h4, h5, .role-card-title, .media-title, .skill-text h3');
+            const mode = element.closest('#storywiz-content') ? 'storywiz' : 'shinhan';
+            const summary = element.textContent.replace(/\s+/g, ' ').trim();
+            return {
+                element,
+                mode,
+                title: (heading ? heading.textContent : summary).replace(/\s+/g, ' ').trim(),
+                summary,
+                text: normalizeSearchText(summary)
+            };
+        });
+
+        const featuredSearchTerms = [
+            'AI 기술 역량', '바이브 코딩', 'OMNI', 'SEEDANCE', 'KLING AI',
+            '영상 제작', 'SNS 마케팅', '콘텐츠 MD', '계약 관리', '업무 자동화'
+        ];
+
+        function renderSearchSuggestions() {
+            const wrap = document.createElement('div');
+            wrap.className = 'search-suggestion-wrap';
+
+            const label = document.createElement('span');
+            label.className = 'search-suggestion-label';
+            label.textContent = '주요 역량 키워드';
+
+            const list = document.createElement('div');
+            list.className = 'search-suggestion-list';
+            featuredSearchTerms.forEach((term) => {
+                const chip = document.createElement('button');
+                chip.type = 'button';
+                chip.className = 'search-keyword-chip';
+                chip.textContent = term;
+                chip.addEventListener('click', () => {
+                    searchInput.value = term;
+                    renderSearchResults(term);
+                });
+                list.appendChild(chip);
+            });
+
+            wrap.append(label, list);
+            searchResults.appendChild(wrap);
+        }
+
+        function renderSearchResults(query, showSuggestions = false) {
+            const normalizedQuery = normalizeSearchText(query);
+            searchBox.classList.toggle('has-value', Boolean(normalizedQuery));
+            searchResults.replaceChildren();
+
+            if (!normalizedQuery) {
+                if (showSuggestions) {
+                    renderSearchSuggestions();
+                    searchResults.classList.add('is-open');
+                } else {
+                    searchResults.classList.remove('is-open');
+                }
+                return;
+            }
+
+            const terms = normalizedQuery.split(' ');
+            const matches = searchIndex
+                .filter((item) => terms.every((term) => item.text.includes(term)))
+                .sort((a, b) => Number(normalizeSearchText(b.title).includes(normalizedQuery)) - Number(normalizeSearchText(a.title).includes(normalizedQuery)))
+                .slice(0, 8);
+            searchResults.classList.add('is-open');
+
+            if (!matches.length) {
+                const empty = document.createElement('div');
+                empty.className = 'search-empty';
+                empty.textContent = '일치하는 역량이나 작업물이 없습니다. 다른 키워드로 검색해 주세요.';
+                searchResults.appendChild(empty);
+                return;
+            }
+
+            matches.forEach((item) => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'search-result-item';
+                button.setAttribute('role', 'option');
+
+                const title = document.createElement('span');
+                title.className = 'search-result-title';
+                title.textContent = item.title.length > 70 ? `${item.title.slice(0, 70)}...` : item.title;
+
+                const snippet = document.createElement('span');
+                snippet.className = 'search-result-snippet';
+                const snippetText = item.summary === item.title ? item.summary : item.summary.replace(item.title, '').trim();
+                snippet.textContent = snippetText.length > 120 ? `${snippetText.slice(0, 120)}...` : snippetText;
+
+                const meta = document.createElement('span');
+                meta.className = 'search-result-meta';
+                meta.textContent = item.mode === 'storywiz' ? 'KT Storywiz 및 학부생 활동' : '신한금융플러스';
+
+                button.append(title);
+                if (snippetText) button.append(snippet);
+                button.append(meta);
+                button.addEventListener('click', () => goToSearchResult(item));
+                searchResults.appendChild(button);
+            });
+        }
+
+        function goToSearchResult(item) {
+            toggleMode(item.mode, false);
+            searchResults.classList.remove('is-open');
+            requestAnimationFrame(() => {
+                item.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                item.element.classList.remove('search-focus-flash');
+                void item.element.offsetWidth;
+                item.element.classList.add('search-focus-flash');
+            });
+        }
+
+        function clearSkillSearch() {
+            searchInput.value = '';
+            renderSearchResults('', true);
+            searchInput.focus();
+        }
+
+        searchInput.addEventListener('input', (event) => renderSearchResults(event.target.value));
+        searchInput.addEventListener('focus', () => renderSearchResults(searchInput.value, true));
+        searchInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                const firstResult = searchResults.querySelector('.search-result-item');
+                if (firstResult) firstResult.click();
+            }
+            if (event.key === 'Escape') clearSkillSearch();
+        });
+        document.addEventListener('click', (event) => {
+            if (!searchBox.contains(event.target)) searchResults.classList.remove('is-open');
+        });
+
+        // 육각형 역량 그래프 상호작용
+        function setRadarActive(index) {
+            document.querySelectorAll('.radar-skill').forEach((button, buttonIndex) => button.classList.toggle('is-active', buttonIndex === index));
+            document.querySelectorAll('.radar-point').forEach((point, pointIndex) => point.classList.toggle('is-active', pointIndex === index));
+        }
+        document.querySelectorAll('.radar-skill').forEach((button) => {
+            const index = Number(button.dataset.radarIndex);
+            button.addEventListener('mouseenter', () => setRadarActive(index));
+            button.addEventListener('focus', () => setRadarActive(index));
+            button.addEventListener('click', () => setRadarActive(index));
+        });
+        setRadarActive(0);
+
+        // 등록된 유튜브 작업물을 중복 없이 모아 하단 캐러셀 생성
+        const videoMap = new Map();
+        const videoLinks = document.querySelectorAll('.latest-work-container a[href*="youtu"], .media-card[href*="youtu"]');
+
+        function getYoutubeId(url) {
+            const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/))([^?&/]+)/i);
+            return match ? match[1] : null;
+        }
+
+        videoLinks.forEach((link) => {
+            const videoId = getYoutubeId(link.href);
+            if (!videoId) return;
+
+            const categories = new Set();
+            if (link.closest('.tech-section')) categories.add('ai');
+            if (link.closest('#storywiz-content')) categories.add('storywiz');
+            else categories.add('shinhan');
+
+            const titleElement = link.closest('.media-card')?.querySelector('.media-title');
+            const imageElement = link.querySelector('img');
+            const title = titleElement?.textContent.trim() || imageElement?.alt || '영상 작업물';
+            const existing = videoMap.get(videoId);
+
+            if (existing) {
+                categories.forEach((category) => existing.categories.add(category));
+            } else {
+                videoMap.set(videoId, {
+                    href: link.href,
+                    title,
+                    image: imageElement?.getAttribute('src') || `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,
+                    categories
+                });
+            }
+        });
+
+        const allVideos = Array.from(videoMap.values());
+        let filteredVideos = allVideos;
+        let videoReelIndex = 0;
+        let videoReelTimer = null;
+        const videoTrack = document.getElementById('video-reel-track');
+        const videoCount = document.getElementById('video-reel-count');
+        const videoViewport = document.querySelector('.video-reel-viewport');
+        const videoPrev = document.getElementById('video-reel-prev');
+        const videoNext = document.getElementById('video-reel-next');
+
+        function renderVideoReel(filter = 'all') {
+            filteredVideos = filter === 'all' ? allVideos : allVideos.filter((video) => video.categories.has(filter));
+            videoReelIndex = 0;
+            videoTrack.replaceChildren();
+
+            filteredVideos.forEach((video) => {
+                const card = document.createElement('a');
+                card.className = 'video-reel-card';
+                card.href = video.href;
+                card.target = '_blank';
+                card.rel = 'noopener noreferrer';
+
+                const thumb = document.createElement('div');
+                thumb.className = 'video-reel-thumb';
+                const image = document.createElement('img');
+                image.src = video.image;
+                image.alt = '';
+                image.loading = 'lazy';
+                image.onerror = function () { handleImageError(this); };
+                thumb.appendChild(image);
+
+                const title = document.createElement('strong');
+                title.textContent = video.title;
+                const category = document.createElement('small');
+                category.textContent = video.categories.has('ai') ? 'AI 기술' : video.categories.has('storywiz') ? 'KT Storywiz 및 학부생 활동' : '신한금융플러스';
+
+                card.append(thumb, title, category);
+                videoTrack.appendChild(card);
+            });
+
+            videoCount.textContent = `${filteredVideos.length}개 영상`;
+            updateVideoReel();
+            restartVideoReel();
+        }
+
+        function videoCardStep() {
+            const card = videoTrack.querySelector('.video-reel-card');
+            if (!card) return 0;
+            const gap = Number.parseFloat(getComputedStyle(videoTrack).gap) || 0;
+            return card.getBoundingClientRect().width + gap;
+        }
+
+        function maxVideoReelIndex() {
+            const step = videoCardStep();
+            if (!step) return 0;
+            const visibleCount = Math.max(1, Math.floor((videoViewport.clientWidth + 22) / step));
+            return Math.max(0, filteredVideos.length - visibleCount);
+        }
+
+        function updateVideoReel() {
+            videoReelIndex = Math.min(videoReelIndex, maxVideoReelIndex());
+            videoTrack.style.transform = `translateX(-${videoReelIndex * videoCardStep()}px)`;
+            videoPrev.disabled = videoReelIndex === 0;
+            videoNext.disabled = videoReelIndex >= maxVideoReelIndex();
+        }
+
+        function moveVideoReel(direction) {
+            const maxIndex = maxVideoReelIndex();
+            videoReelIndex = direction > 0
+                ? (videoReelIndex >= maxIndex ? 0 : videoReelIndex + 1)
+                : (videoReelIndex <= 0 ? maxIndex : videoReelIndex - 1);
+            updateVideoReel();
+        }
+
+        function restartVideoReel() {
+            window.clearInterval(videoReelTimer);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && filteredVideos.length > 1) {
+                videoReelTimer = window.setInterval(() => moveVideoReel(1), 5000);
+            }
+        }
+
+        document.querySelectorAll('.video-reel-tab').forEach((tab) => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.video-reel-tab').forEach((item) => {
+                    const active = item === tab;
+                    item.classList.toggle('is-active', active);
+                    item.setAttribute('aria-selected', String(active));
+                });
+                renderVideoReel(tab.dataset.videoFilter);
+            });
+        });
+        videoPrev.addEventListener('click', () => { moveVideoReel(-1); restartVideoReel(); });
+        videoNext.addEventListener('click', () => { moveVideoReel(1); restartVideoReel(); });
+        videoViewport.addEventListener('mouseenter', () => window.clearInterval(videoReelTimer));
+        videoViewport.addEventListener('mouseleave', restartVideoReel);
+        window.addEventListener('resize', updateVideoReel);
+        renderVideoReel();
     </script>
 </body>
 </html>
