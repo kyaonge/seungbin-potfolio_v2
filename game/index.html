@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>물풍선 배틀</title>
+    <link rel="stylesheet" href="styles.css?v=16" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="gamebar" aria-label="게임 상태">
+        <div class="brand">
+          <span class="drop" aria-hidden="true"></span>
+          <div>
+            <h1>물풍선 배틀</h1>
+            <p>블록을 부수고, 아이템을 먹고, 상대를 물방울에 가두세요.</p>
+          </div>
+        </div>
+        <div class="stats">
+          <div>
+            <span>시간</span>
+            <strong id="time">120</strong>
+          </div>
+          <div>
+            <span>물풍선</span>
+            <strong id="bombs">1</strong>
+          </div>
+          <div>
+            <span>물줄기</span>
+            <strong id="range">2</strong>
+          </div>
+          <div>
+            <span>속도</span>
+            <strong id="speed">1</strong>
+          </div>
+          <button id="restart" type="button" aria-label="다시 시작">↻</button>
+        </div>
+        <div class="hud-wrap">
+          <div id="itemHud" class="item-hud" aria-label="보유 아이템"></div>
+          <button id="itemHelp" class="item-help-button" type="button">아이템</button>
+        </div>
+      </section>
+
+      <section class="stage">
+        <canvas id="game" width="720" height="624" aria-label="물풍선 배틀 게임 화면"></canvas>
+        <div id="overlay" class="overlay">
+          <div id="selectPanel" class="select-panel">
+            <img class="main-typo" src="image/main1.png" alt="물풍선 배틀" />
+            <h2>캐릭터 선택</h2>
+            <p>플레이할 캐릭터와 경기 방식을 고르세요.</p>
+            <div class="mode-row" role="group" aria-label="경기 방식">
+              <button class="mode-card selected" type="button" data-mode="team" aria-pressed="true">팀전 2:2</button>
+              <button class="mode-card" type="button" data-mode="solo" aria-pressed="false">개인전</button>
+            </div>
+            <div class="character-grid" role="radiogroup" aria-label="캐릭터 선택">
+              <button class="character-card selected" type="button" data-skin="dao" aria-pressed="true">
+                <span class="portrait dao"></span>
+                <strong>다오</strong>
+              </button>
+              <button class="character-card" type="button" data-skin="bazzi" aria-pressed="false">
+                <span class="portrait bazzi"></span>
+                <strong>배찌</strong>
+              </button>
+            </div>
+            <button id="start" type="button">시작</button>
+          </div>
+          <div id="resultPanel" class="result-panel hidden">
+            <h2 id="resultTitle">READY</h2>
+            <p id="resultText">방향키/WASD로 이동, Space로 물풍선 설치</p>
+            <button id="resume" type="button">다시 시작</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="controls" aria-label="조작법">
+        <kbd>WASD</kbd><kbd>↑↓←→</kbd><span>이동</span>
+        <kbd>Space</kbd><span>물풍선</span>
+      </section>
+
+      <section id="itemGuide" class="item-guide hidden" aria-label="아이템 설명">
+        <div class="item-guide-panel">
+          <button id="itemGuideClose" type="button" aria-label="닫기">×</button>
+          <h2>아이템 설명</h2>
+          <dl>
+            <div><dt>B 물풍선</dt><dd>동시에 설치할 수 있는 물풍선 개수가 증가합니다.</dd></div>
+            <div><dt>+ 물줄기</dt><dd>폭발 범위가 길어집니다.</dd></div>
+            <div><dt>S 속도</dt><dd>이동 속도가 빨라집니다.</dd></div>
+            <div><dt>O 보호막</dt><dd>일정 시간 유지되고 물줄기를 한 번 막으면 사라집니다.</dd></div>
+            <div><dt>N 바늘</dt><dd>물방울에 갇혔을 때 Space로 탈출합니다.</dd></div>
+            <div><dt>K 킥</dt><dd>물풍선을 밀 수 있습니다.</dd></div>
+            <div><dt>R 부활</dt><dd>보유 중이면 자신이 쓰러질 때 자동으로 1회 부활하고, 팀전에서는 죽은 동료도 되살릴 수 있습니다.</dd></div>
+          </dl>
+        </div>
+      </section>
+    </main>
+
+    <script src="game.js?v=16"></script>
+  </body>
+</html>
