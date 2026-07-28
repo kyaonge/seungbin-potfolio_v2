@@ -282,8 +282,8 @@
             gap: 10px;
         }
         .latest-work-container h3::before {
-            content: '🔥';
-            font-size: 1.4rem;
+            content: '';
+            width: 9px; height: 9px; background: var(--shinhan-blue);
         }
         
         .latest-video-wrapper {
@@ -415,8 +415,8 @@
             flex-wrap: wrap;
         }
         .vibe-tech-block { order: 2; }
-        .omni-tech-block { order: 3; }
-        .transition-tech-block { order: 4; }
+        .transition-tech-block { order: 3; }
+        .omni-tech-block { order: 4; }
         .motion-tech-block { order: 5; }
         .upscale-tech-block { order: 6; }
         .upscale-tech-block { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
@@ -571,6 +571,23 @@
         .identity-text-area { flex: 1; min-width: 0; }
         .shinhan-identity-intro { max-width: 1160px; }
         .shinhan-identity-intro h2 { font-size: 3.15rem; line-height: 1.3; font-weight: 900; word-break: keep-all; margin-bottom: 30px; }
+        .shinhan-identity-profile {
+            flex: 0 0 clamp(240px, 23vw, 330px);
+            max-width: 330px;
+            padding-top: 8px;
+        }
+        .shinhan-identity-profile img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            object-position: center top;
+            border: 1px solid #d8dee8;
+            box-shadow: 18px 18px 0 #edf4ff;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease, transform 0.3s ease;
+        }
+        .shinhan-identity-profile img:hover { filter: grayscale(0%); transform: translateY(-4px); }
         .shinhan-rookie-quote {
             max-width: 980px; margin: 0 0 28px; padding: 16px 20px; border-left: 6px solid var(--shinhan-blue);
             background: #f1f6ff; color: var(--shinhan-blue); font-size: 1.72rem; line-height: 1.45; font-weight: 900; word-break: keep-all;
@@ -667,6 +684,164 @@
         .role-card:hover { transform: translateX(5px); box-shadow: 0 5px 15px rgba(0, 70, 255, 0.08); }
         .role-card-title { font-weight: 800; font-size: 1.15rem; color: #111; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
         .role-card-desc { font-size: 0.98rem; color: #555; line-height: 1.6; }
+
+        /* 2026-07 layout refinement */
+        .allrounder-hero {
+            display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(380px, 0.95fr);
+            align-items: center; gap: 54px;
+        }
+        .allrounder-hero .storywiz-manifesto .manifesto-lead { font-size: 2.5rem; margin-bottom: 22px; }
+        .allrounder-hero .storywiz-manifesto .manifesto-pivot { font-size: 1.28rem; margin-bottom: 18px; }
+        .allrounder-hero .storywiz-manifesto .manifesto-claim {
+            margin: 26px 0 16px; border-left-color: var(--shinhan-blue); font-size: 1.55rem;
+        }
+        .allrounder-hero .storywiz-manifesto .manifesto-signature { color: var(--shinhan-blue); font-size: 2.15rem; }
+        .hero-role-line {
+            display: inline-flex; margin-top: 12px; padding: 10px 14px; border: 1px solid #c8d8f5;
+            background: #f3f7ff; color: #18345f; font-size: 0.92rem; font-weight: 850;
+        }
+        .allrounder-hero .storywiz-proof-list { margin-top: 28px; padding-top: 20px; }
+        .allrounder-hero .storywiz-proof-list li { font-size: 1rem; margin-bottom: 8px; }
+        .allrounder-hero .storywiz-radar-panel { padding-left: 30px; border-left-color: #cfd9ea; }
+        .allrounder-hero .competency-radar { max-width: 390px; }
+        .allrounder-hero .radar-controls { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .allrounder-hero .radar-skill { min-height: 64px; }
+
+        .storywiz-positioning {
+            max-width: 1180px; padding: 48px 0; border-top: 1px solid #d9dde3; border-bottom: 1px solid #d9dde3;
+        }
+        .storywiz-positioning .positioning-question {
+            font-size: 2.55rem; line-height: 1.28; font-weight: 900; color: #111; word-break: keep-all;
+        }
+        .storywiz-positioning .positioning-answer {
+            margin-top: 22px; font-size: 2rem; line-height: 1.38; font-weight: 900; color: var(--shinhan-blue); word-break: keep-all;
+        }
+        .storywiz-positioning .positioning-role {
+            display: inline-block; margin-top: 28px; padding: 9px 13px; background: #111; color: #fff;
+            font-size: 0.88rem; font-weight: 900;
+        }
+        .storywiz-positioning .positioning-capabilities { margin-top: 18px; font-size: 1.18rem; font-weight: 850; color: #333; }
+        .storywiz-positioning .positioning-desc { margin-top: 12px; max-width: 900px; font-size: 1.08rem; line-height: 1.65; color: #555; font-weight: 650; }
+
+        .shinhan-roles { gap: 14px; }
+        .role-banner-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+        .role-banner-grid .role-card {
+            min-height: 150px; padding: 20px 18px; border: 1px solid #cad8ef; border-left: 5px solid var(--shinhan-blue);
+            border-radius: 3px; background: #f7faff; display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .role-banner-grid .role-card:hover { transform: translateY(-3px); }
+        .role-banner-grid .role-card-title { font-size: 1rem; line-height: 1.42; align-items: flex-start; }
+        .role-banner-grid .role-card-desc { font-size: 0.86rem; line-height: 1.48; }
+
+        .achievement-banner-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+        .achievement-banner {
+            min-height: 180px; padding: 24px; border: 1px solid #cbd8ec; border-top: 6px solid var(--shinhan-blue);
+            background: #fff; transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .achievement-banner:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,70,255,0.08); }
+        .achievement-banner .achievement-kicker { color: var(--shinhan-blue); font-size: 0.76rem; font-weight: 900; text-transform: uppercase; }
+        .achievement-banner h3 { margin-top: 10px; font-size: 1.28rem; line-height: 1.4; font-weight: 900; word-break: keep-all; }
+        .achievement-metrics { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+        .achievement-metrics span { padding: 7px 10px; border: 1px solid #d9e3f3; background: #f6f9ff; font-size: 0.78rem; font-weight: 800; }
+
+        .latest-work-container { align-items: stretch; }
+        .latest-work-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; width: 100%; }
+        .latest-work-item { min-width: 0; }
+        .latest-work-item .latest-video-wrapper { max-width: none; border-radius: 5px; }
+        .latest-work-item .latest-work-desc { font-size: 0.84rem; line-height: 1.45; min-height: 58px; }
+        .latest-insight-grid { display: grid; grid-template-columns: 1fr; gap: 22px; margin-top: 30px; }
+        .latest-insight-banner { padding: 30px; border: 1px solid #cad8ef; background: #fff; }
+        .latest-insight-banner h4 { font-size: 1.35rem; line-height: 1.45; font-weight: 900; color: #111; word-break: keep-all; }
+        .latest-insight-banner p { margin-top: 14px; color: #444; font-size: 0.98rem; line-height: 1.75; word-break: keep-all; }
+        .latest-insight-banner p strong { color: #111; font-weight: 900; }
+        .latest-spec-points { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 18px; }
+        .latest-spec-points span { padding: 8px 12px; background: #edf4ff; color: var(--shinhan-blue); font-size: 0.85rem; font-weight: 900; }
+        .latest-spec-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
+        .latest-spec-gallery img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid #e3e7ee; }
+        .latest-insight-banner.survey-full { background: #f8faff; }
+        .latest-insight-banner .survey-chart-list { margin-top: 22px; gap: 15px; }
+        .latest-insight-banner .survey-chart-label { gap: 16px; font-size: 0.9rem; line-height: 1.45; }
+        .latest-insight-banner .survey-chart-label span { min-width: 0; word-break: keep-all; }
+        .latest-insight-banner .survey-chart-label strong { flex: 0 0 auto; color: #111; font-weight: 900; }
+
+        .personal-featured-video {
+            display: grid;
+            grid-template-columns: minmax(280px, 0.95fr) minmax(260px, 1.05fr);
+            gap: 28px;
+            align-items: center;
+            margin-bottom: 44px;
+            padding: 22px;
+            border: 1px solid #d9dde3;
+            background: #f8f9fb;
+        }
+        .personal-featured-video .media-thumb-wrapper { border-radius: 4px; box-shadow: none; }
+        .personal-featured-copy { min-width: 0; }
+        .personal-featured-kicker { display: block; margin-bottom: 12px; color: #666; font-size: 0.78rem; font-weight: 900; text-transform: uppercase; }
+        .personal-featured-video .media-title { margin: 0 0 10px; font-size: 1.5rem; line-height: 1.35; }
+        .personal-featured-video .media-desc { margin: 0; font-size: 1rem; line-height: 1.65; }
+
+        .ai-tool-strip { padding: 12px; gap: 8px; margin-bottom: 34px; }
+        .ai-tool-pill { gap: 0; padding: 9px 13px; border-radius: 3px; background: #fff; }
+        .ai-tool-pill::before { content: ''; width: 7px; height: 7px; margin-right: 9px; background: var(--shinhan-blue); }
+        .ai-tool-icon { display: none; }
+        .tech-block { display: block; gap: 0; margin-bottom: 42px; padding-bottom: 42px; }
+        .tech-info { width: 100%; min-width: 0; }
+        .tech-info h4 { margin-bottom: 10px; }
+        .tech-info > p { max-width: 960px; font-size: 0.93rem; }
+        .tech-meta-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; }
+        .tech-meta-item {
+            min-height: 74px; padding: 12px 13px; border-left-width: 3px; border-radius: 3px;
+            font-size: 0.84rem; line-height: 1.45;
+        }
+        .tech-meta-label { display: block; min-width: 0; margin: 0 0 5px; font-size: 0.75rem; }
+        .tech-detail-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+        .tech-detail-card { padding: 8px 11px; border-color: #cbd9ef; border-radius: 3px; background: #f3f7ff; }
+        .tech-detail-card h5 { margin: 0; font-size: 0.82rem; }
+        .tech-media-container,
+        .tech-media-container.is-comparison {
+            width: 100%; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 220px));
+            gap: 14px; justify-content: start; margin-top: 22px;
+        }
+        .tech-media-container .media-card,
+        .tech-media-container.is-comparison .media-card,
+        .tech-media-container:not(.is-comparison) .media-card {
+            width: 100%; min-width: 0; max-width: 220px; margin: 0 !important;
+        }
+        .tech-media-container .media-title { min-height: 2.7em; margin-top: 10px; font-size: 0.9rem; line-height: 1.35; }
+        .tech-media-container .media-desc { font-size: 0.76rem; }
+        .tech-media-container .media-thumb-wrapper { border-radius: 4px; }
+        .comparison-note { grid-column: 1 / -1; max-width: 922px; padding: 10px 12px; text-align: left; font-size: 0.84rem; }
+
+        .project-highlight-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+        #projects-storywiz .project-item {
+            min-height: 0; border: 1px solid #d6dae1; background: #fff; display: grid;
+            grid-template-columns: 150px minmax(0, 1fr); transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+        #projects-storywiz .project-item:hover { transform: translateY(-3px); border-color: #111; }
+        #projects-storywiz .project-left {
+            width: auto; padding: 22px 18px; border-right: 1px solid #d6dae1; font-size: 1.08rem; line-height: 1.25;
+            justify-content: flex-start; background: #f6f6f6;
+        }
+        #projects-storywiz .project-num { margin-bottom: 16px; font-size: 0.82rem; }
+        #projects-storywiz .project-right { padding: 22px; }
+        #projects-storywiz .project-right h3 { font-size: 1.14rem; }
+        #projects-storywiz .project-right ul li { margin-bottom: 7px; font-size: 0.84rem; line-height: 1.45; }
+        #projects-storywiz .project-right .tag { margin-bottom: 10px; padding: 4px 9px; font-size: 0.68rem; }
+
+        #media-storywiz { display: flex; flex-direction: column; }
+        .storywiz-media-label { order: 0; }
+        .storywiz-sns-title { order: 1; }
+        .storywiz-sns-grid { order: 2; }
+        .produced-content-title { order: 3; margin-top: 74px; }
+        .storywiz-produced-row { order: 4; }
+        .storywiz-ad-title { order: 5; }
+        .storywiz-ad-note { order: 6; }
+        .storywiz-ad-grid { order: 7; }
+        .grid-section-title .title-note { display: block; margin-top: 8px; color: #666; font-size: 0.78rem; font-weight: 700; }
+
+        .shinhan-media-flow { display: flex; flex-direction: column; }
+        .shinhan-banner-gallery { order: 2; margin-bottom: 80px; }
+        .shinhan-personal-projects { order: 3; }
 
         /* [MODAL SYSTEM CSS] */
         .modal-overlay { 
@@ -806,6 +981,9 @@
             header nav ul { gap: 15px; flex-wrap: wrap; justify-content: center; }
             header nav a { font-size: 0.7rem; }
             .hero { flex-direction: column-reverse; text-align: center; padding-top: 240px; }
+            .allrounder-hero { display: grid; grid-template-columns: 1fr; text-align: left; gap: 42px; }
+            .allrounder-hero .storywiz-radar-panel { padding: 36px 0 0; border-left: 0; border-top: 1px solid #cfd9ea; }
+            .allrounder-hero .radar-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             .game-intro { padding-top: 230px; background-size: 94% auto; background-position: center 72%; }
             .game-intro::before { background: rgba(4, 8, 14, 0.68); }
             .game-intro-copy { width: 100%; }
@@ -819,9 +997,11 @@
             /* 모바일에서 최신 작업물 레이아웃 변경 */
             .history-latest-wrapper { flex-direction: column; }
             .latest-work-container { width: 100%; }
+            .latest-insight-grid { grid-template-columns: 1fr; }
 
             .identity-container { flex-direction: column; }
             .shinhan-identity-intro h2 { font-size: 2.2rem; }
+            .shinhan-identity-profile { width: min(320px, 100%); max-width: 100%; margin: 0 auto; padding-top: 0; }
             .shinhan-rookie-quote { font-size: 1.35rem; }
             .shinhan-intro-copy { font-size: 1.04rem; }
             .storywiz-identity-layout { grid-template-columns: 1fr; gap: 44px; }
@@ -835,6 +1015,12 @@
             .radar-controls { grid-template-columns: 1fr; }
             .project-item { flex-direction: column; }
             .project-left { border-right: none; border-bottom: 1px solid var(--black); width: 100%; padding: 40px 20px; }
+            .role-banner-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .achievement-banner-grid { grid-template-columns: 1fr; }
+            .tech-meta-list { grid-template-columns: 1fr; }
+            .project-highlight-grid { grid-template-columns: 1fr; }
+            #projects-storywiz .project-item { grid-template-columns: 140px minmax(0, 1fr); }
+            #projects-storywiz .project-left { border-right: 1px solid #d6dae1; border-bottom: 0; padding: 20px 16px; }
             .media-row { flex-direction: column; gap: 60px; }
             .contest-grid { grid-template-columns: 1fr; }
             .tech-detail-grid { grid-template-columns: 1fr; }
@@ -849,9 +1035,30 @@
         }
 
         @media (max-width: 620px) {
+            .allrounder-hero .storywiz-manifesto .manifesto-lead { font-size: 1.72rem; }
+            .allrounder-hero .storywiz-manifesto .manifesto-pivot { font-size: 1.06rem; }
+            .allrounder-hero .storywiz-manifesto .manifesto-claim { font-size: 1.28rem; }
+            .allrounder-hero .storywiz-manifesto .manifesto-signature { font-size: 1.72rem; }
+            .allrounder-hero .radar-controls { grid-template-columns: 1fr; }
+            .storywiz-positioning .positioning-question { font-size: 1.9rem; }
+            .storywiz-positioning .positioning-answer { font-size: 1.5rem; }
+            .role-banner-grid,
+            .latest-work-grid { grid-template-columns: 1fr; }
+            .tech-media-container,
+            .tech-media-container.is-comparison { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .tech-media-container .media-card,
+            .tech-media-container.is-comparison .media-card,
+            .tech-media-container:not(.is-comparison) .media-card { max-width: none; }
+            #projects-storywiz .project-item { grid-template-columns: 1fr; }
+            #projects-storywiz .project-left { border-right: 0; border-bottom: 1px solid #d6dae1; }
             .program-showcase { padding: 20px; }
             .program-gallery { grid-template-columns: 1fr; }
             .shorts-grid { gap: 24px 12px; }
+            .latest-insight-banner { padding: 22px 18px; }
+            .latest-insight-banner h4 { font-size: 1.15rem; }
+            .latest-insight-banner p { font-size: 0.92rem; }
+            .latest-spec-gallery { grid-template-columns: 1fr; }
+            .personal-featured-video { grid-template-columns: 1fr; gap: 18px; padding: 16px; }
             .shorts-grid .media-title { font-size: 0.9rem; }
             .shorts-grid .media-desc { font-size: 0.78rem; }
         }
@@ -911,20 +1118,57 @@
         </div>
     </div>
 
-    <!-- [HERO] 좌우 정렬 및 그레이스케일 마우스 호버 효과 복원 -->
-    <section class="hero" id="hero">
-        <div class="hero-text">
-            <span class="hero-eyebrow">AI MARKETER & CONTENT MD</span>
-            <h1><span>"3개월 뒤의 세상을<br>예측할 수 있으신가요?"</span><strong>"AI 기술이 급변하는 과도기.<br>더 이상 하나만 잘하면 되는 시대는 지났습니다."</strong></h1>
-            <p class="sub-title">AI MARKETER & CONTENT MD</p>
-            <p class="hero-capabilities">영상 소재 제작 · SNS 마케팅 · 웹소설·웹툰 머천다이징</p>
-            <p class="desc">
-                <span data-private-visible>바이브 코딩과 계약 관리 등 실무 역량을 겸비한 올라운더 지원자, 김승빈입니다.</span>
-                <span data-private-hidden>바이브 코딩과 계약 관리 등 실무 역량을 겸비한 올라운더 포트폴리오입니다.</span>
+    <!-- [HERO] 올라운더 정체성과 육각형 역량 -->
+    <section class="hero allrounder-hero" id="hero">
+        <div class="identity-text-area storywiz-manifesto">
+            <span class="hero-eyebrow">AI MARKETER · CONTENT MD · AUTOMATION</span>
+            <p class="manifesto-lead">"영상만 만질 줄 아는 사람, 마케팅 데이터만 볼 줄 아는 사람?"</p>
+            <p class="manifesto-pivot">AI 혁명의 과도기를 살아가는 지금, 그 모든 역량을 갖춘 <strong>'올라운더(All-rounder)'</strong>가 필요합니다.<br>3개월마다 기술 혁신이 일어나는 시대. 더 이상 중요한 것은 '한 우물'이 아닙니다.</p>
+            <p class="manifesto-claim">영상 소재 제작뿐만 아니라 빠르게 변모하는 웹툰·웹소설 콘텐츠 시장의 감각까지 이해하며 실무 역량을 갖춘 육각형 MD.</p>
+            <p class="manifesto-signature">
+                <span data-private-visible>AI 마케터 김승빈입니다.</span>
+                <span data-private-hidden>AI 마케터의 포트폴리오입니다.</span>
             </p>
+            <p class="hero-role-line">신한금융플러스 AI 영상 소재 제작 및 대내외 홍보 담당</p>
+            <ul class="storywiz-proof-list">
+                <li>카카오, 네이버, 리디 등 대표 플랫폼 계약작과 여러 제휴사 작품의 마케팅 및 머천다이징 담당</li>
+                <li>공식·서브 SNS 운영 및 메가 IP 프로모션 이벤트 진행</li>
+            </ul>
         </div>
-        <div class="hero-image private-photo">
-            <img src="profile.jpg" alt="지원자 프로필 사진">
+
+        <div class="storywiz-radar-panel">
+            <div class="competency-radar-wrap" aria-label="육각형 실무 역량 그래프">
+                <div class="competency-radar">
+                    <svg viewBox="0 0 500 500" role="img" aria-labelledby="radar-title radar-desc">
+                        <title id="radar-title">6개 실무 역량 균형도</title>
+                        <desc id="radar-desc">영상 제작, SNS 마케팅, 콘텐츠 MD, 바이브 코딩, 계약 관리, 데이터 분석 역량을 육각형으로 표현한 그래프</desc>
+                        <polygon class="radar-grid" points="250,70 406,160 406,340 250,430 94,340 94,160"></polygon>
+                        <polygon class="radar-grid" points="250,115 367,182.5 367,317.5 250,385 133,317.5 133,182.5"></polygon>
+                        <polygon class="radar-grid" points="250,160 328,205 328,295 250,340 172,295 172,205"></polygon>
+                        <line class="radar-axis" x1="250" y1="250" x2="250" y2="70"></line>
+                        <line class="radar-axis" x1="250" y1="250" x2="406" y2="160"></line>
+                        <line class="radar-axis" x1="250" y1="250" x2="406" y2="340"></line>
+                        <line class="radar-axis" x1="250" y1="250" x2="250" y2="430"></line>
+                        <line class="radar-axis" x1="250" y1="250" x2="94" y2="340"></line>
+                        <line class="radar-axis" x1="250" y1="250" x2="94" y2="160"></line>
+                        <polygon class="radar-shape" points="250,81 390,169 382,326 250,412 110,331 118,174"></polygon>
+                        <circle class="radar-point" data-radar-point="0" cx="250" cy="81" r="6"></circle>
+                        <circle class="radar-point" data-radar-point="1" cx="390" cy="169" r="6"></circle>
+                        <circle class="radar-point" data-radar-point="2" cx="382" cy="326" r="6"></circle>
+                        <circle class="radar-point" data-radar-point="3" cx="250" cy="412" r="6"></circle>
+                        <circle class="radar-point" data-radar-point="4" cx="110" cy="331" r="6"></circle>
+                        <circle class="radar-point" data-radar-point="5" cx="118" cy="174" r="6"></circle>
+                    </svg>
+                </div>
+                <div class="radar-controls">
+                    <button class="radar-skill" type="button" data-radar-index="0"><strong>영상 소재 제작</strong><span>기획 · 촬영 · 편집 · AI 합성</span></button>
+                    <button class="radar-skill" type="button" data-radar-index="1"><strong>SNS 마케팅</strong><span>채널 운영 · 프로모션 · 성과 분석</span></button>
+                    <button class="radar-skill" type="button" data-radar-index="2"><strong>콘텐츠 MD</strong><span>웹소설·웹툰 유통 · 머천다이징</span></button>
+                    <button class="radar-skill" type="button" data-radar-index="3"><strong>바이브 코딩</strong><span>업무 자동화 · AI 서비스 구현</span></button>
+                    <button class="radar-skill" type="button" data-radar-index="4"><strong>계약 관리</strong><span>판권 제휴 · 계약 · 정산 운영</span></button>
+                    <button class="radar-skill" type="button" data-radar-index="5"><strong>데이터 분석</strong><span>매출 · 캠페인 · 운영 지표 해석</span></button>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -981,12 +1225,63 @@
             <!-- 최신 작업물 영역 -->
             <div class="latest-work-container">
                 <h3>주요 작업물</h3>
-                <div class="latest-video-wrapper">
-                    <a href="https://www.youtube.com/watch?v=mWxe5FgP2-Y" target="_blank">
-                        <img src="https://img.youtube.com/vi/mWxe5FgP2-Y/maxresdefault.jpg" alt="신한의 미래 연도대상 브릿지 영상" onerror="handleImageError(this)">
-                    </a>
+                <div class="latest-work-grid">
+                    <div class="latest-work-item">
+                        <div class="latest-video-wrapper">
+                            <a href="https://www.youtube.com/watch?v=mWxe5FgP2-Y" target="_blank">
+                                <img src="https://img.youtube.com/vi/mWxe5FgP2-Y/maxresdefault.jpg" alt="신한의 미래 연도대상 브릿지 영상" onerror="handleImageError(this)">
+                            </a>
+                        </div>
+                        <p class="latest-work-desc"><strong>신한의 미래</strong><br>연도대상 브릿지 영상 1 · '26년 3월</p>
+                    </div>
+                    <div class="latest-work-item">
+                        <div class="latest-video-wrapper">
+                            <a href="https://youtu.be/_4-7jBMEYlQ" target="_blank">
+                                <img src="https://img.youtube.com/vi/_4-7jBMEYlQ/maxresdefault.jpg" alt="우리는 모두 아이였습니다 연도대상 브릿지 영상" onerror="handleImageError(this)">
+                            </a>
+                        </div>
+                        <p class="latest-work-desc"><strong>우리는 모두 아이였습니다</strong><br>연도대상 브릿지 영상 2 · 기획·제작·연출 100%</p>
+                    </div>
                 </div>
-                <p class="latest-work-desc"><strong>신한의 미래(연도대상 브릿지 영상 1)</strong><br>'26년 3월 제작 · 기획, 제작, 연출 100%</p>
+                <div class="latest-insight-grid">
+                    <article class="latest-insight-banner">
+                        <h4>📺 11m x 9m 대형 전광판 8K 해상도 상영 스펙</h4>
+                        <p>연도대상 본식 무대에 설치된 <strong>11m x 9m 규모의 초대형 LED 전광판</strong>에 브릿지 영상을 상영했습니다. 2026년 3월 기준 <strong>KLING AI 기반 영상 제작 기술</strong>을 도입하고, <strong>8K 해상도·60fps·12,000 비트레이트 규격</strong>에 맞춰 최고 화질로 후반 출력을 진행했습니다.</p>
+                        <div class="latest-spec-points">
+                            <span>8K</span><span>60fps</span><span>12,000 bitrate</span>
+                        </div>
+                        <div class="latest-spec-gallery">
+                            <img src="award1.jpg" alt="연도대상 대형 전광판 상영 현장 1" onerror="handleImageError(this)">
+                            <img src="award2.jpg" alt="연도대상 대형 전광판 상영 현장 2" onerror="handleImageError(this)">
+                        </div>
+                    </article>
+                    <article class="latest-insight-banner survey-full">
+                        <h4>📊 2026 연도대상 귀빈 피드백 분석 (만족도 조사 결과)</h4>
+                        <p>귀빈 350명 이상이 초청된 '2026 신한금융플러스 연도대상' 시상식 이후 실시된 현장 설문조사 결과입니다. 본 행사에서 직접 기획 및 연출을 총괄한 <strong>'AI 영상 콘텐츠 시청' 항목은 44.8%의 높은 지지율</strong>을 기록했습니다. 이는 전통적으로 강세를 보이는 '초청인 초대 및 동행(62.1%)' 다음으로 높은 호평을 받은 성과입니다. 시상식 무대 구성(42.5%)과 기념품 구성(31.0%)을 뛰어넘어, <strong>입사 한 달 만에 기획력을 증명하고 가시적인 성과를 낸 콘텐츠</strong>입니다.</p>
+                        <div class="survey-chart-list">
+                            <div class="survey-chart-item">
+                                <div class="survey-chart-label"><span>초청인 초대 및 동행</span><strong>62.1%</strong></div>
+                                <div class="survey-bar-track"><div class="survey-bar-fill" style="width: 62.1%;"></div></div>
+                            </div>
+                            <div class="survey-chart-item">
+                                <div class="survey-chart-label highlight-item"><span>AI 영상 콘텐츠 시청 (브릿지 영상 기획·제작)</span><strong>44.8%</strong></div>
+                                <div class="survey-bar-track highlight-track"><div class="survey-bar-fill highlight-fill" style="width: 44.8%;"></div></div>
+                            </div>
+                            <div class="survey-chart-item">
+                                <div class="survey-chart-label"><span>상패·초대 가수 등 시상식 구성</span><strong>42.5%</strong></div>
+                                <div class="survey-bar-track"><div class="survey-bar-fill" style="width: 42.5%;"></div></div>
+                            </div>
+                            <div class="survey-chart-item">
+                                <div class="survey-chart-label"><span>답례품·럭키드로우 등 기념품 구성</span><strong>31.0%</strong></div>
+                                <div class="survey-bar-track"><div class="survey-bar-fill" style="width: 31%;"></div></div>
+                            </div>
+                            <div class="survey-chart-item">
+                                <div class="survey-chart-label"><span>대표 건배사 및 만찬 식사</span><strong>21.8%</strong></div>
+                                <div class="survey-bar-track"><div class="survey-bar-fill" style="width: 21.8%;"></div></div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
             </div>
         </div>
     </section>
@@ -1023,61 +1318,57 @@
                     
                     <div class="shinhan-roles">
                         <h4 style="font-size: 1.3rem; font-weight: 800; border-left: 4px solid var(--shinhan-blue); padding-left: 12px; margin-bottom: 10px;">주요 직무 및 실무 영역</h4>
-                        
-                        <div class="role-card">
-                            <div class="role-card-title">🎬 마케팅 광고 영상 기획 및 소재 제작</div>
-                            <div class="role-card-desc">매주 1회의 트렌디한 숏폼(Shorts) 소재 기획 및 제작, 격주 1회의 고품질 롱폼(Long-form) 영상 기획 및 연출을 전담</div>
-                        </div>
-
-                        <div class="role-card">
-                            <div class="role-card-title">🎨 프로모션 홍보 배너 제작 및 채널 송출</div>
-                            <div class="role-card-desc">일 2~3회, 주 10회 이상 프로모션 홍보 배너 시안을 직접 제작<br>카카오톡 영업 알리미(플러스 친구) 발송 및 사내 영업 애플리케이션 내 배너 프로모션 홍보를 총괄</div>
-                        </div>
-
-                        <div class="role-card">
-                            <div class="role-card-title">🏆 대규모 사내 공식 행사 기획 및 총괄 PM</div>
-                            <div class="role-card-desc">전사 연도대상 시상식 주관, '썸머페스티벌(해외 여행)' 대외 비딩 실무 등 행사 실행을 주관<br>행사 오프닝 및 진행용 비디오 제작</div>
-                        </div>
-
-                        <div class="role-card">
-                            <div class="role-card-title">📄 대내외 공식 문서 수립 및 파트 행정</div>
-                            <div class="role-card-desc">파트 대내외 협조 공문 작성, 대관 조율 및 내부 품의 기안서 등 파트 공식 문서를 책임 전담</div>
+                        <div class="role-banner-grid">
+                            <div class="role-card">
+                                <div class="role-card-title">마케팅 광고 영상 기획 및 소재 제작</div>
+                                <div class="role-card-desc">숏폼 주 1회·롱폼 격주 단위로 기획부터 제작·연출까지 전담</div>
+                            </div>
+                            <div class="role-card">
+                                <div class="role-card-title">프로모션 홍보 배너 제작 및 채널 송출</div>
+                                <div class="role-card-desc">일 2~3회 시안 제작 및 카카오톡·사내 영업 앱 채널 송출</div>
+                            </div>
+                            <div class="role-card">
+                                <div class="role-card-title">대규모 사내 공식 행사 기획 및 총괄 PM</div>
+                                <div class="role-card-desc">연도대상·해외 행사 비딩 실무와 행사 진행용 영상 제작</div>
+                            </div>
+                            <div class="role-card">
+                                <div class="role-card-title">대내외 공식 문서 수립 및 파트 행정</div>
+                                <div class="role-card-desc">협조 공문, 대관 조율, 내부 품의 등 파트 공식 문서 전담</div>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="shinhan-identity-profile private-photo">
+                    <img src="profile.jpg" alt="김승빈 프로필 사진" onerror="handleImageError(this)">
                 </div>
             </div>
         </section>
 
         <section id="projects-shinhan">
             <h2 class="section-title">SHINHAN ACHIEVEMENTS</h2>
-            <div class="project-item">
-                <div class="project-left">Event & PM</div>
-                <div class="project-right">
-                    <span class="tag">MAIN MISSION</span>
-                    <h3>신한금융플러스 연도대상 조직성장파트 주관 개최</h3>
-                    <ul>
-                        <li><strong>행사 일자:</strong> 2026.03.10</li>
-                        <li><strong>행사 규모:</strong> 총 참석자 350명, 주관 예산 5억 원 이상</li>
-                        <li><strong>핵심 성과:</strong> 행사 실무 총괄 및 오프닝/시상 영상 2종 직접 제작</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="project-item">
-                <div class="project-left">YouTube Success</div>
-                <div class="project-right">
-                    <span class="tag">SNS GROWTH</span>
-                    <h3>공식 유튜브 채널 급성장 및 성과 도출</h3>
-                    <ul>
-                        <li><strong>26.04.02:</strong> 채널 첫 20만 조회수 영상 달성 (현재 22.9만)</li>
-                        <li><strong>26.03.27:</strong> 첫 5만 조회수 영상 달성 (현재 6.3만)</li>
-                        <li><strong>26.03.20:</strong> 공식 계정 첫 제작 게시물 업로드 및 채널 정체성 구축</li>
-                        <li><strong>26.04.11:</strong> 신한금융플러스 공식 회사소개 영상 제작 총괄</li>
-                    </ul>
-                </div>
+            <div class="achievement-banner-grid">
+                <article class="achievement-banner">
+                    <span class="achievement-kicker">Event & PM · Main Mission</span>
+                    <h3>신한금융플러스 연도대상<br>조직성장파트 주관 개최</h3>
+                    <div class="achievement-metrics">
+                        <span>참석자 350명</span>
+                        <span>예산 5억 원 이상</span>
+                        <span>행사 영상 2종 제작</span>
+                    </div>
+                </article>
+                <article class="achievement-banner">
+                    <span class="achievement-kicker">YouTube · SNS Growth</span>
+                    <h3>공식 유튜브 채널 성장과<br>콘텐츠 성과 도출</h3>
+                    <div class="achievement-metrics">
+                        <span>첫 20만 조회수</span>
+                        <span>초기 3개월 30만 뷰</span>
+                        <span>회사소개 영상 총괄</span>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <section id="media-shinhan">
+        <section id="media-shinhan" class="shinhan-media-flow">
             <h2 class="section-title">SHINHAN VIDEOS & IMAGES</h2>
             
             <!-- AI 기술 사용 파트 -->
@@ -1087,14 +1378,14 @@
                 </h3>
                 
                 <div class="ai-tool-strip" aria-label="활용 AI 기술">
-                    <span class="ai-tool-pill"><span class="ai-tool-icon">O</span>OMNI</span>
-                    <span class="ai-tool-pill"><span class="ai-tool-icon">S</span>SEEDANCE</span>
-                    <span class="ai-tool-pill"><span class="ai-tool-icon">K</span>KLING AI</span>
-                    <span class="ai-tool-pill"><span class="ai-tool-icon">H</span>HitPaw</span>
-                    <span class="ai-tool-pill"><span class="ai-tool-icon">G</span>ChatGPT</span>
-                    <span class="ai-tool-pill"><span class="ai-tool-icon">Ps</span>Photoshop</span>
-                    <span class="ai-tool-pill"><span class="ai-tool-icon">Gm</span>Gemini Canvas</span>
-                    <span class="ai-tool-pill"><span class="ai-tool-icon">C</span>Cursor AI</span>
+                    <span class="ai-tool-pill">OMNI</span>
+                    <span class="ai-tool-pill">SEEDANCE</span>
+                    <span class="ai-tool-pill">KLING AI</span>
+                    <span class="ai-tool-pill">HitPaw</span>
+                    <span class="ai-tool-pill">ChatGPT</span>
+                    <span class="ai-tool-pill">Photoshop</span>
+                    <span class="ai-tool-pill">Gemini Canvas</span>
+                    <span class="ai-tool-pill">Cursor AI</span>
                 </div>
 
                 <!-- 기술 1 -->
@@ -1304,7 +1595,7 @@
             </div>
 
             <!-- 업무 영상 구역 -->
-            <div style="margin-bottom: 80px;">
+            <div class="shinhan-personal-projects" style="margin-bottom: 80px;">
                 <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 40px; display: flex; align-items: center;">
                     <span style="width: 8px; height: 30px; background: var(--shinhan-blue); margin-right: 15px;"></span>업무 영상
                 </h3>
@@ -1388,64 +1679,6 @@
                         </div>
                     </div>
 
-                    <!-- 대형 전광판 상영 스펙 및 시연 사진 영역 -->
-                    <div style="margin-top: 30px; background: #fff; border: 1px solid #e5e5e5; padding: 25px; border-radius: 6px;">
-                        <h4 style="font-size: 1.15rem; font-weight: 800; color: var(--black); margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
-                            📺 11m x 9m 대형 전광판 8K 해상도 상영 스펙
-                        </h4>
-                        <p style="font-size: 0.95rem; color: #555; margin-bottom: 20px; line-height: 1.6; word-break: keep-all;">
-                            연도대상 본식 무대에 설치된 <strong>11m x 9m 규모의 초대형 LED 전광판</strong>에 브릿지 영상을 상영했습니다. 26년 3월 기준 <strong>최신 KLING AI 기반 영상 제작 기술</strong>을 도입하여 <strong>8K 해상도 업스케일링 및 12,000 비트레이트 규격</strong>에 맞춰 최고 화질로 상영을 진행했습니다.
-                        </p>
-                        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                            <div style="flex: 1; min-width: 250px;">
-                                <img src="award1.jpg" alt="전광판 상영 모습 1" style="width: 100%; border-radius: 4px; border: 1px solid #eee;" onerror="handleImageError(this)">
-                            </div>
-                            <div style="flex: 1; min-width: 250px;">
-                                <img src="award2.jpg" alt="전광판 상영 모습 2" style="width: 100%; border-radius: 4px; border: 1px solid #eee;" onerror="handleImageError(this)">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="survey-insight-container">
-                        <h4>📊 2026 연도대상 귀빈 피드백 분석 (만족도 조사 결과)</h4>
-                        <p>
-                            귀빈 350명 이상이 초청된 '2026 신한금융플러스 연도대상' 시상식 이후 실시된 현장 설문조사 결과입니다. 
-                            본 행사에서 직접 기획 및 연출을 총괄한 <strong>'AI 영상 콘텐츠 시청' 항목은 무려 <span style="color: var(--shinhan-blue); font-weight: 800;">44.8%</span>의 높은 지지율</strong>을 얻었습니다. 
-                            이는 단순 부가 프로그램을 넘어, 정통적인 강세를 보이는 '초청인 초대 및 동행(62.1%)' 다음으로 가장 높은 호평을 받은 성과이며, 시상식 무대 구성(42.5%)이나 고품격 답례품(31%) 구성을 뛰어넘어, <strong>입사 한 달 만에 기획력을 증명하며, 가시적인 성과를 낸 콘텐츠입니다.</strong>
-                        </p>
-                        <div class="survey-chart-list">
-                            <div class="survey-chart-item">
-                                <div class="survey-chart-label">초청인 초대 및 동행</div>
-                                <div class="survey-bar-track">
-                                    <div class="survey-bar-fill" style="width: 62.1%;"></div>
-                                </div>
-                            </div>
-                            <div class="survey-chart-item">
-                                <div class="survey-chart-label highlight-item">✨ AI 영상 콘텐츠 시청 (브릿지 영상 기획/제작)</div>
-                                <div class="survey-bar-track highlight-track">
-                                    <div class="survey-bar-fill highlight-fill" style="width: 44.8%;"></div>
-                                </div>
-                            </div>
-                            <div class="survey-chart-item">
-                                <div class="survey-chart-label">상패, 초대가수 등 시상식 구성</div>
-                                <div class="survey-bar-track">
-                                    <div class="survey-bar-fill" style="width: 42.5%;"></div>
-                                </div>
-                            </div>
-                            <div class="survey-chart-item">
-                                <div class="survey-chart-label">답례품, 럭키드로우 등 기념품 구성</div>
-                                <div class="survey-bar-track">
-                                    <div class="survey-bar-fill" style="width: 31%;"></div>
-                                </div>
-                            </div>
-                            <div class="survey-chart-item">
-                                <div class="survey-chart-label">대표님 건배사 및 만찬 식사</div>
-                                <div class="survey-bar-track">
-                                    <div class="survey-bar-fill" style="width: 21.8%;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -1455,6 +1688,17 @@
                     <span style="width: 8px; height: 30px; background: #666; margin-right: 15px;"></span>개인 프로젝트
                     <span style="font-size: 1.1rem; color: #888; font-weight: 600; margin-left: 15px;">* 100% 기획 연출 제작</span>
                 </h3>
+
+                <a href="https://youtu.be/CHyhlbGoY7M" target="_blank" class="media-card personal-featured-video">
+                    <div class="media-thumb-wrapper">
+                        <img src="https://img.youtube.com/vi/CHyhlbGoY7M/maxresdefault.jpg" alt="AImage 홍보 영상" onerror="handleImageError(this)">
+                    </div>
+                    <div class="personal-featured-copy">
+                        <span class="personal-featured-kicker">Featured Personal Project</span>
+                        <div class="media-title">AImage 홍보 영상</div>
+                        <div class="media-desc">개인 프로젝트 · 홍보 영상 기획 및 제작</div>
+                    </div>
+                </a>
                 
                 <div class="media-row">
                     <div class="media-col">
@@ -1519,7 +1763,7 @@
             </div>
 
             <!-- 홍보용 배너 6종 그리드 영역 -->
-            <div>
+            <div class="shinhan-banner-gallery">
                 <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 40px; display: flex; align-items: center;">
                     <span style="width: 8px; height: 30px; background: var(--shinhan-blue); margin-right: 15px;"></span>홍보용 배너 이미지
                 </h3>
@@ -1561,56 +1805,15 @@
     <div id="storywiz-content" class="career-mode-content">
         <section id="identity-storywiz">
             <span class="section-label">Identity</span>
-            <div class="identity-container storywiz-identity-layout">
-                <div class="identity-text-area storywiz-manifesto">
-                    <p class="manifesto-lead">"영상만 만질 줄 아는 사람, 마케팅 데이터만 볼 줄 아는 사람?"</p>
-                    <p class="manifesto-pivot">AI 혁명의 과도기를 살아가는 지금, 그 모든 역량을 갖춘 <strong>'올라운더(All-rounder)'</strong>가 필요합니다.<br>3개월마다 기술 혁신이 일어나는 시대. 더 이상 중요한 것은 '한 우물'이 아닙니다.</p>
-                    <p class="manifesto-claim">영상 소재 제작뿐만 아니라 빠르게 변모하는 웹툰·웹소설 콘텐츠 시장의 감각까지 이해하며 실무 역량을 갖춘 육각형 MD.</p>
-                    <p class="manifesto-signature">
-                        <span data-private-visible>마케터 김승빈입니다.</span>
-                        <span data-private-hidden>마케터의 포트폴리오입니다.</span>
-                    </p>
-
-                    <ul class="storywiz-proof-list">
-                        <li>카카오, 네이버, 리디 등 대표 플랫폼 계약작과 여러 제휴사 작품의 마케팅 및 머천다이징 담당</li>
-                        <li>공식·서브 SNS 운영 및 메가 IP 프로모션 이벤트 진행</li>
-                    </ul>
-                </div>
-
-                <div class="storywiz-radar-panel">
-                    <div class="competency-radar-wrap" aria-label="육각형 실무 역량 그래프">
-                        <div class="competency-radar">
-                            <svg viewBox="0 0 500 500" role="img" aria-labelledby="radar-title radar-desc">
-                                <title id="radar-title">6개 실무 역량 균형도</title>
-                                <desc id="radar-desc">영상 제작, SNS 마케팅, 콘텐츠 MD, 바이브 코딩, 계약 관리, 데이터 분석 역량을 육각형으로 표현한 그래프</desc>
-                                <polygon class="radar-grid" points="250,70 406,160 406,340 250,430 94,340 94,160"></polygon>
-                                <polygon class="radar-grid" points="250,115 367,182.5 367,317.5 250,385 133,317.5 133,182.5"></polygon>
-                                <polygon class="radar-grid" points="250,160 328,205 328,295 250,340 172,295 172,205"></polygon>
-                                <line class="radar-axis" x1="250" y1="250" x2="250" y2="70"></line>
-                                <line class="radar-axis" x1="250" y1="250" x2="406" y2="160"></line>
-                                <line class="radar-axis" x1="250" y1="250" x2="406" y2="340"></line>
-                                <line class="radar-axis" x1="250" y1="250" x2="250" y2="430"></line>
-                                <line class="radar-axis" x1="250" y1="250" x2="94" y2="340"></line>
-                                <line class="radar-axis" x1="250" y1="250" x2="94" y2="160"></line>
-                                <polygon class="radar-shape" points="250,81 390,169 382,326 250,412 110,331 118,174"></polygon>
-                                <circle class="radar-point" data-radar-point="0" cx="250" cy="81" r="6"></circle>
-                                <circle class="radar-point" data-radar-point="1" cx="390" cy="169" r="6"></circle>
-                                <circle class="radar-point" data-radar-point="2" cx="382" cy="326" r="6"></circle>
-                                <circle class="radar-point" data-radar-point="3" cx="250" cy="412" r="6"></circle>
-                                <circle class="radar-point" data-radar-point="4" cx="110" cy="331" r="6"></circle>
-                                <circle class="radar-point" data-radar-point="5" cx="118" cy="174" r="6"></circle>
-                            </svg>
-                        </div>
-                        <div class="radar-controls">
-                            <button class="radar-skill" type="button" data-radar-index="0"><strong>영상 소재 제작</strong><span>기획 · 촬영 · 편집 · AI 합성</span></button>
-                            <button class="radar-skill" type="button" data-radar-index="1"><strong>SNS 마케팅</strong><span>채널 운영 · 프로모션 · 성과 분석</span></button>
-                            <button class="radar-skill" type="button" data-radar-index="2"><strong>콘텐츠 MD</strong><span>웹소설·웹툰 유통 · 머천다이징</span></button>
-                            <button class="radar-skill" type="button" data-radar-index="3"><strong>바이브 코딩</strong><span>업무 자동화 · AI 서비스 구현</span></button>
-                            <button class="radar-skill" type="button" data-radar-index="4"><strong>계약 관리</strong><span>판권 제휴 · 계약 · 정산 운영</span></button>
-                            <button class="radar-skill" type="button" data-radar-index="5"><strong>데이터 분석</strong><span>매출 · 캠페인 · 운영 지표 해석</span></button>
-                        </div>
-                    </div>
-                </div>
+            <div class="storywiz-positioning">
+                <p class="positioning-question">"3개월 뒤의 세상을<br>예측할 수 있으신가요?"</p>
+                <p class="positioning-answer">"AI 기술이 급변하는 과도기.<br>더 이상 하나만 잘하면 되는 시대는 지났습니다."</p>
+                <span class="positioning-role">AI MARKETER & CONTENT MD</span>
+                <p class="positioning-capabilities">영상 소재 제작 · SNS 마케팅 · 웹소설·웹툰 머천다이징</p>
+                <p class="positioning-desc">
+                    <span data-private-visible>바이브 코딩과 계약 관리 등 실무 역량을 겸비한 올라운더 지원자, 김승빈입니다.</span>
+                    <span data-private-hidden>바이브 코딩과 계약 관리 등 실무 역량을 겸비한 올라운더 포트폴리오입니다.</span>
+                </p>
             </div>
         </section>
 
@@ -1646,7 +1849,7 @@
         <section id="projects-storywiz">
             <span class="section-label">Key Projects</span>
             <h2 class="section-title">PROJECT HIGHLIGHTS</h2>
-            
+            <div class="project-highlight-grid">
             <div class="project-item">
                 <div class="project-left">
                     <span class="project-num">01</span> Distribution<br>& Operation
@@ -1710,14 +1913,15 @@
                     </ul>
                 </div>
             </div>
+            </div>
         </section>
 
         <!-- 미디어, SNS, 광고 시안 그리드 및 링크 -->
         <section id="media-storywiz">
-            <span class="section-label">Media & Creative</span>
-            <h2 class="section-title">PRODUCED CONTENT</h2>
+            <span class="section-label storywiz-media-label">Media & Creative</span>
+            <h2 class="section-title produced-content-title">PRODUCED CONTENT</h2>
 
-            <div class="media-row">
+            <div class="media-row storywiz-produced-row">
                 <div class="media-col">
                     <h3>대외활동 및 수상작</h3>
                     <a href="https://youtu.be/JwtP9eBf3UY?si=sXb7r-WUWKUhiSDe" target="_blank" class="media-card">
@@ -1746,8 +1950,8 @@
                 </div>
             </div>
 
-            <h3 class="grid-section-title">SNS 마케팅 및 매니지먼트</h3>
-            <div class="ad-grid">
+            <h3 class="grid-section-title storywiz-sns-title">SNS 마케팅 및 매니지먼트</h3>
+            <div class="ad-grid storywiz-sns-grid">
                 <div class="ad-card" onclick="openModal('modal-sns-1')">
                     <div class="ad-image"><img src="sns_1_1.jpg" alt="스토리위즈 SNS" onerror="handleImageError(this)"></div>
                     <div class="ad-footer"><div class="ad-title">스토리위즈 공식 SNS</div></div>
@@ -1770,9 +1974,9 @@
                 </div>
             </div>
 
-            <h3 class="grid-section-title">광고물 제작 시안</h3>
-            <p style="margin-bottom: 30px; opacity: 0.6; font-weight: 500;">* 클릭 시 상세 내용과 함께 이미지가 확장됩니다.</p>
-            <div class="ad-grid">
+            <h3 class="grid-section-title storywiz-ad-title">광고물 제작 시안<span class="title-note">(실무 역량 과제용 가제작 배너)</span></h3>
+            <p class="storywiz-ad-note" style="margin-bottom: 30px; opacity: 0.6; font-weight: 500;">* 클릭 시 상세 내용과 함께 이미지가 확장됩니다.</p>
+            <div class="ad-grid storywiz-ad-grid">
                 <div class="ad-card" onclick="openModal('modal-1')">
                     <div class="ad-image"><img src="ad_1.jpg" alt="트라이폴드" onerror="handleImageError(this)"></div>
                     <div class="ad-footer"><div class="ad-title">트라이폴드 버거</div></div>
