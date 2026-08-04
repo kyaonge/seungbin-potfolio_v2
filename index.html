@@ -749,6 +749,14 @@
         .latest-work-item { min-width: 0; }
         .latest-work-item .latest-video-wrapper { max-width: none; border-radius: 5px; }
         .latest-work-item .latest-work-desc { font-size: 0.84rem; line-height: 1.45; min-height: 58px; }
+        .latest-work-item.is-recent {
+            grid-column: 1 / -1; padding: 14px; border: 1px solid #b9cdf2; background: #f2f7ff;
+        }
+        .latest-work-item.is-recent .latest-work-desc { min-height: 0; margin-top: 12px; }
+        .latest-work-badge {
+            display: inline-block; margin-bottom: 7px; padding: 5px 9px; background: var(--shinhan-blue);
+            color: #fff; font-size: 0.72rem; line-height: 1; font-weight: 900;
+        }
         .latest-insight-grid { display: grid; grid-template-columns: 1fr; gap: 22px; margin-top: 30px; }
         .latest-insight-banner { padding: 30px; border: 1px solid #cad8ef; background: #fff; }
         .latest-insight-banner h4 { font-size: 1.35rem; line-height: 1.45; font-weight: 900; color: #111; word-break: keep-all; }
@@ -1226,6 +1234,18 @@
             <div class="latest-work-container">
                 <h3>주요 작업물</h3>
                 <div class="latest-work-grid">
+                    <div class="latest-work-item is-recent">
+                        <div class="latest-video-wrapper">
+                            <a href="https://youtu.be/-8TniPe6nLI" target="_blank">
+                                <img src="https://img.youtube.com/vi/-8TniPe6nLI/maxresdefault.jpg" alt="그래, 여름은 뜨거운 거니까!" onerror="handleImageError(this)">
+                            </a>
+                        </div>
+                        <p class="latest-work-desc">
+                            <span class="latest-work-badge">최근 작업물</span><br>
+                            <strong>그래, 여름은 뜨거운 거니까!</strong><br>
+                            기획 20% · 연출 80% · 제작 100%
+                        </p>
+                    </div>
                     <div class="latest-work-item">
                         <div class="latest-video-wrapper">
                             <a href="https://www.youtube.com/watch?v=mWxe5FgP2-Y" target="_blank">
@@ -1603,6 +1623,11 @@
                 <div class="media-row">
                     <div class="media-col">
                         <div class="sub-category-title">Long-form 콘텐츠</div>
+                        <a href="https://youtu.be/-8TniPe6nLI" target="_blank" class="media-card" style="margin-bottom: 20px;">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/-8TniPe6nLI/maxresdefault.jpg" alt="그래, 여름은 뜨거운 거니까!" onerror="handleImageError(this)"></div>
+                            <div class="media-title">그래, 여름은 뜨거운 거니까!</div>
+                            <div class="media-desc">기획 : 20% | 연출 : 80% | 제작 : 100%</div>
+                        </a>
                         <a href="https://youtu.be/Z8-g1n5b2J8" target="_blank" class="media-card" style="margin-bottom: 20px;">
                             <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/Z8-g1n5b2J8/maxresdefault.jpg" onerror="handleImageError(this)"></div>
                             <div class="media-title">신한금융플러스 브랜드 광고 (26.05.04)</div>
