@@ -164,40 +164,6 @@
             background-color: var(--shinhan-blue);
         }
 
-        /* Game intro */
-        .game-intro {
-            position: relative; width: 100%; min-height: 100vh; overflow: hidden;
-            display: flex; align-items: stretch; padding: 188px 5vw 46px;
-            background-color: #090d13;
-            background-image: url('game/image/main1.png');
-            background-repeat: no-repeat;
-            background-size: auto 68%;
-            background-position: right 62%;
-        }
-        .game-intro::before {
-            content: ''; position: absolute; inset: 0; background: rgba(4, 8, 14, 0.42);
-        }
-        .game-intro-content { position: relative; z-index: 1; width: 100%; display: flex; flex-direction: column; justify-content: space-between; color: #fff; }
-        .game-intro-copy { width: min(620px, 42vw); text-align: left; text-shadow: 0 3px 14px rgba(0,0,0,0.88); }
-        .game-intro-kicker { display: inline-block; margin-bottom: 14px; font-size: 0.84rem; font-weight: 900; color: #9edaff; }
-        .game-intro h1 { font-size: 2.2rem; line-height: 1.3; font-weight: 900; word-break: keep-all; }
-        .game-intro p { margin-top: 12px; font-size: 1rem; line-height: 1.6; font-weight: 650; word-break: keep-all; }
-        .game-intro-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-        .game-intro-button {
-            min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 12px 20px; border: 1px solid #fff; background: #fff; color: #111; text-decoration: none;
-            font-size: 0.9rem; font-weight: 900; cursor: pointer;
-        }
-        .game-intro-button.secondary { background: rgba(0,0,0,0.58); color: #fff; }
-        .game-intro-button:hover { background: var(--shinhan-blue); border-color: var(--shinhan-blue); color: #fff; }
-        .scroll-indicator {
-            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-            color: #fff; font-size: 0.9rem; font-weight: 600; text-transform: uppercase;
-            animation: bounce 2s infinite; pointer-events: none; z-index: 10; text-align: center;
-            text-shadow: 0 0 10px rgba(0,0,0,0.5);
-        }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);} 40% {transform: translateX(-50%) translateY(-10px);} 60% {transform: translateX(-50%) translateY(-5px);} }
-
         /* [SECTION 1] HERO */
         .hero {
             min-height: 95vh; padding-top: 210px; padding-bottom: 60px;
@@ -404,6 +370,33 @@
             border: 1px solid #dce6f5; border-radius: 999px;
             font-size: 0.9rem; font-weight: 800; letter-spacing: 0;
         }
+        .ai-capability-grid {
+            display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px;
+            margin-bottom: 54px;
+        }
+        .ai-capability-card {
+            min-width: 0; padding: 22px; background: #fff; border: 1px solid #dce6f5;
+            border-left: 5px solid var(--shinhan-blue); border-radius: 6px;
+        }
+        .ai-capability-card h4 { margin-bottom: 8px; font-size: 1.12rem; font-weight: 900; color: var(--black); }
+        .ai-capability-card p { color: #5a6574; font-size: 0.9rem; line-height: 1.55; word-break: keep-all; }
+        .ai-capability-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+        .ai-capability-tools span {
+            padding: 7px 11px; background: #edf4ff; border: 1px solid #c9dcff; border-radius: 999px;
+            color: var(--shinhan-blue); font-size: 0.82rem; font-weight: 850;
+        }
+        .work-video-section { margin-bottom: 70px; }
+        .work-video-heading { margin-bottom: 28px; font-size: 1.65rem; font-weight: 900; display: flex; align-items: center; }
+        .feature-work-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+        .feature-work-card { min-width: 0; padding-bottom: 18px; border-bottom: 4px solid var(--shinhan-blue); }
+        .feature-work-card .media-title { font-size: 1.12rem; }
+        .work-performance { display: block; margin-top: 6px; color: var(--shinhan-blue); font-weight: 800; }
+        .additional-work-wrap { margin-top: 44px; padding-top: 30px; border-top: 1px solid #dce6f5; }
+        .additional-work-title { margin-bottom: 20px; font-size: 1.05rem; font-weight: 900; color: #34445a; }
+        .additional-work-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+        .additional-work-grid .media-card { min-width: 0; }
+        .additional-work-grid .media-title { font-size: 0.96rem; }
+        .additional-work-grid .media-desc { font-size: 0.82rem; }
         .ai-tool-icon {
             display: inline-flex; align-items: center; justify-content: center;
             width: 24px; height: 24px; border-radius: 50%;
@@ -836,7 +829,6 @@
         #projects-storywiz .project-right ul li { margin-bottom: 7px; font-size: 0.84rem; line-height: 1.45; }
         #projects-storywiz .project-right .tag { margin-bottom: 10px; padding: 4px 9px; font-size: 0.68rem; }
 
-        #media-storywiz { display: flex; flex-direction: column; }
         .storywiz-media-label { order: 0; }
         .storywiz-sns-title { order: 1; }
         .storywiz-sns-grid { order: 2; }
@@ -992,10 +984,6 @@
             .allrounder-hero { display: grid; grid-template-columns: 1fr; text-align: left; gap: 42px; }
             .allrounder-hero .storywiz-radar-panel { padding: 36px 0 0; border-left: 0; border-top: 1px solid #cfd9ea; }
             .allrounder-hero .radar-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            .game-intro { padding-top: 230px; background-size: 94% auto; background-position: center 72%; }
-            .game-intro::before { background: rgba(4, 8, 14, 0.68); }
-            .game-intro-copy { width: 100%; }
-            .game-intro h1 { font-size: 1.75rem; }
             .hero h1 { font-size: 2.45rem; }
             .hero p.sub-title { font-size: 1.45rem; }
             .hero-capabilities { font-size: 1rem; }
@@ -1035,6 +1023,8 @@
             .vibe-grid { grid-template-columns: 1fr; }
             .program-showcase { grid-template-columns: 1fr; }
             .jobkorea-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .feature-work-grid { grid-template-columns: 1fr; }
+            .additional-work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             .tech-meta-label { display: block; margin-bottom: 4px; }
             .video-reel-header { align-items: flex-start; flex-direction: column; }
             .video-reel-card { flex-basis: min(82vw, 320px); }
@@ -1061,6 +1051,9 @@
             #projects-storywiz .project-left { border-right: 0; border-bottom: 1px solid #d6dae1; }
             .program-showcase { padding: 20px; }
             .program-gallery { grid-template-columns: 1fr; }
+            .ai-capability-grid,
+            .additional-work-grid { grid-template-columns: 1fr; }
+            .tech-section { padding: 28px 18px; }
             .shorts-grid { gap: 24px 12px; }
             .latest-insight-banner { padding: 22px 18px; }
             .latest-insight-banner h4 { font-size: 1.15rem; }
@@ -1108,23 +1101,6 @@
             </ul>
         </nav>
     </header>
-
-    <div class="game-intro" id="game-intro">
-        <div class="game-intro-content">
-            <div class="game-intro-copy">
-                <span class="game-intro-kicker">AI MINI GAME · PORTFOLIO</span>
-                <h1>
-                    <span data-private-visible>김승빈 지원자의 포트폴리오 페이지가 맞습니다.</span>
-                    <span data-private-hidden>지원자의 포트폴리오 페이지입니다.</span>
-                </h1>
-                <p>지친 업무 중, 잠깐의 휴식을 가져보시는 건 어떨까요?<br>- 직접 AI로 제작한 미니 게임 파일.</p>
-            </div>
-            <div class="game-intro-actions">
-                <a href="game/index.html" target="_blank" rel="noopener noreferrer" class="game-intro-button">게임 실행하기 ↗</a>
-                <button type="button" class="game-intro-button secondary" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'})">포트폴리오 보기 ↓</button>
-            </div>
-        </div>
-    </div>
 
     <!-- [HERO] 올라운더 정체성과 육각형 역량 -->
     <section class="hero allrounder-hero" id="hero">
@@ -1397,123 +1373,75 @@
                     <span class="section-marker"></span>AI 기술 역량
                 </h3>
                 
-                <div class="ai-tool-strip" aria-label="활용 AI 기술">
-                    <span class="ai-tool-pill">OMNI</span>
-                    <span class="ai-tool-pill">SEEDANCE</span>
-                    <span class="ai-tool-pill">KLING AI</span>
-                    <span class="ai-tool-pill">HitPaw</span>
-                    <span class="ai-tool-pill">ChatGPT</span>
-                    <span class="ai-tool-pill">Photoshop</span>
-                    <span class="ai-tool-pill">Gemini Canvas</span>
-                    <span class="ai-tool-pill">Cursor AI</span>
+                <div class="ai-capability-grid" aria-label="분야별 AI 기술 역량">
+                    <article class="ai-capability-card">
+                        <h4>영상 제작 및 VFX</h4>
+                        <p>생성형 영상 제작부터 장면 전환, 요소 수정과 합성까지 실무 영상의 제작 흐름에 적용합니다.</p>
+                        <div class="ai-capability-tools"><span>SEEDANCE</span><span>KLING AI</span><span>OMNI</span></div>
+                    </article>
+                    <article class="ai-capability-card">
+                        <h4>나레이션 및 BGM</h4>
+                        <p>영상 목적과 채널 톤에 맞춰 음성 및 음악 리소스를 생성하고 후반 제작에 활용합니다.</p>
+                        <div class="ai-capability-tools"><span>ELEVENLABS</span><span>SUNO</span></div>
+                    </article>
+                    <article class="ai-capability-card">
+                        <h4>바이브 코딩</h4>
+                        <p>반복 업무 자동화, 콘텐츠 분석, 사내 보조 프로그램의 기획·구현·배포에 활용합니다.</p>
+                        <div class="ai-capability-tools"><span>Codex</span><span>Cursor</span><span>Gemini Canvas</span></div>
+                    </article>
+                    <article class="ai-capability-card">
+                        <h4>디자인 및 업스케일</h4>
+                        <p>이미지 제작과 보정, 레퍼런스 반영, 대형 스크린용 고해상도 출력까지 담당합니다.</p>
+                        <div class="ai-capability-tools"><span>Photoshop</span><span>OpenAI API (ChatGPT)</span><span>MiriCanvas</span><span>HitPaw</span></div>
+                    </article>
                 </div>
 
-                <!-- 기술 1 -->
-                <div class="tech-block omni-tech-block">
-                    <div class="tech-info">
-                        <h4>OMNI 편집 및 AI 타이포그래피 모션 그래픽</h4>
-                        <p>같은 캠페인 시리즈 안에서 인물, 배경, 타이포그래피를 각각 분리해 설계하고 다시 합성한 핵심 AI 편집 사례입니다. 단순 컷 편집이 아니라, 영상 속 요소를 레이어 단위로 다루며 콘셉트 변화를 만든 작업입니다.</p>
-                        <div class="tech-meta-list">
-                            <div class="tech-meta-item"><span class="tech-meta-label">사용 툴</span><span class="tech-tool">OMNI</span><span class="tech-tool">ChatGPT</span><span class="tech-tool">Adobe Photoshop</span></div>
-                            <div class="tech-meta-item"><span class="tech-meta-label">적용 기능</span>인물/배경 개별 수정, 그린스크린 합성, 타이포그래피 리소스 생성, 레이어 합성 및 후반 보정</div>
-                            <div class="tech-meta-item"><span class="tech-meta-label">결과</span>1편과 2편의 배경 및 인물 연출을 다르게 구성하면서도, 같은 캠페인 톤과 브랜드 무드를 유지한 시리즈형 숏폼 제작</div>
-                        </div>
-                        <div class="tech-detail-grid">
-                            <div class="tech-detail-card">
-                                <h5>OMNI 기반 요소 분리</h5>
-                            </div>
-                            <div class="tech-detail-card">
-                                <h5>타이포그래피 리소스 제작</h5>
-                            </div>
-                            <div class="tech-detail-card">
-                                <h5>후반 합성 및 톤 보정</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tech-media-container is-comparison">
-                        <div class="comparison-note">썸머, 가자! 시리즈: 배경, 인물, 타이포그래피 연출을 편별 콘셉트에 맞춰 확장</div>
-                        <a href="https://youtube.com/shorts/qfO7LUvRqow" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/qfO7LUvRqow/hqdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">썸머, 가자! 1.파타야 호텔편</div>
-                            <div class="media-desc">기준 영상 | 호텔 콘셉트<br>기획, 제작, 연출 100%</div>
+                <section class="work-video-section" aria-labelledby="work-video-heading">
+                    <h4 class="work-video-heading" id="work-video-heading"><span class="section-marker"></span>대표 실무 영상</h4>
+                    <div class="feature-work-grid">
+                        <a href="https://youtu.be/-8TniPe6nLI" target="_blank" rel="noopener noreferrer" class="media-card feature-work-card">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/-8TniPe6nLI/maxresdefault.jpg" alt="그래, 여름은 뜨거운 거니까!" onerror="handleImageError(this)"></div>
+                            <div class="media-title">그래, 여름은 뜨거운 거니까!</div>
+                            <div class="media-desc">기획 : 20% | 연출 : 80% | 제작 : 100%</div>
                         </a>
-                        <a href="https://youtube.com/shorts/mctJtzk49Wc" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/mctJtzk49Wc/hqdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">썸머, 가자! 2.힐링&옵션 코스편</div>
-                            <div class="media-desc">변화 영상 | 배경 및 인물 변경<br>기획, 제작, 연출 100%</div>
-                        </a>
-                        <a href="https://youtube.com/shorts/yGnccd9RCyA" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/yGnccd9RCyA/hqdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">썸머, 가자! 3.시암 C.C. 골프 코스편</div>
-                            <div class="media-desc">후속작 | 골프 코스 콘셉트<br>기획, 제작, 연출 100%</div>
-                        </a>
-                        <a href="https://youtube.com/shorts/PgigMIXXuPI" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/PgigMIXXuPI/hqdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">썸머, 가자! 4.특별 방문지&관광지 편</div>
-                            <div class="media-desc">후속작 | 관광지 콘셉트<br>기획, 제작, 연출 100%</div>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 기술 2 -->
-                <div class="tech-block transition-tech-block">
-                    <div class="tech-info">
-                        <h4>KLING AI 트랜지션</h4>
-                        <p>비디오 편집 단계에서 생성형 AI를 활용해 장면과 장면 사이를 자연스럽게 이어 붙인 사례입니다.</p>
-                        <div class="tech-meta-list">
-                            <div class="tech-meta-item"><span class="tech-meta-label">사용 툴</span><span class="tech-tool">KLING AI</span></div>
-                            <div class="tech-meta-item"><span class="tech-meta-label">적용 기능</span>AI 연결 컷 생성, 장면 전환 보간, 이질감 완화</div>
-                            <div class="tech-meta-item"><span class="tech-meta-label">결과</span>여행 캠페인의 분위기가 끊기지 않도록 숏폼 영상의 전환 흐름을 개선</div>
-                        </div>
-                    </div>
-                    <div class="tech-media-container">
-                        <a href="https://youtube.com/shorts/j48viMA877Y" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/j48viMA877Y/hqdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">지금 떠나요, 파타야로!<br>(썸머 페스티벌 내부 홍보 영상)</div>
-                            <div class="media-desc">기획 : 100% | 제작, 연출 : 100%</div>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 기술 3 -->
-                <div class="tech-block motion-tech-block">
-                    <div class="tech-info">
-                        <h4>KLING AI 모션 컨트롤</h4>
-                        <p>실제 인물 촬영본의 동작을 AI 가상 인플루언서 움직임에 반영한 모션 컨트롤 사례입니다.</p>
-                        <div class="tech-meta-list">
-                            <div class="tech-meta-item"><span class="tech-meta-label">사용 툴</span><span class="tech-tool">KLING AI</span></div>
-                            <div class="tech-meta-item"><span class="tech-meta-label">적용 기능</span>촬영본 동작 분석, AI 인물 모션 매핑, 인스타그램 바이럴용 숏폼 연출</div>
-                            <div class="tech-meta-item"><span class="tech-meta-label">결과</span><strong>단일 영상 송출로 입사 문의 43건 인입</strong></div>
-                        </div>
-                    </div>
-                    <div class="tech-media-container">
-                        <a href="https://youtube.com/shorts/RSTUGgpQUfA" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/RSTUGgpQUfA/hqdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">4~50대 주부에게 추천하는<br>가장 현실적인 수입</div>
-                            <div class="media-desc">기획 : 15% | 제작, 연출 : 100%</div>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 기술 4 -->
-                <div class="tech-block upscale-tech-block">
-                    <div class="tech-info">
-                        <h4>업스케일 및 대형 스크린 상영 최적화</h4>
-                        <p>대형 전광판 상영 요구 스펙에 맞춰 1080p 출력물을 고해상도 영상으로 변환한 사례입니다.</p>
-                        <div class="tech-meta-list">
-                            <div class="tech-meta-item"><span class="tech-meta-label">사용 툴</span><span class="tech-tool">HitPaw</span></div>
-                            <div class="tech-meta-item"><span class="tech-meta-label">적용 기능</span>1080p 출력물 업스케일, 8K 변환, 60fps 및 12,000 비트레이트 출력 최적화</div>
-                            <div class="tech-meta-item"><span class="tech-meta-label">결과</span>초대형 전광판 상영 환경에서도 선명도를 유지한 브릿지 영상 제작</div>
-                        </div>
-                    </div>
-                    <div class="tech-media-container">
-                        <a href="https://youtu.be/mWxe5FgP2-Y" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/mWxe5FgP2-Y/maxresdefault.jpg" onerror="handleImageError(this)"></div>
+                        <a href="https://youtu.be/mWxe5FgP2-Y" target="_blank" rel="noopener noreferrer" class="media-card feature-work-card">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/mWxe5FgP2-Y/maxresdefault.jpg" alt="신한의 미래 연도대상 브릿지 영상 1" onerror="handleImageError(this)"></div>
                             <div class="media-title">신한의 미래(연도대상 브릿지 영상 1)</div>
-                            <div class="media-desc">기획 : 100% | 제작, 연출 : 100%</div>
+                            <div class="media-desc">기획 : 100% | 제작, 연출 : 100%<span class="work-performance">성과 : 연도대상 참석자 대상 행사 만족도 설문 부문 2위</span></div>
+                        </a>
+                        <a href="https://youtu.be/_4-7jBMEYlQ" target="_blank" rel="noopener noreferrer" class="media-card feature-work-card">
+                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/_4-7jBMEYlQ/maxresdefault.jpg" alt="우리는 모두 아이였습니다 연도대상 브릿지 영상 2" onerror="handleImageError(this)"></div>
+                            <div class="media-title">우리는 모두 아이였습니다(연도대상 브릿지 영상 2)</div>
+                            <div class="media-desc">기획 : 100% | 제작, 연출 : 100%<span class="work-performance">성과 : 연도대상 참석자 대상 행사 만족도 설문 부문 2위</span></div>
                         </a>
                     </div>
-                </div>
+
+                    <div class="additional-work-wrap">
+                        <h5 class="additional-work-title">추가 실무 영상</h5>
+                        <div class="additional-work-grid">
+                            <a href="https://youtube.com/shorts/j48viMA877Y" target="_blank" rel="noopener noreferrer" class="media-card">
+                                <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/j48viMA877Y/hqdefault.jpg" alt="지금 떠나요, 파타야로!" onerror="handleImageError(this)"></div>
+                                <div class="media-title">지금 떠나요, 파타야로!<br>(썸머 페스티벌 내부 홍보 영상)</div>
+                                <div class="media-desc">기획 : 100% | 제작, 연출 : 100%</div>
+                            </a>
+                            <a href="https://youtube.com/shorts/ZM9lb3GXAW8" target="_blank" rel="noopener noreferrer" class="media-card">
+                                <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/ZM9lb3GXAW8/hqdefault.jpg" alt="신금플 멍멍뉴스!" onerror="handleImageError(this)"></div>
+                                <div class="media-title">신금플 멍멍뉴스!</div>
+                                <div class="media-desc">기획 : 100% | 제작, 연출 : 100%<span class="work-performance">성과 : 조회수 22만 돌파</span></div>
+                            </a>
+                            <a href="https://youtu.be/C3i2OVxMvJc" target="_blank" rel="noopener noreferrer" class="media-card">
+                                <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/C3i2OVxMvJc/maxresdefault.jpg" alt="이 구역의 플러스플러스놈이 나타났다!" onerror="handleImageError(this)"></div>
+                                <div class="media-title">이 구역의 '++놈'이 나타났다!</div>
+                                <div class="media-desc">기획 : 100% | 제작, 연출 : 100%</div>
+                            </a>
+                            <a href="https://youtube.com/shorts/TvmRp7ZnBA4" target="_blank" rel="noopener noreferrer" class="media-card">
+                                <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/TvmRp7ZnBA4/hqdefault.jpg" alt="지사장님, 이제 열내지 마세요!" onerror="handleImageError(this)"></div>
+                                <div class="media-title">지사장님, 이제 열내지 마세요!</div>
+                                <div class="media-desc">기획 : 15% | 제작, 연출 : 100%</div>
+                            </a>
+                        </div>
+                    </div>
+                </section>
 
                 <!-- 기술 5: Vibe Coding 내용 전문화 및 양식 통일 -->
                 <div class="tech-block vibe-tech-block">
@@ -1585,9 +1513,6 @@
                             </div>
                         </div>
 
-                        <a href="https://drive.google.com/drive/folders/1NsFsKVHKhfUpG29mgPvCwX4pStykCUZV" target="_blank" class="program-download-cta">📁 직접 개발한 보조 프로그램 확인하기</a>
-                        <p class="program-global-note">* 일부 프로그램은 API 키를 입력해야 정상적으로 구동됩니다.</p>
-
                         <div class="jobkorea-showcase">
                             <h5>잡코리아 바이브톤 참여: 팀장님 뒷목 잡게 만드는 프로그램</h5>
                             <p>잡코리아 바이브톤에 <strong>바이브 코딩 1인팀</strong>으로 참여했습니다. 공통 주제인 "팀장님 뒷목 잡게 만드는 프로그램"을 바탕으로 회의 음성 분석, 핵심 요약, 결정사항 추출, 액션 아이템 정리, 월급 루팡 후보 색출까지 이어지는 AI 회의록 분석 서비스를 기획하고 실제 배포 및 구현까지 진행했습니다.</p>
@@ -1610,179 +1535,9 @@
                                 <a href="https://www.miricanvas.com/v2/ko/design2/v/09cb4abf-907c-4618-aad9-25ea368bb2d2" target="_blank" class="btn-link">기획 의도 보기</a>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- 업무 영상 구역 -->
-            <div class="shinhan-personal-projects" style="margin-bottom: 80px;">
-                <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 40px; display: flex; align-items: center;">
-                    <span style="width: 8px; height: 30px; background: var(--shinhan-blue); margin-right: 15px;"></span>업무 영상
-                </h3>
-                
-                <div class="media-row">
-                    <div class="media-col">
-                        <div class="sub-category-title">Long-form 콘텐츠</div>
-                        <a href="https://youtu.be/-8TniPe6nLI" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/-8TniPe6nLI/maxresdefault.jpg" alt="그래, 여름은 뜨거운 거니까!" onerror="handleImageError(this)"></div>
-                            <div class="media-title">그래, 여름은 뜨거운 거니까!</div>
-                            <div class="media-desc">기획 : 20% | 연출 : 80% | 제작 : 100%</div>
-                        </a>
-                        <a href="https://youtu.be/Z8-g1n5b2J8" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/Z8-g1n5b2J8/maxresdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">신한금융플러스 브랜드 광고 (26.05.04)</div>
-                            <div class="media-desc">기획 : 15% | 제작, 연출 : 100%</div>
-                        </a>
-                        <a href="https://youtu.be/C3i2OVxMvJc" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/C3i2OVxMvJc/maxresdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">이 구역의 '++놈'이 나타났다!</div>
-                            <div class="media-desc">기획 : 100% | 제작, 연출 : 100%</div>
-                        </a>
-                    </div>
-                    <div class="media-col shorts-column">
-                        <div class="sub-category-title">Shorts 콘텐츠</div>
-                        <div class="shorts-grid">
-                        <a href="https://youtube.com/shorts/j48viMA877Y" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/j48viMA877Y/hqdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">지금 떠나요, 파타야로!(썸머 페스티벌 내부 홍보 영상)</div>
-                            <div class="media-desc">기획 : 100% | 제작, 연출 : 100%</div>
-                        </a>
-                        <a href="https://youtube.com/shorts/KI1ZATGlrvw" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/KI1ZATGlrvw/hqdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">함께 떠나요, 파타야로!(썸머 페스티벌 내부 홍보 영상)</div>
-                            <div class="media-desc">기획 : 100% | 제작, 연출 : 100%</div>
-                        </a>
-                        <a href="https://youtube.com/shorts/ZM9lb3GXAW8" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/ZM9lb3GXAW8/hqdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">신금플 멍멍뉴스!</div>
-                            <div class="media-desc">기획 : 100% | 제작, 연출 : 100%<br><span style="color: var(--shinhan-blue); font-weight: 700;">성과 : 조회수 22만 돌파</span></div>
-                        </a>
-                        <a href="https://www.youtube.com/shorts/lOd6zm7s5ow" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/lOd6zm7s5ow/hqdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">신금플 멍멍뉴스! 2탄</div>
-                            <div class="media-desc">기획 : 100% | 제작, 연출 : 100%<br><span style="color: var(--shinhan-blue); font-weight: 700;">성과 : 조회수 6만 돌파</span></div>
-                        </a>
-                        <a href="https://youtube.com/shorts/TvmRp7ZnBA4" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/TvmRp7ZnBA4/hqdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">지사장님, 이제 열내지 마세요!</div>
-                            <div class="media-desc">기획 : 15% | 제작, 연출 : 100%</div>
-                        </a>
-                        <a href="https://youtube.com/shorts/AVOLq4A1bmE" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/AVOLq4A1bmE/hqdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">밈어캣 등장!</div>
-                            <div class="media-desc">기획 : 100% | 제작, 연출 : 100%</div>
-                        </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 비공개 영상 섹션 -->
-                <div style="margin-top: 60px; padding-top: 40px; border-top: 1px dashed var(--line);">
-                    <div class="sub-category-title" style="background: #fff0f0; color: #ff4d4d; border: 1px solid #ffe3e3;">🔒 비공개 영상</div>
-                    <p style="margin-bottom: 25px; font-size: 0.95rem; color: #666; font-weight: 500;">
-                        * 해당 영상물은 내부 이용 목적 영상으로, 성과 확인용으로만 이용 부탁드립니다.
-                    </p>
-                    <div class="media-row">
-                        <div class="media-col">
-                            <a href="https://youtu.be/mWxe5FgP2-Y" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                                <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/mWxe5FgP2-Y/maxresdefault.jpg" onerror="handleImageError(this)"></div>
-                                <div class="media-title">신한의 미래(연도대상 브릿지 영상 1)</div>
-                                <div class="media-desc">기획 : 100% | 제작, 연출 : 100%<br><span style="color: var(--shinhan-blue); font-weight: 700;">성과 : 연도대상 참석자 대상 행사 만족도 설문 부문 2위</span></div>
-                            </a>
-                            <a href="https://youtu.be/_4-7jBMEYlQ" target="_blank" class="media-card">
-                                <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/_4-7jBMEYlQ/maxresdefault.jpg" onerror="handleImageError(this)"></div>
-                                <div class="media-title">우리는 모두 아이였습니다(연도대상 브릿지 영상 2)</div>
-                                <div class="media-desc">기획 : 100% | 제작, 연출 : 100%<br><span style="color: var(--shinhan-blue); font-weight: 700;">성과 : 연도대상 참석자 대상 행사 만족도 설문 부문 2위</span></div>
-                            </a>
-                        </div>
-                        <div class="media-col">
-                            <a href="https://youtu.be/TfaDyB57E5Y" target="_blank" class="media-card">
-                                <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/TfaDyB57E5Y/maxresdefault.jpg" onerror="handleImageError(this)"></div>
-                                <div class="media-title">회사소개영상 (타이포 미반영)</div>
-                                <div class="media-desc">기획 : 45% | 제작, 연출 : 90%</div>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- 개인 프로젝트 구역 -->
-            <div style="margin-bottom: 80px;">
-                <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 40px; display: flex; align-items: center;">
-                    <span style="width: 8px; height: 30px; background: #666; margin-right: 15px;"></span>개인 프로젝트
-                    <span style="font-size: 1.1rem; color: #888; font-weight: 600; margin-left: 15px;">* 100% 기획 연출 제작</span>
-                </h3>
-
-                <a href="https://youtu.be/CHyhlbGoY7M" target="_blank" class="media-card personal-featured-video">
-                    <div class="media-thumb-wrapper">
-                        <img src="https://img.youtube.com/vi/CHyhlbGoY7M/maxresdefault.jpg" alt="AImage 홍보 영상" onerror="handleImageError(this)">
-                    </div>
-                    <div class="personal-featured-copy">
-                        <span class="personal-featured-kicker">Featured Personal Project</span>
-                        <div class="media-title">AImage 홍보 영상</div>
-                        <div class="media-desc">개인 프로젝트 · 홍보 영상 기획 및 제작</div>
-                    </div>
-                </a>
-                
-                <div class="media-row">
-                    <div class="media-col">
-                        <div class="sub-category-title">Long-form 콘텐츠</div>
-                        <a href="https://youtu.be/V5wmGEHDrCE" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/V5wmGEHDrCE/maxresdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">To Youth, 다신 오지 않을 Y에게(Y아티스트 AI 공모전)</div>
-                        </a>
-                        <a href="https://youtu.be/2nO-dc9vxf4" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/2nO-dc9vxf4/maxresdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">[MV] Who Knows Champ(참:眞) (후참잘 공모전)</div>
-                        </a>
-                        <a href="https://youtu.be/Z0XyvwhnzHM" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/Z0XyvwhnzHM/maxresdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">[𝑷𝒍𝒂𝒚𝒍𝒊𝒔𝒕] 일단 연말 출근 자체가 괴담인 건에 대하여</div>
-                        </a>
-                        <a href="https://youtu.be/NPnB-w2OH8Y" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/NPnB-w2OH8Y/maxresdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">[𝑷𝒍𝒂𝒚𝒍𝒊𝒔𝒕] 아직도 나만 개백수야</div>
-                        </a>
-                    </div>
-                    <div class="media-col shorts-column">
-                        <div class="sub-category-title">Shorts 콘텐츠</div>
-                        <div class="shorts-grid">
-                        <a href="https://youtube.com/shorts/yH0DdImER98" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/yH0DdImER98/hqdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">나주로 다이브(나주숏폼공모전)</div>
-                        </a>
-                        <a href="https://www.youtube.com/shorts/8YviOdMqErU" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/8YviOdMqErU/hqdefault.jpg" onerror="handleImageError(this)" alt="한국판 다크판타지 애니메이션 오프닝"></div>
-                            <div class="media-title">한국판 다크판타지 애니메이션 오프닝</div>
-                            <div class="media-desc">숏폼 콘텐츠 기획 및 제작</div>
-                        </a>
-                        <a href="https://youtube.com/shorts/YdzWNYspmUQ" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/YdzWNYspmUQ/hqdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">무신사랑해, 무진장!(무신사 공모전)</div>
-                        </a>
-                        <a href="https://www.youtube.com/shorts/Pf8lAtTwuBs" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/Pf8lAtTwuBs/hqdefault.jpg" onerror="handleImageError(this)" alt="우리 아이들의 선생님, 참교육이 필요해요"></div>
-                            <div class="media-title">우리 '아이'들의 선생님, 참교육이 필요해요!(#전국민AI경진대회)</div>
-                            <div class="media-desc">숏폼 콘텐츠 기획 및 제작</div>
-                        </a>
-                        <a href="https://youtube.com/shorts/r9ZIiHgw2V8" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/r9ZIiHgw2V8/hqdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">상상하던 주말에 떠나요(상주공모전)</div>
-                        </a>
-                        <a href="https://www.youtube.com/shorts/V-rLfjMn-ww" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/V-rLfjMn-ww/hqdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">Oh, Burn it up!(오븐마루 공모전)</div>
-                        </a>
-                        <a href="https://youtube.com/shorts/6yfNwLtzqiM" target="_blank" class="media-card" style="margin-bottom: 20px;">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/6yfNwLtzqiM/hqdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">퓨리얼 AI 영상 콘테스트_우주편</div>
-                        </a>
-                        <a href="https://youtube.com/shorts/zAQXZcX1YKA" target="_blank" class="media-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/zAQXZcX1YKA/hqdefault.jpg" onerror="handleImageError(this)"></div>
-                            <div class="media-title">퓨리얼 AI 영상 콘테스트_바다편</div>
-                        </a>
-                        </div>
+                        <a href="https://drive.google.com/drive/folders/1NsFsKVHKhfUpG29mgPvCwX4pStykCUZV" target="_blank" rel="noopener noreferrer" class="program-download-cta">직접 개발한 보조 프로그램 확인하기</a>
+                        <p class="program-global-note">* 일부 프로그램은 API 키를 입력해야 정상적으로 구동됩니다.</p>
                     </div>
                 </div>
             </div>
@@ -1941,90 +1696,6 @@
             </div>
         </section>
 
-        <!-- 미디어, SNS, 광고 시안 그리드 및 링크 -->
-        <section id="media-storywiz">
-            <span class="section-label storywiz-media-label">Media & Creative</span>
-            <h2 class="section-title produced-content-title">PRODUCED CONTENT</h2>
-
-            <div class="media-row storywiz-produced-row">
-                <div class="media-col">
-                    <h3>대외활동 및 수상작</h3>
-                    <a href="https://youtu.be/JwtP9eBf3UY?si=sXb7r-WUWKUhiSDe" target="_blank" class="media-card">
-                        <div class="media-thumb-wrapper"><img src="media_1.jpg" alt="LG화학 공모전" onerror="handleImageError(this)"></div>
-                        <div class="media-title">제6회 LG화학 대학생 공모전 최우수상</div>
-                        <div class="media-desc">기획/PM | 영상 제작 및 편집</div>
-                    </a>
-                    <a href="https://www.youtube.com/watch?v=YxuV_0BQvvY" target="_blank" class="media-card">
-                        <div class="media-thumb-wrapper"><img src="media_2.jpg" alt="무드캐처 프로젝트" onerror="handleImageError(this)"></div>
-                        <div class="media-title">개발자 부트캠프 프로젝트 '무드캐처' PM·마케터</div>
-                        <div class="media-desc">앱 아이디어 기획 및 서비스 기획</div>
-                    </a>
-                </div>
-                <div class="media-col">
-                    <h3>개인 마케팅 채널</h3>
-                    <a href="https://youtu.be/o0eMDdf7TSg?si=W6BKO1VoBMMc-_Bl" target="_blank" class="media-card">
-                        <div class="media-thumb-wrapper"><img src="media_3.jpg" alt="허승기 Vlog" onerror="handleImageError(this)"></div>
-                        <div class="media-title">허승기 Vlog</div>
-                        <div class="media-desc">개인 마케팅 채널 운영</div>
-                    </a>
-                    <a href="https://youtube.com/shorts/UDWzKwlCiF8?si=jvBn3F9A5oUHvBlI" target="_blank" class="media-card">
-                        <div class="media-thumb-wrapper"><img src="media_4.jpg" alt="웹타마툰" onerror="handleImageError(this)"></div>
-                        <div class="media-title">웹타마툰</div>
-                        <div class="media-desc">숏폼 콘텐츠 기획 및 제작</div>
-                    </a>
-                </div>
-            </div>
-
-            <h3 class="grid-section-title storywiz-sns-title">SNS 마케팅 및 매니지먼트</h3>
-            <div class="ad-grid storywiz-sns-grid">
-                <div class="ad-card" onclick="openModal('modal-sns-1')">
-                    <div class="ad-image"><img src="sns_1_1.jpg" alt="스토리위즈 SNS" onerror="handleImageError(this)"></div>
-                    <div class="ad-footer"><div class="ad-title">스토리위즈 공식 SNS</div></div>
-                </div>
-                <div class="ad-card" onclick="openModal('modal-sns-2')">
-                    <div class="ad-image"><img src="sns_2_1.jpg" alt="위즈스타 SNS" onerror="handleImageError(this)"></div>
-                    <div class="ad-footer"><div class="ad-title">위즈스타(바이럴) SNS</div></div>
-                </div>
-                <div class="ad-card" onclick="openModal('modal-sns-3')">
-                    <div class="ad-image"><img src="sns_3_1.jpg" alt="인재개발원" onerror="handleImageError(this)"></div>
-                    <div class="ad-footer"><div class="ad-title">인재개발원 홈페이지 관리</div></div>
-                </div>
-                <div class="ad-card" onclick="openModal('modal-sns-4')">
-                    <div class="ad-image"><img src="sns_4_1.jpg" alt="부트캠프 앱" onerror="handleImageError(this)"></div>
-                    <div class="ad-footer"><div class="ad-title">부트캠프 론칭 앱 마케팅</div></div>
-                </div>
-                <div class="ad-card" onclick="openModal('modal-sns-5')">
-                    <div class="ad-image"><img src="sns_5_1.jpg" alt="매거진" onerror="handleImageError(this)"></div>
-                    <div class="ad-footer"><div class="ad-title">전공 연계 매거진 활동</div></div>
-                </div>
-            </div>
-
-            <h3 class="grid-section-title storywiz-ad-title">광고물 제작 시안<span class="title-note">(실무 역량 과제용 가제작 배너)</span></h3>
-            <p class="storywiz-ad-note" style="margin-bottom: 30px; opacity: 0.6; font-weight: 500;">* 클릭 시 상세 내용과 함께 이미지가 확장됩니다.</p>
-            <div class="ad-grid storywiz-ad-grid">
-                <div class="ad-card" onclick="openModal('modal-1')">
-                    <div class="ad-image"><img src="ad_1.jpg" alt="트라이폴드" onerror="handleImageError(this)"></div>
-                    <div class="ad-footer"><div class="ad-title">트라이폴드 버거</div></div>
-                </div>
-                <div class="ad-card" onclick="openModal('modal-2')">
-                    <div class="ad-image"><img src="ad_2.jpg" alt="흑백요리사" onerror="handleImageError(this)"></div>
-                    <div class="ad-footer"><div class="ad-title">흑백요리사 시즌 2</div></div>
-                </div>
-                <div class="ad-card" onclick="openModal('modal-3')">
-                    <div class="ad-image"><img src="ad_3.jpg" alt="정형외과" onerror="handleImageError(this)"></div>
-                    <div class="ad-footer"><div class="ad-title">도시정형외과</div></div>
-                </div>
-                <div class="ad-card" onclick="openModal('modal-4')">
-                    <div class="ad-image"><img src="ad_4.jpg" alt="침토피아" onerror="handleImageError(this)"></div>
-                    <div class="ad-footer"><div class="ad-title">침토피아 채널</div></div>
-                </div>
-                <div class="ad-card" onclick="openModal('modal-5')">
-                    <div class="ad-image"><img src="ad_5.jpg" alt="카더가든" onerror="handleImageError(this)"></div>
-                    <div class="ad-footer"><div class="ad-title">카더가든 라이브다큐</div></div>
-                </div>
-            </div>
-        </section>
-
         <section id="portfolio-storywiz" class="portfolio-bottom-section" data-private-portfolio>
             <span class="section-label">Full Portfolio</span>
             <h2 class="section-title">KT STORYWIZ PORTFOLIO</h2>
@@ -2056,7 +1727,6 @@
                 <button class="video-reel-tab is-active" type="button" role="tab" aria-selected="true" data-video-filter="all">전체</button>
                 <button class="video-reel-tab" type="button" role="tab" aria-selected="false" data-video-filter="ai">AI 기술</button>
                 <button class="video-reel-tab" type="button" role="tab" aria-selected="false" data-video-filter="shinhan">신한금융플러스</button>
-                <button class="video-reel-tab" type="button" role="tab" aria-selected="false" data-video-filter="storywiz">KT Storywiz 및 학부생 활동</button>
             </div>
         </div>
         <div class="video-reel-viewport">
@@ -2142,7 +1812,6 @@
                     <li><a href="#career-history">Career</a></li>
                     <li><a href="#skills-storywiz">Skills</a></li>
                     <li><a href="#projects-storywiz">Work</a></li>
-                    <li><a href="#media-storywiz">Media</a></li>
                     <li><a href="#career-selector">Switch</a></li>
                 `;
                 if (scroll) {
@@ -2206,7 +1875,7 @@
         const searchBox = document.getElementById('skill-search');
         const searchResults = document.getElementById('search-results');
         const searchableElements = Array.from(document.querySelectorAll(
-            '.history-group, .role-card, .tech-section, .tech-block, .project-item, .skill-row, .media-card, .storywiz-manifesto'
+            '.history-group, .role-card, .ai-capability-card, .work-video-section, .tech-block, .project-item, .skill-row, .media-card, .storywiz-manifesto'
         )).filter((element) => !element.closest('[data-search-exclude], .modal-overlay'));
 
         const normalizeSearchText = (value) => value.toLocaleLowerCase('ko-KR').replace(/\s+/g, ' ').trim();
@@ -2225,7 +1894,7 @@
 
         const featuredSearchTerms = [
             'AI 기술 역량', '바이브 코딩', 'OMNI', 'SEEDANCE', 'KLING AI',
-            '영상 제작', 'SNS 마케팅', '콘텐츠 MD', '계약 관리', '업무 자동화'
+            'ElevenLabs', 'SUNO', 'Codex', '영상 제작', 'SNS 마케팅', '콘텐츠 MD', '업무 자동화'
         ];
 
         function renderSearchSuggestions() {
