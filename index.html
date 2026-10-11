@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI MARKETER & CONTENT MD | PORTFOLIO</title>
+    <title>KIM SEUNG BIN | PORTFOLIO</title>
     
     <!-- 썸네일 로드 실패 및 오류 153 방어를 위한 스마트 에러 핸들링 함수 -->
     <script>
@@ -69,35 +69,9 @@
         }
 
         .top-utility-bar {
-            width: min(1180px, 100%); display: flex; align-items: center; justify-content: space-between;
+            width: min(1180px, 100%); display: flex; align-items: center; justify-content: flex-end;
             gap: 18px; margin-bottom: 8px;
         }
-        .privacy-control { display: flex; align-items: center; gap: 10px; }
-        .privacy-label { font-size: 0.72rem; font-weight: 800; color: #555; white-space: nowrap; }
-        .privacy-switch {
-            position: relative; width: 210px; height: 38px; border: 1px solid #cfd5df; border-radius: 20px;
-            background: #eef1f5; cursor: pointer; overflow: hidden; flex: 0 0 auto;
-        }
-        .privacy-switch::before {
-            content: ''; position: absolute; top: 3px; left: 3px; width: 100px; height: 30px;
-            border-radius: 16px; background: var(--black); transition: transform 0.3s ease, background 0.3s ease;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.16);
-        }
-        .privacy-switch.is-visible::before { transform: translateX(103px); background: var(--shinhan-blue); }
-        .privacy-switch span {
-            position: absolute; top: 0; width: 50%; height: 100%; display: flex; align-items: center; justify-content: center;
-            z-index: 1; font-size: 0.72rem; font-weight: 900; color: #555; transition: color 0.3s ease;
-        }
-        .privacy-switch .privacy-off { left: 0; color: #fff; }
-        .privacy-switch .privacy-on { right: 0; }
-        .privacy-switch.is-visible .privacy-off { color: #555; }
-        .privacy-switch.is-visible .privacy-on { color: #fff; }
-        body.privacy-hidden .private-photo,
-        body.privacy-hidden [data-private-portfolio] { display: none !important; }
-        body.privacy-hidden .hero-text { flex-basis: 100%; max-width: 1080px; }
-        [data-private-hidden] { display: none; }
-        body.privacy-hidden [data-private-visible] { display: none !important; }
-        body.privacy-hidden [data-private-hidden] { display: inline; }
 
         .skill-search { position: relative; width: min(420px, 46vw); }
         .skill-search-row {
@@ -198,9 +172,9 @@
 
         /* Career History & Latest Work (Flex Layout) */
         .history-latest-wrapper {
-            display: flex;
-            justify-content: space-between;
-            gap: 60px;
+            display: grid;
+            grid-template-columns: minmax(300px, 1fr) minmax(380px, 1.08fr) minmax(280px, 0.82fr);
+            gap: 28px;
             align-items: flex-start;
         }
 
@@ -211,6 +185,7 @@
         .history-item { margin-bottom: 15px; font-size: 1.15rem; color: #333; }
         .history-item .date { display: inline-block; min-width: 180px; color: #777; font-weight: 600; }
         .history-item.highlight { font-weight: 800; color: var(--black); }
+        .history-note { display: block; margin: 6px 0 0 184px; color: #657184; font-size: 0.88rem; font-weight: 700; line-height: 1.5; }
 
         /* 성과 및 수상 연도별 디자인 스타일 */
         .award-yearly-container { display: flex; flex-direction: column; gap: 30px; border-left: 1px solid var(--line); padding-left: 30px; margin-left: 6px; }
@@ -287,6 +262,24 @@
             text-align: center;
             font-weight: 600;
         }
+        .personal-video-status {
+            padding: 28px; border: 1px solid #cbd8ec; border-top: 6px solid var(--shinhan-blue);
+            background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+        }
+        .personal-video-status h3 { font-size: 1.28rem; line-height: 1.35; font-weight: 900; margin-bottom: 20px; word-break: keep-all; }
+        .personal-video-list { display: grid; gap: 20px; }
+        .personal-video-card { display: block; color: inherit; text-decoration: none; }
+        .personal-video-thumb { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #e9edf3; border-radius: 5px; }
+        .personal-video-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s ease; }
+        .personal-video-thumb::after {
+            content: '▶'; position: absolute; inset: 50% auto auto 50%; transform: translate(-50%, -50%);
+            color: #fff; font-size: 2rem; text-shadow: 0 2px 10px rgba(0,0,0,0.55);
+        }
+        .personal-video-card:hover .personal-video-thumb img { transform: scale(1.04); }
+        .personal-video-card strong { display: block; margin-top: 10px; font-size: 0.96rem; line-height: 1.35; }
+        .personal-video-points { margin-top: 24px; padding-top: 18px; border-top: 1px solid #dfe5ee; }
+        .personal-video-points li { position: relative; padding-left: 15px; margin-bottom: 8px; color: #4b5665; font-size: 0.88rem; line-height: 1.5; word-break: keep-all; }
+        .personal-video-points li::before { content: ''; position: absolute; left: 0; top: 0.65em; width: 6px; height: 6px; background: var(--shinhan-blue); }
 
         /* Career Selector Cards */
         .selector-area { padding: 100px 5vw; background: #f4f4f4; text-align: center; border-top: 1px solid var(--black); border-bottom: 1px solid var(--black); }
@@ -451,12 +444,6 @@
         .jobkorea-gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
         .jobkorea-gallery img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border: 1px solid #e5eaf3; border-radius: 6px; background: #f4f7fb; }
         .private-gallery-item { position: relative; min-width: 0; }
-        .private-gallery-placeholder {
-            display: none; width: 100%; aspect-ratio: 1 / 1; align-items: center; justify-content: center;
-            padding: 18px; background: #eef3fb; border: 1px dashed #9fb2ce; border-radius: 6px;
-            color: #53647b; font-size: 0.82rem; font-weight: 800; text-align: center; word-break: keep-all;
-        }
-        body.privacy-hidden .private-gallery-placeholder { display: flex; }
         .jobkorea-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
         .btn-link.primary-link { background: var(--shinhan-blue); border-color: var(--shinhan-blue); color: #fff; }
         .btn-link.primary-link:hover { background: #fff; color: var(--shinhan-blue); }
@@ -484,15 +471,6 @@
         .other-program-list { display: flex; flex-wrap: wrap; gap: 8px; }
         .other-program-item { padding: 7px 10px; background: #fff; border: 1px solid #d7dfe9; border-radius: 3px; font-size: 0.8rem; color: #505b68; line-height: 1.4; }
         .other-program-item strong { color: #111; }
-        .program-download-cta {
-            display: flex; align-items: center; justify-content: space-between; gap: 18px; width: 100%;
-            margin-top: 22px; padding: 20px 24px; background: var(--shinhan-blue); color: #fff; border: 2px solid var(--shinhan-blue);
-            border-radius: 6px; text-decoration: none; font-size: 1.08rem; font-weight: 900; transition: 0.25s ease;
-        }
-        .program-download-cta::after { content: '↗'; font-size: 1.45rem; }
-        .program-download-cta:hover { background: #fff; color: var(--shinhan-blue); }
-        .program-global-note { margin-top: 10px !important; color: #666 !important; font-size: 0.86rem !important; font-weight: 650; }
-
         .shorts-column { flex: 1.65; }
         .shorts-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 22px; }
         .shorts-grid .media-card { margin-bottom: 0 !important; min-width: 0; }
@@ -717,7 +695,7 @@
         .storywiz-positioning .positioning-desc { margin-top: 12px; max-width: 900px; font-size: 1.08rem; line-height: 1.65; color: #555; font-weight: 650; }
 
         .shinhan-roles { gap: 14px; }
-        .role-banner-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+        .role-banner-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
         .role-banner-grid .role-card {
             min-height: 150px; padding: 20px 18px; border: 1px solid #cad8ef; border-left: 5px solid var(--shinhan-blue);
             border-radius: 3px; background: #f7faff; display: flex; flex-direction: column; justify-content: space-between;
@@ -755,6 +733,10 @@
         .latest-insight-banner h4 { font-size: 1.35rem; line-height: 1.45; font-weight: 900; color: #111; word-break: keep-all; }
         .latest-insight-banner p { margin-top: 14px; color: #444; font-size: 0.98rem; line-height: 1.75; word-break: keep-all; }
         .latest-insight-banner p strong { color: #111; font-weight: 900; }
+        .latest-led-summary { display: grid; gap: 10px; margin-top: 18px; }
+        .latest-led-summary li { position: relative; padding-left: 19px; color: #26364c; font-size: 1rem; font-weight: 750; line-height: 1.65; word-break: keep-all; }
+        .latest-led-summary li::before { content: ''; position: absolute; left: 0; top: 0.72em; width: 8px; height: 8px; background: var(--shinhan-blue); }
+        .latest-led-summary strong { color: #111; font-weight: 900; }
         .latest-spec-points { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 18px; }
         .latest-spec-points span { padding: 8px 12px; background: #edf4ff; color: var(--shinhan-blue); font-size: 0.85rem; font-weight: 900; }
         .latest-spec-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
@@ -842,6 +824,15 @@
         .shinhan-media-flow { display: flex; flex-direction: column; }
         .shinhan-banner-gallery { order: 2; margin-bottom: 80px; }
         .shinhan-personal-projects { order: 3; }
+        .field-production-section { margin-bottom: 64px; padding: 32px; border: 1px solid #cbd8ec; background: #f7faff; }
+        .field-production-section h3 { font-size: 1.65rem; line-height: 1.35; font-weight: 900; margin-bottom: 18px; word-break: keep-all; }
+        .field-production-list { margin-bottom: 26px; }
+        .field-production-list li { position: relative; margin-bottom: 8px; padding-left: 18px; color: #3d4857; font-size: 1rem; font-weight: 700; line-height: 1.55; }
+        .field-production-list li::before { content: ''; position: absolute; left: 0; top: 0.65em; width: 7px; height: 7px; background: var(--shinhan-blue); }
+        .field-production-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+        .field-production-grid figure { margin: 0; min-width: 0; }
+        .field-production-grid img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; border: 1px solid #dce3ee; background: #fff; }
+        .field-production-grid figcaption { margin-top: 9px; color: #596577; font-size: 0.82rem; font-weight: 750; line-height: 1.4; }
 
         /* [MODAL SYSTEM CSS] */
         .modal-overlay { 
@@ -969,14 +960,15 @@
 
         footer { background: var(--black); color: var(--white); padding: 80px 5vw; text-align: center; }
 
+        @media (max-width: 1180px) {
+            .history-latest-wrapper { grid-template-columns: minmax(280px, 0.9fr) minmax(380px, 1.1fr); }
+            .personal-video-status { grid-column: 2; }
+        }
+
         @media (max-width: 960px) {
             header { min-height: 0; padding: 10px 14px; }
             .top-utility-bar { flex-direction: column; gap: 8px; }
-            .privacy-control { width: 100%; justify-content: center; }
             .skill-search { width: 100%; }
-            .privacy-switch { width: 200px; }
-            .privacy-switch::before { width: 95px; }
-            .privacy-switch.is-visible::before { transform: translateX(98px); }
             .header-mode-selector { gap: 16px; font-size: 0.76rem; }
             header nav ul { gap: 15px; flex-wrap: wrap; justify-content: center; }
             header nav a { font-size: 0.7rem; }
@@ -991,7 +983,8 @@
             .hero-image img { height: 58vh; }
             
             /* 모바일에서 최신 작업물 레이아웃 변경 */
-            .history-latest-wrapper { flex-direction: column; }
+            .history-latest-wrapper { grid-template-columns: 1fr; }
+            .personal-video-status { grid-column: auto; }
             .latest-work-container { width: 100%; }
             .latest-insight-grid { grid-template-columns: 1fr; }
 
@@ -1054,6 +1047,8 @@
             .ai-capability-grid,
             .additional-work-grid { grid-template-columns: 1fr; }
             .tech-section { padding: 28px 18px; }
+            .field-production-grid { grid-template-columns: 1fr; }
+            .history-note { margin-left: 0; }
             .shorts-grid { gap: 24px 12px; }
             .latest-insight-banner { padding: 22px 18px; }
             .latest-insight-banner h4 { font-size: 1.15rem; }
@@ -1070,17 +1065,10 @@
         }
     </style>
 </head>
-<body class="shinhan-theme-container privacy-hidden"> <!-- 기본 로드 시 신한금융플러스 테마 및 개인정보 가림 적용 -->
+<body class="shinhan-theme-container">
 
     <header>
         <div class="top-utility-bar">
-            <div class="privacy-control">
-                <span class="privacy-label">개인정보 설정</span>
-                <button id="privacy-switch" class="privacy-switch" type="button" role="switch" aria-checked="false" aria-label="개인정보 표시 전환" onclick="togglePrivacy()">
-                    <span class="privacy-off">개인정보 가림</span>
-                    <span class="privacy-on">개인정보 보기</span>
-                </button>
-            </div>
             <div id="skill-search" class="skill-search">
                 <div class="skill-search-row">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.8-3.8"></path></svg>
@@ -1109,10 +1097,7 @@
             <p class="manifesto-lead">"영상만 만질 줄 아는 사람, 마케팅 데이터만 볼 줄 아는 사람?"</p>
             <p class="manifesto-pivot">AI 혁명의 과도기를 살아가는 지금, 그 모든 역량을 갖춘 <strong>'올라운더(All-rounder)'</strong>가 필요합니다.<br>3개월마다 기술 혁신이 일어나는 시대. 더 이상 중요한 것은 '한 우물'이 아닙니다.</p>
             <p class="manifesto-claim">영상 소재 제작뿐만 아니라 빠르게 변모하는 웹툰·웹소설 콘텐츠 시장의 감각까지 이해하며 실무 역량을 갖춘 육각형 MD.</p>
-            <p class="manifesto-signature">
-                <span data-private-visible>AI 마케터 김승빈입니다.</span>
-                <span data-private-hidden>AI 마케터의 포트폴리오입니다.</span>
-            </p>
+            <p class="manifesto-signature">AI 마케터 김승빈입니다.</p>
             <p class="hero-role-line">신한금융플러스 AI 영상 소재 제작 및 대내외 홍보 담당</p>
             <ul class="storywiz-proof-list">
                 <li><strong>공식 SNS 채널 운영</strong></li>
@@ -1170,6 +1155,7 @@
                     <ul class="history-list">
                         <li class="history-item highlight"><span class="date">26.01.26. ~ 현재</span> 신한금융플러스 SNS 마케터 재직 중</li>
                         <li class="history-item"><span class="date">23.04.10. ~ 25.11.30.</span> KT 스토리위즈 재직 (퇴사)</li>
+                        <li class="history-item"><span class="date">16.03.01. ~ 23.02.28.</span> 연세대학교 미래캠퍼스 국어국문학과 졸업<span class="history-note">* 2022년도 1·2학기 학업성적 우수상·최우수상 수상</span></li>
                         <li class="history-item"><span class="date">22.01.03. ~ 22.02.28.</span> 연세대학교 미래캠퍼스 미래인재개발원 학부생 인턴</li>
                         <li class="history-item"><span class="date">20.06.09. ~ 21.05.08.</span> 한솔문화재단 뮤지엄산 전시장 서포터즈</li>
                     </ul>
@@ -1244,7 +1230,10 @@
                 <div class="latest-insight-grid">
                     <article class="latest-insight-banner">
                         <h4>📺 11m x 9m 대형 전광판 8K 해상도 상영 스펙</h4>
-                        <p>연도대상 본식 무대에 설치된 <strong>11m x 9m 규모의 초대형 LED 전광판</strong>에 브릿지 영상을 상영했습니다. 2026년 3월 기준 <strong>KLING AI 기반 영상 제작 기술</strong>을 도입하고, <strong>8K 해상도·60fps·12,000 비트레이트 규격</strong>에 맞춰 최고 화질로 후반 출력을 진행했습니다.</p>
+                        <ul class="latest-led-summary">
+                            <li><strong>11m x 9m 규모의 초대형 LED 전광판</strong>용 브릿지 영상 제작 경험</li>
+                            <li><strong>8K 해상도·60fps·12,000 비트레이트 규격</strong> 초고화질 출력</li>
+                        </ul>
                         <div class="latest-spec-points">
                             <span>8K</span><span>60fps</span><span>12,000 bitrate</span>
                         </div>
@@ -1255,7 +1244,7 @@
                     </article>
                     <article class="latest-insight-banner survey-full">
                         <h4>📊 2026 연도대상 귀빈 피드백 분석 (만족도 조사 결과)</h4>
-                        <p>귀빈 350명 이상이 초청된 '2026 신한금융플러스 연도대상' 시상식 이후 실시된 현장 설문조사 결과입니다. 본 행사에서 직접 기획 및 연출을 총괄한 <strong>'AI 영상 콘텐츠 시청' 항목은 44.8%의 높은 지지율</strong>을 기록했습니다. 이는 전통적으로 강세를 보이는 '초청인 초대 및 동행(62.1%)' 다음으로 높은 호평을 받은 성과입니다. 시상식 무대 구성(42.5%)과 기념품 구성(31.0%)을 뛰어넘어, <strong>입사 한 달 만에 기획력을 증명하고 가시적인 성과를 낸 콘텐츠</strong>입니다.</p>
+                        <p><strong>'2026 신한금융플러스 연도대상'</strong> (3월 진행) 만족도 설문조사에서 <strong>'AI 영상 콘텐츠 시청' 항목 44.8%(2위)를 달성</strong>했습니다.</p>
                         <div class="survey-chart-list">
                             <div class="survey-chart-item">
                                 <div class="survey-chart-label"><span>초청인 초대 및 동행</span><strong>62.1%</strong></div>
@@ -1281,6 +1270,28 @@
                     </article>
                 </div>
             </div>
+
+            <aside class="personal-video-status" aria-labelledby="personal-video-status-title">
+                <h3 id="personal-video-status-title">개인 영상물 제작 역량 현황</h3>
+                <div class="personal-video-list">
+                    <a href="https://youtu.be/LQ-O8vjBiHU" target="_blank" rel="noopener noreferrer" class="personal-video-card">
+                        <div class="personal-video-thumb">
+                            <img src="https://img.youtube.com/vi/LQ-O8vjBiHU/hqdefault.jpg" alt="SLYTHERIN QUEEN 영상 썸네일" onerror="handleImageError(this)">
+                        </div>
+                        <strong>SLYTHERIN QUEEN</strong>
+                    </a>
+                    <a href="https://youtube.com/shorts/36PUleDzHoQ?si=41pOSmpjIPWtYRhj" target="_blank" rel="noopener noreferrer" class="personal-video-card">
+                        <div class="personal-video-thumb">
+                            <img src="https://img.youtube.com/vi/36PUleDzHoQ/hqdefault.jpg" alt="넾다세일 공모전 출품작 영상 썸네일" onerror="handleImageError(this)">
+                        </div>
+                        <strong>넾다세일 공모전 출품작</strong>
+                    </a>
+                </div>
+                <ul class="personal-video-points">
+                    <li>Seedance·Kling AI·Grok 중심 영상 제작 역량</li>
+                    <li>트랜지션·BGM·타이포그래피 작업</li>
+                </ul>
+            </aside>
         </div>
     </section>
 
@@ -1307,8 +1318,7 @@
             <div class="identity-container">
                 <div class="identity-text-area shinhan-identity-intro">
                     <h2>
-                        <span data-private-visible>금융의 가치를 소셜의 언어로,<br><span class="name-highlight">신한금융플러스</span> AI 마케터 김승빈입니다.</span>
-                        <span data-private-hidden>금융의 가치를 소셜의 언어로,<br><span class="name-highlight">신한금융플러스</span> AI 마케터 포트폴리오입니다.</span>
+                        금융의 가치를 소셜의 언어로,<br><span class="name-highlight">신한금융플러스</span> AI 마케터 김승빈입니다.
                     </h2>
                     <p class="shinhan-rookie-quote">"입사 3개월 만에 이달의 우수 사원으로 선정된 루키를 보셨나요?"</p>
                     <p class="shinhan-intro-copy">복잡하고 딱딱한 보험·금융 서비스를 친숙하고 세련된 콘텐츠 감각으로 재해석하는 열정적인 마케터입니다.</p>
@@ -1318,8 +1328,12 @@
                         <h4 style="font-size: 1.3rem; font-weight: 800; border-left: 4px solid var(--shinhan-blue); padding-left: 12px; margin-bottom: 10px;">주요 직무 및 실무 영역</h4>
                         <div class="role-banner-grid">
                             <div class="role-card">
-                                <div class="role-card-title">마케팅 광고 영상 기획 및 소재 제작</div>
+                                <div class="role-card-title">내부 마케팅 광고 영상 기획 및 소재 제작</div>
                                 <div class="role-card-desc">숏폼 주 1회·롱폼 격주 단위로 기획부터 제작·연출까지 전담</div>
+                            </div>
+                            <div class="role-card">
+                                <div class="role-card-title">영상 촬영 PD</div>
+                                <div class="role-card-desc">실제 교육 영상 촬영 및 라이브 송출 · 유튜브 편집</div>
                             </div>
                             <div class="role-card">
                                 <div class="role-card-title">프로모션 홍보 배너 제작 및 채널 송출</div>
@@ -1336,7 +1350,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="shinhan-identity-profile private-photo">
+                <div class="shinhan-identity-profile">
                     <img src="profile.jpg" alt="김승빈 프로필 사진" onerror="handleImageError(this)">
                 </div>
             </div>
@@ -1535,8 +1549,7 @@
                             </div>
                             <div class="jobkorea-gallery">
                                 <div class="private-gallery-item">
-                                    <img class="private-photo" src="jobkkorea (1).jpg" alt="잡코리아 바이브톤 참가 네임택" onerror="handleImageError(this)">
-                                    <div class="private-gallery-placeholder">개인정보 보기를 선택하면 참가 네임택을 확인할 수 있습니다.</div>
+                                    <img src="jobkkorea (1).jpg" alt="잡코리아 바이브톤 참가 네임택" onerror="handleImageError(this)">
                                 </div>
                                 <img src="jobkkorea (2).jpg" alt="잡코리아 바이브톤 선발 안내" onerror="handleImageError(this)">
                                 <img src="jobkkorea (3).jpg" alt="AI 회의록 분석기 서비스 화면" onerror="handleImageError(this)">
@@ -1548,14 +1561,33 @@
                             </div>
                         </div>
 
-                        <a href="https://drive.google.com/drive/folders/1NsFsKVHKhfUpG29mgPvCwX4pStykCUZV" target="_blank" rel="noopener noreferrer" class="program-download-cta">직접 개발한 보조 프로그램 확인하기</a>
-                        <p class="program-global-note">* 일부 프로그램은 API 키를 입력해야 정상적으로 구동됩니다.</p>
                     </div>
                 </div>
             </div>
 
             <!-- 홍보용 배너 6종 그리드 영역 -->
             <div class="shinhan-banner-gallery">
+                <div class="field-production-section">
+                    <h3>실제 촬영 및 행사 홍보물·포스터 제작</h3>
+                    <ul class="field-production-list">
+                        <li>교육 영상 촬영 및 유튜브 라이브 송출</li>
+                        <li>대내외 홍보물(현수막·X 배너 등) 제작 및 업체 협의</li>
+                    </ul>
+                    <div class="field-production-grid">
+                        <figure>
+                            <img src="pd_1.jpg" alt="행사 영상 PD 업무 현장" onerror="handleImageError(this)">
+                            <figcaption>행사 영상 PD</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="pd_2.jpg" alt="실시간 유튜브 라이브 송출 현장" onerror="handleImageError(this)">
+                            <figcaption>실시간 유튜브 라이브 송출</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="pd_3.jpg" alt="현수막, X 배너, 포스터 제작 사례" onerror="handleImageError(this)">
+                            <figcaption>현수막·X 배너·포스터 제작</figcaption>
+                        </figure>
+                    </div>
+                </div>
                 <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 40px; display: flex; align-items: center;">
                     <span style="width: 8px; height: 30px; background: var(--shinhan-blue); margin-right: 15px;"></span>홍보용 배너 이미지
                 </h3>
@@ -1602,10 +1634,7 @@
                 <p class="positioning-answer">"AI 기술이 급변하는 과도기.<br>더 이상 하나만 잘하면 되는 시대는 지났습니다."</p>
                 <span class="positioning-role">AI MARKETER & CONTENT MD</span>
                 <p class="positioning-capabilities">영상 소재 제작 · SNS 마케팅 · 웹소설·웹툰 머천다이징</p>
-                <p class="positioning-desc">
-                    <span data-private-visible>바이브 코딩과 계약 관리 등 실무 역량을 겸비한 올라운더 지원자, 김승빈입니다.</span>
-                    <span data-private-hidden>바이브 코딩과 계약 관리 등 실무 역량을 겸비한 올라운더 포트폴리오입니다.</span>
-                </p>
+                <p class="positioning-desc">바이브 코딩과 계약 관리 등 실무 역량을 겸비한 올라운더 지원자, 김승빈입니다.</p>
             </div>
         </section>
 
@@ -1708,7 +1737,7 @@
             </div>
         </section>
 
-        <section id="portfolio-storywiz" class="portfolio-bottom-section" data-private-portfolio>
+        <section id="portfolio-storywiz" class="portfolio-bottom-section">
             <span class="section-label">Full Portfolio</span>
             <h2 class="section-title">KT STORYWIZ PORTFOLIO</h2>
             <div class="portfolio-viewer-area">
@@ -1755,7 +1784,7 @@
 
     <footer>
         <h2>Let's Make the Next Story.</h2>
-        <p>© 2026 <span data-private-visible>Kim Seung Bin</span><span data-private-hidden>Portfolio Owner</span>. All Rights Reserved.</p>
+        <p>© 2026 Kim Seung Bin. All Rights Reserved.</p>
     </footer>
 
     <!-- [MODALS] 신한 배너 모달(sh1~sh6) 및 기존 오리지널 스토리위즈 모달 10개 완벽 탑재 -->
@@ -1860,27 +1889,6 @@
             let nextIdx = (idx + step + images.length) % images.length;
             images[nextIdx].classList.add('active');
         }
-
-        // 개인정보 표시 설정
-        let privacyVisible = false;
-        function applyPrivacy(visible) {
-            privacyVisible = visible;
-            document.body.classList.toggle('privacy-hidden', !visible);
-
-            const privacySwitch = document.getElementById('privacy-switch');
-            privacySwitch.classList.toggle('is-visible', visible);
-            privacySwitch.setAttribute('aria-checked', String(visible));
-            document.title = visible ? 'KIM SEUNG BIN | PORTFOLIO' : 'AI MARKETER & CONTENT MD | PORTFOLIO';
-        }
-
-        function togglePrivacy() {
-            applyPrivacy(!privacyVisible);
-            try { localStorage.setItem('portfolioPrivacyVisible', String(privacyVisible)); } catch (error) { /* 저장 불가 환경에서는 현재 세션만 유지 */ }
-        }
-
-        let savedPrivacy = null;
-        try { savedPrivacy = localStorage.getItem('portfolioPrivacyVisible'); } catch (error) { savedPrivacy = null; }
-        applyPrivacy(savedPrivacy === 'true');
 
         // 상단 역량 검색
         const searchInput = document.getElementById('skill-search-input');
@@ -2037,7 +2045,7 @@
 
         // 등록된 유튜브 작업물을 중복 없이 모아 하단 캐러셀 생성
         const videoMap = new Map();
-        const videoLinks = document.querySelectorAll('.latest-work-container a[href*="youtu"], .media-card[href*="youtu"]');
+        const videoLinks = document.querySelectorAll('.latest-work-container a[href*="youtu"], .personal-video-status a[href*="youtu"], .media-card[href*="youtu"]');
 
         function getYoutubeId(url) {
             const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/))([^?&/]+)/i);
@@ -2053,7 +2061,7 @@
             if (link.closest('#storywiz-content')) categories.add('storywiz');
             else categories.add('shinhan');
 
-            const titleElement = link.closest('.media-card')?.querySelector('.media-title');
+            const titleElement = link.closest('.media-card')?.querySelector('.media-title') || link.querySelector('strong');
             const imageElement = link.querySelector('img');
             const title = titleElement?.textContent.trim() || imageElement?.alt || '영상 작업물';
             const existing = videoMap.get(videoId);
