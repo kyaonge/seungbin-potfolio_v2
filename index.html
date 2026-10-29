@@ -267,6 +267,15 @@
             background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.04);
         }
         .personal-video-status h3 { font-size: 1.28rem; line-height: 1.35; font-weight: 900; margin-bottom: 20px; word-break: keep-all; }
+        .personal-current-project { margin-bottom: 26px; padding-bottom: 26px; border-bottom: 1px solid #dfe5ee; }
+        .personal-current-project h3 { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+        .personal-current-project .project-status {
+            display: inline-flex; align-items: center; padding: 5px 8px; background: var(--shinhan-blue);
+            color: #fff; font-size: 0.68rem; line-height: 1; font-weight: 900;
+        }
+        .personal-current-project .project-contribution {
+            display: block; margin-top: 8px; color: var(--shinhan-blue); font-size: 0.86rem; line-height: 1.4; font-weight: 900;
+        }
         .personal-video-list { display: grid; gap: 20px; }
         .personal-video-card { display: block; color: inherit; text-decoration: none; }
         .personal-video-thumb { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #e9edf3; border-radius: 5px; }
@@ -1284,6 +1293,19 @@
             </div>
 
             <aside class="personal-video-status" aria-labelledby="personal-video-status-title">
+                <section class="personal-current-project" aria-labelledby="personal-current-project-title">
+                    <h3 id="personal-current-project-title">
+                        최근 프로젝트 진행 작업물
+                        <span class="project-status">진행중</span>
+                    </h3>
+                    <a href="https://drive.google.com/file/d/1L-TEI3xEPgiIGNYymYet1LKkFoo2MVn2/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="personal-video-card">
+                        <div class="personal-video-thumb">
+                            <img src="https://drive.google.com/thumbnail?id=1L-TEI3xEPgiIGNYymYet1LKkFoo2MVn2&sz=w1200" alt="최근 프로젝트 진행 작업물 영상 미리보기" onerror="handleImageError(this)">
+                        </div>
+                        <strong>최근 프로젝트 진행 작업물</strong>
+                        <span class="project-contribution">기획 · 연출 · 제작 100%</span>
+                    </a>
+                </section>
                 <h3 id="personal-video-status-title">개인 영상물 제작 역량 현황</h3>
                 <div class="personal-video-list">
                     <a href="https://youtu.be/LQ-O8vjBiHU" target="_blank" rel="noopener noreferrer" class="personal-video-card">
