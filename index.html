@@ -116,13 +116,15 @@
         @keyframes searchFlash { 0%, 100% { outline: 0 solid transparent; } 35% { outline: 5px solid rgba(0,70,255,0.24); outline-offset: 8px; } }
 
         /* 상단 기업 선택 메뉴 */
-        .header-mode-selector { 
-            display: flex; gap: 40px; margin-bottom: 6px;
-            font-size: 0.9rem; font-weight: 800; letter-spacing: 1px;
+        .header-mode-selector {
+            display: flex; gap: 28px; margin-bottom: 6px; max-width: 100%;
+            font-size: 0.9rem; font-weight: 800; letter-spacing: 0;
         }
-        .mode-tab { cursor: pointer; opacity: 0.3; transition: 0.3s; padding-bottom: 4px; border-bottom: 2px solid transparent; }
+        .mode-tab { cursor: pointer; opacity: 0.6; transition: 0.3s; padding: 6px 0; border: 0; border-bottom: 2px solid transparent; background: transparent; color: inherit; font: inherit; }
         .mode-tab.active { opacity: 1; border-color: var(--black); }
         .mode-tab.shinhan-tab.active { color: var(--shinhan-blue) !important; border-color: var(--shinhan-blue); }
+        .mode-tab.storywiz-tab.active { color: #00796f; border-color: #00796f; }
+        .mode-tab.academic-tab.active { color: #a41749; border-color: #a41749; }
 
         /* 하단 섹션 내비게이션 및 호버 애니메이션 라인 */
         header nav ul { display: flex; gap: 30px; list-style: none; }
@@ -1097,6 +1099,159 @@
         .retouch-full-image { display: block; width: 100%; border: 0; padding: 0; background: #0c0c0c; cursor: pointer; }
         .retouch-full-image img { display: block; width: 100%; max-height: 72dvh; aspect-ratio: 557 / 313; object-fit: contain; }
         .retouch-preview:focus-visible, .retouch-dialog button:focus-visible { outline: 3px solid #1554e8; outline-offset: 3px; }
+
+        /* Career case studies and source-slide libraries */
+        .selector-grid { gap: 16px; }
+        .career-card { flex: 1; min-width: 230px; max-width: 450px; padding: 34px 22px; font: inherit; color: inherit; }
+        .career-card-name { font-size: 1.17rem; font-weight: 800; }
+        .career-card.active-academic { border-color: #a41749; background: #fff5f8; }
+        .career-card .academic-card-mark { height: 50px; margin-bottom: 30px; display: flex; align-items: center; font-size: 1.15rem; font-weight: 900; color: #a41749; }
+        #storywiz-content, #academic-content { --case-accent: #00796f; --case-tint: #eff8f6; }
+        #academic-content { --case-accent: #a41749; --case-tint: #fff4f7; }
+        #storywiz-content section, #academic-content section { padding: 64px 5vw; border-color: #dce2e2; scroll-margin-top: 170px; }
+        .case-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; margin-bottom: 28px; }
+        .case-heading .section-label { color: var(--case-accent); border-color: var(--case-accent); margin-bottom: 12px; letter-spacing: 0; }
+        .case-heading h2 { font-size: 2rem; line-height: 1.3; letter-spacing: 0; word-break: keep-all; }
+        .case-heading p { margin-top: 10px; color: #52615f; font-size: 0.98rem; max-width: 760px; }
+        .case-meta { padding-top: 6px; font-size: 0.82rem; color: #63706e; white-space: nowrap; }
+        .case-intro { max-width: 850px; font-size: 1.22rem; line-height: 1.75; word-break: keep-all; }
+        .case-intro strong { color: var(--case-accent); }
+        .case-jump-links { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
+        .case-jump-links a, .case-link { color: var(--case-accent); font-size: 0.9rem; font-weight: 800; text-underline-offset: 5px; }
+        .case-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 2px solid var(--case-accent); border-bottom: 1px solid #dce2e2; margin-top: 32px; }
+        .case-metric { padding: 22px 20px; border-right: 1px solid #dce2e2; }
+        .case-metric:first-child { padding-left: 0; }
+        .case-metric:last-child { border-right: 0; }
+        .case-metric dt { font-size: 0.86rem; color: #52615f; font-weight: 700; }
+        .case-metric dd { margin-top: 4px; font-size: 2rem; font-weight: 900; color: var(--case-accent); line-height: 1.35; }
+        .case-metric small { display: block; margin-top: 8px; font-size: 0.76rem; font-weight: 500; line-height: 1.6; color: #63706e; }
+        .case-metric-change { display: flex; flex-wrap: wrap; gap: 0 8px; }
+        .case-metric-change span { white-space: nowrap; }
+        .case-source { color: #63706e; font-size: 0.76rem; margin-top: 12px; }
+        .case-flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); list-style: none; border-top: 1px solid #cbd7d5; border-bottom: 1px solid #cbd7d5; }
+        .case-flow li { position: relative; padding: 24px; border-right: 1px solid #cbd7d5; }
+        .case-flow li:last-child { border-right: 0; }
+        .case-flow li:not(:last-child)::after { content: '→'; position: absolute; top: 26px; right: -12px; width: 24px; background: #fff; text-align: center; color: var(--case-accent); z-index: 1; }
+        .case-step { display: block; font-size: 0.76rem; font-weight: 900; color: var(--case-accent); margin-bottom: 10px; }
+        .case-flow h3 { font-size: 1.12rem; margin-bottom: 8px; }
+        .case-flow p { font-size: 0.9rem; color: #52615f; line-height: 1.7; }
+        .case-process-support { display: flex; align-items: baseline; gap: 20px; padding: 18px 24px; margin-top: 12px; background: var(--case-tint); font-size: 0.9rem; }
+        .case-process-support strong { color: var(--case-accent); flex-shrink: 0; }
+        .case-detail { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 40px; align-items: start; padding: 38px 0; border-top: 1px solid #dce2e2; scroll-margin-top: 180px; }
+        .case-detail:first-of-type { border-top: 0; padding-top: 0; }
+        .case-detail h3 { font-size: 1.4rem; margin: 6px 0 16px; line-height: 1.45; }
+        .case-kicker { font-size: 0.78rem; font-weight: 900; color: var(--case-accent); }
+        .case-facts { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px 14px; font-size: 0.94rem; }
+        .case-facts dt { font-weight: 800; color: #52615f; }
+        .case-facts dd { line-height: 1.7; }
+        .case-facts dd strong { color: var(--case-accent); }
+        .case-evidence { display: grid; gap: 16px; }
+        .case-evidence-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .case-evidence figure { min-width: 0; }
+        .case-slide-image { display: block; width: 100%; padding: 0; border: 1px solid #dce2e2; background: #f5f7f7; cursor: zoom-in; }
+        .case-slide-image img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; }
+        .case-evidence figcaption { margin-top: 8px; font-size: 0.8rem; color: #52615f; }
+        .case-evidence .case-link { display: inline-block; margin-top: 8px; }
+        .case-results { display: grid; grid-template-columns: 1fr 1fr; margin-top: 20px; gap: 12px; }
+        .case-results div { padding: 14px 0 14px 16px; border-left: 3px solid var(--case-accent); background: var(--case-tint); }
+        .case-results strong { display: block; font-size: 1.3rem; color: var(--case-accent); }
+        .case-results span { font-size: 0.8rem; }
+        .automation-map { list-style: none; border-top: 1px solid #dce2e2; }
+        .automation-map li { display: grid; grid-template-columns: 1fr 28px 1.1fr; align-items: center; gap: 10px; border-bottom: 1px solid #dce2e2; padding: 14px 0; font-size: 0.9rem; }
+        .automation-map small { display: block; color: #63706e; font-size: 0.75rem; margin-top: 2px; }
+        .automation-map b { color: var(--case-accent); text-align: center; }
+        .case-tools { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; }
+        .case-tool { border-top: 2px solid #cbd7d5; padding-top: 18px; }
+        .case-tool h3 { font-size: 1rem; margin-bottom: 8px; }
+        .case-tool p { font-size: 0.87rem; color: #52615f; min-height: 3.4em; }
+        .case-tool img { display: block; width: 100%; height: 100px; object-fit: contain; margin-top: 12px; }
+        .deck-viewer { border: 1px solid #ccd8d6; background: #fff; border-radius: 6px; overflow: hidden; }
+        .deck-filters { display: flex; flex-wrap: wrap; gap: 4px; padding: 12px; border-bottom: 1px solid #ccd8d6; background: #f6f8f7; }
+        .deck-filter { padding: 8px 14px; font: inherit; font-size: 0.82rem; font-weight: 750; color: #465653; border: 0; border-radius: 4px; background: transparent; cursor: pointer; }
+        .deck-filter[aria-pressed="true"] { background: var(--case-accent); color: #fff; }
+        .deck-body { display: grid; grid-template-columns: minmax(0, 1fr) 270px; }
+        .deck-main { min-width: 0; padding: 16px; }
+        .deck-image-button { border: 0; padding: 0; width: 100%; background: #f1f3f3; cursor: zoom-in; display: block; }
+        .deck-image { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; }
+        .deck-caption { display: block; font-size: 0.95rem; margin: 14px 0 4px; }
+        .deck-description { font-size: 0.84rem; color: #52615f; min-height: 3.2em; }
+        .deck-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+        .deck-controls button, .slide-dialog-controls button, .slide-dialog-close { min-width: 40px; min-height: 40px; padding: 6px 12px; border: 1px solid #cbd7d5; border-radius: 4px; background: #fff; color: #17201e; font: inherit; cursor: pointer; }
+        .deck-controls select { min-width: 0; max-width: 100%; flex: 1; font: inherit; font-size: 0.82rem; padding: 10px; border: 1px solid #cbd7d5; background: #fff; border-radius: 4px; }
+        .deck-counter { font-size: 0.8rem; color: #63706e; white-space: nowrap; }
+        .deck-list { display: flex; flex-direction: column; gap: 4px; max-height: 610px; overflow-y: auto; border-left: 1px solid #ccd8d6; padding: 10px; background: #f6f8f7; }
+        .deck-thumb { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: center; gap: 10px; flex-shrink: 0; width: 100%; text-align: left; font: inherit; font-size: 0.78rem; line-height: 1.45; padding: 8px; border: 1px solid transparent; border-radius: 4px; background: transparent; cursor: pointer; color: #263b37; }
+        .deck-thumb[aria-current="true"] { border-color: var(--case-accent); background: #fff; font-weight: 800; }
+        .deck-thumb img { width: 76px; aspect-ratio: 16 / 9; object-fit: contain; background: #fff; }
+        .deck-download { display: flex; justify-content: flex-end; margin-top: 18px; }
+        .slide-dialog { width: min(1500px, calc(100vw - 24px)); max-height: 96dvh; margin: auto; padding: 14px; border: 0; border-radius: 6px; background: #fff; color: #17201e; }
+        .slide-dialog::backdrop { background: rgba(0, 0, 0, 0.85); }
+        .slide-dialog-header { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 10px; }
+        .slide-dialog-header h2 { font-size: 1rem; }
+        .slide-dialog-image { display: block; width: 100%; max-height: 76dvh; object-fit: contain; background: #eff2f1; }
+        .slide-dialog-controls { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 14px; margin-top: 10px; font-size: 0.86rem; }
+        .slide-dialog-controls a { color: #155d54; text-underline-offset: 4px; }
+        .case-award { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 36px; align-items: center; border-top: 4px solid var(--case-accent); padding-top: 28px; }
+        .case-award-rank { display: block; font-size: 3.25rem; line-height: 1.25; font-weight: 900; color: var(--case-accent); margin-bottom: 12px; }
+        .case-award h3 { font-size: 1.55rem; line-height: 1.4; margin-bottom: 16px; }
+        .case-award p { font-size: 0.96rem; margin-bottom: 14px; color: #52615f; }
+        .academic-award-strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 28px; border-top: 1px solid #e7d9de; }
+        .academic-award-strip div { padding: 20px 20px 0 0; }
+        .academic-award-strip strong { display: block; font-size: 1rem; color: var(--case-accent); }
+        .academic-award-strip span { font-size: 0.84rem; color: #63706e; }
+        .case-learning-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+        .case-learning { border-top: 2px solid #d9c6ce; padding-top: 18px; }
+        .case-learning h3 { font-size: 1.1rem; margin: 12px 0; }
+        .case-learning p { font-size: 0.9rem; color: #52615f; margin-bottom: 14px; }
+        .case-learning .case-link { display: inline-block; margin-top: 10px; }
+        .mode-tab:focus-visible, .career-card:focus-visible, .case-link:focus-visible, .case-slide-image:focus-visible, .deck-viewer button:focus-visible, .deck-viewer select:focus-visible, .slide-dialog :focus-visible { outline: 3px solid #00796f; outline-offset: 3px; }
+        @media (min-width: 1600px) {
+            .deck-body { grid-template-columns: minmax(0, 1fr) 330px; }
+            .deck-list { max-height: 760px; }
+        }
+        @media (max-width: 1000px) {
+            .case-detail, .case-award { gap: 24px; }
+            .case-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .case-metric { border-bottom: 1px solid #dce2e2; }
+            .case-metric:nth-child(2) { border-right: 0; }
+            .case-metric:nth-child(3) { padding-left: 0; }
+            .case-metric:nth-last-child(-n+2) { border-bottom: 0; }
+            .deck-body { grid-template-columns: 1fr; }
+            .deck-list { flex-direction: row; overflow-x: auto; max-height: none; border-left: 0; border-top: 1px solid #ccd8d6; }
+            .deck-thumb { width: 180px; grid-template-columns: 1fr; align-content: start; }
+            .deck-thumb img { width: 100%; }
+        }
+        @media (max-width: 700px) {
+            .header-mode-selector { width: 100%; gap: 8px; justify-content: center; font-size: 0.68rem; }
+            .mode-tab { min-height: 38px; }
+            #storywiz-content section, #academic-content section { padding: 40px 5vw; }
+            .case-heading { flex-direction: column; gap: 10px; }
+            .case-heading h2 { font-size: 1.65rem; }
+            .case-meta { padding-top: 0; white-space: normal; }
+            .case-intro { font-size: 1.06rem; }
+            .case-metric { padding: 18px 10px; }
+            .case-metric dd { font-size: 1.7rem; }
+            .case-flow { grid-template-columns: 1fr; }
+            .case-flow li { border-right: 0; border-bottom: 1px solid #cbd7d5; padding: 20px 14px; }
+            .case-flow li:last-child { border-bottom: 0; }
+            .case-flow li:not(:last-child)::after { content: '↓'; top: auto; right: 20px; bottom: -14px; }
+            .case-process-support { flex-direction: column; gap: 6px; padding: 16px; }
+            .case-detail, .case-award { grid-template-columns: 1fr; }
+            .case-detail { padding: 28px 0; }
+            .case-detail h3 { font-size: 1.25rem; }
+            .case-facts { grid-template-columns: 60px minmax(0, 1fr); font-size: 0.88rem; gap: 10px; }
+            .case-tools, .case-learning-grid, .academic-award-strip { grid-template-columns: 1fr; }
+            .case-tool p { min-height: 0; }
+            .case-tool img { max-width: 440px; }
+            .case-evidence-pair { gap: 10px; }
+            .deck-main { padding: 10px; }
+            .deck-filter { font-size: 0.75rem; padding: 8px 10px; }
+            .deck-controls { gap: 6px; }
+            .deck-controls select { flex-basis: 100%; order: 1; }
+            .case-award-rank { font-size: 2.65rem; }
+            .slide-dialog-header h2 { font-size: 0.86rem; }
+            .slide-dialog-close { flex-shrink: 0; }
+        }
     </style>
 </head>
 <body class="shinhan-theme-container">
@@ -1112,10 +1267,10 @@
                 <div id="search-results" class="search-results" role="listbox" aria-label="검색 결과"></div>
             </div>
         </div>
-        <div class="header-mode-selector">
-            <div id="tab-shinhan" class="mode-tab shinhan-tab active" onclick="toggleMode('shinhan')">SHINHAN FINANCIAL PLUS</div>
-            <div style="opacity:0.2">|</div>
-            <div id="tab-storywiz" class="mode-tab storywiz-tab" onclick="toggleMode('storywiz')">KT STORYWIZ</div>
+        <div class="header-mode-selector" role="group" aria-label="경력 및 활동 선택">
+            <button type="button" id="tab-shinhan" class="mode-tab shinhan-tab active" aria-pressed="true" aria-controls="shinhan-content" onclick="toggleMode('shinhan')">SHINHAN FINANCIAL PLUS</button>
+            <button type="button" id="tab-storywiz" class="mode-tab storywiz-tab" aria-pressed="false" aria-controls="storywiz-content" onclick="toggleMode('storywiz')">KT STORYWIZ</button>
+            <button type="button" id="tab-academic" class="mode-tab academic-tab" aria-pressed="false" aria-controls="academic-content" onclick="toggleMode('academic')">학부·대외활동</button>
         </div>
         <nav>
             <ul id="dynamic-nav">
@@ -1386,16 +1541,21 @@
     <!-- [2. CAREER SELECTOR CARDS] -->
     <div class="selector-area" id="career-selector">
         <div class="selector-grid">
-            <div class="career-card active-shinhan" id="card-shinhan" onclick="toggleMode('shinhan')">
+            <button type="button" class="career-card active-shinhan" id="card-shinhan" aria-pressed="true" onclick="toggleMode('shinhan')">
                 <img src="image_0b6baa.png" alt="신한 로고">
-                <h3>Shinhan Financial Plus</h3>
-                <p>SNS Marketer (2026.01 ~ Present)</p>
-            </div>
-            <div class="career-card" id="card-storywiz" onclick="toggleMode('storywiz')">
+                <strong class="career-card-name">Shinhan Financial Plus</strong>
+                <span>SNS Marketer (2026.01 ~ Present)</span>
+            </button>
+            <button type="button" class="career-card" id="card-storywiz" aria-pressed="false" onclick="toggleMode('storywiz')">
                 <img src="image_0b6c05.png" alt="스토리위즈 로고">
-                <h3>KT Storywiz</h3>
-                <p>Content Marketer & MD (2023.04 ~ 2025.11)</p>
-            </div>
+                <strong class="career-card-name">KT Storywiz</strong>
+                <span>Content Marketer & MD (2023.04 ~ 2025.11)</span>
+            </button>
+            <button type="button" class="career-card" id="card-academic" aria-pressed="false" onclick="toggleMode('academic')">
+                <span class="academic-card-mark">LG화학 광고 공모전 최우수상</span>
+                <strong class="career-card-name">학부·대외활동</strong>
+                <span>영상 기획 · 브랜드 커뮤니케이션 · PM</span>
+            </button>
         </div>
     </div>
 
@@ -1715,132 +1875,176 @@
 
     <!-- [MODE: STORYWIZ CONTENT] -->
     <div id="storywiz-content" class="career-mode-content">
-        <section id="identity-storywiz">
-            <span class="section-label">Identity</span>
-            <div class="storywiz-positioning">
-                <p class="positioning-question">"3개월 뒤의 세상을<br>예측할 수 있으신가요?"</p>
-                <p class="positioning-answer">"AI 기술이 급변하는 과도기.<br>더 이상 하나만 잘하면 되는 시대는 지났습니다."</p>
-                <span class="positioning-role">AI MARKETER & CONTENT MD</span>
-                <p class="positioning-capabilities">영상 소재 제작 · SNS 마케팅 · 웹소설·웹툰 머천다이징</p>
-                <p class="positioning-desc">바이브 코딩과 계약 관리 등 실무 역량을 겸비한 올라운더 지원자, 김승빈입니다.</p>
+        <section id="identity-storywiz" data-case-search>
+            <div class="case-heading">
+                <div>
+                    <span class="section-label">Content Marketer & MD</span>
+                    <h2>KT STORYWIZ</h2>
+                    <p>웹소설 유통 · 제휴 파트너십 · SNS 마케팅 · 업무 자동화</p>
+                </div>
+                <span class="case-meta">2023.04.10. ~ 2025.11.30.</span>
             </div>
+            <p class="case-intro"><strong>작품이 독자를 만나는 전 과정을 연결합니다.</strong><br>제휴·계약부터 플랫폼 유통, 프로모션, 매출 분석까지.<br>콘텐츠를 이해하는 MD의 시선에 데이터 관리와 자동화 역량을 더했습니다.</p>
+            <div class="case-jump-links">
+                <a href="#projects-storywiz">업무 흐름</a>
+                <a href="#storywiz-cases">핵심 성과</a>
+                <a href="#portfolio-storywiz">실무 포트폴리오</a>
+            </div>
+            <dl class="case-metrics">
+                <div class="case-metric"><dt>유통·제휴 플랫폼</dt><dd>30여 곳<small>카카오 · 네이버 · 리디 등</small></dd></div>
+                <div class="case-metric"><dt>프로모션 운영</dt><dd>월 120회+<small>플랫폼별 제안 · 협의 · 운영</small></dd></div>
+                <div class="case-metric"><dt>작품 등록·EPUB 검수</dt><dd>64종<small>라이브 연재 60여 종 운영</small></dd></div>
+                <div class="case-metric"><dt>위즈스타 팔로워</dt><dd><span class="case-metric-change"><span>806</span><span>→ 2,051</span></span><small>리뉴얼 후 2개월 기준</small></dd></div>
+            </dl>
+            <p class="case-source">실무 포트폴리오 4·7·17쪽 기준. 각 지표는 원자료의 집계 시점을 따릅니다.</p>
         </section>
 
-        <!-- 스킬 상세 -->
+        <section id="projects-storywiz" data-case-search>
+            <div class="case-heading">
+                <div><span class="section-label">Work Flow</span><h2>작품 유통부터 성과 분석까지</h2></div>
+            </div>
+            <ol class="case-flow">
+                <li><span class="case-step">01 · PARTNERSHIP</span><h3>제휴·계약</h3><p>제휴사 미팅<br>계약 갱신 · 부속 합의<br>신규 채널 입점 협의</p></li>
+                <li><span class="case-step">02 · DISTRIBUTION</span><h3>등록·유통</h3><p>메타데이터 규격 관리<br>EPUB 제작·검수<br>라이브 연재 일정 운영</p></li>
+                <li><span class="case-step">03 · PROMOTION</span><h3>프로모션·SNS</h3><p>플랫폼별 프로모션 협의<br>홍보 배너 · 채널 콘텐츠<br>IP 이벤트 · 굿즈 운영</p></li>
+                <li><span class="case-step">04 · ANALYSIS</span><h3>매출·전략 보고</h3><p>제휴사별 실적 분석<br>정산 데이터 대조<br>후속 유통 전략 수립</p></li>
+            </ol>
+            <div class="case-process-support"><strong>전 과정을 지원하는 자동화</strong><span>시리즈 코드 표준화 · 시트 연동 · 대량 파일 처리 · 반복 업무 도구 개발</span></div>
+        </section>
+
+        <section id="storywiz-cases">
+            <div class="case-heading"><div><span class="section-label">Key Results</span><h2>업무로 증명한 세 가지 강점</h2></div></div>
+            <article class="case-detail" id="storywiz-distribution" data-case-search>
+                <div>
+                    <span class="case-kicker">01 · 유통 운영과 파트너십</span>
+                    <h3>구작의 수명을 늘리고,<br>새로운 유통 채널을 확보합니다.</h3>
+                    <dl class="case-facts">
+                        <dt>과제</dt><dd>구작 매출의 자연 감소에 대응하고, 플랫폼마다 다른 유통 조건을 관리.</dd>
+                        <dt>실행</dt><dd>3년 이상 경과한 구작 100여 종의 큐레이션·프로모션 강화. 제휴사 계약 갱신, 보증보험·부속 합의, 신규 입점 협의 수행.</dd>
+                        <dt>성과</dt><dd><strong>18개월 이상 매출 유지(변동폭 10% 내외)</strong>. 주요 유통대행사 4곳 계약 연장, ASP·밀리의 서재·보물섬 등 신규 채널 입점 협의 성공.</dd>
+                    </dl>
+                    <p class="case-source">원자료 5쪽 · 2025년 9월 기준</p>
+                </div>
+                <div class="case-evidence">
+                    <figure><button type="button" class="case-slide-image" data-slide-open="5" aria-label="유통·계약 관리 성과 원본 확대" aria-haspopup="dialog"><img src="slides/page_5.jpg" alt="구작 매출 유지 및 계약 연장·신규 입점 성과" loading="lazy"></button><figcaption>유통·계약 관리와 성과 · 원자료 5쪽</figcaption></figure>
+                    <a class="case-link" href="#portfolio-storywiz" data-deck-jump="4">유통·계약 자료 전체 보기</a>
+                </div>
+            </article>
+            <article class="case-detail" id="storywiz-automation" data-case-search>
+                <div>
+                    <span class="case-kicker">02 · 데이터 표준화와 업무 자동화</span>
+                    <h3>반복 작업의 원인을 찾아<br>실무 도구로 해결합니다.</h3>
+                    <ul class="automation-map">
+                        <li><span>부서별 작품 코드 불일치</span><b aria-hidden="true">→</b><span><strong>시리즈 코드·양식 통일</strong><small>Sheets · Apps Script 연동</small></span></li>
+                        <li><span>대량 파일명 수동 변경</span><b aria-hidden="true">→</b><span><strong>MetaNamer</strong><small>파일명 일괄 변경 · 폴더 정리</small></span></li>
+                        <li><span>플랫폼 화면 수동 캡처</span><b aria-hidden="true">→</b><span><strong>Webparazzi</strong><small>URL·실행 주기 기반 자동 캡처</small></span></li>
+                        <li><span>단행본 원고 수동 분절</span><b aria-hidden="true">→</b><span><strong>HwpMarker</strong><small>구간 분절 · 글자 수 계산</small></span></li>
+                    </ul>
+                    <p class="case-source">Cursor · Gemini · Python 활용. 정산 보조 도구 및 타 부서 비효율 개선 기능도 제작.</p>
+                </div>
+                <div class="case-evidence">
+                    <figure><button type="button" class="case-slide-image" data-slide-open="10" aria-label="시리즈 코드 연동 자료 확대" aria-haspopup="dialog"><img src="slides/page_10.jpg" alt="시리즈 코드로 업무 시트를 연동하고 양식을 표준화한 사례" loading="lazy"></button><figcaption>전사 데이터·시트 체계화 · 원자료 10쪽</figcaption></figure>
+                    <div class="case-evidence case-evidence-pair">
+                        <figure><button type="button" class="case-slide-image" data-slide-open="11" aria-label="파일명 일괄 변경 도구 자료 확대" aria-haspopup="dialog"><img src="slides/page_11.jpg" alt="대량 파일명 일괄 변경 프로그램" loading="lazy"></button><figcaption>파일명 일괄 변경</figcaption></figure>
+                        <figure><button type="button" class="case-slide-image" data-slide-open="13" aria-label="원고 분절 자동화 자료 확대" aria-haspopup="dialog"><img src="slides/page_13.jpg" alt="단행본 원고 분절과 글자 수 계산 프로그램" loading="lazy"></button><figcaption>원고 분절 자동화</figcaption></figure>
+                    </div>
+                    <a class="case-link" href="#portfolio-storywiz" data-deck-jump="9">자동화 자료 전체 보기</a>
+                </div>
+            </article>
+            <article class="case-detail" id="storywiz-marketing" data-case-search>
+                <div>
+                    <span class="case-kicker">03 · IP 마케팅과 채널 운영</span>
+                    <h3>작품의 매력을<br>독자와 대화하는 콘텐츠로 바꿉니다.</h3>
+                    <dl class="case-facts">
+                        <dt>공식 SNS</dt><dd>신간·매열무·주요 IP 프로모션, 작품 캘린더 리뉴얼, 월페이퍼·굿즈 이벤트 운영. <strong>팔로워 7,000명</strong>(원자료 2025년 12월 기준).</dd>
+                        <dt>위즈스타</dt><dd>캐릭터 IP 기반 계정 기획·리뉴얼. 개인 계정 파일럿 테스트 → 추이 분석·기획안 제안 → 퀴즈·작품 홍보·굿즈 수요 조사로 확장.</dd>
+                        <dt>제작</dt><dd>플랫폼별 프로모션 배너 제작, 홈페이지 서브 페이지 리뉴얼 시안 제작. 공식 유튜브 채널 기획안 제안.</dd>
+                    </dl>
+                    <div class="case-results">
+                        <div><strong>806 → 2,051</strong><span>위즈스타 팔로워</span></div>
+                        <div><strong>230 → 3,512</strong><span>위즈스타 노출도</span></div>
+                    </div>
+                    <p class="case-source">리뉴얼 후 2개월 기준 · 원자료 17쪽. 노출도는 원자료 표기 지표입니다.</p>
+                </div>
+                <div class="case-evidence">
+                    <figure><button type="button" class="case-slide-image" data-slide-open="17" aria-label="위즈스타 마케팅 성과 자료 확대" aria-haspopup="dialog"><img src="slides/page_17.jpg" alt="위즈스타 리뉴얼 전후 팔로워·노출도와 실제 게시물" loading="lazy"></button><figcaption>위즈스타 실제 게시 활동과 성과 · 원자료 17쪽</figcaption></figure>
+                    <div class="case-evidence case-evidence-pair">
+                        <figure><button type="button" class="case-slide-image" data-slide-open="16" aria-label="공식 SNS 채널 운영 자료 확대" aria-haspopup="dialog"><img src="slides/page_16.jpg" alt="공식 SNS 프로모션과 굿즈 이벤트 사례" loading="lazy"></button><figcaption>공식 SNS 운영</figcaption></figure>
+                        <figure><button type="button" class="case-slide-image" data-slide-open="21" aria-label="프로모션 배너 제작 자료 확대" aria-haspopup="dialog"><img src="slides/page_21.jpg" alt="작품별 플랫폼 프로모션 배너 제작물" loading="lazy"></button><figcaption>플랫폼 프로모션 배너</figcaption></figure>
+                    </div>
+                    <a class="case-link" href="#portfolio-storywiz" data-deck-jump="15">SNS·콘텐츠 자료 전체 보기</a>
+                </div>
+            </article>
+        </section>
+
         <section id="skills-storywiz">
-            <h2 class="section-title">STORYWIZ SKILLS & COMPETENCIES</h2>
-            <div class="skill-container">
-                <div class="skill-row">
-                    <div class="skill-text">
-                        <h3>MOS 및 문서</h3>
-                        <p>문서 작업, 보고, 전략 분석, 기획안, 업무 관리 등 실무에 최적화된 능력을 보유하고 있습니다.</p>
-                    </div>
-                    <div class="skill-image"><img src="skill_doc.jpg" alt="MOS 및 문서 툴"></div>
-                </div>
-                <div class="skill-row">
-                    <div class="skill-text">
-                        <h3>프로그램</h3>
-                        <p>EPUB 유통, SNS 마케팅, 미디어 제작, 프로모션 배너를 위한 전문 디자인 및 편집 툴을 다룹니다.</p>
-                    </div>
-                    <div class="skill-image"><img src="skill_prog.jpg" alt="디자인 프로그램"></div>
-                </div>
-                <div class="skill-row">
-                    <div class="skill-text">
-                        <h3>코드 및 AI</h3>
-                        <p>구글 시트 연동 및 자동화, 업무 보조 프로그램 제작(Python)을 통해 업무 효율을 극대화합니다.</p>
-                    </div>
-                    <div class="skill-image"><img src="skill_code.jpg" alt="코드 및 AI 툴"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 프로젝트 상세 -->
-        <section id="projects-storywiz">
-            <span class="section-label">Key Projects</span>
-            <h2 class="section-title">PROJECT HIGHLIGHTS</h2>
-            <div class="project-highlight-grid">
-            <div class="project-item">
-                <div class="project-left">
-                    <span class="project-num">01</span> Distribution<br>& Operation
-                </div>
-                <div class="project-right">
-                    <span class="tag">MAIN CAREER</span>
-                    <h3>판권 제휴 및 유통 대행 총괄</h3>
-                    <ul>
-                        <li><strong>판권 제휴 관리:</strong> 남성향 웹소설 작품 단독 관리 및 프로모션 제안/유지</li>
-                        <li><strong>유통 메타 관리:</strong> 30여 개 플랫폼 유통 메타데이터 규격화 및 파일 유기화</li>
-                        <li><strong>계약 및 정산:</strong> 유통사 계약 조율, 보증보험 갱신, 주간 매출 전략 분석 보고</li>
-                        <li><strong>성과:</strong> 월평균 120회 프로모션 진행, 제휴작 구작 매출 감소 방어 및 신규 입점 성공</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="project-item">
-                <div class="project-left">
-                    <span class="project-num">02</span> Platform<br>& EPUB
-                </div>
-                <div class="project-right">
-                    <span class="tag">MD SPECIALTY</span>
-                    <h3>플랫폼 작품 유통 등록 및 관리</h3>
-                    <ul>
-                        <li><strong>EPUB 제작/검수:</strong> 라이브 연재 총 59종 유통 검수 및 대행 업무 완수</li>
-                        <li><strong>가이드 작성:</strong> 30여 개 플랫폼별 내부 유통·등록 매뉴얼 제작 및 배포</li>
-                        <li><strong>시스템 개선:</strong> 메타 시트 효율화를 통한 사내 정산 코드 부여 시스템 개선</li>
-                        <li><strong>대면 미팅:</strong> 네이버, 알에스미디어 등 주요 플랫폼 및 제휴사 미팅 주도</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="project-item">
-                <div class="project-left">
-                    <span class="project-num">03</span> Tech<br>& Automation
-                </div>
-                <div class="project-right">
-                    <span class="tag">PYTHON & AI</span>
-                    <h3>업무 효율화 프로그램 자체 개발</h3>
-                    <ul>
-                        <li><strong>MetaNamer.exe:</strong> 대량 작품 메타데이터 일괄 수정 툴 개발 (기존 툴 한계 극복)</li>
-                        <li><strong>Sales Automator:</strong> 플랫폼별 상이한 정산서를 표준화하여 데이터 자동 취합</li>
-                        <li><strong>Hwp Splitter:</strong> 한글 원고 회차별 자동 분절 및 글자 수 계산 프로그램 개발</li>
-                        <li><strong>Google Apps Script:</strong> 정산 코드 연동 및 시트 관리 자동화 (AI 보조 활용)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="project-item">
-                <div class="project-left">
-                    <span class="project-num">04</span> Marketing<br>& Creative
-                </div>
-                <div class="project-right">
-                    <span class="tag">SNS & DESIGN</span>
-                    <h3>콘텐츠 마케팅 및 디자인</h3>
-                    <ul>
-                        <li><strong>SNS 리브랜딩:</strong> 파일럿 계정 '위즈스타' 기획 및 운영 (팔로워 2K 달성)</li>
-                        <li><strong>이벤트 기획:</strong> 자사 주요작 프로모션 배너 제작 및 굿즈 발송 이벤트 총괄</li>
-                        <li><strong>대외 수상:</strong> LG화학 광고 공모전 및 연세대 학과 홍보 영상 최우수상 (기획/PM)</li>
-                        <li><strong>협업 주도:</strong> 사내 문화 행사 TF팀 기획 및 디자인 담당, 타 부서와 원활한 협업</li>
-                    </ul>
-                </div>
-            </div>
+            <div class="case-heading"><div><span class="section-label">Practical Tools</span><h2>실무에 연결한 도구와 역량</h2></div></div>
+            <div class="case-tools">
+                <article class="case-tool" data-case-search><h3>문서·매출 데이터</h3><p>Excel · Google Sheets · HWP · Word · PowerPoint<br>계약 관리, 매출 대조, 보고·기획 문서 작성</p><img src="skill_doc.jpg" alt="문서와 데이터 도구" loading="lazy"></article>
+                <article class="case-tool" data-case-search><h3>콘텐츠 제작·유통</h3><p>Sigil · Photoshop · Premiere · 미리캔버스<br>EPUB 검수, 배너·SNS 소재 및 영상 제작</p><img src="skill_prog.jpg" alt="콘텐츠 제작과 편집 도구" loading="lazy"></article>
+                <article class="case-tool" data-case-search><h3>코드·AI 활용</h3><p>Apps Script · Python · Cursor · Gemini<br>시트 연동, 업무 자동화 프로그램 제작</p><img src="skill_code.jpg" alt="코드와 AI 도구" loading="lazy"></article>
             </div>
         </section>
 
         <section id="portfolio-storywiz" class="portfolio-bottom-section">
-            <span class="section-label">Full Portfolio</span>
-            <h2 class="section-title">KT STORYWIZ PORTFOLIO</h2>
-            <div class="portfolio-viewer-area">
-                <div class="viewer-screen"><img id="pf-image" src="slides/page_1.jpg" alt="포트폴리오 슬라이드"></div>
-                <div class="viewer-controls">
-                    <button class="btn-control" type="button" onclick="prevPage()" aria-label="이전 포트폴리오 페이지">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                    </button>
-                    <span id="page-indicator" class="page-indicator">1 / 47</span>
-                    <button class="btn-control" type="button" onclick="nextPage()" aria-label="다음 포트폴리오 페이지">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </button>
+            <div class="case-heading"><div><span class="section-label">Source Portfolio</span><h2>스토리위즈 실무 포트폴리오</h2><p>유통·계약 / 데이터·자동화 / SNS·콘텐츠</p></div><span class="case-meta">원본 1–22쪽</span></div>
+            <div class="deck-viewer" data-deck="storywiz" data-search-exclude>
+                <div class="deck-filters" role="group" aria-label="스토리위즈 자료 분야"></div>
+                <div class="deck-body">
+                    <div class="deck-main">
+                        <button type="button" class="deck-image-button" aria-label="선택한 슬라이드 확대" aria-haspopup="dialog"><img class="deck-image" src="slides/page_4.jpg" alt="웹소설 유통 및 제휴 파트너십 관리" loading="lazy"></button>
+                        <div aria-live="polite"><strong class="deck-caption"></strong><p class="deck-description"></p></div>
+                        <div class="deck-controls"><button type="button" data-deck-prev aria-label="이전 슬라이드" title="이전 슬라이드">‹</button><span class="deck-counter"></span><button type="button" data-deck-next aria-label="다음 슬라이드" title="다음 슬라이드">›</button><select aria-label="스토리위즈 슬라이드 선택"></select><button type="button" data-deck-expand>원본 확대</button></div>
+                    </div>
+                    <div class="deck-list" aria-label="스토리위즈 슬라이드 목록"></div>
                 </div>
-                <div class="download-area">
-                    <a href="https://drive.google.com/file/d/1zmfo76xzGPdu0oTbub2PsWn8uAwmV8Fw/view?usp=sharing" target="_blank" class="btn-download">Download Full Portfolio</a>
+            </div>
+            <div class="deck-download"><a class="case-link" href="https://drive.google.com/file/d/1zmfo76xzGPdu0oTbub2PsWn8uAwmV8Fw/view?usp=sharing" target="_blank" rel="noopener noreferrer">전체 포트폴리오 원본 보기</a></div>
+        </section>
+    </div>
+
+    <!-- [MODE: ACADEMIC & EXTERNAL ACTIVITIES] -->
+    <div id="academic-content" class="career-mode-content">
+        <section id="academic-awards">
+            <div class="case-heading"><div><span class="section-label">Awards & Early Projects</span><h2>학부·대외활동</h2><p>연세대학교 미래캠퍼스 국어국문학과 · 2016.03 ~ 2023.02</p></div><span class="case-meta">콘텐츠 기획 · 영상 연출 · 프로젝트 협업</span></div>
+            <article class="case-award" data-case-search>
+                <div>
+                    <span class="case-award-rank">최우수상</span>
+                    <h3>제6회 LG화학<br>대학생 광고 공모전</h3>
+                    <p>2021년 수상 · 친환경 브랜드 LETZERO 홍보 영상</p>
+                    <dl class="case-facts">
+                        <dt>기획</dt><dd>친숙한 요리 영상에 플라스틱 소재를 결합해, 재활용과 친환경의 메시지를 전달.</dd>
+                        <dt>표현</dt><dd>세 개의 시퀀스로 제품 특징을 구분하고, 일상적인 연출·내레이션으로 브랜드 접근성을 높임.</dd>
+                        <dt>내 역할</dt><dd><strong>기획 · 시나리오 · 연출 · 출연 · 촬영 보조 · 내레이션</strong> 참여. 4인 팀 프로젝트.</dd>
+                    </dl>
+                </div>
+                <div class="case-evidence"><figure><button type="button" class="case-slide-image" data-slide-open="26" aria-label="LG화학 공모전 최우수상 프로젝트 원본 확대" aria-haspopup="dialog"><img src="slides/page_26.jpg" alt="제6회 LG화학 대학생 광고 공모전 최우수상 수상작과 기획 의도" loading="lazy"></button><figcaption>LETZERO 광고 프로젝트 · 원자료 26쪽</figcaption></figure><a class="case-link" href="#portfolio-academic" data-deck-jump="26">수상 프로젝트 자료 보기</a></div>
+            </article>
+            <div class="academic-award-strip">
+                <div><strong>학과 홍보 영상 최우수상</strong><span>2021 · 연세대학교 미래캠퍼스</span></div>
+                <div><strong>하루체험 영상 공모전 우수상</strong><span>2021 · 유튜브 영상 기획·제작</span></div>
+                <div><strong>학업성적 우수상·최우수상</strong><span>2022 · 1·2학기 수상</span></div>
+            </div>
+        </section>
+        <section id="academic-projects">
+            <div class="case-heading"><div><span class="section-label">Experience Map</span><h2>기획을 실행으로 연결한 경험</h2></div></div>
+            <div class="case-learning-grid">
+                <article class="case-learning" data-case-search><span class="case-kicker">01 · 실무형 인턴</span><h3>미래인재개발원 채널 운영</h3><p>YGEMS 홈페이지·블로그 관리, 취업 뉴스·홍보 배너 제작, SNS 콘텐츠 운영. 문서 작성과 부서 협업을 함께 경험했습니다.</p><button type="button" class="case-slide-image" data-slide-open="31" aria-label="인턴 SNS 콘텐츠 자료 확대" aria-haspopup="dialog"><img src="slides/page_31.jpg" alt="미래인재개발원 SNS 홍보 및 취업 뉴스 제작 사례" loading="lazy"></button><a class="case-link" href="#portfolio-academic" data-deck-jump="29">인턴 활동 자료</a></article>
+                <article class="case-learning" data-case-search><span class="case-kicker">02 · 서비스 PM·마케팅</span><h3>MOOD CATCHER 론칭</h3><p>패션 정보 공유 앱의 아이디어 기획과 PM·마케팅 참여. 사용자 설문, 론칭 이벤트, SNS 홍보물을 통해 서비스와 사용자를 연결했습니다.</p><button type="button" class="case-slide-image" data-slide-open="44" aria-label="MOOD CATCHER 마케팅 자료 확대" aria-haspopup="dialog"><img src="slides/page_44.jpg" alt="MOOD CATCHER 앱 론칭 마케팅과 이벤트 기획" loading="lazy"></button><a class="case-link" href="#portfolio-academic" data-deck-jump="43">서비스 기획 자료</a></article>
+                <article class="case-learning" data-case-search><span class="case-kicker">03 · 콘텐츠 기획·협업</span><h3>영상·매거진·창작 활동</h3><p>학과 홍보 영상, SNS 카드뉴스와 매거진 제작. 문예창작 소모임 대표·부대표로 창작과 합평을 운영하고, 연극 활동에서 협업을 경험했습니다.</p><button type="button" class="case-slide-image" data-slide-open="27" aria-label="학과 홍보 영상 최우수상 자료 확대" aria-haspopup="dialog"><img src="slides/page_27.jpg" alt="연세대학교 학과 홍보 영상 공모전 최우수상 프로젝트" loading="lazy"></button><a class="case-link" href="#portfolio-academic" data-deck-jump="34">콘텐츠·창작 활동 자료</a></article>
+            </div>
+        </section>
+        <section id="portfolio-academic">
+            <div class="case-heading"><div><span class="section-label">Source Portfolio</span><h2>학부·대외활동 포트폴리오</h2><p>공모전·수상 / 인턴 / 콘텐츠·창작 / PM·대외활동</p></div><span class="case-meta">원본 23–47쪽</span></div>
+            <div class="deck-viewer" data-deck="academic" data-search-exclude>
+                <div class="deck-filters" role="group" aria-label="학부·대외활동 자료 분야"></div>
+                <div class="deck-body">
+                    <div class="deck-main">
+                        <button type="button" class="deck-image-button" aria-label="선택한 슬라이드 확대" aria-haspopup="dialog"><img class="deck-image" src="slides/page_26.jpg" alt="LG화학 광고 공모전 최우수상" loading="lazy"></button>
+                        <div aria-live="polite"><strong class="deck-caption"></strong><p class="deck-description"></p></div>
+                        <div class="deck-controls"><button type="button" data-deck-prev aria-label="이전 슬라이드" title="이전 슬라이드">‹</button><span class="deck-counter"></span><button type="button" data-deck-next aria-label="다음 슬라이드" title="다음 슬라이드">›</button><select aria-label="학부·대외활동 슬라이드 선택"></select><button type="button" data-deck-expand>원본 확대</button></div>
+                    </div>
+                    <div class="deck-list" aria-label="학부·대외활동 슬라이드 목록"></div>
                 </div>
             </div>
         </section>
@@ -1895,73 +2099,240 @@
     <div id="modal-4" class="modal-overlay" onclick="closeModal('modal-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-4')">×</button><div class="modal-image-area"><img src="ad_4.jpg" alt="" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>침토피아 채널</h3><div class="modal-section"><h4>주토피아 2</h4><ul><li>500만 관객, 강력한 팬덤</li></ul></div><div class="modal-section"><h4>침착맨 유튜버</h4><ul><li>구독자 300만, 주토피아 닉 닮은꼴 밈</li></ul></div></div></div></div>
     <div id="modal-5" class="modal-overlay" onclick="closeModal('modal-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-5')">×</button><div class="modal-image-area"><img src="ad_5.jpg" alt="" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>카더가든 라이브다큐</h3><div class="modal-section"><h4>유이진 아역모델</h4><ul><li>카더가든, GD 케미로 이슈화</li></ul></div><div class="modal-section"><h4>카더가든 가수</h4><ul><li>음반 발매 및 라이브 공연 이슈</li></ul></div></div></div></div>
 
+    <dialog id="source-slide-dialog" class="slide-dialog" aria-labelledby="source-slide-title" data-search-exclude>
+        <div class="slide-dialog-header"><h2 id="source-slide-title">포트폴리오 원본</h2><button type="button" class="slide-dialog-close" aria-label="슬라이드 닫기" title="닫기">×</button></div>
+        <img class="slide-dialog-image" src="slides/page_4.jpg" alt="포트폴리오 원본" loading="lazy">
+        <div class="slide-dialog-controls"><button type="button" data-source-prev aria-label="이전 슬라이드" title="이전 슬라이드">‹</button><span class="slide-dialog-counter" aria-live="polite"></span><button type="button" data-source-next aria-label="다음 슬라이드" title="다음 슬라이드">›</button><a href="slides/page_4.jpg" target="_blank" rel="noopener noreferrer">원본 이미지 열기</a></div>
+    </dialog>
+
     <script>
-        // 모드 전환 및 내비게이션 동적 렌더링
+        // Keep navigation, search destinations and career selectors on the same mode map.
+        const careerModes = {
+            shinhan: { label: '신한금융플러스', links: [['identity-shinhan', 'Identity'], ['career-history', 'Career'], ['projects-shinhan', 'Achievements'], ['media-shinhan', 'Videos & Images'], ['career-selector', 'Switch']] },
+            storywiz: { label: 'KT Storywiz', links: [['identity-storywiz', '핵심 역량'], ['projects-storywiz', '업무 흐름'], ['storywiz-cases', '성과 사례'], ['skills-storywiz', '실무 도구'], ['portfolio-storywiz', '포트폴리오']] },
+            academic: { label: '학부·대외활동', links: [['academic-awards', '공모전·수상'], ['academic-projects', '활동 사례'], ['portfolio-academic', '포트폴리오'], ['career-history', '전체 이력']] }
+        };
         function toggleMode(mode, scroll = true) {
-            const shinhanCont = document.getElementById('shinhan-content');
-            const storywizCont = document.getElementById('storywiz-content');
-            const tabShinhan = document.getElementById('tab-shinhan');
-            const tabStorywiz = document.getElementById('tab-storywiz');
-            const cardShinhan = document.getElementById('card-shinhan');
-            const cardStorywiz = document.getElementById('card-storywiz');
+            if (!careerModes[mode]) return;
+            Object.keys(careerModes).forEach(key => {
+                const active = key === mode;
+                document.getElementById(`${key}-content`).classList.toggle('active', active);
+                const tab = document.getElementById(`tab-${key}`);
+                tab.classList.toggle('active', active);
+                tab.setAttribute('aria-pressed', String(active));
+                const card = document.getElementById(`card-${key}`);
+                card.classList.toggle(`active-${key}`, active);
+                card.setAttribute('aria-pressed', String(active));
+            });
+            document.body.classList.toggle('shinhan-theme-container', mode === 'shinhan');
+            document.body.classList.toggle('storywiz-mode', mode === 'storywiz');
+            document.body.classList.toggle('academic-mode', mode === 'academic');
             const nav = document.getElementById('dynamic-nav');
-
-            if (mode === 'shinhan') {
-                shinhanCont.classList.add('active');
-                storywizCont.classList.remove('active');
-                tabShinhan.classList.add('active');
-                tabStorywiz.classList.remove('active');
-                cardShinhan.classList.add('active-shinhan');
-                cardStorywiz.classList.remove('active-storywiz');
-                document.body.classList.add('shinhan-theme-container');
-                document.body.classList.remove('storywiz-mode');
-                
-                nav.innerHTML = `
-                    <li><a href="#identity-shinhan">Identity</a></li>
-                    <li><a href="#career-history">Career</a></li>
-                    <li><a href="#projects-shinhan">Achievements</a></li>
-                    <li><a href="#media-shinhan">Videos & Images</a></li>
-                    <li><a href="#career-selector">Switch</a></li>
-                `;
-                if (scroll) {
-                    shinhanCont.scrollIntoView({ behavior: 'smooth' });
-                }
-            } else {
-                storywizCont.classList.add('active');
-                shinhanCont.classList.remove('active');
-                tabStorywiz.classList.add('active');
-                tabShinhan.classList.remove('active');
-                cardStorywiz.classList.add('active-storywiz');
-                cardShinhan.classList.remove('active-shinhan');
-                document.body.classList.add('storywiz-mode');
-                document.body.classList.remove('shinhan-theme-container');
-
-                nav.innerHTML = `
-                    <li><a href="#identity-storywiz">Identity</a></li>
-                    <li><a href="#career-history">Career</a></li>
-                    <li><a href="#skills-storywiz">Skills</a></li>
-                    <li><a href="#projects-storywiz">Work</a></li>
-                    <li><a href="#career-selector">Switch</a></li>
-                `;
-                if (scroll) {
-                    storywizCont.scrollIntoView({ behavior: 'smooth' });
-                }
+            nav.replaceChildren(...careerModes[mode].links.map(([id, label]) => {
+                const item = document.createElement('li');
+                const link = document.createElement('a');
+                link.href = `#${id}`;
+                link.textContent = label;
+                item.appendChild(link);
+                return item;
+            }));
+            if (scroll) {
+                document.getElementById(careerModes[mode].links[0][0]).scrollIntoView({ behavior: 'smooth' });
             }
         }
 
         // 페이지 진입 초기화: 첫 로드 시 스크롤 이동 없이 신한금융플러스 탭 활성화
         toggleMode('shinhan', false);
 
-        // 스토리위즈 포트폴리오 슬라이더 로직
-        let currentPage = 1; const totalPages = 47; 
-        function updateViewer() {
-            const img = document.getElementById("pf-image");
-            if(img) img.src = `slides/page_${currentPage}.jpg`;
-            const indicator = document.getElementById("page-indicator");
-            if(indicator) indicator.innerText = `${currentPage} / ${totalPages}`;
+        const sourceSlides = [
+            ['스토리위즈 포트폴리오 표지', '콘텐츠 마케터·MD 김승빈의 실무 포트폴리오.'],
+            ['프로필·경력·수상 이력', '원본 제작 당시의 프로필과 이력. 최신 경력은 웹의 Career History 기준입니다.'],
+            ['실무 도구 및 AI 활용', '문서·유통·디자인 도구와 코드·AI 활용 역량.'],
+            ['웹소설 유통·제휴 파트너십', '30여 개 플랫폼의 제휴·계약, 월 120회 이상 프로모션과 라이브 연재 운영.'],
+            ['유통·계약 관리 성과', '구작 큐레이션, 매출 유지, 유통대행사 계약 연장 및 신규 채널 입점.'],
+            ['제휴사 미팅·전략 보고', '계약 연장·작품 협의와 제휴사 분석, 주요 플랫폼 미팅 및 전략 보고.'],
+            ['라이브 연재·EPUB 검수', '60여 종 라이브 연재 운영, 64종 작품 등록·EPUB 검수와 관리 시트 개선.'],
+            ['매출 분석·유통 현황 보고', '제휴사별 실적과 계약 특이사항을 관리하고 매출·전략을 보고.'],
+            ['데이터 관리·업무 효율화', '부서 간 데이터 표준화, 매출 데이터 대조, 업무 시트와 도구 개선.'],
+            ['시리즈 코드·시트 연동', '통합 작품 코드와 시트 양식 표준화. IMPORTRANGE·VLOOKUP·Apps Script 활용.'],
+            ['MetaNamer · 파일명 일괄 변경', '대량 파일 정리와 파일명 변경을 자동화한 자체 제작 프로그램.'],
+            ['Webparazzi · 웹사이트 자동 캡처', 'URL과 실행 주기를 설정해 작품·플랫폼 화면을 자동 캡처.'],
+            ['HwpMarker · 원고 분절 자동화', '단행본 원고의 구간 분절과 글자 수 계산을 지원하는 도구.'],
+            ['자체 제작 업무 도구 모음', 'Cursor·Gemini·Python 기반 업무 보조 프로그램 및 타 부서 효율화 지원.'],
+            ['SNS 마케팅·콘텐츠 기획', '공식 채널, 위즈스타 캐릭터 IP, 굿즈·미디어 콘텐츠 운영.'],
+            ['공식 SNS 채널 운영', '신간·프로모션·작품 캘린더·월페이퍼·굿즈 이벤트. 팔로워 7,000명(원자료 2025.12 기준).'],
+            ['위즈스타 · 리뉴얼 성과', '2개월 기준 팔로워 806→2,051, 노출도 230→3,512. 실제 게시물과 이벤트 사례.'],
+            ['위즈스타 · 기획·파일럿 테스트', '캐릭터 아이디어, 연간 계획, 개인 계정 파일럿과 데이터 분석을 통한 기획 제안.'],
+            ['공식 유튜브 채널 기획안', '2023년 공식 채널 활동 추진을 위한 기획안. 실행 성과와 구분한 제안 자료.'],
+            ['개인 채널 · 미디어 콘텐츠', '웹소설·웹툰 홍보 경험을 확장한 개인 채널 사례. 회사 공식 채널과 별도.'],
+            ['플랫폼 프로모션 배너 제작', 'Photoshop 기반 작품별 홍보 배너 제작과 플랫폼 이벤트 운영.'],
+            ['홈페이지 서브 페이지 리뉴얼', 'Notion 기반 HTML 메뉴창 시안과 디자인 제작, 부서별 피드백 반영.'],
+            ['학부 포트폴리오 표지', '학부 시절의 영상 기획, 대외활동과 협업 경험.'],
+            ['학업성적 우수상·최우수상', '2022년 1·2학기 학업성적 수상 이력과 학업 과정.'],
+            ['CK 사업 · 해외연수', '2016년 동계 해외연수와 일본 대학 교류·문학 관련 탐방 활동.'],
+            ['LG화학 광고 공모전 · 최우수상', 'LETZERO 친환경 브랜드 홍보. 4인 팀에서 기획·시나리오·연출·출연·촬영 보조·내레이션 참여.'],
+            ['학과 홍보 영상 · 최우수상', '국어국문학과의 이미지를 새롭게 전달한 4인 팀 영상 프로젝트.'],
+            ['영상 공모전 참여·수상', '하루체험 유튜브 영상 공모전 등 영상 기획·제작 활동.'],
+            ['미래인재개발원 · 학부생 인턴', '문서 작성, 홈페이지·홍보물 관리와 SNS 운영 등 실무 경험.'],
+            ['YGEMS 홈페이지·블로그 운영', '홈페이지 게시물·배너와 블로그 취업 정보 운영.'],
+            ['SNS 홍보·취업 뉴스 제작', '디자인 도구로 제작한 SNS 홍보물, 취업 뉴스와 콘텐츠 검수.'],
+            ['인턴 실무 교육·역량 강화', '문서 작성, 협업 및 직무 관련 교육을 통한 실무 역량 학습.'],
+            ['영상 촬영·편집 워크숍', '2016년 CK 사업 영상 촬영·편집 실무 워크숍과 후속 영상 활동.'],
+            ['문예창작·연극 소모임', '문예창작 대표·부대표와 연극 활동을 통한 창작·협업 경험.'],
+            ['문예창작 소모임 운영', '창작·합평·활동 기록과 교내 문학 공모전 준비.'],
+            ['문학·물명 콘텐츠 연구', '한국 근대문학의 물명과 콘텐츠를 연구한 발표 자료.'],
+            ['문학 콘텐츠 발표 자료', '작가와 작품의 연구를 바탕으로 구성한 발표·기획 자료.'],
+            ['근대 미디어 분석', '음악·영상·문학의 연결과 미디어 표현 방식에 대한 분석.'],
+            ['팀 영상 기획·시나리오', '6인 조별 발표의 영상 기획, 시나리오, 출연 및 편집 보조 참여.'],
+            ['SNS 매거진·카드뉴스 제작', '팀 SNS 콘텐츠, 카드뉴스 기획과 배너·로고 제작.'],
+            ['제4기 인문대학생 아카데미', '인문학 전공자 교류, 토론과 답사 활동.'],
+            ['인문학 아카데미 · 글쓰기', '강의·토론을 바탕으로 작성한 비평문과 글쓰기 자료.'],
+            ['MOOD CATCHER · 앱 PM', '패션 정보 공유 앱의 아이디어 기획, PM 및 마케팅 참여.'],
+            ['MOOD CATCHER · 론칭 마케팅', '사용자 설문, 앱 론칭 이벤트와 SNS 홍보물 기획·제작.'],
+            ['사회복지 자원봉사', '지역주민 욕구 조사와 도시락 배달 등 봉사 활동.'],
+            ['교·사대생 등 대학생 튜터링', '학습 지원과 학생 소통을 중심으로 한 대학생 튜터링 활동.'],
+            ['포트폴리오 마무리', '김승빈 포트폴리오.']
+        ].map(([title, summary], index) => ({ page: index + 1, title, summary }));
+        const deckGroups = {
+            storywiz: [
+                { label: '유통·계약', pages: [4, 5, 6, 7, 8] },
+                { label: '데이터·자동화', pages: [9, 10, 11, 12, 13, 14] },
+                { label: 'SNS·콘텐츠', pages: [15, 16, 17, 18, 19, 20, 21, 22] },
+                { label: '소개·도구', pages: [1, 2, 3] }
+            ],
+            academic: [
+                { label: '공모전·수상', pages: [26, 27, 28, 24] },
+                { label: '인턴', pages: [29, 30, 31, 32] },
+                { label: '콘텐츠·창작', pages: [25, 33, 34, 35, 36, 37, 38, 39, 40] },
+                { label: 'PM·대외활동', pages: [43, 44, 41, 42, 45, 46] },
+                { label: '소개', pages: [23, 47] }
+            ]
+        };
+        const deckStates = {};
+        const slideSource = page => `slides/page_${page}.jpg`;
+        function renderDeck(mode) {
+            const state = deckStates[mode];
+            const root = state.root;
+            const item = sourceSlides[state.page - 1];
+            const pages = deckGroups[mode][state.group].pages;
+            root.querySelector('.deck-image').src = slideSource(item.page);
+            root.querySelector('.deck-image').alt = item.title;
+            root.querySelector('.deck-caption').textContent = `${item.page}. ${item.title}`;
+            root.querySelector('.deck-description').textContent = item.summary;
+            root.querySelector('.deck-counter').textContent = `${pages.indexOf(state.page) + 1} / ${pages.length}`;
+            root.querySelector('select').value = String(state.page);
+            root.querySelectorAll('.deck-filter').forEach((button, index) => button.setAttribute('aria-pressed', String(index === state.group)));
+            const list = root.querySelector('.deck-list');
+            // Rebuild the thumbnail list only when the topic changes, preserving scroll and focus.
+            if (state.renderedGroup !== state.group) {
+                list.replaceChildren(...pages.map(page => {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'deck-thumb';
+                    button.dataset.page = page;
+                    const image = document.createElement('img');
+                    image.src = slideSource(page);
+                    image.alt = '';
+                    image.loading = 'lazy';
+                    const label = document.createElement('span');
+                    label.textContent = `${page}. ${sourceSlides[page - 1].title}`;
+                    button.append(image, label);
+                    button.addEventListener('click', () => selectDeckPage(mode, page));
+                    return button;
+                }));
+                state.renderedGroup = state.group;
+            }
+            list.querySelectorAll('.deck-thumb').forEach(button => button.setAttribute('aria-current', String(Number(button.dataset.page) === state.page)));
         }
-        function nextPage() { currentPage = (currentPage < totalPages) ? currentPage + 1 : 1; updateViewer(); }
-        function prevPage() { currentPage = (currentPage > 1) ? currentPage - 1 : totalPages; updateViewer(); }
+        function selectDeckPage(mode, page) {
+            const group = deckGroups[mode].findIndex(item => item.pages.includes(page));
+            if (group < 0) return;
+            Object.assign(deckStates[mode], { page, group });
+            renderDeck(mode);
+        }
+        function moveDeck(mode, direction) {
+            const state = deckStates[mode];
+            const pages = deckGroups[mode][state.group].pages;
+            const next = (pages.indexOf(state.page) + direction + pages.length) % pages.length;
+            selectDeckPage(mode, pages[next]);
+        }
+        document.querySelectorAll('[data-deck]').forEach(root => {
+            const mode = root.dataset.deck;
+            deckStates[mode] = { root, group: 0, page: deckGroups[mode][0].pages[0], renderedGroup: -1 };
+            const filterArea = root.querySelector('.deck-filters');
+            deckGroups[mode].forEach(group => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'deck-filter';
+                button.textContent = group.label;
+                button.addEventListener('click', () => selectDeckPage(mode, group.pages[0]));
+                filterArea.appendChild(button);
+            });
+            const select = root.querySelector('select');
+            deckGroups[mode].forEach(group => {
+                const optgroup = document.createElement('optgroup');
+                optgroup.label = group.label;
+                group.pages.forEach(page => {
+                    const option = document.createElement('option');
+                    option.value = page;
+                    option.textContent = `${page}. ${sourceSlides[page - 1].title}`;
+                    optgroup.appendChild(option);
+                });
+                select.appendChild(optgroup);
+            });
+            select.addEventListener('change', () => selectDeckPage(mode, Number(select.value)));
+            root.querySelector('[data-deck-prev]').addEventListener('click', () => moveDeck(mode, -1));
+            root.querySelector('[data-deck-next]').addEventListener('click', () => moveDeck(mode, 1));
+            root.querySelectorAll('.deck-image-button, [data-deck-expand]').forEach(button => button.addEventListener('click', () => openSourceSlide(deckStates[mode].page)));
+            renderDeck(mode);
+        });
+        document.querySelectorAll('[data-deck-jump]').forEach(link => {
+            link.addEventListener('click', () => {
+                const page = Number(link.dataset.deckJump);
+                selectDeckPage(page <= 22 ? 'storywiz' : 'academic', page);
+            });
+        });
+        const sourceDialog = document.getElementById('source-slide-dialog');
+        let sourcePage = 4;
+        let sourceOverflow = '';
+        function renderSourceSlide() {
+            const item = sourceSlides[sourcePage - 1];
+            document.getElementById('source-slide-title').textContent = item.title;
+            const image = sourceDialog.querySelector('.slide-dialog-image');
+            image.src = slideSource(sourcePage);
+            image.alt = item.title;
+            sourceDialog.querySelector('.slide-dialog-counter').textContent = `원본 ${sourcePage} / 47쪽`;
+            sourceDialog.querySelector('a').href = slideSource(sourcePage);
+        }
+        function openSourceSlide(page) {
+            sourcePage = page;
+            renderSourceSlide();
+            sourceOverflow = document.body.style.overflow;
+            sourceDialog.showModal();
+            document.body.style.overflow = 'hidden';
+        }
+        function moveSourceSlide(direction) {
+            const mode = sourcePage <= 22 ? 'storywiz' : 'academic';
+            const pages = deckGroups[mode].find(group => group.pages.includes(sourcePage)).pages;
+            sourcePage = pages[(pages.indexOf(sourcePage) + direction + pages.length) % pages.length];
+            renderSourceSlide();
+            selectDeckPage(mode, sourcePage);
+        }
+        document.querySelectorAll('[data-slide-open]').forEach(button => button.addEventListener('click', () => openSourceSlide(Number(button.dataset.slideOpen))));
+        sourceDialog.querySelector('.slide-dialog-close').addEventListener('click', () => sourceDialog.close());
+        sourceDialog.querySelector('[data-source-prev]').addEventListener('click', () => moveSourceSlide(-1));
+        sourceDialog.querySelector('[data-source-next]').addEventListener('click', () => moveSourceSlide(1));
+        sourceDialog.addEventListener('close', () => { document.body.style.overflow = sourceOverflow; });
+        sourceDialog.addEventListener('keydown', event => {
+            if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+                event.preventDefault();
+                moveSourceSlide(event.key === 'ArrowLeft' ? -1 : 1);
+            }
+        });
+        sourceDialog.addEventListener('click', event => {
+            const bounds = sourceDialog.getBoundingClientRect();
+            if (event.target === sourceDialog && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) sourceDialog.close();
+        });
 
         // 모달 제어 함수
         function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
@@ -1983,13 +2354,13 @@
         const searchBox = document.getElementById('skill-search');
         const searchResults = document.getElementById('search-results');
         const searchableElements = Array.from(document.querySelectorAll(
-            '.history-group, .role-card, .ai-capability-card, .work-video-section, .tech-block, .project-item, .skill-row, .media-card, .storywiz-manifesto'
+            '.history-group, .role-card, .ai-capability-card, .work-video-section, .tech-block, .project-item, .skill-row, .media-card, .storywiz-manifesto, [data-case-search]'
         )).filter((element) => !element.closest('[data-search-exclude], .modal-overlay'));
 
         const normalizeSearchText = (value) => value.toLocaleLowerCase('ko-KR').replace(/\s+/g, ' ').trim();
         const searchIndex = searchableElements.map((element) => {
             const heading = element.querySelector('h2, h3, h4, h5, .role-card-title, .media-title, .skill-text h3');
-            const mode = element.closest('#storywiz-content') ? 'storywiz' : 'shinhan';
+            const mode = element.closest('#academic-content') ? 'academic' : element.closest('#storywiz-content') ? 'storywiz' : 'shinhan';
             const summary = element.textContent.replace(/\s+/g, ' ').trim();
             return {
                 element,
@@ -2002,7 +2373,7 @@
 
         const featuredSearchTerms = [
             'AI 기술 역량', '바이브 코딩', 'OMNI', 'SEEDANCE', 'KLING AI',
-            'ElevenLabs', 'SUNO', 'Codex', '영상 제작', 'SNS 마케팅', '콘텐츠 MD', '업무 자동화'
+            'ElevenLabs', 'SUNO', 'Codex', '영상 제작', 'SNS 마케팅', '콘텐츠 MD', '업무 자동화', '유통', '위즈스타', 'LG화학'
         ];
 
         function renderSearchSuggestions() {
@@ -2078,7 +2449,7 @@
 
                 const meta = document.createElement('span');
                 meta.className = 'search-result-meta';
-                meta.textContent = item.mode === 'storywiz' ? 'KT Storywiz 및 학부생 활동' : '신한금융플러스';
+                meta.textContent = careerModes[item.mode].label;
 
                 button.append(title);
                 if (snippetText) button.append(snippet);
