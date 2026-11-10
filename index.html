@@ -269,7 +269,9 @@
             background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.04);
         }
         .personal-video-status h3 { font-size: 1.28rem; line-height: 1.35; font-weight: 900; margin-bottom: 20px; word-break: keep-all; }
-        .personal-current-project { margin-bottom: 26px; padding-bottom: 26px; border-bottom: 1px solid #dfe5ee; }
+        .personal-current-project { margin-bottom: 26px; padding: 0 0 26px; border-top: 0; border-bottom: 1px solid #dfe5ee; }
+        .personal-current-project .personal-video-card + .personal-video-card { margin-top: 24px; }
+        .personal-current-project .personal-video-thumb img { display: block; object-fit: contain; }
         .personal-current-project h3 { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
         .personal-current-project .project-status {
             display: inline-flex; align-items: center; padding: 5px 8px; background: var(--shinhan-blue);
@@ -1394,20 +1396,7 @@
                             </a>
                         </div>
                         <p class="latest-work-desc">
-                            <span class="latest-work-badge">최신 영상</span><br>
                             <strong>신한금융플러스, GA 교육을 이끌어갑니다</strong><br>
-                            내부 홍보 영상 · 기획 · 연출 · 제작 100%
-                        </p>
-                    </div>
-                    <div class="latest-work-item is-recent">
-                        <div class="latest-video-wrapper">
-                            <a href="https://drive.google.com/file/d/1XgA8bws9bMcwACTOmKP-Vr_vLHRgPjRO/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-                                <img src="07_인슈테크선도.png" alt="신한금융플러스, 미래를 설계하는 최고의 파트너." loading="lazy" onerror="handleImageError(this)">
-                            </a>
-                        </div>
-                        <p class="latest-work-desc">
-                            <span class="latest-work-badge">최근 작업물</span><br>
-                            <a href="https://drive.google.com/file/d/1XgA8bws9bMcwACTOmKP-Vr_vLHRgPjRO/view?usp=sharing" target="_blank" rel="noopener noreferrer" style="color: inherit;"><strong>신한금융플러스, 미래를 설계하는 최고의 파트너.</strong></a><br>
                             내부 홍보 영상 · 기획 · 연출 · 제작 100%
                         </p>
                     </div>
@@ -1418,7 +1407,6 @@
                             </a>
                         </div>
                         <p class="latest-work-desc">
-                            <span class="latest-work-badge">최근 작업물</span><br>
                             <strong>여름, 끝난 걸까?</strong><br>
                             기획 · 연출 · 제작 100%
                         </p>
@@ -1487,15 +1475,21 @@
             <aside class="personal-video-status" aria-labelledby="personal-video-status-title">
                 <section class="personal-current-project" aria-labelledby="personal-current-project-title">
                     <h3 id="personal-current-project-title">
-                        최근 프로젝트 진행 작업물
-                        <span class="project-status">진행중</span>
+                        최근 작업물
                     </h3>
-                    <a href="https://drive.google.com/file/d/1loEnNaFKiXK10c2mX7v13BDFyi5wnbzA/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="personal-video-card">
+                    <a href="https://drive.google.com/file/d/1ZY07VLJ8yqM5wS8tDbqwu4VXfC-8H8Qo/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="personal-video-card">
                         <div class="personal-video-thumb" data-fallback-label="GOOGLE DRIVE VIDEO">
                             <img src="current-project-thumbnail.jpg" alt="썸머 페스티벌 만찬 오프닝 영상 미리보기" onerror="handleImageError(this)">
                         </div>
-                        <strong>썸머 페스티벌_만찬 오프닝 영상(제작중)</strong>
+                        <strong>썸머 페스티벌 만찬 오프닝 영상</strong>
                         <span class="project-contribution">기획 · 연출 · 제작 100%</span>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1XgA8bws9bMcwACTOmKP-Vr_vLHRgPjRO/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="personal-video-card">
+                        <div class="personal-video-thumb" data-fallback-label="GOOGLE DRIVE VIDEO">
+                            <img src="07_인슈테크선도.png" alt="신한금융플러스, 미래를 설계하는 최고의 파트너." loading="lazy" onerror="handleImageError(this)">
+                        </div>
+                        <strong>신한금융플러스, 미래를 설계하는 최고의 파트너.</strong>
+                        <span class="project-contribution">내부 홍보 영상 · 기획 · 연출 · 제작 100%</span>
                     </a>
                 </section>
                 <section class="retouch-section" aria-labelledby="retouch-title">
