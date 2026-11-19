@@ -22,1243 +22,74 @@
         }
     </script>
 
-    <style>
-        /* 폰트 불러오기 */
-        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-
-        :root {
-            --black: #111;
-            --white: #fff;
-            --gray: #f9f9f9;
-            --line: #e5e5e5;
-            --skill-bg: #EEEEEE; 
-            --skill-border: #E0E0E0; 
-            --shinhan-blue: #0046FF;
-        }
-
-        html { scroll-behavior: smooth; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Pretendard', -apple-system, sans-serif;
-            background-color: var(--white);
-            color: var(--black);
-            line-height: 1.6;
-            overflow-x: hidden;
-            transition: background-color 0.5s ease;
-        }
-
-        /* 깨진 이미지 아이콘 숨기기 트랜지션 */
-        img[onerror] {
-            transition: opacity 0.3s;
-        }
-
-        /* [HEADER] 메뉴 스타일 초기화 */
-        header {
-            position: fixed; top: 0; left: 0; width: 100%; min-height: 158px;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            padding: 10px 5vw;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px); border-bottom: 1px solid var(--black); z-index: 1000;
-        }
-        
-        header a { 
-            text-decoration: none !important; 
-            color: var(--black) !important; 
-            transition: opacity 0.3s;
-        }
-
-        .top-utility-bar {
-            width: min(1180px, 100%); display: flex; align-items: center; justify-content: flex-end;
-            gap: 18px; margin-bottom: 8px;
-        }
-
-        .skill-search { position: relative; width: min(420px, 46vw); }
-        .skill-search-row {
-            height: 38px; display: flex; align-items: center; border: 1px solid #cfd5df;
-            background: #fff; border-radius: 20px; overflow: hidden;
-        }
-        .skill-search svg { width: 17px; height: 17px; margin-left: 14px; color: #555; flex: 0 0 auto; }
-        .skill-search input {
-            width: 100%; height: 100%; border: 0; outline: 0; padding: 0 10px;
-            font: inherit; font-size: 0.82rem; font-weight: 650; background: transparent;
-        }
-        .skill-search-row > button {
-            width: 38px; height: 38px; border: 0; background: transparent; cursor: pointer;
-            font-size: 1rem; color: #555; display: none;
-        }
-        .skill-search.has-value .skill-search-row > button { display: block; }
-        .search-results {
-            display: none; position: absolute; top: 44px; right: 0; width: min(460px, 90vw);
-            max-height: 360px; overflow-y: auto; background: #fff; border: 1px solid #cfd5df;
-            box-shadow: 0 16px 36px rgba(0,0,0,0.18); border-radius: 6px; text-align: left; z-index: 2200;
-        }
-        .search-results.is-open { display: block; }
-        .search-result-item {
-            display: block; width: 100%; height: auto; padding: 13px 15px; border: 0; border-bottom: 1px solid #e5e5e5;
-            background: #fff; color: #111; text-align: left; cursor: pointer; opacity: 1;
-        }
-        .search-result-item:hover, .search-result-item:focus { background: #f3f7ff; outline: 0; }
-        .search-result-title { display: block; color: #111; font-size: 0.9rem; font-weight: 850; line-height: 1.45; word-break: keep-all; }
-        .search-result-snippet { display: block; margin-top: 5px; color: #555; font-size: 0.74rem; line-height: 1.45; word-break: keep-all; }
-        .search-result-meta { display: block; margin-top: 5px; font-size: 0.7rem; font-weight: 800; color: var(--shinhan-blue); }
-        .search-suggestion-wrap { padding: 14px; background: #f7f8fa; }
-        .search-suggestion-label { display: block; margin-bottom: 10px; color: #555; font-size: 0.74rem; font-weight: 850; }
-        .search-suggestion-list { display: flex; flex-wrap: wrap; gap: 7px; }
-        .search-keyword-chip {
-            width: auto !important; height: auto !important; display: inline-flex !important; padding: 7px 10px !important;
-            border: 1px solid #ccd5e2 !important; border-radius: 14px; background: #fff !important; color: #27364a !important;
-            font: inherit; font-size: 0.72rem !important; font-weight: 800 !important; line-height: 1.2; cursor: pointer;
-        }
-        .search-keyword-chip:hover { border-color: var(--shinhan-blue) !important; color: var(--shinhan-blue) !important; }
-        .search-empty { padding: 18px; font-size: 0.8rem; color: #777; text-align: center; }
-        .search-focus-flash { animation: searchFlash 1.5s ease; }
-        @keyframes searchFlash { 0%, 100% { outline: 0 solid transparent; } 35% { outline: 5px solid rgba(0,70,255,0.24); outline-offset: 8px; } }
-
-        /* 상단 기업 선택 메뉴 */
-        .header-mode-selector {
-            display: flex; gap: 28px; margin-bottom: 6px; max-width: 100%;
-            font-size: 0.9rem; font-weight: 800; letter-spacing: 0;
-        }
-        .mode-tab { cursor: pointer; opacity: 0.6; transition: 0.3s; padding: 6px 0; border: 0; border-bottom: 2px solid transparent; background: transparent; color: inherit; font: inherit; }
-        .mode-tab.active { opacity: 1; border-color: var(--black); }
-        .mode-tab.shinhan-tab.active { color: var(--shinhan-blue) !important; border-color: var(--shinhan-blue); }
-        .mode-tab.storywiz-tab.active { color: #00796f; border-color: #00796f; }
-        .mode-tab.academic-tab.active { color: #a41749; border-color: #a41749; }
-
-        /* 하단 섹션 내비게이션 및 호버 애니메이션 라인 */
-        header nav ul { display: flex; gap: 30px; list-style: none; }
-        header nav a { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; position: relative; display: inline-block; padding-bottom: 4px; }
-        header nav a::after {
-            content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0;
-            background-color: var(--black); transition: width 0.3s;
-        }
-        header nav a:hover::after { width: 100%; }
-
-        /* 신한 모드일 때 내비게이션 라인 컬러 동적 변경 */
-        .shinhan-theme-container header nav a::after {
-            background-color: var(--shinhan-blue);
-        }
-
-        /* [SECTION 1] HERO */
-        .hero {
-            min-height: 95vh; padding-top: 210px; padding-bottom: 60px;
-            display: flex; align-items: center; justify-content: space-between;
-            padding-left: 5vw; padding-right: 5vw; gap: 48px;
-        }
-        .hero-text { flex: 1.35; z-index: 2; padding-right: 0; max-width: 980px; }
-        .hero-eyebrow { display: inline-block; margin-bottom: 24px; padding-bottom: 6px; border-bottom: 3px solid var(--shinhan-blue); font-size: 1rem; font-weight: 900; color: var(--shinhan-blue); }
-        .hero h1 {
-            font-size: 4rem; line-height: 1.18; font-weight: 900;
-            letter-spacing: 0; margin-bottom: 30px;
-            word-break: keep-all; color: var(--black);
-        }
-        .hero h1 span { display: block; font-size: 0.72em; margin-bottom: 18px; color: #333; }
-        .hero h1 strong { display: block; color: var(--shinhan-blue); font-size: 0.72em; line-height: 1.28; }
-        .hero p.sub-title { font-size: 2rem; font-weight: 900; margin-bottom: 12px; text-transform: uppercase; color: #111; letter-spacing: 0; }
-        .hero-capabilities { font-size: 1.18rem; font-weight: 800; color: #333; line-height: 1.7; word-break: keep-all; }
-        .hero p.desc { font-size: 1.25rem; font-weight: 600; color: #555; word-break: keep-all; line-height: 1.65; margin-top: 14px; }
-        
-        .hero-image { flex: 1; display: flex; justify-content: flex-end; align-items: center; height: 100%; }
-        .hero-image img {
-            width: auto; max-width: 100%; height: 85vh; object-fit: cover;
-            object-position: top center; filter: grayscale(100%);
-            transition: filter 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        .hero-image img:hover { filter: grayscale(0%); transform: scale(1.01); }
-
-        /* Common Section Layout */
-        section { padding: 120px 5vw; border-top: 1px solid var(--black); }
-        .section-label { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; display: inline-block; border-bottom: 2px solid var(--black); padding-bottom: 5px; }
-        h2.section-title { font-size: 3.2rem; font-weight: 900; margin-bottom: 60px; text-transform: uppercase; letter-spacing: -1px; }
-
-        /* Career History & Latest Work (Flex Layout) */
-        .history-latest-wrapper {
-            display: grid;
-            grid-template-columns: minmax(300px, 1fr) minmax(380px, 1.08fr) minmax(280px, 0.82fr);
-            gap: 28px;
-            align-items: flex-start;
-        }
-
-        .history-container { flex: 1.2; display: flex; flex-direction: column; gap: 60px; }
-        .history-group h3 { font-size: 1.8rem; font-weight: 800; margin-bottom: 25px; display: flex; align-items: center; }
-        .history-group h3::before { content: ''; display: inline-block; width: 12px; height: 12px; background: var(--black); margin-right: 12px; }
-        .history-list { border-left: 1px solid var(--line); padding-left: 30px; margin-left: 6px; list-style: none; }
-        .history-item { margin-bottom: 15px; font-size: 1.15rem; color: #333; }
-        .history-item .date { display: inline-block; min-width: 180px; color: #777; font-weight: 600; }
-        .history-item.highlight { font-weight: 800; color: var(--black); }
-        .history-note { display: block; margin: 6px 0 0 184px; color: #657184; font-size: 0.88rem; font-weight: 700; line-height: 1.5; }
-
-        /* 성과 및 수상 연도별 디자인 스타일 */
-        .award-yearly-container { display: flex; flex-direction: column; gap: 30px; border-left: 1px solid var(--line); padding-left: 30px; margin-left: 6px; }
-        .year-block { position: relative; }
-        .year-title { font-weight: 800; font-size: 1.3rem; margin-bottom: 12px; color: var(--black); display: flex; align-items: center; }
-        .year-title::before { content: ''; width: 8px; height: 8px; background: var(--black); border-radius: 50%; display: inline-block; margin-right: 12px; }
-        .shinhan-theme-container .year-title::before { background: var(--shinhan-blue); }
-        .year-list { list-style: none; padding-left: 20px; }
-        .year-item { margin-bottom: 10px; font-size: 1.1rem; color: #444; line-height: 1.5; }
-        .year-item .date-small { display: inline-block; min-width: 70px; color: #888; font-weight: 600; font-family: monospace; }
-        .year-item.highlight { font-weight: 700; color: var(--black); }
-        .year-item.highlight .date-small { color: var(--black); }
-
-        /* Latest Work Container */
-        .latest-work-container {
-            flex: 0.8;
-            background: #FAFAFA;
-            padding: 40px;
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-        }
-        .latest-work-container h3 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: -0.5px;
-            color: var(--black);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .latest-work-container h3::before {
-            content: '';
-            width: 9px; height: 9px; background: var(--shinhan-blue);
-        }
-        
-        .latest-video-wrapper {
-            width: 100%;
-            max-width: 560px;
-            aspect-ratio: 16 / 9;
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            position: relative;
-        }
-        .latest-video-wrapper a {
-            display: block; width: 100%; height: 100%;
-        }
-        .latest-video-wrapper img {
-            width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;
-        }
-        .latest-video-wrapper:hover img {
-            transform: scale(1.05);
-        }
-        .latest-video-wrapper::after { 
-            content: '▶'; position: absolute; top: 50%; left: 50%; 
-            transform: translate(-50%, -50%); font-size: 3.5rem; color: #fff; 
-            text-shadow: 0 2px 15px rgba(0,0,0,0.6); pointer-events: none; opacity: 0.8; transition: 0.3s; 
-        }
-        .latest-video-wrapper:hover::after { 
-            opacity: 1; transform: translate(-50%, -50%) scale(1.1); 
-        }
-        
-        .latest-work-desc {
-            margin-top: 20px;
-            font-size: 0.95rem;
-            color: #555;
-            text-align: center;
-            font-weight: 600;
-        }
-        .personal-video-status {
-            padding: 28px; border: 1px solid #cbd8ec; border-top: 6px solid var(--shinhan-blue);
-            background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-        }
-        .personal-video-status h3 { font-size: 1.28rem; line-height: 1.35; font-weight: 900; margin-bottom: 20px; word-break: keep-all; }
-        .personal-current-project { margin-bottom: 26px; padding: 0 0 26px; border-top: 0; border-bottom: 1px solid #dfe5ee; }
-        .personal-current-project .personal-video-card + .personal-video-card { margin-top: 24px; }
-        .personal-current-project .personal-video-thumb img { display: block; object-fit: contain; }
-        .personal-current-project h3 { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-        .personal-current-project .project-status {
-            display: inline-flex; align-items: center; padding: 5px 8px; background: var(--shinhan-blue);
-            color: #fff; font-size: 0.68rem; line-height: 1; font-weight: 900;
-        }
-        .personal-current-project .project-contribution {
-            display: block; margin-top: 8px; color: var(--shinhan-blue); font-size: 0.86rem; line-height: 1.4; font-weight: 900;
-        }
-        .personal-video-list { display: grid; gap: 20px; }
-        .personal-video-card { display: block; color: inherit; text-decoration: none; }
-        .personal-video-thumb { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #e9edf3; border-radius: 5px; }
-        .personal-video-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s ease; }
-        .personal-video-thumb.fallback-bg::before {
-            content: attr(data-fallback-label); position: absolute; inset: 0; display: grid; place-items: center;
-            padding: 20px; background: #eef4ff;
-            color: var(--shinhan-blue); font-size: 0.78rem; line-height: 1.4; font-weight: 900; text-align: center;
-        }
-        .personal-video-thumb::after {
-            content: '▶'; position: absolute; inset: 50% auto auto 50%; transform: translate(-50%, -50%);
-            color: #fff; font-size: 2rem; text-shadow: 0 2px 10px rgba(0,0,0,0.55);
-        }
-        .personal-video-card:hover .personal-video-thumb img { transform: scale(1.04); }
-        .personal-video-card strong { display: block; margin-top: 10px; font-size: 0.96rem; line-height: 1.35; }
-        .personal-video-points { margin-top: 24px; padding-top: 18px; border-top: 1px solid #dfe5ee; }
-        .personal-video-points li { position: relative; padding-left: 15px; margin-bottom: 8px; color: #4b5665; font-size: 0.88rem; line-height: 1.5; word-break: keep-all; }
-        .personal-video-points li::before { content: ''; position: absolute; left: 0; top: 0.65em; width: 6px; height: 6px; background: var(--shinhan-blue); }
-
-        /* Career Selector Cards */
-        .selector-area { padding: 100px 5vw; background: #f4f4f4; text-align: center; border-top: 1px solid var(--black); border-bottom: 1px solid var(--black); }
-        .selector-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
-        .career-card {
-            width: 450px; background: #fff; padding: 60px 40px; border: 2px solid transparent; cursor: pointer;
-            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); display: flex; flex-direction: column; align-items: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-        }
-        .career-card img { height: 50px; margin-bottom: 30px; filter: grayscale(100%); transition: 0.3s; }
-        .career-card:hover { transform: translateY(-10px); border-color: #ccc; }
-        .career-card:hover img { filter: grayscale(0%); }
-        .career-card.active-shinhan { border-color: var(--shinhan-blue); background: #f0f5ff; }
-        .career-card.active-shinhan img { filter: grayscale(0%); }
-        .career-card.active-storywiz { border-color: var(--black); background: #f9f9f9; }
-        .career-card.active-storywiz img { filter: grayscale(0%); }
-
-        /* Dynamic Content Toggle */
-        .career-mode-content { display: none; }
-        .career-mode-content.active { display: block; animation: fadeIn 0.8s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Projects & Lists */
-        .project-item { display: flex; border-bottom: 1px solid var(--black); min-height: 400px; }
-        .project-left { flex: 0 0 380px; padding: 60px 40px; border-right: 1px solid var(--black); font-size: 2.2rem; font-weight: 900; line-height: 1.1; display: flex; flex-direction: column; justify-content: space-between; }
-        .project-num { font-size: 1.2rem; font-weight: 500; margin-bottom: 40px; color: #666; font-family: monospace; }
-        .project-right { flex: 1; padding: 60px 50px; display: flex; flex-direction: column; justify-content: center; }
-        .project-right ul { list-style: none; }
-        .project-right ul li { margin-bottom: 15px; font-size: 1.15rem; position: relative; padding-left: 20px; color: #333; line-height: 1.6; }
-        .project-right ul li::before { content: '•'; position: absolute; left: 0; font-weight: bold; color: var(--black); }
-        .project-right .tag { display: inline-block; padding: 6px 14px; border: 1px solid var(--black); border-radius: 50px; font-size: 0.85rem; font-weight: 700; margin-bottom: 20px; width: fit-content; background: var(--white); }
-
-        /* Skills Layout */
-        .skill-container { display: flex; flex-direction: column; gap: 80px; }
-        .skill-row { display: flex; align-items: center; justify-content: space-between; }
-        .skill-text { flex: 0 0 30%; padding-right: 20px; }
-        .skill-text h3 { font-size: 1.8rem; font-weight: 800; margin-bottom: 15px; }
-        .skill-text p { font-size: 1rem; color: #555; word-break: keep-all; }
-        .skill-image { flex: 1; background: var(--skill-bg); border: 1px solid var(--skill-border); padding: 40px; border-radius: 20px; display: flex; justify-content: center; align-items: center; transition: transform 0.4s, box-shadow 0.4s, border-color 0.3s; cursor: default; }
-        .skill-image img { width: 100%; max-width: 700px; height: auto; object-fit: contain; }
-        .skill-image:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: #d0d0d0; }
-
-        /* Media Grids */
-        .media-row { display: flex; justify-content: space-between; gap: 40px; margin-bottom: 40px; flex-wrap: wrap; }
-        .media-col { flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 40px; }
-        .media-col h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; padding-bottom: 15px; border-bottom: 3px solid var(--black); text-transform: uppercase; }
-        .media-card { display: block; text-decoration: none; color: inherit; }
-        .media-thumb-wrapper { width: 100%; aspect-ratio: 16 / 9; background: #eee; border-radius: 8px; overflow: hidden; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: 0.3s; }
-        .media-thumb-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-        .media-card:hover .media-thumb-wrapper img { transform: scale(1.05); }
-        .media-card:hover .media-thumb-wrapper { transform: translateY(-5px); }
-        
-        .media-thumb-wrapper::after { content: '▶'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); opacity: 0.8; transition: opacity 0.3s; }
-        .media-card:hover .media-thumb-wrapper::after { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-        .media-card.preparing .media-thumb-wrapper::after { display: none; }
-        .media-card.preparing { cursor: default; }
-
-        .media-title { font-size: 1.2rem; font-weight: 800; margin-top: 15px; margin-bottom: 8px; word-break: keep-all; transition: border-color 0.3s; display: inline-block; line-height: 1.3;}
-        .media-card:not(.preparing):hover .media-title { border-bottom: 2px solid var(--black); }
-        .media-desc { font-size: 0.95rem; color: #666; font-weight: 500; line-height: 1.5; margin-top: 5px; }
-
-        /* [NEW] AI Tech Section Styles */
-        .tech-section {
-            margin-bottom: 80px; 
-            padding: 50px; 
-            background: #f8fbff; 
-            border-radius: 12px; 
-            border: 1px solid #dce6f5;
-            display: flex; flex-direction: column;
-        }
-        .tech-section-heading { order: 0; font-size: 1.8rem; font-weight: 800; margin-bottom: 24px; display: flex; align-items: center; }
-        .section-marker { width: 8px; height: 30px; background: var(--shinhan-blue); margin-right: 15px; display: inline-block; }
-        .ai-tool-strip {
-            order: 1;
-            display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 48px;
-            padding: 16px; background: #fff; border: 1px solid #dce6f5; border-radius: 8px;
-        }
-        .ai-tool-pill {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 8px 14px; background: #f8fbff; color: var(--black);
-            border: 1px solid #dce6f5; border-radius: 999px;
-            font-size: 0.9rem; font-weight: 800; letter-spacing: 0;
-        }
-        .ai-capability-grid {
-            display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px;
-            margin-bottom: 54px;
-        }
-        .ai-capability-card {
-            min-width: 0; padding: 22px; background: #fff; border: 1px solid #dce6f5;
-            border-left: 5px solid var(--shinhan-blue); border-radius: 6px;
-        }
-        .ai-capability-card h4 { margin-bottom: 8px; font-size: 1.12rem; font-weight: 900; color: var(--black); }
-        .ai-capability-card p { color: #5a6574; font-size: 0.9rem; line-height: 1.55; word-break: keep-all; }
-        .ai-capability-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-        .ai-capability-tools span {
-            padding: 7px 11px; background: #edf4ff; border: 1px solid #c9dcff; border-radius: 999px;
-            color: var(--shinhan-blue); font-size: 0.82rem; font-weight: 850;
-        }
-        .work-video-section { margin-bottom: 70px; }
-        .work-video-heading { margin-bottom: 28px; font-size: 1.65rem; font-weight: 900; display: flex; align-items: center; }
-        .feature-work-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 22px; }
-        .feature-work-card { min-width: 0; padding-bottom: 18px; border-bottom: 4px solid var(--shinhan-blue); }
-        .feature-work-card .media-title { font-size: 1.12rem; }
-        .work-performance { display: block; margin-top: 6px; color: var(--shinhan-blue); font-weight: 800; }
-        .additional-work-wrap { margin-top: 44px; padding-top: 30px; border-top: 1px solid #dce6f5; }
-        .additional-work-title { margin-bottom: 20px; font-size: 1.05rem; font-weight: 900; color: #34445a; }
-        .additional-work-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 18px; }
-        .additional-work-grid .media-card { min-width: 0; }
-        .additional-work-grid .media-title { font-size: 0.96rem; }
-        .additional-work-grid .media-desc { font-size: 0.82rem; }
-        .ai-tool-icon {
-            display: inline-flex; align-items: center; justify-content: center;
-            width: 24px; height: 24px; border-radius: 50%;
-            background: var(--shinhan-blue); color: #fff; font-size: 0.72rem; font-weight: 900;
-        }
-        
-        .tech-block {
-            display: flex; gap: 40px; margin-bottom: 60px; border-bottom: 1px solid #e0e8f9; padding-bottom: 60px;
-            flex-wrap: wrap;
-        }
-        .vibe-tech-block { order: 2; }
-        .transition-tech-block { order: 3; }
-        .omni-tech-block { order: 4; }
-        .motion-tech-block { order: 5; }
-        .upscale-tech-block { order: 6; }
-        .upscale-tech-block { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .tech-info { flex: 1; min-width: 300px; }
-        .tech-info.full-width { flex: 0 0 100%; }
-        .tech-info h4 { font-size: 1.4rem; font-weight: 800; margin-bottom: 15px; color: var(--black); display: flex; align-items: center; gap: 10px; }
-        .tech-info p { font-size: 1rem; color: #444; line-height: 1.6; margin-bottom: 12px; word-break: keep-all; }
-        .tech-info ul { list-style: none; padding-left: 0; margin-bottom: 20px; }
-        .tech-info ul li { font-size: 0.95rem; color: #555; position: relative; padding-left: 15px; margin-bottom: 8px; line-height: 1.5; }
-        .tech-info ul li::before { content: '-'; position: absolute; left: 0; color: var(--shinhan-blue); font-weight: bold; }
-        
-        /* [수정] 기술 사용 설명 내부의 하이라이트 문구 처리 */
-        .tech-info ul li strong { color: var(--black); font-weight: 700; }
-        .tech-meta-list { display: flex; flex-direction: column; gap: 12px; margin-top: 18px; }
-        .tech-meta-item { padding: 14px 16px; background: #fff; border: 1px solid #dce6f5; border-left: 4px solid var(--shinhan-blue); border-radius: 6px; font-size: 0.96rem; color: #444; line-height: 1.55; word-break: keep-all; }
-        .tech-meta-label { display: inline-block; min-width: 72px; margin-right: 8px; color: var(--shinhan-blue); font-weight: 900; }
-        .tech-tool { display: inline-block; padding: 2px 8px; margin: 0 3px 3px 0; background: #edf4ff; color: var(--shinhan-blue); border: 1px solid #c9dcff; border-radius: 999px; font-size: 0.86rem; font-weight: 800; white-space: nowrap; }
-        .tech-media-container.is-comparison { align-items: stretch; justify-content: center; }
-        .tech-media-container.is-comparison .media-card { max-width: none; }
-        .comparison-note { flex: 0 0 100%; padding: 12px 16px; background: #fff; border: 1px dashed var(--shinhan-blue); border-radius: 6px; color: var(--shinhan-blue); font-size: 0.95rem; font-weight: 800; text-align: center; }
-        
-        .tech-media-container { flex: 1.2; min-width: 300px; display: flex; gap: 20px; flex-wrap: wrap; align-content: flex-start; justify-content: center; }
-        .tech-media-container .media-card { flex: 1; min-width: 200px; }
-        .tech-media-container:not(.is-comparison) .media-card { flex: 0 1 360px; max-width: 360px; }
-        .tech-media-container .media-title { font-size: 1.1rem; }
-        .tech-detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
-        .tech-detail-card { background: #fff; border: 1px solid #dce6f5; border-radius: 8px; padding: 16px; }
-        .tech-detail-card h5 { font-size: 1rem; font-weight: 900; color: var(--shinhan-blue); margin-bottom: 8px; }
-        .tech-detail-card p { font-size: 0.92rem; color: #555; line-height: 1.55; margin: 0; }
-        .vibe-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 22px; }
-        .vibe-card { background: #fff; border: 1px solid #dce6f5; border-top: 4px solid var(--shinhan-blue); border-radius: 8px; padding: 20px; min-height: 220px; }
-        .vibe-card h5 { font-size: 1.08rem; font-weight: 900; margin-bottom: 12px; color: var(--black); }
-        .vibe-card p { font-size: 0.94rem; color: #555; line-height: 1.58; margin-bottom: 12px; }
-        .vibe-card .tech-tool { margin-bottom: 12px; }
-        .vibe-card strong { color: var(--black); font-weight: 800; }
-        .jobkorea-showcase { margin-top: 26px; padding: 24px; background: #fff; border: 1px solid #dce6f5; border-radius: 8px; }
-        .jobkorea-showcase h5 { font-size: 1.2rem; font-weight: 900; margin-bottom: 10px; color: var(--black); }
-        .jobkorea-showcase p { font-size: 0.95rem; color: #555; line-height: 1.6; margin-bottom: 16px; word-break: keep-all; }
-        .jobkorea-gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
-        .jobkorea-gallery img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border: 1px solid #e5eaf3; border-radius: 6px; background: #f4f7fb; }
-        .private-gallery-item { position: relative; min-width: 0; }
-        .jobkorea-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
-        .btn-link.primary-link { background: var(--shinhan-blue); border-color: var(--shinhan-blue); color: #fff; }
-        .btn-link.primary-link:hover { background: #fff; color: var(--shinhan-blue); }
-
-        .btn-link { display: inline-block; padding: 10px 24px; background: var(--white); color: var(--black); border: 1px solid var(--black); font-weight: 700; border-radius: 4px; transition: 0.3s; font-size: 0.9rem; text-decoration: none; margin-top: 10px; }
-        .btn-link:hover { background: var(--black); color: var(--white); }
-
-        .program-showcase-list { display: flex; flex-direction: column; gap: 28px; margin-top: 28px; }
-        .program-showcase {
-            display: grid; grid-template-columns: minmax(280px, 0.9fr) minmax(420px, 1.35fr);
-            gap: 28px; padding: 28px; background: #fff; border: 1px solid #cddbf1; border-left: 6px solid var(--shinhan-blue); border-radius: 8px;
-        }
-        .program-kicker { display: block; margin-bottom: 8px; color: var(--shinhan-blue); font-size: 0.78rem; font-weight: 900; text-transform: uppercase; }
-        .program-showcase h5 { font-size: 1.42rem; font-weight: 900; line-height: 1.35; margin-bottom: 16px; word-break: break-word; }
-        .program-feature-list { list-style: none !important; margin: 0 !important; }
-        .program-feature-list li { padding-left: 18px !important; margin-bottom: 9px !important; font-size: 0.95rem !important; }
-        .program-feature-list li::before { content: '✓' !important; color: var(--shinhan-blue) !important; }
-        .program-api-note { margin-top: 16px; padding: 12px 14px; background: #f4f7fb; color: #4d5a6c; font-size: 0.84rem; font-weight: 700; line-height: 1.5; }
-        .program-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; align-items: start; }
-        .program-shot { margin: 0; min-width: 0; }
-        .program-shot img { width: 100%; aspect-ratio: 16 / 10; object-fit: contain; background: #eef2f7; border: 1px solid #d9e1ed; border-radius: 6px; display: block; }
-        .program-shot figcaption { margin-top: 8px; color: #555; font-size: 0.82rem; font-weight: 750; line-height: 1.45; word-break: keep-all; }
-        .other-programs { margin-top: 26px; padding: 20px; background: #f6f8fb; border: 1px solid #dde4ed; border-radius: 6px; }
-        .other-programs h5 { font-size: 1rem; font-weight: 900; margin-bottom: 12px; }
-        .other-program-list { display: flex; flex-wrap: wrap; gap: 8px; }
-        .other-program-item { padding: 7px 10px; background: #fff; border: 1px solid #d7dfe9; border-radius: 3px; font-size: 0.8rem; color: #505b68; line-height: 1.4; }
-        .other-program-item strong { color: #111; }
-        .shorts-column { flex: 1.65; }
-        .shorts-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 22px; }
-        .shorts-grid .media-card { margin-bottom: 0 !important; min-width: 0; }
-        .shorts-grid .media-title { font-size: 1rem; }
-        .shorts-grid .media-desc { font-size: 0.86rem; }
-
-        .grid-section-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 30px; text-transform: uppercase; margin-top: 80px; }
-        .contest-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-top: 40px; }
-        
-        /* AD/SNS 마케팅 그리드 레이아웃 개선 및 엑박 방어형 스타일링 */
-        .ad-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 30px; margin-top: 40px; }
-        .ad-card { border: 1px solid #eee; background: #fdfdfd; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; display: flex; flex-direction: column; aspect-ratio: 1/1.22; }
-        .ad-image { width: 100%; aspect-ratio: 1/1; overflow: hidden; background: #f0f3f8; display: flex; align-items: center; justify-content: center; position: relative; }
-        .ad-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        
-        /* 이미지 로드 실패 시 나타날 대체 배경 텍스트 및 레이아웃 가드 */
-        .ad-image::before {
-            content: "Banner Graphic";
-            position: absolute;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #8fa0b5;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            z-index: 1;
-            opacity: 0.8;
-        }
-        /* 정상적으로 로드된 이미지가 있을 경우 덮어씌움 */
-        .ad-image img {
-            position: relative;
-            z-index: 2;
-            background: #fff;
-        }
-        /* 이미지 로드 실패 처리 클래스용 디자인 가이드 */
-        .ad-image.fallback-bg::before {
-            content: "PREVIEW IMAGE";
-            color: #7b8e9b;
-        }
-        
-        .ad-footer { padding: 12px 15px; text-align: center; font-weight: 800; border-top: 1px solid #eee; background: #fff; z-index: 3; flex-grow: 1; display: flex; align-items: center; justify-content: center; }
-        .ad-title { font-weight: 800; font-size: 1rem; text-align: center; margin: 0; line-height: 1.3; color: var(--black); word-break: keep-all; }
-        .ad-card:hover { transform: translateY(-5px); border-color: var(--black); }
-        .ad-card:hover::after { content: 'Click to View Detail +'; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; opacity: 0; transition: opacity 0.3s; z-index: 4; }
-        .ad-card:hover::after { opacity: 1; }
-
-        .sub-category-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; color: #555; background: #f0f0f0; padding: 8px 15px; border-radius: 4px; display: inline-block; }
-
-        /* Shinhan Theme Color Override */
-        .shinhan-theme-container .name-highlight { background-color: var(--shinhan-blue); }
-        .shinhan-theme-container .section-label { border-color: var(--shinhan-blue); color: var(--shinhan-blue); }
-        .shinhan-theme-container h2.section-title { color: var(--shinhan-blue); }
-        .shinhan-theme-container .history-group h3::before { background: var(--shinhan-blue); }
-        .shinhan-theme-container .tag { border-color: var(--shinhan-blue); color: var(--shinhan-blue); }
-        .shinhan-theme-container .sub-category-title { color: var(--shinhan-blue); background: #f0f5ff; }
-
-        /* Viewer UI */
-        .portfolio-viewer-area { flex: 0 0 580px; background: #FAFAFA; padding: 25px; border: 1px solid #E5E5E5; text-align: center; }
-        .viewer-screen { width: 100%; aspect-ratio: 16 / 9; background: #fff; border: 1px solid #eee; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 25px; }
-        .viewer-screen img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .viewer-controls { display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 25px; }
-        .btn-control { background: transparent; border: 1px solid var(--black); width: 42px; height: 42px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; color: var(--black); }
-        .btn-control:hover { background: var(--black); color: var(--white); }
-        .page-indicator { font-size: 1rem; font-weight: 600; min-width: 80px; }
-        .btn-download { display: inline-block; padding: 14px 40px; background: var(--black); color: var(--white); font-weight: 700; text-transform: uppercase; border: 1px solid var(--black); transition: 0.3s; font-size: 0.9rem; }
-        .btn-download:hover { background: var(--white); color: var(--black); }
-
-        /* Storywiz identity and interactive competency radar */
-        .identity-container { display: flex; align-items: flex-start; gap: 64px; }
-        .identity-text-area { flex: 1; min-width: 0; }
-        .shinhan-identity-intro { max-width: 1160px; }
-        .shinhan-identity-intro h2 { font-size: 3.15rem; line-height: 1.3; font-weight: 900; word-break: keep-all; margin-bottom: 30px; }
-        .shinhan-identity-profile {
-            flex: 0 0 clamp(240px, 23vw, 330px);
-            max-width: 330px;
-            padding-top: 8px;
-        }
-        .shinhan-identity-profile img {
-            display: block;
-            width: 100%;
-            aspect-ratio: 4 / 5;
-            object-fit: cover;
-            object-position: center top;
-            border: 1px solid #d8dee8;
-            box-shadow: 18px 18px 0 #edf4ff;
-            filter: grayscale(100%);
-            transition: filter 0.3s ease, transform 0.3s ease;
-        }
-        .shinhan-identity-profile img:hover { filter: grayscale(0%); transform: translateY(-4px); }
-        .shinhan-rookie-quote {
-            max-width: 980px; margin: 0 0 28px; padding: 16px 20px; border-left: 6px solid var(--shinhan-blue);
-            background: #f1f6ff; color: var(--shinhan-blue); font-size: 1.72rem; line-height: 1.45; font-weight: 900; word-break: keep-all;
-        }
-        .shinhan-intro-copy { max-width: 980px; margin-bottom: 20px; color: #444; font-size: 1.16rem; line-height: 1.75; font-weight: 600; word-break: keep-all; }
-        .shinhan-intro-copy:last-of-type { margin-bottom: 38px; }
-        .shinhan-intro-copy strong { color: var(--shinhan-blue); font-weight: 900; }
-
-        .storywiz-identity-layout {
-            display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
-            gap: 44px; align-items: center;
-        }
-        .storywiz-manifesto { max-width: none; }
-        .storywiz-manifesto .manifesto-lead {
-            font-size: 2.35rem; line-height: 1.35; font-weight: 900; word-break: keep-all; margin-bottom: 28px;
-        }
-        .storywiz-manifesto .manifesto-lead strong { background: #111; color: #fff; padding: 2px 8px; }
-        .storywiz-manifesto .manifesto-pivot {
-            font-size: 1.45rem; line-height: 1.62; font-weight: 700; color: #333; word-break: keep-all; margin-bottom: 22px;
-        }
-        .storywiz-manifesto .manifesto-claim {
-            max-width: 960px; padding-left: 22px; border-left: 6px solid var(--black);
-            font-size: 1.8rem; line-height: 1.5; font-weight: 900; word-break: keep-all; margin: 36px 0 18px;
-        }
-        .storywiz-manifesto .manifesto-signature { font-size: 2.5rem; font-weight: 900; margin-top: 12px; }
-        .storywiz-radar-panel { min-width: 0; padding-left: 24px; border-left: 1px solid #d9dde3; }
-        .competency-radar-wrap {
-            margin-top: 0; display: flex; flex-direction: column; gap: 24px; align-items: center;
-        }
-        .competency-radar { position: relative; width: 100%; aspect-ratio: 1 / 1; max-width: 450px; }
-        .competency-radar svg { width: 100%; height: 100%; overflow: visible; }
-        .radar-grid { fill: none; stroke: #cfd3da; stroke-width: 1; }
-        .radar-axis { stroke: #d9dde3; stroke-width: 1; }
-        .radar-shape {
-            fill: rgba(0, 70, 255, 0.18); stroke: var(--shinhan-blue); stroke-width: 3;
-            transform-origin: 250px 250px; animation: radarBloom 1.2s ease both, radarBreathe 4s ease-in-out 1.2s infinite;
-        }
-        .radar-point { fill: #fff; stroke: var(--shinhan-blue); stroke-width: 3; transition: r 0.25s ease, fill 0.25s ease; }
-        .radar-point.is-active { r: 9; fill: var(--shinhan-blue); }
-        @keyframes radarBloom { from { transform: scale(0.15); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        @keyframes radarBreathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.025); } }
-        .radar-controls { width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-        .radar-skill {
-            min-height: 72px; padding: 12px; border: 1px solid #d9dde3; background: #fff; cursor: pointer;
-            text-align: left; transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
-        }
-        .radar-skill:hover, .radar-skill:focus, .radar-skill.is-active {
-            outline: 0; border-color: var(--shinhan-blue); background: #f1f6ff; transform: translateY(-2px);
-        }
-        .radar-skill strong { display: block; font-size: 0.96rem; margin-bottom: 4px; }
-        .radar-skill span { display: block; font-size: 0.78rem; color: #666; line-height: 1.4; }
-        .storywiz-proof-list { margin-top: 42px; padding-top: 26px; border-top: 1px solid #d9dde3; list-style: none; }
-        .storywiz-proof-list li { position: relative; padding-left: 22px; margin-bottom: 14px; font-size: 1.16rem; font-weight: 700; line-height: 1.6; }
-        .storywiz-proof-list li::before { content: ''; position: absolute; left: 0; top: 0.72em; width: 9px; height: 9px; background: var(--black); }
-        .portfolio-bottom-section { background: #f5f5f5; }
-        .portfolio-bottom-section .portfolio-viewer-area { width: min(1100px, 100%); margin: 0 auto; }
-
-        /* Global video-only carousel */
-        .video-reel-section { background: #111; color: #fff; border-top-color: #fff; overflow: hidden; }
-        .video-reel-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 34px; }
-        .video-reel-section .section-label { color: #fff; border-color: #fff; }
-        .video-reel-section .section-title { color: #fff !important; margin-bottom: 0; }
-        .video-reel-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
-        .video-reel-tab {
-            padding: 9px 15px; border: 1px solid #555; background: transparent; color: #ccc;
-            font: inherit; font-size: 0.82rem; font-weight: 800; cursor: pointer; border-radius: 3px;
-        }
-        .video-reel-tab.is-active { color: #111; background: #fff; border-color: #fff; }
-        .video-reel-viewport { overflow: hidden; width: 100%; }
-        .video-reel-track { display: flex; gap: 22px; transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1); }
-        .video-reel-card { flex: 0 0 320px; color: #fff; text-decoration: none; }
-        .video-reel-thumb { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #292929; overflow: hidden; border-radius: 6px; }
-        .video-reel-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
-        .video-reel-card:hover img { transform: scale(1.05); }
-        .video-reel-thumb::after {
-            content: '▶'; position: absolute; inset: 0; display: grid; place-items: center;
-            font-size: 2rem; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.7);
-        }
-        .video-reel-card strong { display: block; margin-top: 13px; font-size: 1rem; line-height: 1.4; word-break: keep-all; }
-        .video-reel-card small { display: block; margin-top: 5px; color: #aaa; font-size: 0.74rem; font-weight: 700; }
-        .video-reel-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 30px; }
-        .video-reel-count { color: #aaa; font-size: 0.84rem; font-weight: 700; }
-        .video-reel-controls { display: flex; gap: 10px; }
-        .video-reel-arrow {
-            width: 44px; height: 44px; border: 1px solid #666; background: transparent; color: #fff;
-            font-size: 1.8rem; line-height: 1; cursor: pointer; border-radius: 50%;
-        }
-        .video-reel-arrow:hover { background: #fff; color: #111; }
-        .video-reel-arrow:disabled { opacity: 0.3; cursor: default; }
-
-        /* 신한 상세 업무 리스트 전용 스타일 */
-        .shinhan-roles { margin-top: 40px; display: flex; flex-direction: column; gap: 20px; }
-        .role-card { background: #f4f7ff; padding: 22px; border-left: 4px solid var(--shinhan-blue); border-radius: 4px; transition: transform 0.3s, box-shadow 0.3s; }
-        .role-card:hover { transform: translateX(5px); box-shadow: 0 5px 15px rgba(0, 70, 255, 0.08); }
-        .role-card-title { font-weight: 800; font-size: 1.15rem; color: #111; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-        .role-card-desc { font-size: 0.98rem; color: #555; line-height: 1.6; }
-
-        /* 2026-07 layout refinement */
-        .allrounder-hero {
-            display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(380px, 0.95fr);
-            align-items: center; gap: 54px;
-        }
-        .allrounder-hero .storywiz-manifesto .manifesto-lead { font-size: 2.5rem; margin-bottom: 22px; }
-        .allrounder-hero .storywiz-manifesto .manifesto-pivot { font-size: 1.28rem; margin-bottom: 18px; }
-        .allrounder-hero .storywiz-manifesto .manifesto-claim {
-            margin: 26px 0 16px; border-left-color: var(--shinhan-blue); font-size: 1.55rem;
-        }
-        .allrounder-hero .storywiz-manifesto .manifesto-signature { color: var(--shinhan-blue); font-size: 2.15rem; }
-        .hero-role-line {
-            display: inline-flex; margin-top: 12px; padding: 10px 14px; border: 1px solid #c8d8f5;
-            background: #f3f7ff; color: #18345f; font-size: 0.92rem; font-weight: 850;
-        }
-        .allrounder-hero .storywiz-proof-list { margin-top: 28px; padding-top: 20px; }
-        .allrounder-hero .storywiz-proof-list li { font-size: 1rem; margin-bottom: 8px; }
-        .allrounder-hero .storywiz-radar-panel { padding-left: 30px; border-left-color: #cfd9ea; }
-        .allrounder-hero .competency-radar { max-width: 390px; }
-        .allrounder-hero .radar-controls { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-        .allrounder-hero .radar-skill { min-height: 64px; }
-
-        .storywiz-positioning {
-            max-width: 1180px; padding: 48px 0; border-top: 1px solid #d9dde3; border-bottom: 1px solid #d9dde3;
-        }
-        .storywiz-positioning .positioning-question {
-            font-size: 2.55rem; line-height: 1.28; font-weight: 900; color: #111; word-break: keep-all;
-        }
-        .storywiz-positioning .positioning-answer {
-            margin-top: 22px; font-size: 2rem; line-height: 1.38; font-weight: 900; color: var(--shinhan-blue); word-break: keep-all;
-        }
-        .storywiz-positioning .positioning-role {
-            display: inline-block; margin-top: 28px; padding: 9px 13px; background: #111; color: #fff;
-            font-size: 0.88rem; font-weight: 900;
-        }
-        .storywiz-positioning .positioning-capabilities { margin-top: 18px; font-size: 1.18rem; font-weight: 850; color: #333; }
-        .storywiz-positioning .positioning-desc { margin-top: 12px; max-width: 900px; font-size: 1.08rem; line-height: 1.65; color: #555; font-weight: 650; }
-
-        .shinhan-roles { gap: 14px; }
-        .role-banner-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-        .role-banner-grid .role-card {
-            min-height: 150px; padding: 20px 18px; border: 1px solid #cad8ef; border-left: 5px solid var(--shinhan-blue);
-            border-radius: 3px; background: #f7faff; display: flex; flex-direction: column; justify-content: space-between;
-        }
-        .role-banner-grid .role-card:hover { transform: translateY(-3px); }
-        .role-banner-grid .role-card-title { font-size: 1rem; line-height: 1.42; align-items: flex-start; }
-        .role-banner-grid .role-card-desc { font-size: 0.86rem; line-height: 1.48; }
-
-        .achievement-banner-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-        .achievement-banner {
-            min-height: 180px; padding: 24px; border: 1px solid #cbd8ec; border-top: 6px solid var(--shinhan-blue);
-            background: #fff; transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-        .achievement-banner:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,70,255,0.08); }
-        .achievement-banner .achievement-kicker { color: var(--shinhan-blue); font-size: 0.76rem; font-weight: 900; text-transform: uppercase; }
-        .achievement-banner h3 { margin-top: 10px; font-size: 1.28rem; line-height: 1.4; font-weight: 900; word-break: keep-all; }
-        .achievement-metrics { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
-        .achievement-metrics span { padding: 7px 10px; border: 1px solid #d9e3f3; background: #f6f9ff; font-size: 0.78rem; font-weight: 800; }
-
-        .latest-work-container { align-items: stretch; }
-        .latest-work-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; width: 100%; }
-        .latest-work-item { min-width: 0; }
-        .latest-work-item .latest-video-wrapper { max-width: none; border-radius: 5px; }
-        .latest-work-item .latest-work-desc { font-size: 0.84rem; line-height: 1.45; min-height: 58px; }
-        .latest-work-item.is-recent {
-            grid-column: 1 / -1; padding: 14px; border: 1px solid #b9cdf2; background: #f2f7ff;
-        }
-        .latest-work-item.is-recent .latest-work-desc { min-height: 0; margin-top: 12px; }
-        .latest-work-badge {
-            display: inline-block; margin-bottom: 7px; padding: 5px 9px; background: var(--shinhan-blue);
-            color: #fff; font-size: 0.72rem; line-height: 1; font-weight: 900;
-        }
-        .latest-insight-grid { display: grid; grid-template-columns: 1fr; gap: 22px; margin-top: 30px; }
-        .latest-insight-banner { padding: 30px; border: 1px solid #cad8ef; background: #fff; }
-        .latest-insight-banner h4 { font-size: 1.35rem; line-height: 1.45; font-weight: 900; color: #111; word-break: keep-all; }
-        .latest-insight-banner p { margin-top: 14px; color: #444; font-size: 0.98rem; line-height: 1.75; word-break: keep-all; }
-        .latest-insight-banner p strong { color: #111; font-weight: 900; }
-        .latest-led-summary { display: grid; gap: 10px; margin-top: 18px; }
-        .latest-led-summary li { position: relative; padding-left: 19px; color: #26364c; font-size: 1rem; font-weight: 750; line-height: 1.65; word-break: keep-all; }
-        .latest-led-summary li::before { content: ''; position: absolute; left: 0; top: 0.72em; width: 8px; height: 8px; background: var(--shinhan-blue); }
-        .latest-led-summary strong { color: #111; font-weight: 900; }
-        .latest-spec-points { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 18px; }
-        .latest-spec-points span { padding: 8px 12px; background: #edf4ff; color: var(--shinhan-blue); font-size: 0.85rem; font-weight: 900; }
-        .latest-spec-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
-        .latest-spec-gallery img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid #e3e7ee; }
-        .latest-insight-banner.survey-full { background: #f8faff; }
-        .latest-insight-banner .survey-chart-list { margin-top: 22px; gap: 15px; }
-        .latest-insight-banner .survey-chart-label { gap: 16px; font-size: 0.9rem; line-height: 1.45; }
-        .latest-insight-banner .survey-chart-label span { min-width: 0; word-break: keep-all; }
-        .latest-insight-banner .survey-chart-label strong { flex: 0 0 auto; color: #111; font-weight: 900; }
-
-        .personal-featured-video {
-            display: grid;
-            grid-template-columns: minmax(280px, 0.95fr) minmax(260px, 1.05fr);
-            gap: 28px;
-            align-items: center;
-            margin-bottom: 44px;
-            padding: 22px;
-            border: 1px solid #d9dde3;
-            background: #f8f9fb;
-        }
-        .personal-featured-video .media-thumb-wrapper { border-radius: 4px; box-shadow: none; }
-        .personal-featured-copy { min-width: 0; }
-        .personal-featured-kicker { display: block; margin-bottom: 12px; color: #666; font-size: 0.78rem; font-weight: 900; text-transform: uppercase; }
-        .personal-featured-video .media-title { margin: 0 0 10px; font-size: 1.5rem; line-height: 1.35; }
-        .personal-featured-video .media-desc { margin: 0; font-size: 1rem; line-height: 1.65; }
-
-        .ai-tool-strip { padding: 12px; gap: 8px; margin-bottom: 34px; }
-        .ai-tool-pill { gap: 0; padding: 9px 13px; border-radius: 3px; background: #fff; }
-        .ai-tool-pill::before { content: ''; width: 7px; height: 7px; margin-right: 9px; background: var(--shinhan-blue); }
-        .ai-tool-icon { display: none; }
-        .tech-block { display: block; gap: 0; margin-bottom: 42px; padding-bottom: 42px; }
-        .tech-info { width: 100%; min-width: 0; }
-        .tech-info h4 { margin-bottom: 10px; }
-        .tech-info > p { max-width: 960px; font-size: 0.93rem; }
-        .tech-meta-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; }
-        .tech-meta-item {
-            min-height: 74px; padding: 12px 13px; border-left-width: 3px; border-radius: 3px;
-            font-size: 0.84rem; line-height: 1.45;
-        }
-        .tech-meta-label { display: block; min-width: 0; margin: 0 0 5px; font-size: 0.75rem; }
-        .tech-detail-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-        .tech-detail-card { padding: 8px 11px; border-color: #cbd9ef; border-radius: 3px; background: #f3f7ff; }
-        .tech-detail-card h5 { margin: 0; font-size: 0.82rem; }
-        .tech-media-container,
-        .tech-media-container.is-comparison {
-            width: 100%; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 220px));
-            gap: 14px; justify-content: start; margin-top: 22px;
-        }
-        .tech-media-container .media-card,
-        .tech-media-container.is-comparison .media-card,
-        .tech-media-container:not(.is-comparison) .media-card {
-            width: 100%; min-width: 0; max-width: 220px; margin: 0 !important;
-        }
-        .tech-media-container .media-title { min-height: 2.7em; margin-top: 10px; font-size: 0.9rem; line-height: 1.35; }
-        .tech-media-container .media-desc { font-size: 0.76rem; }
-        .tech-media-container .media-thumb-wrapper { border-radius: 4px; }
-        .comparison-note { grid-column: 1 / -1; max-width: 922px; padding: 10px 12px; text-align: left; font-size: 0.84rem; }
-
-        .project-highlight-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-        #projects-storywiz .project-item {
-            min-height: 0; border: 1px solid #d6dae1; background: #fff; display: grid;
-            grid-template-columns: 150px minmax(0, 1fr); transition: transform 0.25s ease, border-color 0.25s ease;
-        }
-        #projects-storywiz .project-item:hover { transform: translateY(-3px); border-color: #111; }
-        #projects-storywiz .project-left {
-            width: auto; padding: 22px 18px; border-right: 1px solid #d6dae1; font-size: 1.08rem; line-height: 1.25;
-            justify-content: flex-start; background: #f6f6f6;
-        }
-        #projects-storywiz .project-num { margin-bottom: 16px; font-size: 0.82rem; }
-        #projects-storywiz .project-right { padding: 22px; }
-        #projects-storywiz .project-right h3 { font-size: 1.14rem; }
-        #projects-storywiz .project-right ul li { margin-bottom: 7px; font-size: 0.84rem; line-height: 1.45; }
-        #projects-storywiz .project-right .tag { margin-bottom: 10px; padding: 4px 9px; font-size: 0.68rem; }
-
-        .storywiz-media-label { order: 0; }
-        .storywiz-sns-title { order: 1; }
-        .storywiz-sns-grid { order: 2; }
-        .produced-content-title { order: 3; margin-top: 74px; }
-        .storywiz-produced-row { order: 4; }
-        .storywiz-ad-title { order: 5; }
-        .storywiz-ad-note { order: 6; }
-        .storywiz-ad-grid { order: 7; }
-        .grid-section-title .title-note { display: block; margin-top: 8px; color: #666; font-size: 0.78rem; font-weight: 700; }
-
-        .shinhan-media-flow { display: flex; flex-direction: column; }
-        .shinhan-banner-gallery { order: 2; margin-bottom: 80px; }
-        .shinhan-personal-projects { order: 3; }
-        .field-production-section { margin-bottom: 64px; padding: 32px; border: 1px solid #cbd8ec; background: #f7faff; }
-        .field-production-section h3 { font-size: 1.65rem; line-height: 1.35; font-weight: 900; margin-bottom: 18px; word-break: keep-all; }
-        .field-production-list { margin-bottom: 26px; }
-        .field-production-list li { position: relative; margin-bottom: 8px; padding-left: 18px; color: #3d4857; font-size: 1rem; font-weight: 700; line-height: 1.55; }
-        .field-production-list li::before { content: ''; position: absolute; left: 0; top: 0.65em; width: 7px; height: 7px; background: var(--shinhan-blue); }
-        .field-production-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-        .field-production-grid figure { margin: 0; min-width: 0; }
-        .field-production-grid img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; border: 1px solid #dce3ee; background: #fff; }
-        .field-production-grid figcaption { margin-top: 9px; color: #596577; font-size: 0.82rem; font-weight: 750; line-height: 1.4; }
-
-        /* [MODAL SYSTEM CSS] */
-        .modal-overlay { 
-            display: none; 
-            position: fixed; 
-            top: 0; left: 0; 
-            width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.9); 
-            z-index: 9999; 
-            justify-content: center; 
-            align-items: center; 
-            padding: 30px; 
-            backdrop-filter: blur(8px); 
-        }
-        .modal-overlay.active { display: flex; }
-        .modal-content { 
-            background: #fff; 
-            width: 100%; 
-            max-width: 1000px; 
-            max-height: 90vh; 
-            overflow-y: auto; 
-            position: relative; 
-            display: flex; 
-            flex-direction: column; 
-        }
-        .modal-close { 
-            position: absolute; 
-            top: 20px; right: 20px; 
-            font-size: 2.2rem; 
-            cursor: pointer; 
-            border: none; 
-            background: none; 
-            z-index: 10; 
-            color: #000; 
-        }
-        .modal-image-area { 
-            width: 100%; 
-            background: #f4f4f4; 
-            aspect-ratio: 16/9; 
-            display: flex; 
-            justify-content: center; 
-            overflow: hidden; 
-            position: relative; 
-        }
-        .slide-img { display: none; width: 100%; height: 100%; object-fit: contain; }
-        .slide-img.active { display: block; }
-        .modal-text-area { padding: 40px; }
-        .modal-text-area h3 { font-size: 2rem; font-weight: 800; margin-bottom: 30px; border-bottom: 2px solid #000; padding-bottom: 15px; }
-        .modal-section { margin-bottom: 30px; }
-        .modal-section h4 { font-size: 1.3rem; font-weight: 800; border-left: 4px solid #000; padding-left: 12px; margin-bottom: 15px; }
-        .modal-section ul { list-style: none; }
-        .modal-section li { margin-bottom: 10px; position: relative; padding-left: 15px; font-size: 1.05rem; color: #444; }
-        .modal-section li::before { content: '-'; position: absolute; left: 0; }
-        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: #fff; border: none; padding: 12px; cursor: pointer; z-index: 5; font-size: 1.5rem; transition: background 0.3s; }
-        .slider-btn:hover { background: rgba(0,0,0,0.8); }
-        .prev-btn { left: 0; } .next-btn { right: 0; }
-
-        /* [만족도 조사 결과 전용 스타일링] */
-        .survey-insight-container {
-            margin-top: 30px;
-            background: #f8faff;
-            border: 1px solid #e0e8f9;
-            padding: 25px;
-            border-radius: 6px;
-        }
-        .survey-insight-container h4 {
-            font-size: 1.15rem;
-            font-weight: 800;
-            color: var(--shinhan-blue);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .survey-insight-container p {
-            font-size: 0.95rem;
-            color: #555;
-            margin-bottom: 20px;
-            line-height: 1.6;
-            word-break: keep-all;
-        }
-        .survey-chart-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .survey-chart-item {
-            display: flex;
-            flex-direction: column;
-        }
-        .survey-chart-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #555;
-            margin-bottom: 5px;
-        }
-        .survey-chart-label.highlight-item {
-            font-size: 0.98rem;
-            font-weight: 800;
-            color: var(--shinhan-blue);
-        }
-        .survey-bar-track {
-            width: 100%;
-            height: 8px;
-            background: #eef2f6;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        .survey-bar-track.highlight-track {
-            height: 12px;
-            border-radius: 6px;
-        }
-        .survey-bar-fill {
-            height: 100%;
-            background: #cbd4e1;
-            border-radius: 4px;
-            transition: width 1s ease-out;
-        }
-        .survey-bar-fill.highlight-fill {
-            background: var(--shinhan-blue);
-            border-radius: 6px;
-        }
-
-        footer { background: var(--black); color: var(--white); padding: 80px 5vw; text-align: center; }
-
-        @media (max-width: 1180px) {
-            .history-latest-wrapper { grid-template-columns: minmax(280px, 0.9fr) minmax(380px, 1.1fr); }
-            .personal-video-status { grid-column: 2; }
-        }
-
-        @media (max-width: 960px) {
-            header { min-height: 0; padding: 10px 14px; }
-            .top-utility-bar { flex-direction: column; gap: 8px; }
-            .skill-search { width: 100%; }
-            .header-mode-selector { gap: 16px; font-size: 0.76rem; }
-            header nav ul { gap: 15px; flex-wrap: wrap; justify-content: center; }
-            header nav a { font-size: 0.7rem; }
-            .hero { flex-direction: column-reverse; text-align: center; padding-top: 240px; }
-            .allrounder-hero { display: grid; grid-template-columns: 1fr; text-align: left; gap: 42px; }
-            .allrounder-hero .storywiz-radar-panel { padding: 36px 0 0; border-left: 0; border-top: 1px solid #cfd9ea; }
-            .allrounder-hero .radar-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            .hero h1 { font-size: 2.45rem; }
-            .hero p.sub-title { font-size: 1.45rem; }
-            .hero-capabilities { font-size: 1rem; }
-            .hero p.desc { font-size: 1.05rem; }
-            .hero-image img { height: 58vh; }
-            
-            /* 모바일에서 최신 작업물 레이아웃 변경 */
-            .history-latest-wrapper { grid-template-columns: 1fr; }
-            .personal-video-status { grid-column: auto; }
-            .latest-work-container { width: 100%; }
-            .latest-insight-grid { grid-template-columns: 1fr; }
-
-            .identity-container { flex-direction: column; }
-            .shinhan-identity-intro h2 { font-size: 2.2rem; }
-            .shinhan-identity-profile { width: min(320px, 100%); max-width: 100%; margin: 0 auto; padding-top: 0; }
-            .shinhan-rookie-quote { font-size: 1.35rem; }
-            .shinhan-intro-copy { font-size: 1.04rem; }
-            .storywiz-identity-layout { grid-template-columns: 1fr; gap: 44px; }
-            .storywiz-manifesto .manifesto-lead { font-size: 1.75rem; }
-            .storywiz-manifesto .manifesto-pivot { font-size: 1.15rem; }
-            .storywiz-manifesto .manifesto-claim { font-size: 1.4rem; }
-            .storywiz-manifesto .manifesto-signature { font-size: 2rem; }
-            .storywiz-radar-panel { padding-left: 0; padding-top: 36px; border-left: 0; border-top: 1px solid #d9dde3; }
-            .competency-radar-wrap { gap: 28px; }
-            .competency-radar { margin: 0 auto; }
-            .radar-controls { grid-template-columns: 1fr; }
-            .project-item { flex-direction: column; }
-            .project-left { border-right: none; border-bottom: 1px solid var(--black); width: 100%; padding: 40px 20px; }
-            .role-banner-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            .achievement-banner-grid { grid-template-columns: 1fr; }
-            .tech-meta-list { grid-template-columns: 1fr; }
-            .project-highlight-grid { grid-template-columns: 1fr; }
-            #projects-storywiz .project-item { grid-template-columns: 140px minmax(0, 1fr); }
-            #projects-storywiz .project-left { border-right: 1px solid #d6dae1; border-bottom: 0; padding: 20px 16px; }
-            .media-row { flex-direction: column; gap: 60px; }
-            .contest-grid { grid-template-columns: 1fr; }
-            .tech-detail-grid { grid-template-columns: 1fr; }
-            .vibe-grid { grid-template-columns: 1fr; }
-            .program-showcase { grid-template-columns: 1fr; }
-            .jobkorea-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            .feature-work-grid { grid-template-columns: 1fr; }
-            .additional-work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            .tech-meta-label { display: block; margin-bottom: 4px; }
-            .video-reel-header { align-items: flex-start; flex-direction: column; }
-            .video-reel-card { flex-basis: min(82vw, 320px); }
-            .modal-content { max-height: 85vh; width: 95%; }
-            .modal-text-area { padding: 20px; }
-        }
-
-        @media (max-width: 620px) {
-            .allrounder-hero .storywiz-manifesto .manifesto-lead { font-size: 1.72rem; }
-            .allrounder-hero .storywiz-manifesto .manifesto-pivot { font-size: 1.06rem; }
-            .allrounder-hero .storywiz-manifesto .manifesto-claim { font-size: 1.28rem; }
-            .allrounder-hero .storywiz-manifesto .manifesto-signature { font-size: 1.72rem; }
-            .allrounder-hero .radar-controls { grid-template-columns: 1fr; }
-            .storywiz-positioning .positioning-question { font-size: 1.9rem; }
-            .storywiz-positioning .positioning-answer { font-size: 1.5rem; }
-            .role-banner-grid,
-            .latest-work-grid { grid-template-columns: 1fr; }
-            .tech-media-container,
-            .tech-media-container.is-comparison { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            .tech-media-container .media-card,
-            .tech-media-container.is-comparison .media-card,
-            .tech-media-container:not(.is-comparison) .media-card { max-width: none; }
-            #projects-storywiz .project-item { grid-template-columns: 1fr; }
-            #projects-storywiz .project-left { border-right: 0; border-bottom: 1px solid #d6dae1; }
-            .program-showcase { padding: 20px; }
-            .program-gallery { grid-template-columns: 1fr; }
-            .ai-capability-grid,
-            .additional-work-grid { grid-template-columns: 1fr; }
-            .tech-section { padding: 28px 18px; }
-            .field-production-grid { grid-template-columns: 1fr; }
-            .history-note { margin-left: 0; }
-            .shorts-grid { gap: 24px 12px; }
-            .latest-insight-banner { padding: 22px 18px; }
-            .latest-insight-banner h4 { font-size: 1.15rem; }
-            .latest-insight-banner p { font-size: 0.92rem; }
-            .latest-spec-gallery { grid-template-columns: 1fr; }
-            .personal-featured-video { grid-template-columns: 1fr; gap: 18px; padding: 16px; }
-            .shorts-grid .media-title { font-size: 0.9rem; }
-            .shorts-grid .media-desc { font-size: 0.78rem; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            html { scroll-behavior: auto; }
-            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-        }
-        .retouch-section { margin-bottom: 26px; padding-bottom: 26px; border-bottom: 1px solid #dfe5ee; }
-        .retouch-blender { margin-top: 20px; padding-top: 20px; border-top: 1px solid #dfe5ee; }
-        .retouch-blender h4 { font-size: 0.95rem; margin-bottom: 8px; }
-        .retouch-section p { font-size: 0.9rem; line-height: 1.7; color: #475569; margin-bottom: 16px; word-break: keep-all; }
-        .retouch-previews { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-        .retouch-preview { border: 0; padding: 0; background: transparent; color: inherit; cursor: zoom-in; font: inherit; text-align: left; }
-        .retouch-preview img { display: block; width: 100%; aspect-ratio: 557 / 313; object-fit: contain; border-radius: 4px; }
-        .retouch-preview span { display: block; margin-top: 8px; font-size: 0.85rem; font-weight: 800; }
-        .retouch-section .retouch-hint, .retouch-dialog .retouch-hint { margin: 12px 0 0; color: #475569; font-size: 0.8rem; line-height: 1.6; word-break: keep-all; }
-        .retouch-dialog { width: min(1100px, calc(100% - 32px)); max-height: 92dvh; margin: auto; padding: 16px; border: 0; border-radius: 8px; background: #fff; color: #17202d; overflow: auto; }
-        .retouch-dialog::backdrop { background: rgba(0, 0, 0, 0.85); }
-        .retouch-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; }
-        .retouch-toolbar h2 { margin: 0; flex: 1; font-size: 1rem; }
-        .retouch-modes { display: flex; gap: 4px; }
-        .retouch-modes button { padding: 8px 12px; border: 1px solid #cbd5e1; background: #fff; color: #334155; font: inherit; cursor: pointer; }
-        .retouch-modes button[aria-pressed="true"] { background: #1554e8; border-color: #1554e8; color: #fff; }
-        .retouch-close { width: 40px; height: 40px; border: 0; background: #f1f5f9; font-size: 26px; cursor: pointer; }
-        .retouch-full-image { display: block; width: 100%; border: 0; padding: 0; background: #0c0c0c; cursor: pointer; }
-        .retouch-full-image img { display: block; width: 100%; max-height: 72dvh; aspect-ratio: 557 / 313; object-fit: contain; }
-        .retouch-preview:focus-visible, .retouch-dialog button:focus-visible { outline: 3px solid #1554e8; outline-offset: 3px; }
-
-        /* Career case studies and source-slide libraries */
-        .selector-grid { gap: 16px; }
-        .career-card { flex: 1; min-width: 230px; max-width: 450px; padding: 34px 22px; font: inherit; color: inherit; }
-        .career-card-name { font-size: 1.17rem; font-weight: 800; }
-        .career-card.active-academic { border-color: #a41749; background: #fff5f8; }
-        .career-card .academic-card-mark { height: 50px; margin-bottom: 30px; display: flex; align-items: center; font-size: 1.15rem; font-weight: 900; color: #a41749; }
-        #storywiz-content, #academic-content { --case-accent: #00796f; --case-tint: #eff8f6; }
-        #academic-content { --case-accent: #a41749; --case-tint: #fff4f7; }
-        #storywiz-content section, #academic-content section { padding: 64px 5vw; border-color: #dce2e2; scroll-margin-top: 170px; }
-        .case-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; margin-bottom: 28px; }
-        .case-heading .section-label { color: var(--case-accent); border-color: var(--case-accent); margin-bottom: 12px; letter-spacing: 0; }
-        .case-heading h2 { font-size: 2rem; line-height: 1.3; letter-spacing: 0; word-break: keep-all; }
-        .case-heading p { margin-top: 10px; color: #52615f; font-size: 0.98rem; max-width: 760px; }
-        .case-meta { padding-top: 6px; font-size: 0.82rem; color: #63706e; white-space: nowrap; }
-        .case-intro { max-width: 850px; font-size: 1.22rem; line-height: 1.75; word-break: keep-all; }
-        .case-intro strong { color: var(--case-accent); }
-        .case-jump-links { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
-        .case-jump-links a, .case-link { color: var(--case-accent); font-size: 0.9rem; font-weight: 800; text-underline-offset: 5px; }
-        .case-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 2px solid var(--case-accent); border-bottom: 1px solid #dce2e2; margin-top: 32px; }
-        .case-metric { padding: 22px 20px; border-right: 1px solid #dce2e2; }
-        .case-metric:first-child { padding-left: 0; }
-        .case-metric:last-child { border-right: 0; }
-        .case-metric dt { font-size: 0.86rem; color: #52615f; font-weight: 700; }
-        .case-metric dd { margin-top: 4px; font-size: 2rem; font-weight: 900; color: var(--case-accent); line-height: 1.35; }
-        .case-metric small { display: block; margin-top: 8px; font-size: 0.76rem; font-weight: 500; line-height: 1.6; color: #63706e; }
-        .case-metric-change { display: flex; flex-wrap: wrap; gap: 0 8px; }
-        .case-metric-change span { white-space: nowrap; }
-        .case-source { color: #63706e; font-size: 0.76rem; margin-top: 12px; }
-        .case-flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); list-style: none; border-top: 1px solid #cbd7d5; border-bottom: 1px solid #cbd7d5; }
-        .case-flow li { position: relative; padding: 24px; border-right: 1px solid #cbd7d5; }
-        .case-flow li:last-child { border-right: 0; }
-        .case-flow li:not(:last-child)::after { content: '→'; position: absolute; top: 26px; right: -12px; width: 24px; background: #fff; text-align: center; color: var(--case-accent); z-index: 1; }
-        .case-step { display: block; font-size: 0.76rem; font-weight: 900; color: var(--case-accent); margin-bottom: 10px; }
-        .case-flow h3 { font-size: 1.12rem; margin-bottom: 8px; }
-        .case-flow p { font-size: 0.9rem; color: #52615f; line-height: 1.7; }
-        .case-process-support { display: flex; align-items: baseline; gap: 20px; padding: 18px 24px; margin-top: 12px; background: var(--case-tint); font-size: 0.9rem; }
-        .case-process-support strong { color: var(--case-accent); flex-shrink: 0; }
-        .case-detail { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 40px; align-items: start; padding: 38px 0; border-top: 1px solid #dce2e2; scroll-margin-top: 180px; }
-        .case-detail:first-of-type { border-top: 0; padding-top: 0; }
-        .case-detail h3 { font-size: 1.4rem; margin: 6px 0 16px; line-height: 1.45; }
-        .case-kicker { font-size: 0.78rem; font-weight: 900; color: var(--case-accent); }
-        .case-facts { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px 14px; font-size: 0.94rem; }
-        .case-facts dt { font-weight: 800; color: #52615f; }
-        .case-facts dd { line-height: 1.7; }
-        .case-facts dd strong { color: var(--case-accent); }
-        .case-evidence { display: grid; gap: 16px; }
-        .case-evidence-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        .case-evidence figure { min-width: 0; }
-        .case-slide-image { display: block; width: 100%; padding: 0; border: 1px solid #dce2e2; background: #f5f7f7; cursor: zoom-in; }
-        .case-slide-image img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; }
-        .case-evidence figcaption { margin-top: 8px; font-size: 0.8rem; color: #52615f; }
-        .case-evidence .case-link { display: inline-block; margin-top: 8px; }
-        .case-results { display: grid; grid-template-columns: 1fr 1fr; margin-top: 20px; gap: 12px; }
-        .case-results div { padding: 14px 0 14px 16px; border-left: 3px solid var(--case-accent); background: var(--case-tint); }
-        .case-results strong { display: block; font-size: 1.3rem; color: var(--case-accent); }
-        .case-results span { font-size: 0.8rem; }
-        .automation-map { list-style: none; border-top: 1px solid #dce2e2; }
-        .automation-map li { display: grid; grid-template-columns: 1fr 28px 1.1fr; align-items: center; gap: 10px; border-bottom: 1px solid #dce2e2; padding: 14px 0; font-size: 0.9rem; }
-        .automation-map small { display: block; color: #63706e; font-size: 0.75rem; margin-top: 2px; }
-        .automation-map b { color: var(--case-accent); text-align: center; }
-        .case-tools { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; }
-        .case-tool { border-top: 2px solid #cbd7d5; padding-top: 18px; }
-        .case-tool h3 { font-size: 1rem; margin-bottom: 8px; }
-        .case-tool p { font-size: 0.87rem; color: #52615f; min-height: 3.4em; }
-        .case-tool img { display: block; width: 100%; height: 100px; object-fit: contain; margin-top: 12px; }
-        .deck-viewer { border: 1px solid #ccd8d6; background: #fff; border-radius: 6px; overflow: hidden; }
-        .deck-filters { display: flex; flex-wrap: wrap; gap: 4px; padding: 12px; border-bottom: 1px solid #ccd8d6; background: #f6f8f7; }
-        .deck-filter { padding: 8px 14px; font: inherit; font-size: 0.82rem; font-weight: 750; color: #465653; border: 0; border-radius: 4px; background: transparent; cursor: pointer; }
-        .deck-filter[aria-pressed="true"] { background: var(--case-accent); color: #fff; }
-        .deck-body { display: grid; grid-template-columns: minmax(0, 1fr) 270px; }
-        .deck-main { min-width: 0; padding: 16px; }
-        .deck-image-button { border: 0; padding: 0; width: 100%; background: #f1f3f3; cursor: zoom-in; display: block; }
-        .deck-image { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; }
-        .deck-caption { display: block; font-size: 0.95rem; margin: 14px 0 4px; }
-        .deck-description { font-size: 0.84rem; color: #52615f; min-height: 3.2em; }
-        .deck-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
-        .deck-controls button, .slide-dialog-controls button, .slide-dialog-close { min-width: 40px; min-height: 40px; padding: 6px 12px; border: 1px solid #cbd7d5; border-radius: 4px; background: #fff; color: #17201e; font: inherit; cursor: pointer; }
-        .deck-controls select { min-width: 0; max-width: 100%; flex: 1; font: inherit; font-size: 0.82rem; padding: 10px; border: 1px solid #cbd7d5; background: #fff; border-radius: 4px; }
-        .deck-counter { font-size: 0.8rem; color: #63706e; white-space: nowrap; }
-        .deck-list { display: flex; flex-direction: column; gap: 4px; max-height: 610px; overflow-y: auto; border-left: 1px solid #ccd8d6; padding: 10px; background: #f6f8f7; }
-        .deck-thumb { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: center; gap: 10px; flex-shrink: 0; width: 100%; text-align: left; font: inherit; font-size: 0.78rem; line-height: 1.45; padding: 8px; border: 1px solid transparent; border-radius: 4px; background: transparent; cursor: pointer; color: #263b37; }
-        .deck-thumb[aria-current="true"] { border-color: var(--case-accent); background: #fff; font-weight: 800; }
-        .deck-thumb img { width: 76px; aspect-ratio: 16 / 9; object-fit: contain; background: #fff; }
-        .deck-download { display: flex; justify-content: flex-end; margin-top: 18px; }
-        .slide-dialog { width: min(1500px, calc(100vw - 24px)); max-height: 96dvh; margin: auto; padding: 14px; border: 0; border-radius: 6px; background: #fff; color: #17201e; }
-        .slide-dialog::backdrop { background: rgba(0, 0, 0, 0.85); }
-        .slide-dialog-header { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 10px; }
-        .slide-dialog-header h2 { font-size: 1rem; }
-        .slide-dialog-image { display: block; width: 100%; max-height: 76dvh; object-fit: contain; background: #eff2f1; }
-        .slide-dialog-controls { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 14px; margin-top: 10px; font-size: 0.86rem; }
-        .slide-dialog-controls a { color: #155d54; text-underline-offset: 4px; }
-        .case-award { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 36px; align-items: center; border-top: 4px solid var(--case-accent); padding-top: 28px; }
-        .case-award-rank { display: block; font-size: 3.25rem; line-height: 1.25; font-weight: 900; color: var(--case-accent); margin-bottom: 12px; }
-        .case-award h3 { font-size: 1.55rem; line-height: 1.4; margin-bottom: 16px; }
-        .case-award p { font-size: 0.96rem; margin-bottom: 14px; color: #52615f; }
-        .academic-award-strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 28px; border-top: 1px solid #e7d9de; }
-        .academic-award-strip div { padding: 20px 20px 0 0; }
-        .academic-award-strip strong { display: block; font-size: 1rem; color: var(--case-accent); }
-        .academic-award-strip span { font-size: 0.84rem; color: #63706e; }
-        .case-learning-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
-        .case-learning { border-top: 2px solid #d9c6ce; padding-top: 18px; }
-        .case-learning h3 { font-size: 1.1rem; margin: 12px 0; }
-        .case-learning p { font-size: 0.9rem; color: #52615f; margin-bottom: 14px; }
-        .case-learning .case-link { display: inline-block; margin-top: 10px; }
-        .mode-tab:focus-visible, .career-card:focus-visible, .case-link:focus-visible, .case-slide-image:focus-visible, .deck-viewer button:focus-visible, .deck-viewer select:focus-visible, .slide-dialog :focus-visible { outline: 3px solid #00796f; outline-offset: 3px; }
-        @media (min-width: 1600px) {
-            .deck-body { grid-template-columns: minmax(0, 1fr) 330px; }
-            .deck-list { max-height: 760px; }
-        }
-        @media (max-width: 1000px) {
-            .case-detail, .case-award { gap: 24px; }
-            .case-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            .case-metric { border-bottom: 1px solid #dce2e2; }
-            .case-metric:nth-child(2) { border-right: 0; }
-            .case-metric:nth-child(3) { padding-left: 0; }
-            .case-metric:nth-last-child(-n+2) { border-bottom: 0; }
-            .deck-body { grid-template-columns: 1fr; }
-            .deck-list { flex-direction: row; overflow-x: auto; max-height: none; border-left: 0; border-top: 1px solid #ccd8d6; }
-            .deck-thumb { width: 180px; grid-template-columns: 1fr; align-content: start; }
-            .deck-thumb img { width: 100%; }
-        }
-        @media (max-width: 700px) {
-            .header-mode-selector { width: 100%; gap: 8px; justify-content: center; font-size: 0.68rem; }
-            .mode-tab { min-height: 38px; }
-            #storywiz-content section, #academic-content section { padding: 40px 5vw; }
-            .case-heading { flex-direction: column; gap: 10px; }
-            .case-heading h2 { font-size: 1.65rem; }
-            .case-meta { padding-top: 0; white-space: normal; }
-            .case-intro { font-size: 1.06rem; }
-            .case-metric { padding: 18px 10px; }
-            .case-metric dd { font-size: 1.7rem; }
-            .case-flow { grid-template-columns: 1fr; }
-            .case-flow li { border-right: 0; border-bottom: 1px solid #cbd7d5; padding: 20px 14px; }
-            .case-flow li:last-child { border-bottom: 0; }
-            .case-flow li:not(:last-child)::after { content: '↓'; top: auto; right: 20px; bottom: -14px; }
-            .case-process-support { flex-direction: column; gap: 6px; padding: 16px; }
-            .case-detail, .case-award { grid-template-columns: 1fr; }
-            .case-detail { padding: 28px 0; }
-            .case-detail h3 { font-size: 1.25rem; }
-            .case-facts { grid-template-columns: 60px minmax(0, 1fr); font-size: 0.88rem; gap: 10px; }
-            .case-tools, .case-learning-grid, .academic-award-strip { grid-template-columns: 1fr; }
-            .case-tool p { min-height: 0; }
-            .case-tool img { max-width: 440px; }
-            .case-evidence-pair { gap: 10px; }
-            .deck-main { padding: 10px; }
-            .deck-filter { font-size: 0.75rem; padding: 8px 10px; }
-            .deck-controls { gap: 6px; }
-            .deck-controls select { flex-basis: 100%; order: 1; }
-            .case-award-rank { font-size: 2.65rem; }
-            .slide-dialog-header h2 { font-size: 0.86rem; }
-            .slide-dialog-close { flex-shrink: 0; }
-        }
-    </style>
+    <!-- 파일 수정 후 배포할 때는 ?v= 값을 바꿔야 방문자 브라우저 캐시가 갱신됩니다 -->
+    <link rel="stylesheet" href="assets/css/portfolio.css?v=20261120">
+    <script defer src="assets/intro/intro.js?v=20261119"></script>
+    <script defer src="assets/intro/experience.js?v=20261119"></script>
 </head>
 <body class="shinhan-theme-container">
+    <div id="intro-experience" hidden aria-label="포트폴리오 소개">
+        <div class="intro-topbar">
+            <a class="intro-brand" href="#" data-intro-go="0">KIM SEUNG BIN<span>AI MARKETER / CONTENT MD</span></a>
+            <nav aria-label="소개 페이지"><button type="button" data-intro-go="0" aria-current="step">01 FILM</button><button type="button" data-intro-go="1">02 PROFILE</button><button type="button" data-intro-go="2">03 CAPABILITIES</button></nav>
+            <button type="button" class="intro-text-button" data-intro-exit>전체 포트폴리오 <img loading="lazy" decoding="async" src="assets/intro/icons/arrow-right.svg" alt=""></button>
+        </div>
+        <div class="intro-stage">
+            <section class="intro-panel intro-film is-current" data-intro-panel="0" aria-labelledby="intro-film-title">
+                <video id="intro-video" muted autoplay playsinline preload="metadata" poster="assets/img/current-project-thumbnail.jpg" aria-label="썸머 페스티벌 만찬 오프닝 영상"></video>
+                <div class="intro-film-heading"><span>LATEST WORK / EVENT OPENING</span><h1 id="intro-film-title">썸머 페스티벌<br>만찬 오프닝 영상</h1><p>기획 · 연출 · 제작 100%</p></div>
+                <button type="button" id="intro-play-fallback" hidden>오프닝 영상 재생</button>
+                <div id="intro-video-error" hidden role="status">영상 파일을 불러오지 못했습니다. <a id="intro-video-external" href="https://drive.google.com/file/d/1SmUtNsQtU0SuepRBlMSSwCDiurhdzDaN/view?usp=sharing" target="_blank" rel="noopener noreferrer">Drive에서 보기</a></div>
+                <div class="intro-film-controls">
+                    <div class="intro-player-row"><button type="button" id="intro-play" class="intro-icon" aria-label="영상 재생" title="재생"><img loading="lazy" decoding="async" src="assets/intro/icons/play.svg" alt=""></button><button type="button" id="intro-sound" class="intro-icon" aria-label="소리 켜기" title="소리 켜기"><img loading="lazy" decoding="async" src="assets/intro/icons/volume-x.svg" alt=""></button><span id="intro-time">00:00 / 02:23</span></div>
+                    <input id="intro-seek" type="range" min="0" max="143" value="0" step="0.1" aria-label="영상 재생 위치">
+                </div>
+            </section>
+            <section class="intro-panel intro-profile" data-intro-panel="1" aria-labelledby="intro-profile-title" hidden>
+                <div class="intro-section-heading"><span>01 / ABOUT ME</span><span>CONTENT × TECHNOLOGY × BUSINESS</span></div>
+                <div class="intro-profile-grid">
+                    <div class="intro-profile-copy"><h2 id="intro-profile-title" tabindex="-1">김승빈<span>KIM<br>SEUNG BIN</span></h2><p class="intro-role">AI MARKETER<br>& CONTENT MD</p><p>영상의 감각, 콘텐츠의 이해,<br>실무를 바꾸는 기술.</p><p class="intro-school">연세대학교 미래캠퍼스 국어국문학과 졸업<br>2016.03 ~ 2023.02</p></div>
+                    <img loading="lazy" decoding="async" class="intro-portrait" src="assets/img/profile.jpg" alt="김승빈 프로필 사진">
+                    <div class="intro-graph"><h3>ALL-ROUNDER</h3><div id="intro-radar"></div><p>실무 역량 구성 · 정량 평가 점수가 아닌 역량 표현</p><div class="intro-skill-labels"><span>영상 제작</span><span>SNS 마케팅</span><span>콘텐츠 MD</span><span>바이브 코딩</span><span>계약 관리</span><span>데이터 분석</span></div></div>
+                </div>
+                <div class="intro-careers">
+                    <article class="intro-career intro-shinhan"><img loading="lazy" decoding="async" src="image_0b6baa.png" alt="신한금융플러스 로고"><div><span>2026.01 ~ 현재</span><h3>신한금융플러스</h3><p>AI 영상 소재 · SNS 마케팅<br>교육 영상 촬영·라이브 송출 · 행사 PM</p></div><strong>AI MARKETER</strong></article>
+                    <article class="intro-career intro-storywiz"><img loading="lazy" decoding="async" src="image_0b6c05.png" alt="KT 스토리위즈 로고"><div><span>2023.04 ~ 2025.11</span><h3>KT 스토리위즈</h3><p>웹소설·웹툰 유통 · 제휴·계약<br>SNS 운영 · 데이터 관리·업무 자동화</p></div><strong>CONTENT MD</strong></article>
+                </div>
+            </section>
+            <section class="intro-panel intro-capabilities" data-intro-panel="2" aria-labelledby="intro-tools-title" hidden>
+                <div class="intro-section-heading"><span>02 / TOOLKIT & PRACTICE</span><span>IDEA → PRODUCTION</span></div>
+                <h2 id="intro-tools-title" tabindex="-1">사용 툴 <span>TOOL INDEX / 05</span></h2>
+                <div class="tool-atlas">
+                <div class="tool-diagram-wrap"><div id="tool-diagram" aria-label="다섯 제작 분야별 사용 툴"></div><p class="tool-diagram-caption">PRODUCTION TOOLKIT <span>분야별 분류</span></p></div>
+                <div class="intro-tool-grid">
+                    <article class="intro-tool-category"><h3><span>01</span> 영상 생성</h3><ul><li><img loading="lazy" decoding="async" src="assets/intro/logos/seedance.svg" alt="ByteDance 로고"><div>Seedance <small>2.5</small></div></li><li><img loading="lazy" decoding="async" src="assets/intro/logos/kling.svg" alt="Kling 로고"><div>Kling AI <small>4.0</small></div></li><li><img loading="lazy" decoding="async" src="assets/intro/logos/kling.svg" alt="Kling 로고"><div>OMNI <small>레퍼런스</small></div></li></ul></article>
+                    <article class="intro-tool-category"><h3><span>02</span> 이미지 생성</h3><ul><li><img loading="lazy" decoding="async" src="assets/intro/logos/openai.svg" alt="OpenAI 로고"><div>ChatGPT</div></li><li><img loading="lazy" decoding="async" src="assets/intro/logos/midjourney.svg" alt="Midjourney 로고"><div>Midjourney</div></li></ul></article>
+                    <article class="intro-tool-category"><h3><span>03</span> 음성 · BGM</h3><ul><li><img loading="lazy" decoding="async" src="assets/intro/logos/suno.svg" alt="Suno 로고"><div>SUNO</div></li><li><img loading="lazy" decoding="async" src="assets/intro/logos/elevenlabs.svg" alt="ElevenLabs 로고"><div>ElevenLabs</div></li></ul></article>
+                    <article class="intro-tool-category"><h3><span>04</span> 영상 편집</h3><ul><li><img loading="lazy" decoding="async" src="assets/intro/logos/capcut.png" alt="CapCut 로고"><div>CapCut</div></li><li><img loading="lazy" decoding="async" src="assets/intro/logos/premiere.svg" alt="Premiere Pro 로고"><div>Premiere Pro</div></li></ul></article>
+                    <article class="intro-tool-category intro-tool-wide"><h3><span>05</span> 보정 · 모션 · 3D</h3><ul><li><img loading="lazy" decoding="async" src="assets/intro/logos/photoshop.svg" alt="Photoshop 로고"><div>Photoshop <small>소재 보정</small></div></li><li><img loading="lazy" decoding="async" src="assets/intro/logos/aftereffects.svg" alt="After Effects 로고"><div>After Effects <small>Claude 연계</small></div></li><li><img loading="lazy" decoding="async" src="assets/intro/logos/blender.svg" alt="Blender 로고"><div>Blender <small>Claude 연계</small></div></li></ul></article>
+                </div>
+                </div>
+                <div class="intro-example-heading"><h3>TECH IN PRACTICE</h3><span>기술이 적용된 실제 작업물</span></div>
+                <div class="intro-examples">
+                    <article><a href="https://drive.google.com/file/d/1XgA8bws9bMcwACTOmKP-Vr_vLHRgPjRO/view?usp=sharing" target="_blank" rel="noopener noreferrer"><img class="intro-example-image" src="assets/img/07_인슈테크선도.jpg" alt="신한금융플러스, 미래를 설계하는 최고의 파트너." loading="lazy"><span class="intro-example-kind">CLAUDE × AFTER EFFECTS</span><h4>신한금융플러스,<br>미래를 설계하는 최고의 파트너.</h4></a><p><strong>Claude 연계 스크립팅 · 모션 그래픽</strong><br>AI와 편집 도구를 연결한 그래픽 제작 워크플로.</p><small>내부 홍보 영상 · 기획 · 연출 · 제작 100%</small></article>
+                    <article><a href="https://drive.google.com/file/d/1HdKk6E0TWwYL2N4wgH1HpBiJ-dlLmz77/view?usp=sharing" target="_blank" rel="noopener noreferrer"><img class="intro-example-image" src="assets/img/blender_1.jpg" alt="Blender로 구축한 신한금융플러스 교육장" loading="lazy"><span class="intro-example-kind">CLAUDE CODE × BLENDER</span><h4>신한금융플러스,<br>GA 교육을 이끌어갑니다</h4></a><p><strong>3D 공간 구축 · 생성 이미지 레퍼런스</strong><br>Claude Code와 Blender로 교육장을 구현하고, 공간 레퍼런스로 생성 이미지의 완성도를 높였습니다.</p><small>내부 홍보 영상 · 기획 · 연출 · 제작 100%</small></article>
+                </div>
+                <button type="button" class="intro-enter" data-intro-exit>전체 작업물과 성과 보기 <img loading="lazy" decoding="async" src="assets/intro/icons/arrow-right.svg" alt=""></button>
+            </section>
+        </div>
+        <div class="intro-bottom"><button type="button" id="intro-prev" class="intro-text-button" disabled><img loading="lazy" decoding="async" src="assets/intro/icons/arrow-left.svg" alt="">이전</button><span id="intro-step-label" aria-live="polite">01 / 03 · OPENING FILM</span><button type="button" id="intro-next" class="intro-text-button">이력 보기 <img loading="lazy" decoding="async" src="assets/intro/icons/arrow-right.svg" alt=""></button></div>
+    </div>
+    <div id="portfolio-content">
 
     <header>
+      <div class="header-bar">
+        <a class="header-brand" href="#hero" aria-label="맨 위로">KIM SEUNG BIN<small>AI MARKETER / CONTENT MD</small></a>
+        <div class="header-mode-selector" role="group" aria-label="경력 및 활동 선택">
+            <button type="button" id="tab-shinhan" class="mode-tab shinhan-tab active" aria-pressed="true" aria-controls="shinhan-content" onclick="toggleMode('shinhan')">SHINHAN FINANCIAL PLUS</button>
+            <button type="button" id="tab-storywiz" class="mode-tab storywiz-tab" aria-pressed="false" aria-controls="storywiz-content" onclick="toggleMode('storywiz')">KT STORYWIZ</button>
+            <button type="button" id="tab-academic" class="mode-tab academic-tab" aria-pressed="false" aria-controls="academic-content" onclick="toggleMode('academic')">학부·대외활동</button>
+        </div>
         <div class="top-utility-bar">
             <div id="skill-search" class="skill-search">
                 <div class="skill-search-row">
@@ -1269,12 +100,8 @@
                 <div id="search-results" class="search-results" role="listbox" aria-label="검색 결과"></div>
             </div>
         </div>
-        <div class="header-mode-selector" role="group" aria-label="경력 및 활동 선택">
-            <button type="button" id="tab-shinhan" class="mode-tab shinhan-tab active" aria-pressed="true" aria-controls="shinhan-content" onclick="toggleMode('shinhan')">SHINHAN FINANCIAL PLUS</button>
-            <button type="button" id="tab-storywiz" class="mode-tab storywiz-tab" aria-pressed="false" aria-controls="storywiz-content" onclick="toggleMode('storywiz')">KT STORYWIZ</button>
-            <button type="button" id="tab-academic" class="mode-tab academic-tab" aria-pressed="false" aria-controls="academic-content" onclick="toggleMode('academic')">학부·대외활동</button>
-        </div>
-        <nav>
+      </div>
+        <nav aria-label="섹션 바로가기">
             <ul id="dynamic-nav">
                 <!-- JS로 자동 채움 -->
             </ul>
@@ -1392,7 +219,7 @@
                     <div class="latest-work-item is-recent">
                         <div class="latest-video-wrapper">
                             <a href="https://drive.google.com/file/d/1HdKk6E0TWwYL2N4wgH1HpBiJ-dlLmz77/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-                                <img src="https://drive.google.com/thumbnail?id=1HdKk6E0TWwYL2N4wgH1HpBiJ-dlLmz77&sz=w1200" alt="신한금융플러스, GA 교육을 이끌어갑니다 내부 홍보 영상" onerror="handleImageError(this)">
+                                <img loading="lazy" decoding="async" src="https://drive.google.com/thumbnail?id=1HdKk6E0TWwYL2N4wgH1HpBiJ-dlLmz77&sz=w1200" alt="신한금융플러스, GA 교육을 이끌어갑니다 내부 홍보 영상" onerror="handleImageError(this)">
                             </a>
                         </div>
                         <p class="latest-work-desc">
@@ -1403,7 +230,7 @@
                     <div class="latest-work-item is-recent">
                         <div class="latest-video-wrapper">
                             <a href="https://youtube.com/shorts/S9C8AWdGw38" target="_blank">
-                                <img src="https://img.youtube.com/vi/S9C8AWdGw38/hqdefault.jpg" alt="여름, 끝난 걸까?" onerror="handleImageError(this)">
+                                <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/S9C8AWdGw38/hqdefault.jpg" alt="여름, 끝난 걸까?" onerror="handleImageError(this)">
                             </a>
                         </div>
                         <p class="latest-work-desc">
@@ -1414,7 +241,7 @@
                     <div class="latest-work-item">
                         <div class="latest-video-wrapper">
                             <a href="https://www.youtube.com/watch?v=mWxe5FgP2-Y" target="_blank">
-                                <img src="https://img.youtube.com/vi/mWxe5FgP2-Y/maxresdefault.jpg" alt="신한의 미래 연도대상 브릿지 영상" onerror="handleImageError(this)">
+                                <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/mWxe5FgP2-Y/maxresdefault.jpg" alt="신한의 미래 연도대상 브릿지 영상" onerror="handleImageError(this)">
                             </a>
                         </div>
                         <p class="latest-work-desc"><strong>신한의 미래</strong><br>연도대상 브릿지 영상 1 · '26년 3월</p>
@@ -1422,7 +249,7 @@
                     <div class="latest-work-item">
                         <div class="latest-video-wrapper">
                             <a href="https://youtu.be/_4-7jBMEYlQ" target="_blank">
-                                <img src="https://img.youtube.com/vi/_4-7jBMEYlQ/maxresdefault.jpg" alt="우리는 모두 아이였습니다 연도대상 브릿지 영상" onerror="handleImageError(this)">
+                                <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/_4-7jBMEYlQ/maxresdefault.jpg" alt="우리는 모두 아이였습니다 연도대상 브릿지 영상" onerror="handleImageError(this)">
                             </a>
                         </div>
                         <p class="latest-work-desc"><strong>우리는 모두 아이였습니다</strong><br>연도대상 브릿지 영상 2 · 기획·제작·연출 100%</p>
@@ -1439,8 +266,8 @@
                             <span>8K</span><span>60fps</span><span>12,000 bitrate</span>
                         </div>
                         <div class="latest-spec-gallery">
-                            <img src="award1.jpg" alt="연도대상 대형 전광판 상영 현장 1" onerror="handleImageError(this)">
-                            <img src="award2.jpg" alt="연도대상 대형 전광판 상영 현장 2" onerror="handleImageError(this)">
+                            <img loading="lazy" decoding="async" src="assets/img/award1.jpg" alt="연도대상 대형 전광판 상영 현장 1" onerror="handleImageError(this)">
+                            <img loading="lazy" decoding="async" src="assets/img/award2.jpg" alt="연도대상 대형 전광판 상영 현장 2" onerror="handleImageError(this)">
                         </div>
                     </article>
                     <article class="latest-insight-banner survey-full">
@@ -1477,16 +304,16 @@
                     <h3 id="personal-current-project-title">
                         최근 작업물
                     </h3>
-                    <a href="https://drive.google.com/file/d/1ZY07VLJ8yqM5wS8tDbqwu4VXfC-8H8Qo/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="personal-video-card">
+                    <a href="https://drive.google.com/file/d/1SmUtNsQtU0SuepRBlMSSwCDiurhdzDaN/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="personal-video-card">
                         <div class="personal-video-thumb" data-fallback-label="GOOGLE DRIVE VIDEO">
-                            <img src="current-project-thumbnail.jpg" alt="썸머 페스티벌 만찬 오프닝 영상 미리보기" onerror="handleImageError(this)">
+                            <img loading="lazy" decoding="async" src="assets/img/current-project-thumbnail.jpg" alt="썸머 페스티벌 만찬 오프닝 영상 미리보기" onerror="handleImageError(this)">
                         </div>
                         <strong>썸머 페스티벌 만찬 오프닝 영상</strong>
                         <span class="project-contribution">기획 · 연출 · 제작 100%</span>
                     </a>
                     <a href="https://drive.google.com/file/d/1XgA8bws9bMcwACTOmKP-Vr_vLHRgPjRO/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="personal-video-card">
                         <div class="personal-video-thumb" data-fallback-label="GOOGLE DRIVE VIDEO">
-                            <img src="07_인슈테크선도.png" alt="신한금융플러스, 미래를 설계하는 최고의 파트너." loading="lazy" onerror="handleImageError(this)">
+                            <img src="assets/img/07_인슈테크선도.jpg" alt="신한금융플러스, 미래를 설계하는 최고의 파트너." loading="lazy" onerror="handleImageError(this)">
                         </div>
                         <strong>신한금융플러스, 미래를 설계하는 최고의 파트너.</strong>
                         <span class="project-contribution">내부 홍보 영상 · 기획 · 연출 · 제작 100%</span>
@@ -1511,11 +338,11 @@
                         <p><strong>Claude Code 기반 3D 공간 구축</strong> · 레퍼런스 활용으로 생성 이미지 완성도 향상</p>
                         <div class="retouch-previews">
                             <button type="button" class="retouch-preview" data-blender-open="0" aria-label="신한금융플러스 교육장 전경 확대" aria-haspopup="dialog">
-                                <img src="blender_1.png" alt="Blender로 구현한 신한금융플러스 교육장 전경" loading="lazy">
+                                <img src="assets/img/blender_1.jpg" alt="Blender로 구현한 신한금융플러스 교육장 전경" loading="lazy">
                                 <span>교육장 전경</span>
                             </button>
                             <button type="button" class="retouch-preview" data-blender-open="1" aria-label="신한금융플러스 교육장 세부 공간 확대" aria-haspopup="dialog">
-                                <img src="blender_2.png" alt="Blender로 구현한 신한금융플러스 교육장 로고와 장비 공간" loading="lazy">
+                                <img src="assets/img/blender_2.jpg" alt="Blender로 구현한 신한금융플러스 교육장 로고와 장비 공간" loading="lazy">
                                 <span>교육장 세부 공간</span>
                             </button>
                         </div>
@@ -1525,13 +352,13 @@
                 <div class="personal-video-list">
                     <a href="https://youtu.be/LQ-O8vjBiHU" target="_blank" rel="noopener noreferrer" class="personal-video-card">
                         <div class="personal-video-thumb">
-                            <img src="https://img.youtube.com/vi/LQ-O8vjBiHU/hqdefault.jpg" alt="SLYTHERIN QUEEN 영상 썸네일" onerror="handleImageError(this)">
+                            <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/LQ-O8vjBiHU/hqdefault.jpg" alt="SLYTHERIN QUEEN 영상 썸네일" onerror="handleImageError(this)">
                         </div>
                         <strong>SLYTHERIN QUEEN</strong>
                     </a>
                     <a href="https://youtube.com/shorts/36PUleDzHoQ?si=41pOSmpjIPWtYRhj" target="_blank" rel="noopener noreferrer" class="personal-video-card">
                         <div class="personal-video-thumb">
-                            <img src="https://img.youtube.com/vi/36PUleDzHoQ/hqdefault.jpg" alt="넾다세일 공모전 출품작 영상 썸네일" onerror="handleImageError(this)">
+                            <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/36PUleDzHoQ/hqdefault.jpg" alt="넾다세일 공모전 출품작 영상 썸네일" onerror="handleImageError(this)">
                         </div>
                         <strong>넾다세일 공모전 출품작</strong>
                     </a>
@@ -1548,12 +375,12 @@
     <div class="selector-area" id="career-selector">
         <div class="selector-grid">
             <button type="button" class="career-card active-shinhan" id="card-shinhan" aria-pressed="true" onclick="toggleMode('shinhan')">
-                <img src="image_0b6baa.png" alt="신한 로고">
+                <img loading="lazy" decoding="async" src="image_0b6baa.png" alt="신한 로고">
                 <strong class="career-card-name">Shinhan Financial Plus</strong>
                 <span>SNS Marketer (2026.01 ~ Present)</span>
             </button>
             <button type="button" class="career-card" id="card-storywiz" aria-pressed="false" onclick="toggleMode('storywiz')">
-                <img src="image_0b6c05.png" alt="스토리위즈 로고">
+                <img loading="lazy" decoding="async" src="image_0b6c05.png" alt="스토리위즈 로고">
                 <strong class="career-card-name">KT Storywiz</strong>
                 <span>Content Marketer & MD (2023.04 ~ 2025.11)</span>
             </button>
@@ -1605,7 +432,7 @@
                     </div>
                 </div>
                 <div class="shinhan-identity-profile">
-                    <img src="profile.jpg" alt="김승빈 프로필 사진" onerror="handleImageError(this)">
+                    <img loading="lazy" decoding="async" src="assets/img/profile.jpg" alt="김승빈 프로필 사진" onerror="handleImageError(this)">
                 </div>
             </div>
         </section>
@@ -1670,22 +497,22 @@
                     <h4 class="work-video-heading" id="work-video-heading"><span class="section-marker"></span>대표 실무 영상</h4>
                     <div class="feature-work-grid">
                         <a href="https://youtube.com/shorts/S9C8AWdGw38" target="_blank" rel="noopener noreferrer" class="media-card feature-work-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/S9C8AWdGw38/hqdefault.jpg" alt="여름, 끝난 걸까?" onerror="handleImageError(this)"></div>
+                            <div class="media-thumb-wrapper"><img loading="lazy" decoding="async" src="https://img.youtube.com/vi/S9C8AWdGw38/hqdefault.jpg" alt="여름, 끝난 걸까?" onerror="handleImageError(this)"></div>
                             <div class="media-title">여름, 끝난 걸까?</div>
                             <div class="media-desc">기획 · 연출 · 제작 100%</div>
                         </a>
                         <a href="https://youtu.be/-8TniPe6nLI" target="_blank" rel="noopener noreferrer" class="media-card feature-work-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/-8TniPe6nLI/maxresdefault.jpg" alt="그래, 여름은 뜨거운 거니까!" onerror="handleImageError(this)"></div>
+                            <div class="media-thumb-wrapper"><img loading="lazy" decoding="async" src="https://img.youtube.com/vi/-8TniPe6nLI/maxresdefault.jpg" alt="그래, 여름은 뜨거운 거니까!" onerror="handleImageError(this)"></div>
                             <div class="media-title">그래, 여름은 뜨거운 거니까!</div>
                             <div class="media-desc">기획 : 20% | 연출 : 80% | 제작 : 100%</div>
                         </a>
                         <a href="https://youtu.be/mWxe5FgP2-Y" target="_blank" rel="noopener noreferrer" class="media-card feature-work-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/mWxe5FgP2-Y/maxresdefault.jpg" alt="신한의 미래 연도대상 브릿지 영상 1" onerror="handleImageError(this)"></div>
+                            <div class="media-thumb-wrapper"><img loading="lazy" decoding="async" src="https://img.youtube.com/vi/mWxe5FgP2-Y/maxresdefault.jpg" alt="신한의 미래 연도대상 브릿지 영상 1" onerror="handleImageError(this)"></div>
                             <div class="media-title">신한의 미래(연도대상 브릿지 영상 1)</div>
                             <div class="media-desc">기획 : 100% | 제작, 연출 : 100%<span class="work-performance">성과 : 연도대상 참석자 대상 행사 만족도 설문 부문 2위</span></div>
                         </a>
                         <a href="https://youtu.be/_4-7jBMEYlQ" target="_blank" rel="noopener noreferrer" class="media-card feature-work-card">
-                            <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/_4-7jBMEYlQ/maxresdefault.jpg" alt="우리는 모두 아이였습니다 연도대상 브릿지 영상 2" onerror="handleImageError(this)"></div>
+                            <div class="media-thumb-wrapper"><img loading="lazy" decoding="async" src="https://img.youtube.com/vi/_4-7jBMEYlQ/maxresdefault.jpg" alt="우리는 모두 아이였습니다 연도대상 브릿지 영상 2" onerror="handleImageError(this)"></div>
                             <div class="media-title">우리는 모두 아이였습니다(연도대상 브릿지 영상 2)</div>
                             <div class="media-desc">기획 : 100% | 제작, 연출 : 100%<span class="work-performance">성과 : 연도대상 참석자 대상 행사 만족도 설문 부문 2위</span></div>
                         </a>
@@ -1695,27 +522,27 @@
                         <h5 class="additional-work-title">추가 실무 영상</h5>
                         <div class="additional-work-grid">
                             <a href="https://youtube.com/shorts/j48viMA877Y" target="_blank" rel="noopener noreferrer" class="media-card">
-                                <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/j48viMA877Y/hqdefault.jpg" alt="지금 떠나요, 파타야로!" onerror="handleImageError(this)"></div>
+                                <div class="media-thumb-wrapper"><img loading="lazy" decoding="async" src="https://img.youtube.com/vi/j48viMA877Y/hqdefault.jpg" alt="지금 떠나요, 파타야로!" onerror="handleImageError(this)"></div>
                                 <div class="media-title">지금 떠나요, 파타야로!<br>(썸머 페스티벌 내부 홍보 영상)</div>
                                 <div class="media-desc">기획 : 100% | 제작, 연출 : 100%</div>
                             </a>
                             <a href="https://youtube.com/shorts/ZM9lb3GXAW8" target="_blank" rel="noopener noreferrer" class="media-card">
-                                <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/ZM9lb3GXAW8/hqdefault.jpg" alt="신금플 멍멍뉴스!" onerror="handleImageError(this)"></div>
+                                <div class="media-thumb-wrapper"><img loading="lazy" decoding="async" src="https://img.youtube.com/vi/ZM9lb3GXAW8/hqdefault.jpg" alt="신금플 멍멍뉴스!" onerror="handleImageError(this)"></div>
                                 <div class="media-title">신금플 멍멍뉴스!</div>
                                 <div class="media-desc">기획 : 100% | 제작, 연출 : 100%<span class="work-performance">성과 : 조회수 22만 돌파</span></div>
                             </a>
                             <a href="https://youtu.be/C3i2OVxMvJc" target="_blank" rel="noopener noreferrer" class="media-card">
-                                <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/C3i2OVxMvJc/maxresdefault.jpg" alt="이 구역의 플러스플러스놈이 나타났다!" onerror="handleImageError(this)"></div>
+                                <div class="media-thumb-wrapper"><img loading="lazy" decoding="async" src="https://img.youtube.com/vi/C3i2OVxMvJc/maxresdefault.jpg" alt="이 구역의 플러스플러스놈이 나타났다!" onerror="handleImageError(this)"></div>
                                 <div class="media-title">이 구역의 '++놈'이 나타났다!</div>
                                 <div class="media-desc">기획 : 100% | 제작, 연출 : 100%</div>
                             </a>
                             <a href="https://youtube.com/shorts/TvmRp7ZnBA4" target="_blank" rel="noopener noreferrer" class="media-card">
-                                <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/TvmRp7ZnBA4/hqdefault.jpg" alt="지사장님, 이제 열내지 마세요!" onerror="handleImageError(this)"></div>
+                                <div class="media-thumb-wrapper"><img loading="lazy" decoding="async" src="https://img.youtube.com/vi/TvmRp7ZnBA4/hqdefault.jpg" alt="지사장님, 이제 열내지 마세요!" onerror="handleImageError(this)"></div>
                                 <div class="media-title">지사장님, 이제 열내지 마세요!</div>
                                 <div class="media-desc">기획 : 15% | 제작, 연출 : 100%</div>
                             </a>
                             <a href="https://youtube.com/shorts/AVOLq4A1bmE" target="_blank" rel="noopener noreferrer" class="media-card">
-                                <div class="media-thumb-wrapper"><img src="https://img.youtube.com/vi/AVOLq4A1bmE/hqdefault.jpg" alt="밈어캣 등장!" onerror="handleImageError(this)"></div>
+                                <div class="media-thumb-wrapper"><img loading="lazy" decoding="async" src="https://img.youtube.com/vi/AVOLq4A1bmE/hqdefault.jpg" alt="밈어캣 등장!" onerror="handleImageError(this)"></div>
                                 <div class="media-title">밈어캣 등장!</div>
                                 <div class="media-desc">기획 · 제작 · 연출 100%</div>
                             </a>
@@ -1748,11 +575,11 @@
                                 </div>
                                 <div class="program-gallery">
                                     <figure class="program-shot">
-                                        <img src="program1 (1).png" alt="PromptMasterPortable 자연어 요청 입력 화면" onerror="handleImageError(this)">
+                                        <img loading="lazy" decoding="async" src="program1 (1).png" alt="PromptMasterPortable 자연어 요청 입력 화면" onerror="handleImageError(this)">
                                         <figcaption>자연어 요청 입력</figcaption>
                                     </figure>
                                     <figure class="program-shot">
-                                        <img src="program1 (2).png" alt="JSON 코드 형식 프롬프트 자동 생성 화면" onerror="handleImageError(this)">
+                                        <img loading="lazy" decoding="async" src="program1 (2).png" alt="JSON 코드 형식 프롬프트 자동 생성 화면" onerror="handleImageError(this)">
                                         <figcaption>JSON 코드 형식 프롬프트 자동 생성 및 세부 설정 변경·유지</figcaption>
                                     </figure>
                                 </div>
@@ -1772,11 +599,11 @@
                                 </div>
                                 <div class="program-gallery">
                                     <figure class="program-shot">
-                                        <img src="program2 (1).png" alt="OpenAIImageStudio 프롬프트 입력 화면" onerror="handleImageError(this)">
+                                        <img loading="lazy" decoding="async" src="program2 (1).png" alt="OpenAIImageStudio 프롬프트 입력 화면" onerror="handleImageError(this)">
                                         <figcaption>프롬프트 입력(자연어 문장 지원)</figcaption>
                                     </figure>
                                     <figure class="program-shot">
-                                        <img src="program2 (2).png" alt="이미지 자동 생성 및 알림 화면" onerror="handleImageError(this)">
+                                        <img loading="lazy" decoding="async" src="program2 (2).png" alt="이미지 자동 생성 및 알림 화면" onerror="handleImageError(this)">
                                         <figcaption>이미지 자동 생성 및 알림(다중 작업 지원)</figcaption>
                                     </figure>
                                 </div>
@@ -1803,11 +630,11 @@
                             </div>
                             <div class="jobkorea-gallery">
                                 <div class="private-gallery-item">
-                                    <img src="jobkkorea (1).jpg" alt="잡코리아 바이브톤 참가 네임택" onerror="handleImageError(this)">
+                                    <img loading="lazy" decoding="async" src="assets/img/jobkkorea (1).jpg" alt="잡코리아 바이브톤 참가 네임택" onerror="handleImageError(this)">
                                 </div>
-                                <img src="jobkkorea (2).jpg" alt="잡코리아 바이브톤 선발 안내" onerror="handleImageError(this)">
-                                <img src="jobkkorea (3).jpg" alt="AI 회의록 분석기 서비스 화면" onerror="handleImageError(this)">
-                                <img src="jobkkorea (4).jpg" alt="AI 회의 분석 결과 화면" onerror="handleImageError(this)">
+                                <img loading="lazy" decoding="async" src="jobkkorea (2).jpg" alt="잡코리아 바이브톤 선발 안내" onerror="handleImageError(this)">
+                                <img loading="lazy" decoding="async" src="jobkkorea (3).jpg" alt="AI 회의록 분석기 서비스 화면" onerror="handleImageError(this)">
+                                <img loading="lazy" decoding="async" src="jobkkorea (4).jpg" alt="AI 회의 분석 결과 화면" onerror="handleImageError(this)">
                             </div>
                             <div class="jobkorea-actions">
                                 <a href="https://find-waloo-5no5.vercel.app/" target="_blank" class="btn-link primary-link">서비스 바로가기</a>
@@ -1829,15 +656,15 @@
                     </ul>
                     <div class="field-production-grid">
                         <figure>
-                            <img src="pd_1.jpg" alt="행사 영상 PD 업무 현장" onerror="handleImageError(this)">
+                            <img loading="lazy" decoding="async" src="assets/img/pd_1.jpg" alt="행사 영상 PD 업무 현장" onerror="handleImageError(this)">
                             <figcaption>행사 영상 PD</figcaption>
                         </figure>
                         <figure>
-                            <img src="pd_2.jpg" alt="실시간 유튜브 라이브 송출 현장" onerror="handleImageError(this)">
+                            <img loading="lazy" decoding="async" src="assets/img/pd_2.jpg" alt="실시간 유튜브 라이브 송출 현장" onerror="handleImageError(this)">
                             <figcaption>실시간 유튜브 라이브 송출</figcaption>
                         </figure>
                         <figure>
-                            <img src="pd_3.jpg" alt="현수막, X 배너, 포스터 제작 사례" onerror="handleImageError(this)">
+                            <img loading="lazy" decoding="async" src="assets/img/pd_3.jpg" alt="현수막, X 배너, 포스터 제작 사례" onerror="handleImageError(this)">
                             <figcaption>현수막·X 배너·포스터 제작</figcaption>
                         </figure>
                     </div>
@@ -1851,27 +678,27 @@
                 </p>
                 <div class="ad-grid">
                     <div class="ad-card" onclick="openModal('modal-sh-1')">
-                        <div class="ad-image"><img src="sh1.jpg" alt="배너 1" onerror="handleImageError(this)"></div>
+                        <div class="ad-image"><img loading="lazy" decoding="async" src="assets/img/sh1.jpg" alt="배너 1" onerror="handleImageError(this)"></div>
                         <div class="ad-footer"><div class="ad-title">홍보 배너 시안 01</div></div>
                     </div>
                     <div class="ad-card" onclick="openModal('modal-sh-2')">
-                        <div class="ad-image"><img src="sh2.jpg" alt="배너 2" onerror="handleImageError(this)"></div>
+                        <div class="ad-image"><img loading="lazy" decoding="async" src="assets/img/sh2.jpg" alt="배너 2" onerror="handleImageError(this)"></div>
                         <div class="ad-footer"><div class="ad-title">홍보 배너 시안 02</div></div>
                     </div>
                     <div class="ad-card" onclick="openModal('modal-sh-3')">
-                        <div class="ad-image"><img src="sh3.jpg" alt="배너 3" onerror="handleImageError(this)"></div>
+                        <div class="ad-image"><img loading="lazy" decoding="async" src="assets/img/sh3.jpg" alt="배너 3" onerror="handleImageError(this)"></div>
                         <div class="ad-footer"><div class="ad-title">홍보 배너 시안 03</div></div>
                     </div>
                     <div class="ad-card" onclick="openModal('modal-sh-4')">
-                        <div class="ad-image"><img src="sh4.jpg" alt="배너 4" onerror="handleImageError(this)"></div>
+                        <div class="ad-image"><img loading="lazy" decoding="async" src="assets/img/sh4.jpg" alt="배너 4" onerror="handleImageError(this)"></div>
                         <div class="ad-footer"><div class="ad-title">홍보 배너 시안 04</div></div>
                     </div>
                     <div class="ad-card" onclick="openModal('modal-sh-5')">
-                        <div class="ad-image"><img src="sh5.jpg" alt="배너 5" onerror="handleImageError(this)"></div>
+                        <div class="ad-image"><img loading="lazy" decoding="async" src="assets/img/sh5.jpg" alt="배너 5" onerror="handleImageError(this)"></div>
                         <div class="ad-footer"><div class="ad-title">홍보 배너 시안 05</div></div>
                     </div>
                     <div class="ad-card" onclick="openModal('modal-sh-6')">
-                        <div class="ad-image"><img src="sh6.jpg" alt="배너 6" onerror="handleImageError(this)"></div>
+                        <div class="ad-image"><img loading="lazy" decoding="async" src="assets/img/sh6.jpg" alt="배너 6" onerror="handleImageError(this)"></div>
                         <div class="ad-footer"><div class="ad-title">홍보 배너 시안 06</div></div>
                     </div>
                 </div>
@@ -2086,24 +913,24 @@
     </footer>
 
     <!-- [MODALS] 신한 배너 모달(sh1~sh6) 및 기존 오리지널 스토리위즈 모달 10개 완벽 탑재 -->
-    <div id="modal-sh-1" class="modal-overlay" onclick="closeModal('modal-sh-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-1')">×</button><div class="modal-image-area"><img src="sh1.jpg" alt="배너 1" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>홍보 배너 시안 01</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
-    <div id="modal-sh-2" class="modal-overlay" onclick="closeModal('modal-sh-2')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-2')">×</button><div class="modal-image-area"><img src="sh2.jpg" alt="배너 2" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>홍보 배너 시안 02</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
-    <div id="modal-sh-3" class="modal-overlay" onclick="closeModal('modal-sh-3')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-3')">×</button><div class="modal-image-area"><img src="sh3.jpg" alt="배너 3" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>홍보 배너 시안 03</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
-    <div id="modal-sh-4" class="modal-overlay" onclick="closeModal('modal-sh-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-4')">×</button><div class="modal-image-area"><img src="sh4.jpg" alt="배너 4" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>홍보 배너 시안 04</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
-    <div id="modal-sh-5" class="modal-overlay" onclick="closeModal('modal-sh-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-5')">×</button><div class="modal-image-area"><img src="sh5.jpg" alt="배너 5" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>홍보 배너 시안 05</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
-    <div id="modal-sh-6" class="modal-overlay" onclick="closeModal('modal-sh-6')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-6')">×</button><div class="modal-image-area"><img src="sh6.jpg" alt="배너 6" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>홍보 배너 시안 06</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
+    <div id="modal-sh-1" class="modal-overlay" onclick="closeModal('modal-sh-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-1')">×</button><div class="modal-image-area"><img loading="lazy" decoding="async" src="assets/img/sh1.jpg" alt="배너 1" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>홍보 배너 시안 01</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
+    <div id="modal-sh-2" class="modal-overlay" onclick="closeModal('modal-sh-2')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-2')">×</button><div class="modal-image-area"><img loading="lazy" decoding="async" src="assets/img/sh2.jpg" alt="배너 2" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>홍보 배너 시안 02</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
+    <div id="modal-sh-3" class="modal-overlay" onclick="closeModal('modal-sh-3')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-3')">×</button><div class="modal-image-area"><img loading="lazy" decoding="async" src="assets/img/sh3.jpg" alt="배너 3" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>홍보 배너 시안 03</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
+    <div id="modal-sh-4" class="modal-overlay" onclick="closeModal('modal-sh-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-4')">×</button><div class="modal-image-area"><img loading="lazy" decoding="async" src="assets/img/sh4.jpg" alt="배너 4" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>홍보 배너 시안 04</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
+    <div id="modal-sh-5" class="modal-overlay" onclick="closeModal('modal-sh-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-5')">×</button><div class="modal-image-area"><img loading="lazy" decoding="async" src="assets/img/sh5.jpg" alt="배너 5" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>홍보 배너 시안 05</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
+    <div id="modal-sh-6" class="modal-overlay" onclick="closeModal('modal-sh-6')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sh-6')">×</button><div class="modal-image-area"><img loading="lazy" decoding="async" src="assets/img/sh6.jpg" alt="배너 6" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>홍보 배너 시안 06</h3><p>카카오톡 플러스친구 & 내부 영업 앱(Biz+, 약 4천명 이용) 홍보용 카드 배너 시안입니다.</p></div></div></div>
 
-    <div id="modal-sns-1" class="modal-overlay" onclick="closeModal('modal-sns-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-1')">×</button><div class="modal-image-area" id="slider-1"><button class="slider-btn prev-btn" onclick="moveSlide('slider-1', -1)">&#10094;</button><img class="slide-img active" src="sns_1_1.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_1_2.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_1_3.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-1', 1)">&#10095;</button></div><div class="modal-text-area"><h3>스토리위즈 공식 SNS</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>공식 SNS 채널 운영</li><li>신간, 매열무 이벤트 기획 및 진행</li><li>작품 캘린더 리뉴얼 및 관리</li><li>월페이퍼 홍보 페이지 제작</li><li>굿즈 재고 관리 및 이벤트 진행</li></ul></div></div></div></div>
-    <div id="modal-sns-2" class="modal-overlay" onclick="closeModal('modal-sns-2')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-2')">×</button><div class="modal-image-area" id="slider-2"><button class="slider-btn prev-btn" onclick="moveSlide('slider-2', -1)">&#10094;</button><img class="slide-img active" src="sns_2_1.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_2_2.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-2', 1)">&#10095;</button></div><div class="modal-text-area"><h3>위즈스타(바이럴) SNS</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>캐릭터 IP 마케팅</li><li>퀴즈 이벤트 및 팔로워 소통</li><li>작품 특별 홍보</li><li>당첨자 발표 및 상품 전달</li><li>굿즈 수요 조사</li></ul></div></div></div></div>
-    <div id="modal-sns-3" class="modal-overlay" onclick="closeModal('modal-sns-3')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-3')">×</button><div class="modal-image-area" id="slider-3"><button class="slider-btn prev-btn" onclick="moveSlide('slider-3', -1)">&#10094;</button><img class="slide-img active" src="sns_3_1.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_3_2.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_3_3.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-3', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(인턴) 인재개발원 홈페이지 관리</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>YGEMS 홈페이지 관리 및 운영</li><li>홈페이지 Ad 배너 제작 및 업로드</li><li>취업 이벤트 홍보물 제작</li><li>인스타, 블로그 연계 관리</li><li>잡코리아, 사람인, 공공기관 등 정보 전달</li></ul></div></div></div></div>
-    <div id="modal-sns-4" class="modal-overlay" onclick="closeModal('modal-sns-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-4')">×</button><div class="modal-image-area" id="slider-4"><button class="slider-btn prev-btn" onclick="moveSlide('slider-4', -1)">&#10094;</button><img class="slide-img active" src="sns_4_1.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_4_2.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_4_3.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-4', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(대외) 부트캠프 론칭 앱 마케팅</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>앱 아이디어 기획 및 PM·마케팅</li><li>애플리케이션 론칭 이벤트 기획</li><li>홍보물 제작 및 SNS 마케팅</li><li>구글 폼 이용자 데이터 취합</li><li>기능 홍보 및 론칭 정보 제공</li></ul></div></div></div></div>
-    <div id="modal-sns-5" class="modal-overlay" onclick="closeModal('modal-sns-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-5')">×</button><div class="modal-image-area" id="slider-5"><button class="slider-btn prev-btn" onclick="moveSlide('slider-5', -1)">&#10094;</button><img class="slide-img active" src="sns_5_1.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_5_2.jpg" onerror="handleImageError(this)"><img class="slide-img" src="sns_5_3.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-5', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(대외) 전공 연계 매거진 활동</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>전공 연계 대외활동 및 다매체 연계 콘텐츠 기획</li><li>SNS 매거진 게시물 업로드</li><li>인스타 운영 및 영상 제작</li><li>팀 로고 및 메인 배너 제작</li></ul></div></div></div></div>
+    <div id="modal-sns-1" class="modal-overlay" onclick="closeModal('modal-sns-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-1')">×</button><div class="modal-image-area" id="slider-1"><button class="slider-btn prev-btn" onclick="moveSlide('slider-1', -1)">&#10094;</button><img loading="lazy" decoding="async" class="slide-img active" src="sns_1_1.jpg" onerror="handleImageError(this)"><img loading="lazy" decoding="async" class="slide-img" src="sns_1_2.jpg" onerror="handleImageError(this)"><img loading="lazy" decoding="async" class="slide-img" src="sns_1_3.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-1', 1)">&#10095;</button></div><div class="modal-text-area"><h3>스토리위즈 공식 SNS</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>공식 SNS 채널 운영</li><li>신간, 매열무 이벤트 기획 및 진행</li><li>작품 캘린더 리뉴얼 및 관리</li><li>월페이퍼 홍보 페이지 제작</li><li>굿즈 재고 관리 및 이벤트 진행</li></ul></div></div></div></div>
+    <div id="modal-sns-2" class="modal-overlay" onclick="closeModal('modal-sns-2')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-2')">×</button><div class="modal-image-area" id="slider-2"><button class="slider-btn prev-btn" onclick="moveSlide('slider-2', -1)">&#10094;</button><img loading="lazy" decoding="async" class="slide-img active" src="sns_2_1.jpg" onerror="handleImageError(this)"><img loading="lazy" decoding="async" class="slide-img" src="sns_2_2.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-2', 1)">&#10095;</button></div><div class="modal-text-area"><h3>위즈스타(바이럴) SNS</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>캐릭터 IP 마케팅</li><li>퀴즈 이벤트 및 팔로워 소통</li><li>작품 특별 홍보</li><li>당첨자 발표 및 상품 전달</li><li>굿즈 수요 조사</li></ul></div></div></div></div>
+    <div id="modal-sns-3" class="modal-overlay" onclick="closeModal('modal-sns-3')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-3')">×</button><div class="modal-image-area" id="slider-3"><button class="slider-btn prev-btn" onclick="moveSlide('slider-3', -1)">&#10094;</button><img loading="lazy" decoding="async" class="slide-img active" src="assets/img/sns_3_1.jpg" onerror="handleImageError(this)"><img loading="lazy" decoding="async" class="slide-img" src="sns_3_2.jpg" onerror="handleImageError(this)"><img loading="lazy" decoding="async" class="slide-img" src="sns_3_3.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-3', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(인턴) 인재개발원 홈페이지 관리</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>YGEMS 홈페이지 관리 및 운영</li><li>홈페이지 Ad 배너 제작 및 업로드</li><li>취업 이벤트 홍보물 제작</li><li>인스타, 블로그 연계 관리</li><li>잡코리아, 사람인, 공공기관 등 정보 전달</li></ul></div></div></div></div>
+    <div id="modal-sns-4" class="modal-overlay" onclick="closeModal('modal-sns-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-4')">×</button><div class="modal-image-area" id="slider-4"><button class="slider-btn prev-btn" onclick="moveSlide('slider-4', -1)">&#10094;</button><img loading="lazy" decoding="async" class="slide-img active" src="sns_4_1.jpg" onerror="handleImageError(this)"><img loading="lazy" decoding="async" class="slide-img" src="assets/img/sns_4_2.jpg" onerror="handleImageError(this)"><img loading="lazy" decoding="async" class="slide-img" src="assets/img/sns_4_3.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-4', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(대외) 부트캠프 론칭 앱 마케팅</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>앱 아이디어 기획 및 PM·마케팅</li><li>애플리케이션 론칭 이벤트 기획</li><li>홍보물 제작 및 SNS 마케팅</li><li>구글 폼 이용자 데이터 취합</li><li>기능 홍보 및 론칭 정보 제공</li></ul></div></div></div></div>
+    <div id="modal-sns-5" class="modal-overlay" onclick="closeModal('modal-sns-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-sns-5')">×</button><div class="modal-image-area" id="slider-5"><button class="slider-btn prev-btn" onclick="moveSlide('slider-5', -1)">&#10094;</button><img loading="lazy" decoding="async" class="slide-img active" src="sns_5_1.jpg" onerror="handleImageError(this)"><img loading="lazy" decoding="async" class="slide-img" src="assets/img/sns_5_2.jpg" onerror="handleImageError(this)"><img loading="lazy" decoding="async" class="slide-img" src="assets/img/sns_5_3.jpg" onerror="handleImageError(this)"><button class="slider-btn next-btn" onclick="moveSlide('slider-5', 1)">&#10095;</button></div><div class="modal-text-area"><h3>(대외) 전공 연계 매거진 활동</h3><div class="modal-section"><h4>주요 활동</h4><ul><li>전공 연계 대외활동 및 다매체 연계 콘텐츠 기획</li><li>SNS 매거진 게시물 업로드</li><li>인스타 운영 및 영상 제작</li><li>팀 로고 및 메인 배너 제작</li></ul></div></div></div></div>
 
-    <div id="modal-1" class="modal-overlay" onclick="closeModal('modal-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-1')">×</button><div class="modal-image-area"><img src="ad_1.jpg" alt="트라이폴드 버거" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>트라이폴드 버거</h3><div class="modal-section"><h4>삼성 신규 핸드폰 Galaxy Z TriFold ('25.12.05 출시)</h4><ul><li>삼성의 신기술이 반영된, 세 번 폴딩되는 핸드폰 최초 출시로 화제</li></ul></div><div class="modal-section"><h4>박정민 배우</h4><ul><li>가수 화사의 청룡영화상 축하 공연 이슈, 짐빔 하이볼 광고 등</li></ul></div></div></div></div>
-    <div id="modal-2" class="modal-overlay" onclick="closeModal('modal-2')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-2')">×</button><div class="modal-image-area"><img src="ad_2.jpg" alt="" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>흑백요리사 시즌 2</h3><div class="modal-section"><h4>흑백요리사 시즌 2</h4><ul><li>'25.12 냉장고를 부탁해 출연, 암흑 요리사 밈</li></ul></div><div class="modal-section"><h4>카카오페이지 「괴담에 출근해도...」</h4><ul><li>백덕수 작가 메가 IP, 괴담 트렌드 반영</li></ul></div></div></div></div>
-    <div id="modal-3" class="modal-overlay" onclick="closeModal('modal-3')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-3')">×</button><div class="modal-image-area"><img src="ad_3.jpg" alt="" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>도시정형외과</h3><div class="modal-section"><h4>체인소맨</h4><ul><li>300만 관객, 레제 밈 활성화</li></ul></div><div class="modal-section"><h4>마동석 배우</h4><ul><li>TGA 갱 오브 드래곤 제작 발표, 범죄도시4 쇼츠 밈</li></ul></div></div></div></div>
-    <div id="modal-4" class="modal-overlay" onclick="closeModal('modal-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-4')">×</button><div class="modal-image-area"><img src="ad_4.jpg" alt="" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>침토피아 채널</h3><div class="modal-section"><h4>주토피아 2</h4><ul><li>500만 관객, 강력한 팬덤</li></ul></div><div class="modal-section"><h4>침착맨 유튜버</h4><ul><li>구독자 300만, 주토피아 닉 닮은꼴 밈</li></ul></div></div></div></div>
-    <div id="modal-5" class="modal-overlay" onclick="closeModal('modal-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-5')">×</button><div class="modal-image-area"><img src="ad_5.jpg" alt="" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>카더가든 라이브다큐</h3><div class="modal-section"><h4>유이진 아역모델</h4><ul><li>카더가든, GD 케미로 이슈화</li></ul></div><div class="modal-section"><h4>카더가든 가수</h4><ul><li>음반 발매 및 라이브 공연 이슈</li></ul></div></div></div></div>
+    <div id="modal-1" class="modal-overlay" onclick="closeModal('modal-1')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-1')">×</button><div class="modal-image-area"><img loading="lazy" decoding="async" src="ad_1.jpg" alt="트라이폴드 버거" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>트라이폴드 버거</h3><div class="modal-section"><h4>삼성 신규 핸드폰 Galaxy Z TriFold ('25.12.05 출시)</h4><ul><li>삼성의 신기술이 반영된, 세 번 폴딩되는 핸드폰 최초 출시로 화제</li></ul></div><div class="modal-section"><h4>박정민 배우</h4><ul><li>가수 화사의 청룡영화상 축하 공연 이슈, 짐빔 하이볼 광고 등</li></ul></div></div></div></div>
+    <div id="modal-2" class="modal-overlay" onclick="closeModal('modal-2')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-2')">×</button><div class="modal-image-area"><img loading="lazy" decoding="async" src="ad_2.jpg" alt="" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>흑백요리사 시즌 2</h3><div class="modal-section"><h4>흑백요리사 시즌 2</h4><ul><li>'25.12 냉장고를 부탁해 출연, 암흑 요리사 밈</li></ul></div><div class="modal-section"><h4>카카오페이지 「괴담에 출근해도...」</h4><ul><li>백덕수 작가 메가 IP, 괴담 트렌드 반영</li></ul></div></div></div></div>
+    <div id="modal-3" class="modal-overlay" onclick="closeModal('modal-3')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-3')">×</button><div class="modal-image-area"><img loading="lazy" decoding="async" src="ad_3.jpg" alt="" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>도시정형외과</h3><div class="modal-section"><h4>체인소맨</h4><ul><li>300만 관객, 레제 밈 활성화</li></ul></div><div class="modal-section"><h4>마동석 배우</h4><ul><li>TGA 갱 오브 드래곤 제작 발표, 범죄도시4 쇼츠 밈</li></ul></div></div></div></div>
+    <div id="modal-4" class="modal-overlay" onclick="closeModal('modal-4')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-4')">×</button><div class="modal-image-area"><img loading="lazy" decoding="async" src="ad_4.jpg" alt="" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>침토피아 채널</h3><div class="modal-section"><h4>주토피아 2</h4><ul><li>500만 관객, 강력한 팬덤</li></ul></div><div class="modal-section"><h4>침착맨 유튜버</h4><ul><li>구독자 300만, 주토피아 닉 닮은꼴 밈</li></ul></div></div></div></div>
+    <div id="modal-5" class="modal-overlay" onclick="closeModal('modal-5')"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal('modal-5')">×</button><div class="modal-image-area"><img loading="lazy" decoding="async" src="ad_5.jpg" alt="" onerror="handleImageError(this)"></div><div class="modal-text-area"><h3>카더가든 라이브다큐</h3><div class="modal-section"><h4>유이진 아역모델</h4><ul><li>카더가든, GD 케미로 이슈화</li></ul></div><div class="modal-section"><h4>카더가든 가수</h4><ul><li>음반 발매 및 라이브 공연 이슈</li></ul></div></div></div></div>
 
     <dialog id="source-slide-dialog" class="slide-dialog" aria-labelledby="source-slide-title" data-search-exclude>
         <div class="slide-dialog-header"><h2 id="source-slide-title">포트폴리오 원본</h2><button type="button" class="slide-dialog-close" aria-label="슬라이드 닫기" title="닫기">×</button></div>
@@ -2651,7 +1478,7 @@
             <button type="button" class="retouch-close" aria-label="확대 이미지 닫기" title="닫기">&times;</button>
         </div>
         <button type="button" class="retouch-full-image" aria-label="보정 후 이미지로 전환" title="보정 전·후 전환">
-            <img id="retouch-large-image" src="보정(원본).png" alt="보정 전 이미지">
+            <img loading="lazy" decoding="async" id="retouch-large-image" src="보정(원본).png" alt="보정 전 이미지">
         </button>
         <p class="retouch-hint">이미지를 클릭하면 보정 전·후가 전환됩니다.</p>
     </dialog>
@@ -2707,7 +1534,7 @@
             <button type="button" class="retouch-close" aria-label="확대 이미지 닫기" title="닫기">&times;</button>
         </div>
         <button type="button" class="retouch-full-image" aria-label="다른 교육장 이미지 보기" title="다른 교육장 이미지 보기">
-            <img src="blender_1.png" alt="신한금융플러스 교육장 전경">
+            <img loading="lazy" decoding="async" src="assets/img/blender_1.jpg" alt="신한금융플러스 교육장 전경">
         </button>
     </dialog>
     <script>
@@ -2715,8 +1542,8 @@
             const dialog = document.getElementById('blender-dialog');
             const image = dialog.querySelector('img');
             const images = [
-                { src: 'blender_1.png', alt: '신한금융플러스 교육장 전경' },
-                { src: 'blender_2.png', alt: '신한금융플러스 교육장 세부 공간' }
+                { src: 'assets/img/blender_1.jpg', alt: '신한금융플러스 교육장 전경' },
+                { src: 'assets/img/blender_2.jpg', alt: '신한금융플러스 교육장 세부 공간' }
             ];
             let current = 0;
             let previousOverflow = '';
@@ -2744,5 +1571,6 @@
             });
         })();
     </script>
+    </div>
 </body>
 </html>
